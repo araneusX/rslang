@@ -1,0 +1,20 @@
+{
+  "name": "rslang",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "js-lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/araneusX/rslang.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/araneusX/rslang/issues"
+  },
+  "homepage": "https://github.com/araneusX/rslang#readme"
+}
