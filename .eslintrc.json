@@ -28,5 +28,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "comma-dangle": [2, "never"],
+        "max-len": [2, { "code": 180, "comments": 180 }]
     }
 }
