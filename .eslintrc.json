@@ -25,10 +25,13 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "react-hooks"
     ],
     "rules": {
         "comma-dangle": [2, "never"],
-        "max-len": [2, { "code": 180, "comments": 180 }]
+        "max-len": [2, { "code": 180, "comments": 180 }],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn"
     }
 }
