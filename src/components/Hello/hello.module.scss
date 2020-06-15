@@ -1,0 +1,19 @@
+.button {
+  height: 50px;
+  width: 150px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px 0 black;
+  border-radius: 20px;
+  outline: none;
+}
+
+.hello {
+  color: red;
+}
+
+.bye {
+  color: green;
+}
