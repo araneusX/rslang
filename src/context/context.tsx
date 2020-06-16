@@ -25,8 +25,11 @@ const mainReducer = ({ app } : InitialStateType, action: AppActions) => ({
   app: appReducer(app, action)
 });
 
-// eslint-disable-next-line react/prop-types
-const AppProvider: React.FC = ({ children }) => {
+interface ComponentProps {
+  children?: React.ReactNode
+}
+
+const AppProvider: React.FC = ({ children }:ComponentProps) => {
   const [state, dispatch] = useReducer(mainReducer, initialState);
   return (
     <AppContext.Provider value={{ state, dispatch }}>
