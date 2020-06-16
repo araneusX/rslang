@@ -1,6 +1,6 @@
 Project structure
 ------------------
-
+<pre>
 ├── public  
 ├── src  
 │   ├── store  
@@ -117,7 +117,7 @@ Project structure
 │           │   └── ourGame.tsx  
 │           │  
 │           └── games.tsx  
-
+</pre>
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
