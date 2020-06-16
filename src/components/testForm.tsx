@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { logInUser, createUser } from './requests';
 
 export default class TestForm extends Component<{}, {email: string, password: string}> {
   constructor(props: any) {
     super(props);
-
     this.state = {
       email: '',
       password: ''
@@ -20,7 +20,21 @@ export default class TestForm extends Component<{}, {email: string, password: st
 
   submitHandler = (event : any) => {
     event.preventDefault();
-    console.log(this.state);
+    const typeOfEvent = localStorage.getItem('typeOfEvent');
+    switch (typeOfEvent) {
+      case 'log':
+        logInUser(this.state);
+        break;
+      case 'create':
+        createUser(this.state);
+        break;
+      default:
+        break;
+    }
+  };
+
+  clickHandler = (event : any) => {
+    localStorage.setItem('typeOfEvent', event.target.value);
   };
 
   render() {
@@ -29,13 +43,13 @@ export default class TestForm extends Component<{}, {email: string, password: st
       <div>
         <form onSubmit={this.submitHandler}>
           <div>
-            <input type="text" name="userMail" value={email} onChange={this.changeHandler} />
+            <input type="email" name="email" value={email} onChange={this.changeHandler} />
           </div>
           <div>
             <input type="text" name="password" value={password} onChange={this.changeHandler} />
           </div>
-          <button type="submit">Sign In</button>
-          <button type="submit">Sign Up</button>
+          <button type="submit" value="log" onClick={this.clickHandler}>Sign In</button>
+          <button type="submit" value="create" onClick={this.clickHandler}>Sign Up</button>
         </form>
       </div>
     );
