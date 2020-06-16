@@ -1,3 +1,5 @@
+import { InitialStateType, AuthType } from './state';
+
 type ActionMap<M extends { [index: string]: any}> = {
   [Key in keyof M]: M[Key] extends undefined
     ? {
@@ -10,25 +12,22 @@ type ActionMap<M extends { [index: string]: any}> = {
 };
 
 export enum Types {
-  Add = 'ADD_START_DATA'
+  AddUser= 'ADD_USER_DATA',
+  LogOut= 'USER_LOGOUT'
 }
 
-type AppType = {
-  appState: string;
-};
-
 type AppPayload = {
-  [Types.Add] : {
-    appState: string;
+  [Types.AddUser] : {
+    auth: AuthType;
   };
 };
 
 export type AppActions = ActionMap<AppPayload>[keyof ActionMap<AppPayload>];
 
-export const appReducer = (state:AppType[], action:AppActions) => {
+export const appReducer = (state:InitialStateType, action:AppActions) => {
   switch (action.type) {
-    case Types.Add:
-      return [...state, action.payload];
+    case Types.AddUser:
+      return { ...state, auth: action.payload.auth };
     default:
       return state;
   }

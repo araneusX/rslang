@@ -1,17 +1,6 @@
 import React, { createContext, useReducer, Dispatch } from 'react';
 import { appReducer, AppActions } from './reducers';
-
-type AppType = {
-  appState: string;
-};
-
-type InitialStateType = {
-  app: AppType[];
-};
-
-const initialState = {
-  app: []
-};
+import { InitialStateType, initialState } from './state';
 
 const AppContext = createContext<{
   state: InitialStateType;
@@ -21,16 +10,13 @@ const AppContext = createContext<{
   dispatch: () => null
 });
 
-const mainReducer = ({ app } : InitialStateType, action: AppActions) => ({
-  app: appReducer(app, action)
-});
-
 interface ComponentProps {
   children?: React.ReactNode
 }
 
 const AppProvider: React.FC = ({ children }:ComponentProps) => {
-  const [state, dispatch] = useReducer(mainReducer, initialState);
+  const [state, dispatch] = useReducer(appReducer, initialState);
+
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       { children }
@@ -38,4 +24,4 @@ const AppProvider: React.FC = ({ children }:ComponentProps) => {
   );
 };
 
-export default { AppContext, AppProvider };
+export { AppContext, AppProvider };

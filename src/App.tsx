@@ -1,8 +1,11 @@
 import React from 'react';
+import { AppProvider } from './context/context';
 
 function App() {
   return (
-    <div>Hello!</div>
+    <AppProvider>
+      <div>Hello</div>
+    </AppProvider>
   );
 }
 
