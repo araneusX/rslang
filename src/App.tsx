@@ -1,6 +1,6 @@
 import React from 'react';
 
-import headerButtons from './components/headerButtons/headerButtons';
+import headerButtons from './commonComponents/headerButtons/headerButtons';
 
 function App() {
   return (
