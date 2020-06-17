@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, Dispatch } from 'react';
 import { appReducer, AppActions } from './reducers';
 import { InitialStateType, initialState } from './state';
+import { BackendProvider } from './backendContext';
 
 const AppContext = createContext<{
   state: InitialStateType;
@@ -19,7 +20,9 @@ const AppProvider: React.FC = ({ children }:ComponentProps) => {
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>
-      { children }
+      <BackendProvider dispathFunction={dispatch}>
+        { children }
+      </BackendProvider>
     </AppContext.Provider>
   );
 };
