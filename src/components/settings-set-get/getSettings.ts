@@ -9,8 +9,11 @@ export default async (userId: string, token: string) => {
       }
     });
     const content = await rawResponse.json();
-    console.log('settings has been get:', content);
+    return content;
   } catch (error) {
-    console.error('settings error:', error);
+    return Promise.resolve({
+      ok: false,
+      id: false
+    });
   }
 };
