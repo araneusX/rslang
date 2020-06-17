@@ -7,6 +7,7 @@ import { AuthorizationPage, MainPage, SettingsPage } from './components';
 function App() {
   return (
     <>
+    <AppProvider>
       <BrowserRouter>
         <Switch>
           <Route exact path="/authorization" component={AuthorizationPage} />
@@ -15,6 +16,7 @@ function App() {
           <Redirect to="/main" />
         </Switch>
       </BrowserRouter>
+    </AppProvider>
     </>
   );
 }
