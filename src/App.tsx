@@ -1,8 +1,9 @@
 import React from 'react';
+import Form from './signUp/form'
 
 function App() {
   return (
-    <div>Hello!</div>
+    <Form />
   );
 }
 
