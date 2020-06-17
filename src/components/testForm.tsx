@@ -18,15 +18,15 @@ export default class TestForm extends Component<{}, {email: string, password: st
     }));
   };
 
-  submitHandler = (event : any) => {
+  submitHandler = async (event : any) => {
     event.preventDefault();
     const typeOfEvent = localStorage.getItem('typeOfEvent');
     switch (typeOfEvent) {
       case 'log':
-        logInUser(this.state);
+        console.log(await logInUser(this.state));
         break;
       case 'create':
-        createUser(this.state);
+        console.log(await createUser(this.state));
         break;
       default:
         break;

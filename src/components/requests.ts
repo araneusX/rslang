@@ -12,7 +12,9 @@ export const logInUser = async (user: object) => {
   const request = new Request(url, options);
   const response = await fetch(request);
   const content = await response.json();
-  console.log(content);
+  const { status } = response;
+  if (status >= 400) return `error: ${status}`;
+  return content;
 };
 
 export const createUser = async (user: object) => {
@@ -29,5 +31,7 @@ export const createUser = async (user: object) => {
   const request = new Request(url, options);
   const response = await fetch(request);
   const content = await response.json();
-  console.log(content);
+  const { status } = response;
+  if (status >= 400) return `error: ${status}`;
+  return content;
 };
