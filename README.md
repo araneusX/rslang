@@ -1,3 +1,128 @@
+Project structure
+------------------
+<pre>
+├── public  
+├── src  
+│   ├── store  
+│   │   ├── store.ts  
+│   │   ├── reducers.ts  
+│   │   ├── actionTypes.ts  
+│   │   └── index.ts  
+│   │  
+│   ├── constants  
+│   │   └── index.ts  
+│   │  
+│   ├── utils  
+│   │   └── index.ts  
+│   │  
+│   ├── backend  
+│   │   └── index.ts  
+│   │  
+│   ├── commonComponents  
+│   │   ├── ...  
+│   │   └── index.tsx  
+│   │  
+│   └── pages  
+│       ├── main  
+│       │   ├── components  
+│       │   │   ├── ...  
+│       │   │   └── index.tsx  
+│       │   │  
+│       │   └── main.tsx  
+│       │   
+│       ├── authorization  
+│       │   ├── components  
+│       │   │   ├── ...  
+│       │   │   └── index.tsx  
+│       │   │  
+│       │   └── authorization.tsx  
+│       │  
+│       ├── statistics  
+│       │   ├── components  
+│       │   │   ├── ...  
+│       │   │   └── index.tsx  
+│       │   │  
+│       │   └── statistics.tsx  
+│       │  
+│       ├── settings  
+│       │   ├── components  
+│       │   │   ├── ...  
+│       │   │   └── index.tsx  
+│       │   │  
+│       │   └── settings.tsx  
+│       │  
+│       ├── dictionary  
+│       │   ├── components  
+│       │   │   ├── ...  
+│       │   │   └── index.tsx  
+│       │   │  
+│       │   └── dictionary.tsx  
+│       │  
+│       ├── promo  
+│       │   ├── components  
+│       │   │   ├── ...  
+│       │   │   └── index.tsx  
+│       │   │  
+│       │   └── promo.tsx  
+│       │  
+│       ├── about  
+│       │   ├── components  
+│       │   │   ├── ...  
+│       │   │   └── index.tsx  
+│       │   │  
+│       │   └── about.tsx  
+│       │  
+│       └── games  
+│           ├── components  
+│           │   ├── ...  
+│           │   └── index.tsx  
+│           │  
+│           ├── audioCall  
+│           │   ├── components  
+│           │   │   ├── ...  
+│           │   │   └── index.tsx  
+│           │   │  
+│           │   └── audioCall.tsx  
+│           │  
+│           ├── puzzle  
+│           │   ├── components  
+│           │   │   ├── ...  
+│           │   │   └── index.tsx  
+│           │   │  
+│           │   └── puzzle.tsx  
+│           │  
+│           ├── savannah  
+│           │   ├── components  
+│           │   │   ├── ...  
+│           │   │   └── index.tsx  
+│           │   │  
+│           │   └── savannah.tsx  
+│           │  
+│           ├── speakit  
+│           │   ├── components  
+│           │   │   ├── ...  
+│           │   │   └── index.tsx  
+│           │   │  
+│           │   └── speakit.tsx  
+│           │  
+│           ├── sprint  
+│           │   ├── components  
+│           │   │   ├── ...  
+│           │   │   └── index.tsx  
+│           │   │  
+│           │   └── sprint.tsx  
+│           │  
+│           ├── ourGame  
+│           │   ├── components  
+│           │   │   ├── ...  
+│           │   │   └── index.tsx  
+│           │   │  
+│           │   └── ourGame.tsx  
+│           │  
+│           └── games.tsx  
+</pre>
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
