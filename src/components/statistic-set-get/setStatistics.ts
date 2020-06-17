@@ -12,8 +12,11 @@ export default async (userId: string, token: string, optional?: Optional) => {
       body: JSON.stringify(optional)
     });
     const content = await rawResponse.json();
-    console.log('statistics has been set:', content);
+    return content;
   } catch (error) {
-    console.error('statistics error:', error);
+    return Promise.resolve({
+      id: false,
+      ok: false
+    });
   }
 };
