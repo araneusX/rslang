@@ -15,7 +15,7 @@ Project structure
 │   ├── utils  
 │   │   └── index.ts  
 │   │  
-│   ├── mainComponents  
+│   ├── commonComponents  
 │   │   ├── ...  
 │   │   └── index.tsx  
 │   │  
