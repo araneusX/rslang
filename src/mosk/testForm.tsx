@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { logInUser, createUser } from './requests';
+import { logInUser, createUser } from '../backend/user';
 
 export default class TestForm extends Component<{}, {email: string, password: string}> {
   constructor(props: any) {
