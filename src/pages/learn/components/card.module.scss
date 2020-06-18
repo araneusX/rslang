@@ -1,0 +1,12 @@
+.cardContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p{
+        margin: 2px;
+    }
+    img{
+        width: 300px;
+    }
+}
