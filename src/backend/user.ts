@@ -10,11 +10,16 @@ export const logInUser = async (user: object) => {
   };
 
   const request = new Request(url, options);
-  const response = await fetch(request);
-  const content = await response.json();
-  const { status } = response;
-  if (status >= 400) return `error: ${status}`;
-  return content;
+  try {
+    const response = await fetch(request);
+    const content = await response.json();
+    return content;
+  } catch (error) {
+    return Promise.resolve({
+      id: false,
+      ok: false
+    });
+  }
 };
 
 export const createUser = async (user: object) => {
@@ -29,9 +34,14 @@ export const createUser = async (user: object) => {
   };
 
   const request = new Request(url, options);
-  const response = await fetch(request);
-  const content = await response.json();
-  const { status } = response;
-  if (status >= 400) return `error: ${status}`;
-  return content;
+  try {
+    const response = await fetch(request);
+    const content = await response.json();
+    return content;
+  } catch (error) {
+    return Promise.resolve({
+      id: false,
+      ok: false
+    });
+  }
 };
