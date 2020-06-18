@@ -7,7 +7,7 @@ Project structure
 │   │   ├── store.ts  
 │   │   ├── reducers.ts  
 │   │   ├── actionTypes.ts  
-│   │   └── index.ts  
+│   │   └── stateProvider.tsx  
 │   │  
 │   ├── constants  
 │   │   └── index.ts  
@@ -16,7 +16,7 @@ Project structure
 │   │   └── index.ts  
 │   │  
 │   ├── backend  
-│   │   └── index.ts  
+│   │   └── backendProvider.tsx  
 │   │  
 │   ├── commonComponents  
 │   │   ├── ...  
