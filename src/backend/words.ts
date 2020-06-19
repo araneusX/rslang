@@ -11,9 +11,9 @@ function chunk(start: number) {
 
 function countRequest(startnum: number, quantitynum: number) {
   if (startnum === quantitynum) {
-    return Math.floor(quantitynum / 20);
+    return Math.ceil(quantitynum / 20);
   }
-  return Math.floor(quantitynum / 20) + 1;
+  return Math.ceil(quantitynum / 20) + 1;
 }
 
 export default async (group: number, startWith: number, quantity: number) => {
