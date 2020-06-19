@@ -1,10 +1,11 @@
 import React from 'react';
 
 import style from './settings.module.scss';
+import SettingsForm from './components/settingsForm';
 
 const Settings = () => (
   <div>
-    Settings Page
+    <SettingsForm />
   </div>
 );
 
