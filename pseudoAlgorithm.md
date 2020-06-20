@@ -1,8 +1,10 @@
+<strong>Идея интервального повторения в следующем:</strong>
+Первый раз вы должны повторить это слово где-нибудь через пару минут, потом — через час, далее — на следующий день, затем — через 2 дня, 5 дней, 10 дней, 3 недели, 6 недель, 3 месяца, 6 месяцев и т.д.
 <pre>
 const koefficients = [KOEFF_DIFF = 1, KOEFF_OK = 1.1, KOEFF_EASY = 1.5];
-const difficulty = <number>; // easy - 0, ok - 1, difficult - 2
-const countOfRepeat = <number>;
-const persentOfRightAnswers = <number>;
+const difficulty = 'какое-то число'; // easy - 0, ok - 1, difficult - 2
+const countOfRepeat = 'какое-то число';
+const persentOfRightAnswers = 'какое-то число';
 //difficulty, countOfRepeat, persentOfRightAnswers получаются из статистики по слову
 let nextShowTime = 0; // 0 - этa же тренировка, 1 - следующая, 2 - через день и тд
 switch (difficulty) {
