@@ -1,7 +1,7 @@
 <strong>Идея интервального повторения в следующем:</strong>
 Первый раз вы должны повторить это слово где-нибудь через пару минут, потом — через час, далее — на следующий день, затем — через 2 дня, 5 дней, 10 дней, 3 недели, 6 недель, 3 месяца, 6 месяцев и т.д.
 <pre>
-const koefficients = [KOEFF_DIFF = 1, KOEFF_OK = 1.1, KOEFF_EASY = 1.5];
+const koefficients = [KOEFF_DIFF = 1, KOEFF_OK = 1.2, KOEFF_EASY = 1.5];
 const difficulty = 'какое-то число'; // easy - 0, ok - 1, difficult - 2
 const countOfRepeat = 'какое-то число';
 const persentOfRightAnswers = 'какое-то число';
@@ -10,15 +10,15 @@ let nextShowTime = 0; // 0 - этa же тренировка, 1 - следующ
 switch (difficulty) {
     case 0:
         if(counOfRepeat === 1) nextShowTime = 1;
-        else nextShowTime = Math.floor(countOfRepeat * KOEFF_EASY + persentOfRightAnswers)
+        else nextShowTime = Math.round(countOfRepeat * KOEFF_EASY + persentOfRightAnswers)
         break;
     case 1:
          if(counOfRepeat === 1) nextShowTime = 1;
-        else nextShowTime = Math.floor(countOfRepeat * KOEFF_OK + persentOfRightAnswers)
+        else nextShowTime = Math.round(countOfRepeat * KOEFF_OK + persentOfRightAnswers)
         break;
     case 2:
         if(counOfRepeat === 1) nextShowTime = 0;
-        else nextShowTime = Math.floor((countOfRepeat/2) * KOEFF_DIFF + persentOfRightAnswers) // KOEFF_DIFF можно и не писать
+        else nextShowTime = Math.round((countOfRepeat/2) * KOEFF_DIFF + persentOfRightAnswers) // KOEFF_DIFF можно и не писать
         break;
 }
 
