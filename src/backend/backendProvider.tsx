@@ -7,9 +7,16 @@ import {
   downloadSettings,
   uploadSettings
 } from './user';
+
 import statistics from './statistics';
 
-const BackendContext = createContext({});
+interface ContextType {
+  [key: string]: any
+}
+
+const initialObj = {} as ContextType;
+
+const BackendContext = createContext(initialObj);
 
 interface ComponentProps {
   children?: React.ReactNode

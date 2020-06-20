@@ -95,11 +95,14 @@ export const uploadUserStatistics = async (userId: string, token: string, option
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        learnedWords: optional.levelWords.reduce((acc, i) => acc + i),
-        optional
+        learnedWords: optional.levelWords.reduce((acc, i) => acc + i) || 1,
+        optional: {
+          days: JSON.stringify(optional.days),
+          levelWords: JSON.stringify(optional.levelWords)
+        }
       })
     });
-    return { ok: true };
+    return { ok: rawResponse.ok };
   } catch (error) {
     return { ok: false };
   }
@@ -115,8 +118,19 @@ export const downloadUserStatistics = async (userId: string, token: string) => {
         Accept: 'application/json'
       }
     });
+    if (!rawResponse.ok) {
+      return { ok: false };
+    }
     const content = await rawResponse.json();
-    return { statistics: content.optional, ok: true };
+    const dataStatistics = content.optional;
+    if (!dataStatistics.days) {
+      return { ok: false };
+    }
+    const statistics = {
+      days: JSON.parse(dataStatistics.days),
+      levelWords: JSON.parse(dataStatistics.levelWords)
+    };
+    return { statistics, ok: rawResponse.ok };
   } catch (error) {
     return Promise.resolve({
       ok: false

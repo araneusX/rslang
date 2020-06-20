@@ -1,5 +1,4 @@
 import { UserStatisticsInterface, WordStatisticsInterface, DayInterface } from '../types';
-import { getFormattedDate } from '../utils';
 
 export const initialUserStatisticsObject: UserStatisticsInterface = {
   days: {},

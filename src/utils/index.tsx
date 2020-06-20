@@ -7,7 +7,7 @@ export function getFormattedDate(): string {
 
   const dd: string = day < 10 ? `0${day}` : `${day}`;
   const mm: string = month < 10 ? `0${month}` : `${month}`;
-  const yyyy: string = `${date.getFullYear()}`;
+  const y: string = `${date.getFullYear()}`.slice(-1);
 
-  return `${dd}-${mm}-${yyyy}`;
+  return `${dd}${mm}${y}`;
 }

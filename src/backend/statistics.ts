@@ -66,13 +66,19 @@ const statistics: StatisticsInterface = {
     }
 
     const key = getFormattedDate();
-    if (this.days[key]) {
-      this.days[key].cards += 1;
-      this.days[key].newWords += 1;
-      this.days[key].right += isRight ? 1 : 0;
-      if (this.days[key].series < this.series) {
-        this.days[key].series = this.series;
-      }
+
+    if (!this.days[key]) {
+      this.days[key] = initialDayStatisticsObject;
+      this.days[key].date = key;
+      const userStatistics = { ...initialUserStatisticsObject } as UserStatisticsInterface;
+      userStatistics.days[key] = this.days[key];
+    }
+
+    this.days[key].cards += 1;
+    this.days[key].newWords += 1;
+    this.days[key].right += isRight ? 1 : 0;
+    if (this.days[key].series < this.series) {
+      this.days[key].series = this.series;
     }
 
     const userStatistics: UserStatisticsInterface = {
@@ -90,16 +96,9 @@ const statistics: StatisticsInterface = {
 
   async init(userId, token) {
     const statisticsData:any = await downloadUserStatistics(userId, token);
-    if (!(statisticsData.ok && statisticsData.statistics.levelWords)) {
-      const dateKey = getFormattedDate();
-      this.days[dateKey] = initialDayStatisticsObject;
-      this.days[dateKey].date = dateKey;
-      const userStatistics = { ...initialUserStatisticsObject } as UserStatisticsInterface;
-      userStatistics.days[dateKey] = this.days[dateKey];
-      const status = await uploadUserStatistics(userId, token, userStatistics);
-      return { ok: status.ok };
+    if (!statisticsData.ok) {
+      return { ok: false };
     }
-
     const userStatistics = statisticsData.statistics as UserStatisticsInterface;
     this.levelWords = userStatistics.levelWords;
     this.days = userStatistics.days;
