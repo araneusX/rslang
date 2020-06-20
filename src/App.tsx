@@ -3,7 +3,7 @@ import {
   BrowserRouter, Switch, Route, Redirect
 } from 'react-router-dom';
 import { StateProvider } from './store/stateProvider';
-import { BackendProvider } from './backend/backendProveder';
+import { BackendProvider } from './backend/backendProvider';
 
 import { Authorization, Main, Settings } from './pages';
 import { Header } from './commonСomponents';
