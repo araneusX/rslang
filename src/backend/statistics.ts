@@ -3,7 +3,7 @@ import {
   UserStatisticsInterface
 } from '../types';
 import { uploadWordStatistics, updateWordStatistics } from './words';
-import { getFormattedDate } from '../utils';
+import { createIdFromDate, getFormattedDate } from '../utils';
 import { uploadUserStatistics, downloadUserStatistics } from './user';
 import { initialUserStatisticsObject, initialDayStatisticsObject } from '../constants';
 
@@ -13,7 +13,7 @@ const statistics: StatisticsInterface = {
   series: 0,
 
   getDayStatistics() {
-    return this.days[getFormattedDate()];
+    return this.days[createIdFromDate()];
   },
 
   getAllDayStatistics() {
@@ -33,10 +33,10 @@ const statistics: StatisticsInterface = {
     const newWordStatistics = wordStatistics;
     newWordStatistics.isDeleted = !wordStatistics.isDeleted;
     if (wordStatistics.isNew) {
-      const data: any = (await uploadWordStatistics(newWordStatistics, userId, token));
+      const data: any = (await uploadWordStatistics(userId, token, newWordStatistics));
       return { status: data.ok ? 'ok' : 'error', ok: data.ok };
     }
-    const data: any = await updateWordStatistics(newWordStatistics, userId, token);
+    const data: any = await updateWordStatistics(userId, token, newWordStatistics);
     return { status: data.ok ? 'ok' : 'error', ok: data.ok };
   },
 
@@ -44,10 +44,10 @@ const statistics: StatisticsInterface = {
     const newWordStatistics = wordStatistics;
     newWordStatistics.isDifficult = !wordStatistics.isDifficult;
     if (wordStatistics.isNew) {
-      const data: any = await uploadWordStatistics(newWordStatistics, userId, token);
+      const data: any = await uploadWordStatistics(userId, token, newWordStatistics);
       return { status: data.ok ? 'ok' : 'error', ok: data.ok };
     }
-    const data: any = await updateWordStatistics(newWordStatistics, userId, token);
+    const data: any = await updateWordStatistics(userId, token, newWordStatistics);
     return { status: data.ok ? 'ok' : 'error', ok: data.ok };
   },
 
@@ -65,11 +65,11 @@ const statistics: StatisticsInterface = {
       this.series = 0;
     }
 
-    const key = getFormattedDate();
+    const key = createIdFromDate();
 
     if (!this.days[key]) {
       this.days[key] = initialDayStatisticsObject;
-      this.days[key].date = key;
+      this.days[key].date = getFormattedDate();
       const userStatistics = { ...initialUserStatisticsObject } as UserStatisticsInterface;
       userStatistics.days[key] = this.days[key];
     }
@@ -87,10 +87,10 @@ const statistics: StatisticsInterface = {
     };
     await uploadUserStatistics(userId, token, userStatistics);
     if (wordStatistics.isNew) {
-      const data = await uploadWordStatistics(newWordStatistics, userId, token);
+      const data = await uploadWordStatistics(userId, token, newWordStatistics);
       return { ok: data.ok };
     }
-    const data = await updateWordStatistics(newWordStatistics, userId, token);
+    const data = await updateWordStatistics(userId, token, newWordStatistics);
     return { ok: data.ok };
   },
 

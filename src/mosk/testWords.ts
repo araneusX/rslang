@@ -1,3 +1,3 @@
-import getWords from '../backend/words';
+import { downloadNewWords } from '../backend/words';
 
-getWords(0, 15, 30).then((words) => console.log(words));
+downloadNewWords(0, 15, 30).then((words: any) => console.log(words));

@@ -1,24 +1,23 @@
 import {
-  downloadUserWords,
-  downloadUserWord,
-  uploadCreateUserWord,
-  uploadUpdateUserWord,
-  uploadDeleteUserWord
-} from '../backend/userWords';
+  downloadAllWordsStatistics,
+  downloadWordStatistics,
+  uploadWordStatistics,
+  updateWordStatistics,
+  deleteWordStatistics
+} from '../backend/words';
 import obj from './mockDatasignIn';
 
-downloadUserWords(obj.userId, obj.token)
-  .then((n) => console.log(n));
-downloadUserWord(obj.userId, obj.token, obj.words[1])
-  .then((n) => console.log(n));
-uploadCreateUserWord(obj.userId, obj.token, obj.words[1], {
-  difficulty: '1',
-  optional: { words: 'obj.words[1]' }
-});
-uploadUpdateUserWord(obj.userId, obj.token, obj.words[1], {
-  difficulty: '1',
-  optional: { words: 'obj.words[1]' }
-})
-  .then((n) => console.log(n));
-uploadDeleteUserWord(obj.userId, obj.token, obj.words[1])
-  .then((n) => console.log(n));
+uploadWordStatistics(obj.userId, obj.token, obj.word)
+  .then((n) => {
+    console.log(n);
+    downloadAllWordsStatistics(obj.userId, obj.token)
+      .then((n) => console.log(n));
+    downloadWordStatistics(obj.userId, obj.token, obj.word.wordId)
+      .then((n) => console.log(n));
+    deleteWordStatistics(obj.userId, obj.token, obj.word.wordId)
+      .then((n) => console.log(n));
+    deleteWordStatistics(obj.userId, obj.token, obj.word.wordId)
+      .then((n) => console.log(n));
+  });
+
+export default {};
