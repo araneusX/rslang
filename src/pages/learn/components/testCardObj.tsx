@@ -16,7 +16,7 @@ const cardObj = [
     {
         id: "5e9f5ee35eb9e72bc21af4c9",
         word: "among",
-        image: "https://lh3.googleusercontent.com/proxy/pFeqSxPbJ8T5rrHUyllaSmxeLTiRbrljwvTlFgQ3nxQog-CNnwmYIdofNqmNKRKNKS_GoKMJ-4UXtSptCjdQcYDhVFtKXwhs_ELjkYRvDlJdC6choT9dE_MjSTXYpqaMG-eev0xsYn29-RIJ8Uapvt8CONM6Mg",
+        image: "files/03_0042.jpg",
         audio: "files/03_0042.mp3",
         audioMeaning: "files/03_0042_meaning.mp3",
         audioExample: "files/03_0042_example.mp3",
