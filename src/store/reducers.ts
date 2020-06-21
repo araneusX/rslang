@@ -15,6 +15,10 @@ const mainReducer = (state = appState, action:Action): State => {
       const { value } = action;
       return { ...state, auth: { ...state.auth, userId: value } };
     }
+    case 'SET_SETING': {
+      const { value } = action;
+      return { ...state, settings: value };
+    }
     default: return state;
   }
 };
