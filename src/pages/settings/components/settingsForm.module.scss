@@ -1,0 +1,34 @@
+.settingsForm {
+  width: 50%;
+  margin: 0 auto;
+
+  & fieldset {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #dddddd;
+  }
+  & legend {
+    font-style: bold;
+  }
+
+  & input + span {
+    color: #666666;
+
+    &:hover,
+    &:focus,
+    &:active {
+      cursor: pointer;
+      color: #000000;
+    }
+  }
+
+  & input:checked + span {
+    color: green;
+    &:hover,
+    &:focus,
+    &:active {
+      cursor: pointer;
+      opacity: 0.5;
+    }
+  }
+}
