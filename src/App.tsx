@@ -6,8 +6,7 @@ import { StateProvider } from './store/stateProvider';
 import { BackendProvider } from './backend/backendProvider';
 
 import { Authorization, Main, Settings } from './pages';
-import { Header } from './commonСomponents';
-import cardObj from './mosk/testCardObj';
+import { Header } from './commonComponents';
 
 function App() {
   return (

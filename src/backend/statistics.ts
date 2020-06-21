@@ -4,13 +4,16 @@ import {
 } from '../types';
 import { uploadWordStatistics, updateWordStatistics } from './words';
 import { createIdFromDate, getFormattedDate } from '../utils';
-import { uploadUserStatistics, downloadUserStatistics } from './user';
+import { setUserStatistics, getUserStatistics } from './user';
 import { initialUserStatisticsObject, initialDayStatisticsObject } from '../constants';
 
 const statistics: StatisticsInterface = {
   levelWords: [0, 0, 0, 0, 0, 0],
   days: {},
   series: 0,
+  userId: '',
+  token: '',
+  isInit: false,
 
   getDayStatistics() {
     return this.days[createIdFromDate()];
@@ -29,32 +32,31 @@ const statistics: StatisticsInterface = {
     ));
   },
 
-  async toggleDeleted(wordStatistics, userId, token) {
+  async toggleDeleted(wordStatistics) {
     const newWordStatistics = wordStatistics;
     newWordStatistics.isDeleted = !wordStatistics.isDeleted;
     if (wordStatistics.isNew) {
-      const data: any = (await uploadWordStatistics(userId, token, newWordStatistics));
+      const data: any = (await uploadWordStatistics(this.userId, this.token, newWordStatistics));
       return { status: data.ok ? 'ok' : 'error', ok: data.ok };
     }
-    const data: any = await updateWordStatistics(userId, token, newWordStatistics);
+    const data: any = await updateWordStatistics(this.userId, this.token, newWordStatistics);
     return { status: data.ok ? 'ok' : 'error', ok: data.ok };
   },
 
-  async toggleDifficult(wordStatistics, userId, token) {
+  async toggleDifficult(wordStatistics) {
     const newWordStatistics = wordStatistics;
     newWordStatistics.isDifficult = !wordStatistics.isDifficult;
     if (wordStatistics.isNew) {
-      const data: any = await uploadWordStatistics(userId, token, newWordStatistics);
+      const data: any = await uploadWordStatistics(this.userId, this.token, newWordStatistics);
       return { status: data.ok ? 'ok' : 'error', ok: data.ok };
     }
-    const data: any = await updateWordStatistics(userId, token, newWordStatistics);
+    const data: any = await updateWordStatistics(this.userId, this.token, newWordStatistics);
     return { status: data.ok ? 'ok' : 'error', ok: data.ok };
   },
 
-  async saveWord(wordStatistics, difficulty, isRight, userId, token) {
+  async saveWord(wordStatistics, isRight) {
     const newWordStatistics = wordStatistics;
     newWordStatistics.isNew = false;
-    newWordStatistics.difficulty = difficulty;
     if (isRight) {
       newWordStatistics.allRight += 1;
       newWordStatistics.lastRight = getFormattedDate();
@@ -85,23 +87,42 @@ const statistics: StatisticsInterface = {
       days: this.days,
       levelWords: this.levelWords
     };
-    await uploadUserStatistics(userId, token, userStatistics);
+    const statisticsRes = await setUserStatistics(this.userId, this.token, userStatistics);
+    if (!statisticsRes.ok) {
+      return { ok: false };
+    }
     if (wordStatistics.isNew) {
-      const data = await uploadWordStatistics(userId, token, newWordStatistics);
+      const data = await uploadWordStatistics(this.userId, this.token, newWordStatistics);
       return { ok: data.ok };
     }
-    const data = await updateWordStatistics(userId, token, newWordStatistics);
+    const data = await updateWordStatistics(this.userId, this.token, newWordStatistics);
     return { ok: data.ok };
   },
 
-  async init(userId, token) {
-    const statisticsData:any = await downloadUserStatistics(userId, token);
-    if (!statisticsData.ok) {
-      return { ok: false };
+  async initUser(userId, token) {
+    this.isInit = this.userId === userId;
+    this.userId = userId;
+    this.token = token;
+    if (!this.isInit) {
+      this.levelWords = [0, 0, 0, 0, 0, 0];
+      this.days = {};
+      this.series = 0;
+      const statisticsData:any = await getUserStatistics(userId, token);
+      if (statisticsData.status === 404) {
+        const userStatistics: UserStatisticsInterface = {
+          days: this.days,
+          levelWords: this.levelWords
+        };
+        const statisticsRes = await setUserStatistics(this.userId, this.token, userStatistics);
+        return { ok: statisticsRes.ok };
+      }
+      if (!statisticsData.ok && statisticsData.status !== 404) {
+        return { ok: false };
+      }
+      const userStatistics = statisticsData.statistics as UserStatisticsInterface;
+      this.levelWords = userStatistics.levelWords;
+      this.days = userStatistics.days;
     }
-    const userStatistics = statisticsData.statistics as UserStatisticsInterface;
-    this.levelWords = userStatistics.levelWords;
-    this.days = userStatistics.days;
     return { ok: true };
   }
 };
