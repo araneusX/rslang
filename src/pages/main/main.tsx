@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import style from './main.module.scss';
-import Card from './components/card/card';
+import Card from './components/card';
 import cardObj from '../../mosk/testCardObj';
 import settingsObj from '../../mosk/testSettingsObj';
 

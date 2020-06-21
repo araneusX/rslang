@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './card.module.scss';
-import CardInterface from '../../../../types/cardInterface';
-import SettingsInterface from '../../../../types/settingsInterface';
+import { CardInterface } from '../../../types';
+import { SettingsInterface } from '../../../mosk/testSettingsObj';
 
 const Card: React.FC<{ cardObj: CardInterface, settingsObj: SettingsInterface }> = (prop) => {
   const { cardObj } = prop;
@@ -17,7 +17,7 @@ const Card: React.FC<{ cardObj: CardInterface, settingsObj: SettingsInterface }>
     <>
       <div className={style.cardContainer} id={cardObj.id}>
         {settingsObj.showImage
-                && <img src={getRightWay(prop.cardObj.image)} />}
+                && <img src={getRightWay(prop.cardObj.image)} alt="" />}
         <>
           <p>
             {cardObj.word}

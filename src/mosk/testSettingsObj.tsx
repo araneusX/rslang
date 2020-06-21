@@ -1,4 +1,12 @@
-const settingsObj = [
+export interface SettingsInterface {
+  showTranscription: boolean,
+  showWordTranslation: boolean,
+  showImage: boolean,
+  showTextMeaning: boolean,
+  showTextExample: boolean,
+}
+
+const settingsObj: SettingsInterface[] = [
   {
     showTranscription: true,
     showWordTranslation: true,
