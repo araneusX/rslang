@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import style from './main.module.scss';
+import Card from './components/card/card';
+import cardObj from '../../mosk/testCardObj';
+import settingsObj from '../../mosk/testSettingsObj';
 
 const Main = () => (
   <>
@@ -10,9 +13,7 @@ const Main = () => (
       <Link to="/main"> Main Page </Link>
       <Link to="/settings"> Settings Page </Link>
     </nav>
-    <div>
-      Main Page
-    </div>
+    <Card cardObj={cardObj[1]} settingsObj={settingsObj[0]} />
   </>
 );
 

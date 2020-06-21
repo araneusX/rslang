@@ -7,6 +7,7 @@ import { BackendProvider } from './backend/backendProvider';
 
 import { Authorization, Main, Settings } from './pages';
 import { Header } from './commonСomponents';
+import cardObj from './mosk/testCardObj';
 
 function App() {
   return (
