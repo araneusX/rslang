@@ -7,17 +7,18 @@ interface Auth {
 export interface Settings {
   wordsPerDay: number,
   optional: {
-    level: number,
     maxCountCard: number,
-    cardSetting: {
-      image: boolean,
-      transcription: boolean
-    },
-    buttonSeting: {
-      answerButton: boolean,
-      addToDifficultWordsButton: boolean,
-      wordDeleteButton: boolean
-    }
+    imageToCard: boolean,
+    pronounseToCard: boolean,
+    transcriptionToCard: boolean,
+    translateToTheCard: boolean,
+    exampleToCard: boolean,
+    explainToCard: boolean,
+    showAnswerButton: boolean,
+    wordDeleteButton: boolean,
+    addToDifficultWordsButton: boolean,
+    addGrageButton: boolean,
+
   }
 }
 
@@ -35,17 +36,17 @@ const auth:Auth = {
 export const settings:Settings = {
   wordsPerDay: 10,
   optional: {
-    level: 0,
     maxCountCard: 20,
-    cardSetting: {
-      image: true,
-      transcription: true
-    },
-    buttonSeting: {
-      answerButton: true,
-      addToDifficultWordsButton: true,
-      wordDeleteButton: true
-    }
+    imageToCard: false,
+    pronounseToCard: false,
+    transcriptionToCard: false,
+    translateToTheCard: false,
+    exampleToCard: false,
+    explainToCard: false,
+    showAnswerButton: false,
+    wordDeleteButton: false,
+    addToDifficultWordsButton: false,
+    addGrageButton: false
   }
 };
 

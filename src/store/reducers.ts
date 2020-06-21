@@ -15,7 +15,7 @@ const mainReducer = (state = appState, action:Action): State => {
       const { value } = action;
       return { ...state, auth: { ...state.auth, userId: value } };
     }
-    case 'SET_SETING': {
+    case 'SET_SETTING': {
       const { value } = action;
       return { ...state, settings: value };
     }
