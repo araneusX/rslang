@@ -10,9 +10,8 @@ const SettingsForm = () => {
   const { uploadSettings } = useContext(BackendContext);
   const { settings } = state;
 
-  const userId:string = '5ee2af9f6b689a00179ead6e';
-  const token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZTJhZjlmNmI2ODlhMDAxNzllYWQ2ZSIsIm'
-+ 'lhdCI6MTU5Mjc2Njk3MCwiZXhwIjoxNTkyNzgxMzcwfQ.CJ8EU828287746FH1KpWNtfPirgbKPhk4od2xhIFsWE';
+  const { userId } = state.auth;
+  const { authToken } = state.auth;
 
   const [cardsQuantity, setCardsQuantity] = useState(settings.wordsPerDay);
   const [wordsQuantity, setWordsQuantity] = useState(settings.optional.maxCountCard);
@@ -93,7 +92,7 @@ const SettingsForm = () => {
         addGrageButton
       }
     };
-    const data = await uploadSettings(userId, token, newStetting);
+    const data = await uploadSettings(userId, authToken, newStetting);
     if (data) {
       dispatch({ type: 'SET_SETTING', value: data });
     }
