@@ -1,9 +1,23 @@
+import { WordStatisticsInterface } from '../types';
+import { getFormattedDate } from '../utils';
+
 export default {
-  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZDRmZGI3OTRkMzlmMDAxN2Y4M2M2NSIsImlhdCI6MTU5MjM3NTYyNywiZXhwIjoxNTkyMzkwMDI3fQ.Goz7qsOw2OZiyPERgWjlKBN7OjLdoUb06o7CJ0ev1k8',
-  userId: '5ed4fdb794d39f0017f83c65',
+  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZTJhZjlmNmI2ODlhMDAxNzllYWQ2ZSIsImlhdCI6MTU5MjY0MTMwMCwiZXhwIjoxNTkyNjU1NzAwfQ.f_siSu_bUBUQHjr3DghcVvJoHi4RS9dEkaU6-2tHz_Y",
+  userId: "5ee2af9f6b689a00179ead6e",
   input: {
     email: 'o@user.com',
     password: 'Gfhjkm_123'
   },
-  getSettingId: '5ee910cae0f08ce8470a2643'
+  words: ['5e9f5ee35eb9e72bc21af4a1', '5e9f5ee35eb9e72bc21af4a0', '5e9f5ee35eb9e72bc21af4a2'],
+  word: {
+    wordId: '5e9f5ee35eb9e72bc21af4a5',
+    allRight: 4,
+    allShow: 5,
+    continuedRight: 2,
+    difficulty: 0,
+    isDeleted: false,
+    isDifficult: false,
+    isNew: false,
+    lastRight: getFormattedDate()
+  } as WordStatisticsInterface
 };
