@@ -11,7 +11,7 @@
     font-style: bold;
   }
 
-  & input + label {
+  & input + span {
     color: #666666;
 
     &:hover,
@@ -22,7 +22,7 @@
     }
   }
 
-  & input:checked + label {
+  & input:checked + span {
     color: green;
     &:hover,
     &:focus,
