@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import style from './form.module.scss';
 import { logInUser, createUser } from '../../../backend/user';
 import { StateContext } from '../../../store/stateProvider';
+import { BackendContext } from '../../../backend/backendProvider';
 
 const Form = () => {
   const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ const Form = () => {
   const [message, setMessage] = useState('input your email and password');
 
   const { dispatch } = useContext(StateContext);
+  const { statistics } = useContext(BackendContext);
 
   async function clickHandler(event : React.MouseEvent, typeOfEvent: string) {
     const user = { email, password };
@@ -21,10 +23,14 @@ const Form = () => {
     switch (typeOfEvent) {
       case 'log':
         userAuthInfo = await logInUser(user);
+
         if (!userAuthInfo.ok) {
           setMessage(userAuthInfo.error);
           return;
         }
+
+        await statistics.initUser(userAuthInfo.userId, userAuthInfo.token);
+
         setMessage("You're in system");
         dispatch({ type: 'SET_AUTH', value: true });
         dispatch({ type: 'SET_TOKEN', value: userAuthInfo.token });
@@ -32,10 +38,14 @@ const Form = () => {
         break;
       case 'create':
         userAuthInfo = await createUser(user);
+
         if (!userAuthInfo.ok) {
           setMessage(userAuthInfo.error);
           return;
         }
+
+        statistics.initUser(userAuthInfo.userId, userAuthInfo.token);
+
         setMessage("You're in system");
         dispatch({ type: 'SET_AUTH', value: true });
         dispatch({ type: 'USER_ID', value: userAuthInfo.userId });

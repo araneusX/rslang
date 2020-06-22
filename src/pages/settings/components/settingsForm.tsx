@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
-import { StateContext } from "../../../store/stateProvider";
-import { BackendContext } from "../../../backend/backendProvider";
+import React, { useState, useContext } from 'react';
+import { StateContext } from '../../../store/stateProvider';
+import { BackendContext } from '../../../backend/backendProvider';
 
-import style from "./settingsForm.module.scss";
+import style from './settingsForm.module.scss';
 
 const SettingsForm = () => {
   const { state, dispatch } = useContext(StateContext);
@@ -15,47 +15,47 @@ const SettingsForm = () => {
   function changeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
     const { value, name } = event.target;
     const newSetting = {
-      ...setting,
+      ...setting
     };
 
     switch (name) {
-      case "cards-quantity":
+      case 'cards-quantity':
         newSetting.wordsPerDay = Number(value);
         break;
-      case "words-quantity":
+      case 'words-quantity':
         setting.optional.maxCountCard = Number(value);
         break;
-      case "image":
+      case 'image':
         setting.optional.imageToCard = !setting.optional.imageToCard;
         break;
-      case "pronounse":
+      case 'pronounse':
         setting.optional.pronounseToCard = !setting.optional.pronounseToCard;
         break;
-      case "transcription":
+      case 'transcription':
         setting.optional.transcriptionToCard = !setting.optional
           .transcriptionToCard;
         break;
-      case "translate":
+      case 'translate':
         setting.optional.translateToTheCard = !setting.optional
           .translateToTheCard;
         break;
-      case "example":
+      case 'example':
         setting.optional.exampleToCard = !setting.optional.exampleToCard;
         break;
-      case "explain":
+      case 'explain':
         setting.optional.explainToCard = !setting.optional.explainToCard;
         break;
-      case "show-answer":
+      case 'show-answer':
         setting.optional.showAnswerButton = !setting.optional.showAnswerButton;
         break;
-      case "delete-button":
+      case 'delete-button':
         setting.optional.wordDeleteButton = !setting.optional.wordDeleteButton;
         break;
-      case "put-into-hard":
+      case 'put-into-hard':
         setting.optional.addToDifficultWordsButton = !setting.optional
           .addToDifficultWordsButton;
         break;
-      case "grade":
+      case 'grade':
         setting.optional.addGrageButton = !setting.optional.addGrageButton;
         break;
       default:
@@ -72,9 +72,10 @@ const SettingsForm = () => {
       state.auth.authToken,
       setting
     );
-    if (data) {
-      dispatch({ type: "SET_SETTING", value: data });
-    }
+    // if (data) {
+    // }
+    dispatch({ type: 'SET_SETTING', value: setting });
+    console.log(state);
     setLoader(false);
   };
 
@@ -225,7 +226,7 @@ const SettingsForm = () => {
         </label>
         <br />
       </fieldset>
-      {loader ? "Loading..." : <input type="submit" value="Save" />}
+      {loader ? 'Loading...' : <input type="submit" value="Save" />}
     </form>
   );
 };
