@@ -1,26 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './savannah.module.scss';
+import StartGamePage from './components/StartGamePage';
+import SavannahGameWrapper from './components/GameWrapper';
 
-const Savannah = () => (
-  <>
-    <div className={`${style.mainContainer}`}>
-      <div>
-        <div>
-          sound: on
-          <button type="button">Off sound</button>
-        </div>
-        <div>
-          life: 5
-        </div>
-      </div>
-      <div className={`${style.wordWrapper}`} style={{ top: '5%' }}>
-        WORD
-      </div>
-      <div>
-        ANSWERS
-      </div>
-    </div>
-  </>
-);
+export interface StartSavannah {
+  wordForGame: object,
+  allAnswerArray: object,
+  errorAnswer: object,
+  correctAnswer: object,
+  life: number,
+  startGame: boolean,
+  startTimer: number
+}
+
+const Savannah = () => {
+  const startSavannah: StartSavannah = {
+    wordForGame: [],
+    allAnswerArray: [],
+    errorAnswer: [],
+    correctAnswer: [],
+    life: 5,
+    startGame: false,
+    startTimer: 3
+  };
+
+  const [savannah, setSavannah] = useState(startSavannah);
+
+  return (
+    <>
+      {savannah.startGame
+        ? <SavannahGameWrapper savannah={savannah} setSavannah={setSavannah} />
+        : <StartGamePage savannah={savannah} setSavannah={setSavannah} />}
+    </>
+  );
+};
 
 export default Savannah;
