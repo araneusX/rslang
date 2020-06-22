@@ -4,13 +4,28 @@ import Full from './components/full';
 import style from './statistics.module.scss';
 
 const Statistics = () => {
-  const [isToggled, setToggled] = useState(true);
-  const toggleTrueFalse = () => setToggled(!isToggled);
+  const [isSession, setToggled] = useState(true);
+  const toggleTrueFalse = (value: boolean) => setToggled(value);
 
   return (
     <div className={style.statsContainer}>
-      <button className={style.statsButton} type="button" onClick={toggleTrueFalse}>Session stats / Total stats</button>
-      { isToggled ? <Session /> : <Full /> }
+      <div className={style.buttonWrapper}>
+        <button
+          className={isSession ? style.activeTab : style.passiveTab}
+          type="button"
+          onClick={() => toggleTrueFalse(true)}
+        >
+          Session stats
+        </button>
+        <button
+          className={isSession ? style.passiveTab : style.activeTab}
+          type="button"
+          onClick={() => toggleTrueFalse(false)}
+        >
+          Total stats
+        </button>
+      </div>
+      { isSession ? <Session /> : <Full /> }
     </div>
   );
 };
