@@ -1,0 +1,12 @@
+.mainContainer {
+    min-height: 90vh;
+    position: relative;
+    background-color: #81c784;
+}
+
+.wordWrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

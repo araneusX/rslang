@@ -1,12 +1,24 @@
-// import style from './savannah.module.scss';
 import React from 'react';
-
-import style from './main.module.scss';
+import style from './savannah.module.scss';
 
 const Savannah = () => (
   <>
-    <div>
-      Savvannah Game !
+    <div className={`${style.mainContainer}`}>
+      <div>
+        <div>
+          sound: on
+          <button type="button">Off sound</button>
+        </div>
+        <div>
+          life: 5
+        </div>
+      </div>
+      <div className={`${style.wordWrapper}`} style={{ top: '5%' }}>
+        WORD
+      </div>
+      <div>
+        ANSWERS
+      </div>
     </div>
   </>
 );
