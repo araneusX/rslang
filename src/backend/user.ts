@@ -1,10 +1,5 @@
 import { UserStatisticsInterface } from '../types';
-
-export interface Optional {
-  wordsPerDay: number, // has been > 0
-  learnedWords: number, // has been > 0
-  optional?: object
-}
+import { Settings } from '../store/store';
 
 export const logInUser = async (user: object) => {
   const url = 'https://afternoon-falls-25894.herokuapp.com/signin';
@@ -100,7 +95,7 @@ export const downloadSettings = async (userId: string, token: string) => {
   }
 };
 
-export const uploadSettings = async (userId: string, token: string, optional?: Optional) => {
+export const uploadSettings = async (userId: string, token: string, data?: Settings) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
   try {
     const rawResponse = await fetch(url, {
@@ -109,14 +104,19 @@ export const uploadSettings = async (userId: string, token: string, optional?: O
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(optional)
+      body: JSON.stringify(data)
     });
-    const content = await rawResponse.json();
-    return content;
+
+    if (rawResponse.status === 200) {
+      const content = await rawResponse.json();
+      return content;
+    }
+    return false;
   } catch (error) {
     return Promise.resolve({
       ok: false,
-      id: false
+      id: false,
+      error
     });
   }
 };
