@@ -4,7 +4,7 @@ import HeaderButton from './components/headerButton';
 import style from './header.module.scss';
 
 const namesOfButtons: [string, string][] = [
-  ['Learn', '/learn'],
+  ['Authorization', '/authorization'],
   ['Mini-Games', '/games'],
   ['Statistics', '/statistics'],
   ['Settings', '/settings']
