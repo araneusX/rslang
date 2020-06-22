@@ -3,7 +3,6 @@ import style from './stats.module.scss';
 
 const Session = () => (
   <div className={style.session}>
-    <img src="" alt="img" />
     <div className={style.stats}>
       <div>Cards complete:</div>
       <div>Right answers:</div>
