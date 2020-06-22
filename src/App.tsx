@@ -6,7 +6,7 @@ import { StateProvider } from './store/stateProvider';
 import { BackendProvider } from './backend/backendProvider';
 
 import { Authorization, Main, Settings, Statistics } from './pages';
-import { Header } from './commonСomponents';
+import { Header } from './commonComponents';
 
 function App() {
   return (
