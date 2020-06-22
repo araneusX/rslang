@@ -121,7 +121,7 @@ export const uploadSettings = async (userId: string, token: string, optional?: O
   }
 };
 
-export const uploadUserStatistics = async (userId: string, token: string, optional: UserStatisticsInterface) => {
+export const setUserStatistics = async (userId: string, token: string, optional: UserStatisticsInterface) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/statistics`;
   try {
     const rawResponse = await fetch(url, {
@@ -144,7 +144,7 @@ export const uploadUserStatistics = async (userId: string, token: string, option
   }
 };
 
-export const downloadUserStatistics = async (userId: string, token: string) => {
+export const getUserStatistics = async (userId: string, token: string) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/statistics`;
   try {
     const rawResponse = await fetch(url, {
@@ -155,21 +155,19 @@ export const downloadUserStatistics = async (userId: string, token: string) => {
       }
     });
     if (!rawResponse.ok) {
-      return { ok: false };
+      return { ok: false, status: rawResponse.status };
     }
     const content = await rawResponse.json();
     const dataStatistics = content.optional;
     if (!dataStatistics.days) {
-      return { ok: false };
+      return { ok: false, status: 404 };
     }
     const statistics = {
       days: JSON.parse(dataStatistics.days),
       levelWords: JSON.parse(dataStatistics.levelWords)
     };
-    return { statistics, ok: rawResponse.ok };
+    return { statistics, ok: rawResponse.ok, status: rawResponse.status };
   } catch (error) {
-    return Promise.resolve({
-      ok: false
-    });
+    return Promise.resolve({ ok: false, status: error });
   }
 };

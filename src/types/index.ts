@@ -18,30 +18,31 @@ export interface UserStatisticsInterface {
 }
 
 export interface StatisticsInterface extends UserStatisticsInterface {
-  series: 0,
+  series: number,
+  userId: string,
+  token: string,
+  isInit: boolean,
+
   getAllDayStatistics: () => {},
+
   getDayStatistics: () => DayInterface,
-  init: (
+
+  initUser: (
     userId: string,
     token: string
   ) => Promise<{ok: boolean}>,
 
   toggleDeleted: (
     word: WordStatisticsInterface,
-    userId: string, token: string
   ) => Promise<{ok: boolean}>,
 
   toggleDifficult: (
     word: WordStatisticsInterface,
-    userId: string, token: string
   ) => Promise<{ok: boolean}>,
 
   saveWord: (
     word: WordStatisticsInterface,
-    difficulty: WordDifficultyType,
     isRight: boolean,
-    userId: string,
-    token: string
   ) => Promise<{ok: boolean}>,
 }
 

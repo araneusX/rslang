@@ -2,8 +2,8 @@ import React, { createContext } from 'react';
 import {
   logInUser,
   createUser,
-  uploadUserStatistics,
-  downloadUserStatistics,
+  setUserStatistics,
+  getUserStatistics,
   downloadSettings,
   uploadSettings
 } from './user';
@@ -24,8 +24,8 @@ interface ComponentProps {
 
 const BackendProvider: React.FC = ({ children }: ComponentProps) => (
   <BackendContext.Provider value={{
-    uploadUserStatistics,
-    downloadUserStatistics,
+    setUserStatistics,
+    getUserStatistics,
     downloadSettings,
     uploadSettings,
     logInUser,
