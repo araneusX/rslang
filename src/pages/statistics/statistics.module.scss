@@ -1,0 +1,28 @@
+.statsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonWrapper {
+        display: flex;
+    justify-content: flex-start;
+
+}
+
+.activeTab,
+.passiveTab {
+    width: 200px;
+    height: 50px;
+    border: 1px solid black;
+    border-bottom: none;
+    outline: none;
+}
+
+.activeTab {
+    background-color: rgb(176, 216, 103);
+}
+
+.passiveTab {
+    background-color: rgb(218, 218, 218);
+}
