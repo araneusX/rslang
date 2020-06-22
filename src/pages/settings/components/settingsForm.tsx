@@ -67,7 +67,6 @@ const SettingsForm = () => {
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoader(true);
-    debugger;
     const data = await uploadSettings(
       state.auth.userId,
       state.auth.authToken,
