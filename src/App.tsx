@@ -5,7 +5,9 @@ import {
 import { StateProvider } from './store/stateProvider';
 import { BackendProvider } from './backend/backendProvider';
 
-import { Authorization, Main, Settings } from './pages';
+import {
+  Authorization, Main, Settings, Games, Savannah
+} from './pages';
 import { Header } from './commonСomponents';
 import cardObj from './mosk/testCardObj';
 
@@ -20,6 +22,8 @@ function App() {
               <Route exact path="/authorization" component={Authorization} />
               <Route exact path="/main" component={Main} />
               <Route exact path="/settings" component={Settings} />
+              <Route exact path="/games" component={Games} />
+              <Route exact path="/games/savannah" component={Savannah} />
               <Redirect to="/main" />
             </Switch>
           </BrowserRouter>
