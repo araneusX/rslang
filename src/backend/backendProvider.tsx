@@ -8,6 +8,8 @@ import {
   uploadSettings
 } from './user';
 
+import { getWords } from './words';
+
 import statistics from './statistics';
 
 interface ContextType {
@@ -29,6 +31,7 @@ const BackendProvider: React.FC = ({ children }: ComponentProps) => (
     downloadSettings,
     uploadSettings,
     logInUser,
+    getWords,
     createUser,
     statistics
   }}

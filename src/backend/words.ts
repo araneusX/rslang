@@ -1,6 +1,6 @@
 import { WordStatisticsInterface } from '../types';
 
-async function getWords(group: number, page: number) {
+export async function getWords(group: number, page: number) {
   const url = `https://afternoon-falls-25894.herokuapp.com/words?group=${group}&page=${page}`;
   const response = await fetch(url);
   const data = await response.json();

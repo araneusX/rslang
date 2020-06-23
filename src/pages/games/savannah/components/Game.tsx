@@ -1,4 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+import React, {
+  useEffect, useState, useCallback, useMemo
+} from 'react';
 import style from '../savannah.module.scss';
 
 interface Props {
@@ -7,59 +10,161 @@ interface Props {
 }
 
 const Game = (props:Props) => {
-  const [secondsToAnswer, setSecondsToAnswer] = useState(300);
-  const [endGame, setEndGame] = useState(false);
   const { savannah } = props;
+  const startSecondsToAnswerValue = 250;
+  const gameLength = savannah.wordForGame.length;
+  const [secondsToAnswer, setSecondsToAnswer] = useState(startSecondsToAnswerValue);
+  const [endGame, setEndGame] = useState(false);
+  const [word, setWord] = useState(savannah.wordForGame[0].word);
+  const [answer, setAnswer] = useState(savannah.wordForGame[0].wordTranslate);
+  const [step, setStep] = useState(0);
 
-  const lifeDecriment = useCallback(() => {
-    props.setSavannah({ ...savannah, life: savannah.life - 1 });
-  }, [savannah, props]);
+  const newGame = () => {
+    props.setSavannah({
+      wordForGame: savannah.wordForGame,
+      allAnswerArray: savannah.allAnswerArray,
+      errorAnswerArray: [],
+      correctAnswer: [],
+      life: 5,
+      startGame: false,
+      endGame: false,
+      startTimer: 3
+    });
+  };
+
+  const nextWord = useCallback(() => {
+    const nextStep = step + 1;
+    if (nextStep === gameLength) {
+      setEndGame(true);
+      setSecondsToAnswer(0);
+    } else {
+      setWord(savannah.wordForGame[nextStep].word);
+      setAnswer(savannah.wordForGame[nextStep].wordTranslate);
+    }
+    setStep(nextStep);
+  }, [step, gameLength, savannah.wordForGame]);
+
+  const clickAnswer = (_answer:string, e: React.MouseEvent<HTMLButtonElement>) => {
+    if (answer === _answer) {
+      props.setSavannah({ ...savannah, correctAnswer: [...savannah.correctAnswer, answer] });
+      setSecondsToAnswer(startSecondsToAnswerValue);
+    } else {
+      props.setSavannah({ ...savannah, life: savannah.life - 1, errorAnswerArray: [...savannah.errorAnswerArray, answer] });
+
+      if (savannah.life > 1) {
+        setSecondsToAnswer(startSecondsToAnswerValue);
+      } else {
+        setEndGame(true);
+        setSecondsToAnswer(0);
+      }
+    }
+    nextWord();
+  };
+
+  const computeAnswerArray = useCallback(
+    (_word:string, _answer: string) => {
+      let arr = [...savannah.allAnswerArray];
+      arr.splice(step, 1);
+      arr = arr.sort(() => Math.random() - 0.5);
+      let answerArr = [answer, ...arr.splice(0, 3)];
+      answerArr = answerArr.sort(() => Math.random() - 0.5);
+      return answerArr;
+    },
+    [answer, savannah.allAnswerArray, step]
+  );
+
+  const answerArray = useMemo(() => computeAnswerArray(word, answer), [word, answer, computeAnswerArray]);
+
+  const lifeDecriment = useCallback(
+    () => {
+      props.setSavannah({ ...savannah, life: savannah.life - 1 });
+    },
+    [savannah, props]
+  );
 
   const checkStatusGame = useCallback(() => {
-    if (savannah.life === 1) {
+    if (savannah.life > 1) {
+      setSecondsToAnswer(startSecondsToAnswerValue);
+    } else {
       setSecondsToAnswer(0);
       setEndGame(true);
-    } else {
-      lifeDecriment();
-      setSecondsToAnswer(300);
     }
-  }, [savannah.life, lifeDecriment]);
+    lifeDecriment();
+    nextWord();
+  }, [savannah.life, lifeDecriment, nextWord]);
 
   useEffect(() => {
     let interval: any = null;
     if (secondsToAnswer && !endGame) {
       interval = setInterval(() => {
         setSecondsToAnswer(secondsToAnswer - 1);
-      }, 10);
+      }, 20);
     } else if (secondsToAnswer === 0 && !endGame) {
       checkStatusGame();
+    } else if (endGame) {
+      clearInterval(interval);
     }
     return () => clearInterval(interval);
   }, [secondsToAnswer, endGame, checkStatusGame, lifeDecriment]);
 
   return (
     <>
-      <div>
-        secondsToAnswer:
-        {secondsToAnswer}
-      </div>
       <div className={`${style.mainContainer}`}>
-        <div>
+        {endGame ? (
           <div>
-            sound: on
-            <button type="button">Off sound</button>
+            <div>
+              Слов Изученных вверно:
+              { savannah.correctAnswer.length }
+              Слов Ha Изученнии:
+              { savannah.errorAnswerArray.length }
+            </div>
+            <div>
+              <div>
+                Знаю:
+                {savannah.correctAnswer.map((i:string) => (
+                  <li key={i}>{i}</li>
+                ))}
+              </div>
+              <div>
+                Ошибки:
+                {savannah.errorAnswerArray.map((i:string) => (
+                  <li key={i}>{i}</li>
+                ))}
+              </div>
+            </div>
+            <div>
+              <button onClick={newGame} type="button">Продолжить тренеровку</button>
+            </div>
           </div>
+        ) : (
           <div>
-            life:
-            { savannah.life }
+            <div>
+              <div>
+                sound: on
+                <button type="button">Off sound</button>
+              </div>
+              <div>
+                life:
+                { savannah.life }
+              </div>
+            </div>
+            <div className={`${style.wordWrapper}`} style={{ top: `${(300 - secondsToAnswer)}px` }}>
+              {word}
+            </div>
+            <div className={`${style.answerBlock}`}>
+              {answerArray.map((i) => (
+                <div key={i}>
+                  <button
+                    onClick={(event) => clickAnswer(i, event)}
+                    type="button"
+                  >
+                    {i}
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className={`${style.wordWrapper}`} style={{ top: `${(300 - secondsToAnswer)}px` }}>
-          WORD
-        </div>
-        <div>
-          ANSWERS
-        </div>
+        )}
       </div>
     </>
   );

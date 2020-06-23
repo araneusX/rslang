@@ -7,27 +7,27 @@ interface Props {
 }
 
 const SavannahGameWrapper = (props:Props) => {
-  const [seconds, setSeconds] = useState(3);
+  const [secondsToStartGame, setSeconds] = useState(3);
   const { savannah, setSavannah } = props;
 
   useEffect(() => {
     let interval: any = null;
-    if (seconds) {
+    if (secondsToStartGame) {
       interval = setInterval(() => {
-        setSeconds(seconds - 1);
+        setSeconds(secondsToStartGame - 1);
       }, 1000);
-    } else if (seconds === 0) {
+    } else if (secondsToStartGame === 0) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [seconds]);
+  }, [secondsToStartGame]);
 
   return (
     <>
-      {seconds ? (
+      {secondsToStartGame ? (
         <div>
           seconds to start game:
-          {seconds}
+          {secondsToStartGame}
         </div>
       ) : (<Game savannah={savannah} setSavannah={setSavannah} />
       )}
