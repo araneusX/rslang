@@ -76,7 +76,7 @@ export interface BackendWordInterface {
   wordsPerExampleSentence: number
 }
 
-export interface CardInterface {
+export interface CardInterface{
   id: string,
   word: string,
   image: string,
@@ -97,22 +97,25 @@ export interface AuthInterface {
   token: string
 }
 
+export interface CardSettingsInterface {
+  imageToCard: boolean,
+  pronounseToCard: boolean,
+  transcriptionToCard: boolean,
+  translateToTheCard: boolean,
+  exampleToCard: boolean,
+  explainToCard: boolean,
+}
+
+export interface SettingsOptionalInterface extends CardSettingsInterface {
+  maxCountCard: number,
+  showAnswerButton: boolean,
+  wordDeleteButton: boolean,
+  addToDifficultWordsButton: boolean,
+  addGrageButton: boolean,
+}
 export interface SettingsInterface {
   wordsPerDay: number,
-  optional: {
-    maxCountCard: number,
-    imageToCard: boolean,
-    pronounseToCard: boolean,
-    transcriptionToCard: boolean,
-    translateToTheCard: boolean,
-    exampleToCard: boolean,
-    explainToCard: boolean,
-    showAnswerButton: boolean,
-    wordDeleteButton: boolean,
-    addToDifficultWordsButton: boolean,
-    addGrageButton: boolean,
-
-  }
+  optional : SettingsOptionalInterface
 }
 
 export interface StateInterface {
