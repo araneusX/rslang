@@ -1,12 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { StateContext } from '../../../store/stateProvider';
-import { BackendContext } from '../../../backend/backendProvider';
 
 import style from './settingsForm.module.scss';
+import { setSettings } from '../../../backend/user';
 
 const SettingsForm = () => {
   const { state, dispatch } = useContext(StateContext);
-  const { uploadSettings } = useContext(BackendContext);
   const { settings } = state;
 
   const [setting, setSetting] = useState(settings);
@@ -67,16 +66,16 @@ const SettingsForm = () => {
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoader(true);
-    const data = await uploadSettings(
+    const setRes = await setSettings(
       state.auth.userId,
-      state.auth.authToken,
+      state.auth.token,
       setting
     );
-    // if (data) {
-    // }
-    dispatch({ type: 'SET_SETTING', value: setting });
+    if (setRes.ok) {
+      dispatch({ type: 'SET_SETTINGS', value: setting });
+      setLoader(false);
+    }
     console.log(state);
-    setLoader(false);
   };
 
   return (

@@ -1,5 +1,4 @@
-import { UserStatisticsInterface } from '../types';
-import { Settings } from '../store/store';
+import { UserStatisticsInterface, SettingsInterface } from '../types';
 
 export const logInUser = async (user: object) => {
   const url = 'https://afternoon-falls-25894.herokuapp.com/signin';
@@ -75,52 +74,6 @@ export const createUser = async (user: object) => {
   }
 };
 
-export const downloadSettings = async (userId: string, token: string) => {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
-  try {
-    const rawResponse = await fetch(url, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json'
-      }
-    });
-    const content = await rawResponse.json();
-    return content;
-  } catch (error) {
-    return Promise.resolve({
-      ok: false,
-      id: false
-    });
-  }
-};
-
-export const uploadSettings = async (userId: string, token: string, data?: Settings) => {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
-  try {
-    const rawResponse = await fetch(url, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-
-    if (rawResponse.status === 200) {
-      const content = await rawResponse.json();
-      return content;
-    }
-    return false;
-  } catch (error) {
-    return Promise.resolve({
-      ok: false,
-      id: false,
-      error
-    });
-  }
-};
-
 export const setUserStatistics = async (userId: string, token: string, optional: UserStatisticsInterface) => {
   const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/statistics`;
   try {
@@ -168,6 +121,59 @@ export const getUserStatistics = async (userId: string, token: string) => {
     };
     return { statistics, ok: rawResponse.ok, status: rawResponse.status };
   } catch (error) {
-    return Promise.resolve({ ok: false, status: error });
+    return Promise.resolve({ ok: false, status: 500 });
+  }
+};
+
+export const getSettings = async (userId: string, token: string) => {
+  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
+  try {
+    const rawResponse = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json'
+      }
+    });
+    if (!rawResponse.ok) {
+      return { ok: false, status: rawResponse.status };
+    }
+    const content = await rawResponse.json();
+    if (!content.optional.maxCountCard) {
+      return { ok: false, status: 404 };
+    }
+    return { content, ok: true, status: rawResponse.status };
+  } catch (error) {
+    return Promise.resolve({
+      ok: false,
+      content: error,
+      status: 500
+    });
+  }
+};
+
+export const setSettings = async (userId: string, token: string, data?: SettingsInterface) => {
+  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
+  try {
+    const rawResponse = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (rawResponse.status === 200) {
+      const content = await rawResponse.json();
+      return { content, ok: true };
+    }
+    return { ok: false };
+  } catch (error) {
+    return Promise.resolve({
+      ok: false,
+      id: false,
+      error
+    });
   }
 };

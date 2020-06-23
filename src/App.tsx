@@ -3,16 +3,19 @@ import {
   BrowserRouter, Switch, Route, Redirect
 } from 'react-router-dom';
 import { StateProvider } from './store/stateProvider';
-import { BackendProvider } from './backend/backendProvider';
+import { StatisticsProvider } from './statistics/statisticsProvider';
 
-import { Authorization, Main, Settings, Statistics } from './pages';
+import {
+  Authorization, Main, Settings, Statistics
+} from './pages';
+
 import { Header } from './commonComponents';
 
 function App() {
   return (
     <>
       <StateProvider>
-        <BackendProvider>
+        <StatisticsProvider>
           <BrowserRouter>
             <Header />
             <Switch>
@@ -23,7 +26,7 @@ function App() {
               <Redirect to="/main" />
             </Switch>
           </BrowserRouter>
-        </BackendProvider>
+        </StatisticsProvider>
       </StateProvider>
     </>
   );
