@@ -1,4 +1,5 @@
+import { SettingsInterface, AuthInterface } from '../types';
+
 export type Action =
-| { type: 'SET_AUTH', value: boolean }
-| { type: 'SET_TOKEN', value: string }
-| { type: 'USER_ID', value: string };
+| { type: 'SET_AUTH', value: AuthInterface }
+| { type: 'SET_SETTINGS', value: SettingsInterface };

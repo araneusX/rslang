@@ -18,30 +18,31 @@ export interface UserStatisticsInterface {
 }
 
 export interface StatisticsInterface extends UserStatisticsInterface {
-  series: 0,
-  getAllDayStatistics: () => {},
+  series: number,
+  userId: string,
+  token: string,
+  isInit: boolean,
+
+  getAllDayStatistics: () => DayInterface,
+
   getDayStatistics: () => DayInterface,
-  init: (
+
+  initUser: (
     userId: string,
     token: string
   ) => Promise<{ok: boolean}>,
 
   toggleDeleted: (
     word: WordStatisticsInterface,
-    userId: string, token: string
   ) => Promise<{ok: boolean}>,
 
   toggleDifficult: (
     word: WordStatisticsInterface,
-    userId: string, token: string
   ) => Promise<{ok: boolean}>,
 
   saveWord: (
     word: WordStatisticsInterface,
-    difficulty: WordDifficultyType,
     isRight: boolean,
-    userId: string,
-    token: string
   ) => Promise<{ok: boolean}>,
 }
 
@@ -75,7 +76,7 @@ export interface BackendWordInterface {
   wordsPerExampleSentence: number
 }
 
-export interface CardInterface {
+export interface CardInterface{
   id: string,
   word: string,
   image: string,
@@ -88,4 +89,36 @@ export interface CardInterface {
   textExampleTranslate: string,
   textMeaningTranslate: string,
   wordTranslate: string,
+}
+
+export interface AuthInterface {
+  isAuth: boolean,
+  userId: string,
+  token: string
+}
+
+export interface CardSettingsInterface {
+  imageToCard: boolean,
+  pronounseToCard: boolean,
+  transcriptionToCard: boolean,
+  translateToTheCard: boolean,
+  exampleToCard: boolean,
+  explainToCard: boolean,
+}
+
+export interface SettingsOptionalInterface extends CardSettingsInterface {
+  maxCountCard: number,
+  showAnswerButton: boolean,
+  wordDeleteButton: boolean,
+  addToDifficultWordsButton: boolean,
+  addGrageButton: boolean,
+}
+export interface SettingsInterface {
+  wordsPerDay: number,
+  optional : SettingsOptionalInterface
+}
+
+export interface StateInterface {
+  auth: AuthInterface,
+  settings: SettingsInterface,
 }

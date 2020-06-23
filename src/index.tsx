@@ -3,10 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { StateProvider } from './store/stateProvider';
+import { StatisticsProvider } from './statistics/statisticsProvider';
+import { BackendProvider } from './backend/backendProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StateProvider>
+      <BackendProvider>
+        <StatisticsProvider>
+          <App />
+        </StatisticsProvider>
+      </BackendProvider>
+    </StateProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

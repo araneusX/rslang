@@ -1,34 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   BrowserRouter, Switch, Route, Redirect
 } from 'react-router-dom';
-import { StateProvider } from './store/stateProvider';
-import { BackendProvider } from './backend/backendProvider';
-
 import {
-  Authorization, Main, Settings, Games, Savannah
+  Authorization, Main, Settings, Statistics, Games, Savannah
 } from './pages';
-import { Header } from './commonСomponents';
-import cardObj from './mosk/testCardObj';
+
+import { Header } from './commonComponents';
+import { StateContext } from './store/stateProvider';
 
 function App() {
+  const { state } = useContext(StateContext);
+  const { isAuth } = state.auth;
   return (
     <>
-      <StateProvider>
-        <BackendProvider>
-          <BrowserRouter>
-            <Header />
-            <Switch>
-              <Route exact path="/authorization" component={Authorization} />
-              <Route exact path="/main" component={Main} />
-              <Route exact path="/settings" component={Settings} />
-              <Route exact path="/games" component={Games} />
-              <Route exact path="/games/savannah" component={Savannah} />
-              <Redirect to="/main" />
-            </Switch>
-          </BrowserRouter>
-        </BackendProvider>
-      </StateProvider>
+      <BrowserRouter>
+        {isAuth && <Header />}
+        <Switch>
+          <Route exact path="/authorization" component={Authorization} />
+          {isAuth && (
+          <>
+            <Route exact path="/main" component={Main} />
+            <Route exact path="/settings" component={Settings} />
+            <Route exact path="/statistics" component={Statistics} />
+            <Route exact path="/games" component={Games} />
+            <Route exact path="/games/savannah" component={Savannah} />
+          </>
+          )}
+          <Redirect to={isAuth ? '/main' : '/authorization'} />
+        </Switch>
+      </BrowserRouter>
     </>
   );
 }

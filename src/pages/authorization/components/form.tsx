@@ -1,14 +1,22 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import style from './form.module.scss';
-import { logInUser, createUser } from '../../../backend/user';
+import {
+  logInUser, createUser, getSettings, setSettings
+} from '../../../backend/user';
 import { StateContext } from '../../../store/stateProvider';
+import { StatisticsContext } from '../../../statistics/statisticsProvider';
+import { AuthInterface, SettingsInterface, StatisticsInterface } from '../../../types';
+import { initSettingsObject } from '../../../constants';
 
 const Form = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const history = useHistory();
+  const [email, setEmail] = useState('qw@qw.qw');
+  const [password, setPassword] = useState('12qw!@QW');
   const [message, setMessage] = useState('input your email and password');
 
   const { dispatch } = useContext(StateContext);
+  const statistics = useContext(StatisticsContext) as StatisticsInterface;
 
   async function clickHandler(event : React.MouseEvent, typeOfEvent: string) {
     const user = { email, password };
@@ -21,14 +29,12 @@ const Form = () => {
     switch (typeOfEvent) {
       case 'log':
         userAuthInfo = await logInUser(user);
+
         if (!userAuthInfo.ok) {
           setMessage(userAuthInfo.error);
           return;
         }
-        setMessage("You're in system");
-        dispatch({ type: 'SET_AUTH', value: true });
-        dispatch({ type: 'SET_TOKEN', value: userAuthInfo.token });
-        dispatch({ type: 'USER_ID', value: userAuthInfo.userId });
+
         break;
       case 'create':
         userAuthInfo = await createUser(user);
@@ -36,13 +42,34 @@ const Form = () => {
           setMessage(userAuthInfo.error);
           return;
         }
-        setMessage("You're in system");
-        dispatch({ type: 'SET_AUTH', value: true });
-        dispatch({ type: 'USER_ID', value: userAuthInfo.userId });
         break;
       default:
         break;
     }
+
+    const auth: AuthInterface = {
+      isAuth: true,
+      token: userAuthInfo.token,
+      userId: userAuthInfo.userId
+    };
+
+    await statistics.initUser(auth.userId, auth.token);
+
+    let userSettings: SettingsInterface = initSettingsObject;
+    const userSettingsData = await getSettings(auth.userId, auth.token);
+
+    if (userSettingsData.status === 404) {
+      await setSettings(auth.userId, auth.token, userSettings);
+    }
+
+    if (userSettingsData.ok) {
+      userSettings = userSettingsData.content;
+    }
+
+    setMessage("You're in system");
+    dispatch({ type: 'SET_AUTH', value: auth });
+    dispatch({ type: 'SET_SETTINGS', value: userSettings });
+    history.push('/main');
   }
 
   function changeHandler(event: { target: { name: string; value: string; }; }) {

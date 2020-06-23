@@ -1,16 +1,12 @@
 import React, { createContext } from 'react';
 import {
   logInUser,
-  createUser,
-  uploadUserStatistics,
-  downloadUserStatistics,
-  downloadSettings,
-  uploadSettings
+  createUser
 } from './user';
 
 import { getWords } from './words';
 
-import statistics from './statistics';
+import statistics from '../statistics/statistics';
 
 interface ContextType {
   [key: string]: any
@@ -26,10 +22,6 @@ interface ComponentProps {
 
 const BackendProvider: React.FC = ({ children }: ComponentProps) => (
   <BackendContext.Provider value={{
-    uploadUserStatistics,
-    downloadUserStatistics,
-    downloadSettings,
-    uploadSettings,
     logInUser,
     getWords,
     createUser,
