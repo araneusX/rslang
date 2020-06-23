@@ -104,11 +104,12 @@ const statistics: StatisticsInterface = {
     this.userId = userId;
     this.token = token;
     if (!this.isInit) {
+      const key = createIdFromDate();
       this.levelWords = [0, 0, 0, 0, 0, 0];
-      this.days = {};
+      this.days[key] = initialDayStatisticsObject;
+      this.days[key].date = getFormattedDate();
       this.series = 0;
       const statisticsData:any = await getUserStatistics(userId, token);
-
       if (statisticsData.status === 404) {
         const userStatistics: UserStatisticsInterface = {
           days: this.days,
