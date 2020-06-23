@@ -75,7 +75,6 @@ const SettingsForm = () => {
       dispatch({ type: 'SET_SETTINGS', value: setting });
       setLoader(false);
     }
-    console.log(state);
   };
 
   return (
