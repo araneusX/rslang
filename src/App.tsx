@@ -1,30 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   BrowserRouter, Switch, Route, Redirect
 } from 'react-router-dom';
-import { StateProvider } from './store/stateProvider';
-import { BackendProvider } from './backend/backendProvider';
+import {
+  Authorization, Main, Settings, Statistics
+} from './pages';
 
-import { Authorization, Main, Settings, Statistics } from './pages';
 import { Header } from './commonComponents';
+import { StateContext } from './store/stateProvider';
 
 function App() {
+  const { state } = useContext(StateContext);
+  const { isAuth } = state.auth;
   return (
     <>
-      <StateProvider>
-        <BackendProvider>
-          <BrowserRouter>
-            <Header />
-            <Switch>
-              <Route exact path="/authorization" component={Authorization} />
-              <Route exact path="/main" component={Main} />
-              <Route exact path="/settings" component={Settings} />
-              <Route exact path="/statistics" component={Statistics} />
-              <Redirect to="/main" />
-            </Switch>
-          </BrowserRouter>
-        </BackendProvider>
-      </StateProvider>
+      <BrowserRouter>
+        {isAuth && <Header />}
+        <Switch>
+          <Route exact path="/authorization" component={Authorization} />
+          {isAuth && (
+          <>
+            <Route exact path="/main" component={Main} />
+            <Route exact path="/settings" component={Settings} />
+            <Route exact path="/statistics" component={Statistics} />
+          </>
+          )}
+          <Redirect to={isAuth ? '/main' : '/authorization'} />
+        </Switch>
+      </BrowserRouter>
     </>
   );
 }

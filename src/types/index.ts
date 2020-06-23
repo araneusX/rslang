@@ -23,7 +23,7 @@ export interface StatisticsInterface extends UserStatisticsInterface {
   token: string,
   isInit: boolean,
 
-  getAllDayStatistics: () => {},
+  getAllDayStatistics: () => DayInterface,
 
   getDayStatistics: () => DayInterface,
 
@@ -76,7 +76,7 @@ export interface BackendWordInterface {
   wordsPerExampleSentence: number
 }
 
-export interface CardInterface {
+export interface CardInterface{
   id: string,
   word: string,
   image: string,
@@ -89,4 +89,36 @@ export interface CardInterface {
   textExampleTranslate: string,
   textMeaningTranslate: string,
   wordTranslate: string,
+}
+
+export interface AuthInterface {
+  isAuth: boolean,
+  userId: string,
+  token: string
+}
+
+export interface CardSettingsInterface {
+  imageToCard: boolean,
+  pronounseToCard: boolean,
+  transcriptionToCard: boolean,
+  translateToTheCard: boolean,
+  exampleToCard: boolean,
+  explainToCard: boolean,
+}
+
+export interface SettingsOptionalInterface extends CardSettingsInterface {
+  maxCountCard: number,
+  showAnswerButton: boolean,
+  wordDeleteButton: boolean,
+  addToDifficultWordsButton: boolean,
+  addGrageButton: boolean,
+}
+export interface SettingsInterface {
+  wordsPerDay: number,
+  optional : SettingsOptionalInterface
+}
+
+export interface StateInterface {
+  auth: AuthInterface,
+  settings: SettingsInterface,
 }

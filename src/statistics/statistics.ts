@@ -2,9 +2,9 @@ import {
   StatisticsInterface,
   UserStatisticsInterface
 } from '../types';
-import { uploadWordStatistics, updateWordStatistics } from './words';
+import { uploadWordStatistics, updateWordStatistics } from '../backend/words';
 import { createIdFromDate, getFormattedDate } from '../utils';
-import { setUserStatistics, getUserStatistics } from './user';
+import { setUserStatistics, getUserStatistics } from '../backend/user';
 import { initialUserStatisticsObject, initialDayStatisticsObject } from '../constants';
 
 const statistics: StatisticsInterface = {
@@ -24,7 +24,7 @@ const statistics: StatisticsInterface = {
     return days.reduce((acc, i) => (
       {
         cards: acc.cards + i.cards,
-        date: acc.date + i.date,
+        date: acc.date < i.date ? acc.date : i.date,
         newWords: acc.newWords + i.newWords,
         right: acc.right + i.right,
         series: acc.series < i.right ? i.right : acc.series
@@ -104,8 +104,10 @@ const statistics: StatisticsInterface = {
     this.userId = userId;
     this.token = token;
     if (!this.isInit) {
+      const key = createIdFromDate();
       this.levelWords = [0, 0, 0, 0, 0, 0];
-      this.days = {};
+      this.days[key] = initialDayStatisticsObject;
+      this.days[key].date = getFormattedDate();
       this.series = 0;
       const statisticsData:any = await getUserStatistics(userId, token);
       if (statisticsData.status === 404) {
@@ -116,9 +118,11 @@ const statistics: StatisticsInterface = {
         const statisticsRes = await setUserStatistics(this.userId, this.token, userStatistics);
         return { ok: statisticsRes.ok };
       }
-      if (!statisticsData.ok && statisticsData.status !== 404) {
+
+      if (!statisticsData.ok) {
         return { ok: false };
       }
+
       const userStatistics = statisticsData.statistics as UserStatisticsInterface;
       this.levelWords = userStatistics.levelWords;
       this.days = userStatistics.days;

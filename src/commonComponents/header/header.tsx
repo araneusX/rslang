@@ -5,6 +5,7 @@ import style from './header.module.scss';
 
 const namesOfButtons: [string, string][] = [
   ['Authorization', '/authorization'],
+  ['Main', '/main'],
   ['Mini-Games', '/games'],
   ['Statistics', '/statistics'],
   ['Settings', '/settings']

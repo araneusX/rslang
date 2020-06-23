@@ -1,4 +1,6 @@
-import { UserStatisticsInterface, WordStatisticsInterface, DayInterface } from '../types';
+import {
+  UserStatisticsInterface, WordStatisticsInterface, DayInterface, SettingsInterface
+} from '../types';
 
 export const initialUserStatisticsObject: UserStatisticsInterface = {
   days: {},
@@ -23,4 +25,21 @@ export const initialDayStatisticsObject: DayInterface = {
   newWords: 0,
   right: 0,
   series: 0
+};
+
+export const initSettingsObject: SettingsInterface = {
+  wordsPerDay: 10,
+  optional: {
+    maxCountCard: 20,
+    imageToCard: false,
+    pronounseToCard: false,
+    transcriptionToCard: false,
+    translateToTheCard: false,
+    exampleToCard: false,
+    explainToCard: false,
+    showAnswerButton: false,
+    wordDeleteButton: false,
+    addToDifficultWordsButton: false,
+    addGrageButton: false
+  }
 };

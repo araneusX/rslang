@@ -1,10 +1,11 @@
 import React, { createContext, useReducer, Dispatch } from 'react';
 import mainReducer from './reducers';
 import { Action } from './actionTypes';
-import { State, appState } from './store';
+import appState from './store';
+import { StateInterface } from '../types';
 
 const StateContext = createContext<{
-  state: State;
+  state: StateInterface;
   dispatch: Dispatch<Action>
 }>({
   state: appState,
