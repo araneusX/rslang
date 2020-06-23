@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import style from './form.module.scss';
 import {
   logInUser, createUser, getSettings, setSettings
@@ -9,6 +10,7 @@ import { AuthInterface, SettingsInterface, StatisticsInterface } from '../../../
 import { initSettingsObject } from '../../../constants';
 
 const Form = () => {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('input your email and password');
@@ -51,8 +53,6 @@ const Form = () => {
       userId: userAuthInfo.userId
     };
 
-    setMessage("You're in system");
-    dispatch({ type: 'SET_AUTH', value: auth });
     await statistics.initUser(auth.userId, auth.token);
 
     let userSettings: SettingsInterface = initSettingsObject;
@@ -66,7 +66,10 @@ const Form = () => {
       userSettings = userSettingsData.content;
     }
 
+    setMessage("You're in system");
+    dispatch({ type: 'SET_AUTH', value: auth });
     dispatch({ type: 'SET_SETTINGS', value: userSettings });
+    history.push('/main');
   }
 
   function changeHandler(event: { target: { name: string; value: string; }; }) {
