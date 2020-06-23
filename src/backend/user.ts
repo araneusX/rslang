@@ -136,12 +136,16 @@ export const getSettings = async (userId: string, token: string) => {
       }
     });
     if (!rawResponse.ok) {
-      return { ok: false, status: rawResponse.status };
+      return { ok: false, status: rawResponse.status, content: null };
     }
-    const content = await rawResponse.json();
-    if (!content.optional.maxCountCard) {
-      return { ok: false, status: 404 };
+    const contentData = await rawResponse.json();
+    if (!contentData.optional.maxCountCard) {
+      return { ok: false, status: 404, content: null };
     }
+    const content = {
+      wordsPerDay: contentData.wordsPerDay,
+      optional: contentData.optional
+    };
     return { content, ok: true, status: rawResponse.status };
   } catch (error) {
     return Promise.resolve({
