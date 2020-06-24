@@ -84,10 +84,11 @@ export const setUserStatistics = async (userId: string, token: string, optional:
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        learnedWords: optional.levelWords.reduce((acc, i) => acc + i) || 1,
+        learnedWords: `${Object.values(optional.progress).reduce((acc, value) => acc + value)}`,
         optional: {
           days: JSON.stringify(optional.days),
-          levelWords: JSON.stringify(optional.levelWords)
+          progress: JSON.stringify(optional.progress),
+          mini: JSON.stringify(optional.miniGames)
         }
       })
     });
@@ -117,7 +118,8 @@ export const getUserStatistics = async (userId: string, token: string) => {
     }
     const statistics = {
       days: JSON.parse(dataStatistics.days),
-      levelWords: JSON.parse(dataStatistics.levelWords)
+      progress: JSON.parse(dataStatistics.progress),
+      miniGames: JSON.parse(dataStatistics.mini)
     };
     return { statistics, ok: rawResponse.ok, status: rawResponse.status };
   } catch (error) {

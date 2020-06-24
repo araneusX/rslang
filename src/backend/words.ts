@@ -1,6 +1,6 @@
 import { WordStatisticsInterface } from '../types';
 
-async function getWords(group: number, page: number) {
+export async function getWords(group: number, page: number) {
   const url = `https://afternoon-falls-25894.herokuapp.com/words?group=${group}&page=${page}`;
   const response = await fetch(url);
   const data = await response.json();
@@ -41,7 +41,7 @@ export const downloadNewWords = async (group: number, startWith: number, quantit
 export async function downloadAllWordsStatistics(
   userId: string,
   token: string
-): Promise<{content: [] | Error, ok: boolean}> {
+): Promise<{content: [], ok: boolean}> {
   const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`;
   try {
     const rawResponse = await fetch(url, {
@@ -52,10 +52,15 @@ export async function downloadAllWordsStatistics(
       }
     });
     const data = await rawResponse.json();
-    const content = data.map((obj: any) => obj.optional);
+    const content = data.map((obj: any) => {
+      if (obj.optional && obj.optional.wordId) {
+        return obj.optional;
+      }
+      return { wordId: obj.wordId };
+    });
     return { content, ok: rawResponse.ok };
   } catch (error) {
-    return { content: error, ok: false };
+    return { content: [], ok: false };
   }
 }
 
@@ -98,7 +103,7 @@ export async function uploadWordStatistics(
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        difficulty: `${word.difficulty}`,
+        difficulty: 'user',
         optional: word
       })
     });
@@ -123,7 +128,7 @@ export async function updateWordStatistics(
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        difficulty: `${word.difficulty}`,
+        difficulty: 'user',
         optional: word
       })
     });
