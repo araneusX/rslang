@@ -7,6 +7,13 @@ export async function getWords(group: number, page: number) {
   return data;
 }
 
+export async function getWordById(id: number) {
+  const url = `https://afternoon-falls-25894.herokuapp.com/words/${id}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+}
+
 function chunk(start: number) {
   return { page: Math.floor(start / 20), withWord: start % 20 };
 }
