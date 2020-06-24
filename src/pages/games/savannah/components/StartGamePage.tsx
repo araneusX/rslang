@@ -1,8 +1,9 @@
 import React from 'react';
 import style from '../savannah.module.scss';
+import { StartSavannah } from '../helpers/types';
 
 interface Props {
-  savannah: object,
+  savannah: StartSavannah,
   setSavannah: any
 }
 

@@ -1,46 +1,43 @@
-import React, { useState, useEffect, useContext } from 'react';
-import style from './savannah.module.scss';
+import React, { useState, useEffect } from 'react';
 import StartGamePage from './components/StartGamePage';
 import SavannahGameWrapper from './components/GameWrapper';
-import { BackendContext } from '../../../backend/backendProvider';
-
-export interface StartSavannah {
-  wordForGame: object,
-  allAnswerArray: object,
-  errorAnswerArray: object,
-  correctAnswer: object,
-  life: number,
-  startGame: boolean,
-  endGame: boolean,
-  startTimer: number
-}
+import { StartSavannah, initialSavannah } from './helpers/types';
+import { getWords } from '../../../backend/words';
 
 const Savannah = () => {
-  const startSavannah: StartSavannah = {
-    wordForGame: [],
-    allAnswerArray: [],
-    errorAnswerArray: [],
-    correctAnswer: [],
-    life: 5,
-    startGame: false,
-    endGame: false,
-    startTimer: 3
-  };
+  const startSavannah: StartSavannah = initialSavannah;
 
-  const { getWords } = useContext(BackendContext);
   const [savannah, setSavannah] = useState(startSavannah);
 
+  const startData = async (page:number, level:number) => {
+    const gameWord = await getWords(page, level);
+    setSavannah({
+      ...savannah,
+      wordForGame: gameWord,
+      allAnswerArray: gameWord.map((i:any) => i.wordTranslate)
+    });
+  };
+
   useEffect(() => {
-    getWords(2, 0).then(
-      (res: any) => {
-        setSavannah({
-          ...savannah,
-          wordForGame: res,
-          allAnswerArray: res.map((i:any) => i.wordTranslate)
-        });
+    const userLearnedWord = [];
+    if (userLearnedWord.length < 20) {
+      let stateMiniGame: any = localStorage.getItem('stateMiniGame');
+      if (stateMiniGame) {
+        stateMiniGame = JSON.parse(stateMiniGame);
+      } else {
+        stateMiniGame = {
+          savannah: {
+            level: 0,
+            page: 1
+          }
+
+        };
+        localStorage.setItem('stateMiniGame', JSON.stringify(stateMiniGame));
       }
-    );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      const { level, page } = stateMiniGame.savannah;
+
+      startData(page, level);
+    }
   }, []);
 
   return (

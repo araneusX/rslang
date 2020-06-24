@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { StartSavannah } from '../helpers/types';
 import Game from './Game';
 
 interface Props {
-  savannah: {[key:string]: any},
+  savannah: StartSavannah,
   setSavannah: any
 }
 

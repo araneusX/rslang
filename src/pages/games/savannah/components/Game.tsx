@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, {
   useEffect, useState, useCallback, useMemo
 } from 'react';
 import style from '../savannah.module.scss';
+import StatisticGame from './StatisticGame';
 
 interface Props {
   savannah: {[key:string]: any},
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Game = (props:Props) => {
-  const { savannah } = props;
+  const { savannah, setSavannah } = props;
   const startSecondsToAnswerValue = 250;
   const gameLength = savannah.wordForGame.length;
   const [secondsToAnswer, setSecondsToAnswer] = useState(startSecondsToAnswerValue);
@@ -18,19 +18,6 @@ const Game = (props:Props) => {
   const [word, setWord] = useState(savannah.wordForGame[0].word);
   const [answer, setAnswer] = useState(savannah.wordForGame[0].wordTranslate);
   const [step, setStep] = useState(0);
-
-  const newGame = () => {
-    props.setSavannah({
-      wordForGame: savannah.wordForGame,
-      allAnswerArray: savannah.allAnswerArray,
-      errorAnswerArray: [],
-      correctAnswer: [],
-      life: 5,
-      startGame: false,
-      endGame: false,
-      startTimer: 3
-    });
-  };
 
   const nextWord = useCallback(() => {
     const nextStep = step + 1;
@@ -111,31 +98,7 @@ const Game = (props:Props) => {
     <>
       <div className={`${style.mainContainer}`}>
         {endGame ? (
-          <div>
-            <div>
-              Слов Изученных вверно:
-              { savannah.correctAnswer.length }
-              Слов Ha Изученнии:
-              { savannah.errorAnswerArray.length }
-            </div>
-            <div>
-              <div>
-                Знаю:
-                {savannah.correctAnswer.map((i:string) => (
-                  <li key={i}>{i}</li>
-                ))}
-              </div>
-              <div>
-                Ошибки:
-                {savannah.errorAnswerArray.map((i:string) => (
-                  <li key={i}>{i}</li>
-                ))}
-              </div>
-            </div>
-            <div>
-              <button onClick={newGame} type="button">Продолжить тренеровку</button>
-            </div>
-          </div>
+          <StatisticGame savannah={savannah} setSavannah={setSavannah} />
         ) : (
           <div>
             <div>
