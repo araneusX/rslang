@@ -1,3 +1,6 @@
+import { DayInterface } from "../types";
+import { initialDayStatisticsObject } from "../constants";
+
 export function createIdFromDate(): string {
   const date = new Date();
 
@@ -20,4 +23,10 @@ export function getFormattedDate(date: Date = new Date()): string {
   const yyyy: string = `${date.getFullYear()}`;
 
   return `${dd}-${mm}-${yyyy}`;
+}
+
+export function createDayStatisticsObject(): DayInterface {
+  const day = { ...initialDayStatisticsObject };
+  day.date = getFormattedDate();
+  return day;
 }
