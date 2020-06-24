@@ -95,9 +95,14 @@ export interface StatisticsInterface extends UserStatisticsInterface {
     isRight: boolean,
   ) => Promise<{ok: boolean}>,
 
-  getAllWords: () => WordStatisticsInterface[],
+  getAllWordsStatistics: () => WordStatisticsInterface[],
 
-  getWord: () => WordStatisticsInterface
+  getWordStatistics: () => WordStatisticsInterface | null,
+
+  getAllWordsId: () => string[],
+
+  getWordId: () => string | null
+
 }
 
 export interface WordStatisticsInterface {
