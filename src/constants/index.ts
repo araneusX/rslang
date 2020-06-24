@@ -32,7 +32,7 @@ export const initSettingsObject: SettingsInterface = {
   optional: {
     maxCountCard: 20,
     imageToCard: false,
-    pronounseToCard: false,
+    pronounceToCard: false,
     transcriptionToCard: false,
     translateToTheCard: false,
     exampleToCard: false,
@@ -40,6 +40,6 @@ export const initSettingsObject: SettingsInterface = {
     showAnswerButton: false,
     wordDeleteButton: false,
     addToDifficultWordsButton: false,
-    addGrageButton: false
+    addGradeButton: false
   }
 };
