@@ -1,0 +1,54 @@
+@keyframes left {
+    from {
+        left: 0;
+    }
+    to {
+        left: -240px;
+    }
+}
+
+@keyframes right {
+    from {
+        left: 240px;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes opacity {
+    from {
+        opacity: 100%;
+    }
+    
+    to {
+        opacity: 30%;
+    }
+}
+
+@keyframes rotat {
+    from {
+        transform: rotate(0deg);
+    }
+    
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes colorChange {
+    from {
+        color: #FFFFFF;
+    }
+    50% {
+        color: rgb(20, 177, 143);
+    }
+    to {
+        color: #333;
+    }
+}

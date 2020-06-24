@@ -1,2 +1,1 @@
-// import style from './puzzle.module.scss';
-export {};
+export { default } from './components/start-page';
