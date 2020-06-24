@@ -3,10 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { StateProvider } from './store/stateProvider';
+import { StatisticsProvider } from './statistics/statisticsProvider';
+import StartPage from './pages/games/puzzle/puzzle';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StateProvider>
+      <StatisticsProvider>
+        <StartPage />
+      </StatisticsProvider>
+    </StateProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

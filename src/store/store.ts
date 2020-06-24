@@ -1,19 +1,15 @@
-interface Auth {
-  isAuth: boolean,
-  userId: string,
-  authToken: string
-}
+import { initSettingsObject } from '../constants';
+import { SettingsInterface, StateInterface, AuthInterface } from '../types';
 
-export interface State {
-  auth: Auth
-}
-
-const auth:Auth = {
+const auth: AuthInterface = {
   isAuth: false,
-  userId: '1',
-  authToken: ''
+  userId: '',
+  token: ''
 };
 
-export const appState: State = {
-  auth
-};
+const settings: SettingsInterface = { ...initSettingsObject };
+
+export default {
+  auth,
+  settings
+} as StateInterface;

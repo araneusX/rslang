@@ -1,2 +1,2 @@
 // import style from './games.module.scss';
-export {};
+export { default } from './puzzle/puzzle';

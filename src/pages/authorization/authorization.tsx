@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form } from './components';
+import Form from './components/form';
 
 import style from './authorization.module.scss';
 

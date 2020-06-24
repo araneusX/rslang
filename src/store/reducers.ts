@@ -1,19 +1,16 @@
-import { State, appState } from './store';
+import appState from './store';
 import { Action } from './actionTypes';
+import { StateInterface } from '../types';
 
-const mainReducer = (state = appState, action:Action): State => {
+const mainReducer = (state = appState, action:Action): StateInterface => {
   switch (action.type) {
     case 'SET_AUTH': {
       const { value } = action;
-      return { ...state, auth: { ...state.auth, isAuth: value } };
+      return { ...state, auth: value };
     }
-    case 'SET_TOKEN': {
+    case 'SET_SETTINGS': {
       const { value } = action;
-      return { ...state, auth: { ...state.auth, authToken: value } };
-    }
-    case 'USER_ID': {
-      const { value } = action;
-      return { ...state, auth: { ...state.auth, userId: value } };
+      return { ...state, settings: value };
     }
     default: return state;
   }
