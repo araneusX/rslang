@@ -4,19 +4,30 @@ import {
 
 export const initialUserStatisticsObject: UserStatisticsInterface = {
   days: {},
-  levelWords: [0, 0, 0, 0, 0, 0]
+  progress: {
+    0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0
+  },
+  miniGames: {
+    speakit: {},
+    puzzle: {},
+    savannah: {},
+    audiochallenge: {},
+    sprint: {},
+    our: {}
+  }
 };
 
 export const initialWordStatisticsObject: WordStatisticsInterface = {
+  isCorrect: true,
   wordId: '',
-  isNew: true,
   allRight: 0,
   allShow: 0,
   continuedRight: 0,
-  difficulty: 3,
+  maxContinuedRight: 0,
+  interval: 0,
   isDeleted: false,
   isDifficult: false,
-  lastRight: ''
+  lastRight: 'never'
 };
 
 export const initialDayStatisticsObject: DayInterface = {
@@ -32,7 +43,7 @@ export const initSettingsObject: SettingsInterface = {
   optional: {
     maxCountCard: 20,
     imageToCard: false,
-    pronounseToCard: false,
+    pronounceToCard: false,
     transcriptionToCard: false,
     translateToTheCard: false,
     exampleToCard: false,
@@ -40,6 +51,6 @@ export const initSettingsObject: SettingsInterface = {
     showAnswerButton: false,
     wordDeleteButton: false,
     addToDifficultWordsButton: false,
-    addGrageButton: false
+    addGradeButton: false
   }
 };

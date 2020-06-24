@@ -1,0 +1,73 @@
+.startBasicGameContainer{
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+  .startLearnButton{
+      width: 170px;
+      height: 50px;
+      font-size: 19px;
+  }
+  p{
+    width: 355px;
+    overflow-wrap: break-word;
+    margin-bottom: 50px;
+  }
+
+}
+.learnContainer{
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+  .sliderContainer{
+    display: flex;
+    align-items: center;
+
+    .rightArrowBtn, .leftArrowBtn, .leftArrowBtnInactive{
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    .leftArrowBtn{
+      transform: rotateY(180deg);
+    }
+    .leftArrowBtnInactive{
+      opacity: .5;
+      cursor: default!important;
+      transform: rotateY(180deg);
+    }
+  }
+
+  progress{
+    background-color: greenyellow;
+    border-radius: 5px;
+  }
+  progress::-webkit-progress-bar {
+    background: whitesmoke;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  progress::-webkit-progress-value {
+    background-color:greenyellow;
+}
+}
+
+.controlContainer{
+  text-align-last: center;
+  button{
+    font-size: 15px;
+    margin: 10px;
+    padding: 6px;
+  }
+}
+

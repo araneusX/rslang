@@ -14,10 +14,10 @@ export default {
     allRight: 4,
     allShow: 5,
     continuedRight: 2,
-    difficulty: 0,
+    interval: 1,
     isDeleted: false,
     isDifficult: false,
-    isNew: false,
+    isCorrect: true,
     lastRight: getFormattedDate()
   } as WordStatisticsInterface
 };
