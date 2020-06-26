@@ -12,6 +12,38 @@
   height: 375px;
   animation: switchCard 2s;
 
+  .wordContainer{
+    width: min-content;
+    position: relative;
+    margin: 5px;
+    background: white;
+    border-radius: 2px;
+    padding: 2px;
+    font-size: 20px;
+    div{
+      padding: 2px;
+      visibility: hidden;
+      color: red;
+      position: relative;
+      z-index: 2;
+    }
+    .showCurrentWord{
+      visibility: visible;
+    }
+    input{
+      border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 2px;
+    width: calc(100% - 8px);
+    display: inline;
+    background: none;
+    position: absolute;
+    z-index: 1;
+    top: 2px;
+    }
+  }
   @keyframes switchCard {
     from {
       opacity: 0;
@@ -19,12 +51,6 @@
     to {
       opacity: 1;
     }
-  }
-  input{
-      border: none;
-      background: skyblue;
-      border-radius: 2px;
-      outline: none;
   }
 
   p{

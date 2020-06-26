@@ -13,11 +13,11 @@ const Main = () => {
     exampleToCard,
     explainToCard,
     imageToCard,
-    pronounceToCard: pronounceToCard,
+    pronounceToCard,
     showAnswerButton,
     transcriptionToCard,
     translateToTheCard,
-    wordDeleteButton,
+    wordDeleteButton
   } = state.settings.optional;
 
   const settings = {
@@ -30,17 +30,17 @@ const Main = () => {
     showAnswerButton,
     transcriptionToCard,
     translateToTheCard,
-    wordDeleteButton,
+    wordDeleteButton
   };
 
-const [startPreview, setStart] = useState(true);
-const [count, setCount] = useState(0);
-const [answer, setAns] = useState(false);
+  const [startPreview, setStart] = useState(true);
+  const [count, setCount] = useState(0);
+  const [answer, setAns] = useState(false);
 
-const handleNext = () => {
-  setAns(false);
-  setCount(count + 1);
-};
+  const handleNext = () => {
+    setAns(false);
+    setCount(count + 1);
+  };
 
   return (
     <>
@@ -67,7 +67,7 @@ const handleNext = () => {
                 <img
                   src="https://image.flaticon.com/icons/png/512/130/130884.png"
                   className={style.leftArrowBtn}
-                  onMouseDown={() => { setCount(count - 1); }}
+                  onClick={() => { setCount(count - 1); }}
                 />
               ) : (
                 <img
@@ -79,7 +79,7 @@ const handleNext = () => {
               <img
                 src="https://image.flaticon.com/icons/png/512/130/130884.png"
                 className={style.rightArrowBtn}
-                onMouseDown={handleNext}
+                onClick={handleNext}
               />
             </div>
             <div className={style.controlContainer}>
