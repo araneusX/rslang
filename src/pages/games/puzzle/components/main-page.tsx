@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import getPhrase from '../ts/api.phrase';
 import RunPuzzle from './RunPuzzle';
 import { Game, GameNode } from '../ts/Game';
 import GameRounds from './main-page.rounds';
+import '../dragHandler';
 
 const MainPage = () => {
   const [level, setLevel] = useState('0');

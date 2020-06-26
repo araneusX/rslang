@@ -4,10 +4,9 @@ import { isDisabledText, isDisabledAudio } from '../ts/isDisabled';
 function GameRounds(props: any) {
   const { data } = props;
   let gameY = 0;
-  console.log('rounds: ', data);
 
   const [sentenceNumber, setSentenceNumber] = useState(0);
-
+  console.log('round: ', data);
   // if (assembledGamePuzzleDOM) {
   //   Array.from(assembledGamePuzzleDOM).forEach((sentence) => {
   //     sentence.classList.remove('opacity-full', 'event-none-opacity-full');
