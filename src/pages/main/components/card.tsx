@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext  } from 'react';
 import style from './card.module.scss';
 import { CardInterface, CardSettingsInterface } from '../../../types';
+import trainGameCard from './training';
+import { StateContext } from '../../../store/stateProvider';
 
 const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, answer: any }> = (prop) => {
   const { cardObj } = prop;
@@ -13,6 +15,7 @@ const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, 
 
   const textExampleSplit = cardObj.textExample.split(/<b.*?>(.*?)<\/b>/);
   const textMeaningSplit = cardObj.textMeaning.split(/<i.*?>(.*?)<\/i>/);
+  const state = useContext(StateContext);
 
   const handlerInputChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     setInputState(event.target.value);
