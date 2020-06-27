@@ -13,18 +13,15 @@ const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, 
   const getRightWay = (url : string) => `https://raw.githubusercontent.com/araneusx/rslang-data/master/data/${url.slice(6)}`;
 
   const textExample = cardObj.textExample.split(/<b.*?>(.*?)<\/b>/);
-   // const textMeaningSplit = cardObj.textMeaning.split(/<i.*?>(.*?)<\/i>/);
+  // const textMeaningSplit = cardObj.textMeaning.split(/<i.*?>(.*?)<\/i>/);
   const state = useContext(StateContext);
-  for (let i = 0; i < 3; i += 1) {
-    console.log(trainGameCard(state.state.auth.userId, state.state.auth.token));
-  }
 
   return (
-      <div className={style.cardContainer} id={cardObj.id}>
-        {settings.imageToCard
+    <div className={style.cardContainer} id={cardObj.id}>
+      {settings.imageToCard
                 && <img src={getRightWay(prop.cardObj.image)} alt="" />}
-        <>
-          {settings.translateToTheCard
+      <>
+        {settings.translateToTheCard
                     && (
                     <p>
                       {cardObj.wordTranslate}
@@ -32,13 +29,13 @@ const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, 
                       && <span>{cardObj.transcription}</span>}
                     </p>
                     )}
-          {prop.answer
+        {prop.answer
           && (
           <p className={style.putDownOnAns}>
             {cardObj.word}
           </p>
           )}
-          {settings.explainToCard && settings.exampleToCard
+        {settings.explainToCard && settings.exampleToCard
                     && (
                     <>
                       {prop.answer ? (
@@ -55,7 +52,7 @@ const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, 
                       )}
                     </>
                     )}
-          {settings.exampleToCard
+        {settings.exampleToCard
                     && (
                     <>
                       <p>
@@ -68,9 +65,9 @@ const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, 
                     </>
                     )}
 
-          {!settings.explainToCard && !settings.exampleToCard
+        {!settings.explainToCard && !settings.exampleToCard
                     && <input size={textExample[1].length} maxLength={textExample[1].length} />}
-          {settings.addGradeButton && prop.answer
+        {settings.addGradeButton && prop.answer
                     && (
                     <div className={style.gradeContainer}>
                       <div className={style.easyBtn}>Es</div>
@@ -78,18 +75,17 @@ const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, 
                       <div className={style.hardBtn}>Hrd</div>
                     </div>
                     )}
-          <div className={style.controlContainer}>
-            {settings.wordDeleteButton
+        <div className={style.controlContainer}>
+          {settings.wordDeleteButton
               && <div>del</div>}
-            {settings.addToDifficultWordsButton
+          {settings.addToDifficultWordsButton
               && <div>hrd</div>}
-            {settings.showAnswerButton
+          {settings.showAnswerButton
               && <div>?</div>}
-          </div>
-        </>
-      </div>
+        </div>
+      </>
+    </div>
   );
 };
 
 export default Card;
-
