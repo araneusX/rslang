@@ -203,18 +203,35 @@ const statistics: StatisticsInterface = {
     return { ok: true };
   },
 
-  getAllWords() {
+  getAllWordsStatistics() {
     const words = this.userWords
       .filter((word) => (!word.isDeleted && word.isCorrect))
       .sort((a, b) => (a.interval - b.interval));
     return words;
   },
 
-  getWord() {
-    const word = this.userWords
-      .filter((wordObj) => (!wordObj.isDeleted && wordObj.isCorrect))
-      .reduce((acc, wordObj) => (acc.interval > wordObj.interval ? wordObj : acc));
+  getWordStatistics() {
+    const words = this.userWords.filter((wordObj) => (!wordObj.isDeleted && wordObj.isCorrect));
+    const word = words.length > 0
+      ? words.reduce((acc, wordObj) => (acc.interval > wordObj.interval ? wordObj : acc))
+      : null;
     return word;
+  },
+
+  getAllWordsId() {
+    const wordIds = this.userWords
+      .filter((word) => (!word.isDeleted && word.isCorrect))
+      .sort((a, b) => (a.interval - b.interval))
+      .map((word) => word.wordId);
+    return wordIds;
+  },
+
+  getWordId() {
+    const words = this.userWords.filter((wordObj) => (!wordObj.isDeleted && wordObj.isCorrect));
+    const wordId = words.length > 0
+      ? words.reduce((acc, wordObj) => (acc.interval > wordObj.interval ? wordObj : acc)).wordId
+      : null;
+    return wordId;
   },
 
   async initUser(userId, token) {
