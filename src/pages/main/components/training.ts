@@ -2,12 +2,6 @@ import { getWordById, downloadNewWords } from '../../../backend/words';
 import { getSettings } from '../../../backend/user';
 import statistics from '../../../statistics/statistics';
 
-const getAnotherNewWords = async (maxCountCard: number, countOfShowedCards: number, newWords: any) => {
-  const nextPackOfWords = await downloadNewWords(0, 0, (maxCountCard - countOfShowedCards));
-  const allNewWords = newWords.content.concat(nextPackOfWords.content);
-  return allNewWords;
-};
-
 const getNewWords = async (group: number, page: number, countOfWords: number) => {
   const newWords = await downloadNewWords(group, page, countOfWords);
   return newWords.content;
