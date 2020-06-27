@@ -7,6 +7,40 @@ const getNewWords = async (group: number, page: number, countOfWords: number) =>
   return newWords.content;
 };
 
+/* localStorage.setItem('wordsCounter', '0');
+localStorage.setItem('trainNewWords', '[]');
+
+const training = async (userId: string, token: string) => {
+  const userSettings = await getSettings(userId, token);
+  const { wordsPerDay } = userSettings.content;
+  const { maxCountCard } = userSettings.content.optional;
+  const dayStatistic = statistics.getDayStatistics();
+  const countOfShowedCards = dayStatistic.cards;
+  const indexOfNewWord = dayStatistic.newWords;
+
+  let newWords = (await downloadNewWords(0, 0, wordsPerDay)).content;
+
+  const wordId = statistics.getWordId();
+  let counter = Number(localStorage.getItem('wordsCounter'));
+  if (wordId === null) {
+    newWords = getAnotherNewWords(maxCountCard, countOfShowedCards, newWords);
+    console.log(newWords[indexOfNewWord + counter]);
+    counter += 1;
+    localStorage.setItem('wordsCounter', counter.toString());
+  } else {
+    if (counter !== maxCountCard && counter % 2 !== 0) {
+      console.log(getWordById(wordId));
+      counter += 1;
+      localStorage.setItem('wordsCounter', counter.toString());
+    }
+    if (counter !== maxCountCard && counter % 2 === 0) {
+      console.log(newWords[indexOfNewWord]);
+      counter += 1;
+      localStorage.setItem('wordsCounter', counter.toString());
+    }
+  }
+}; */
+
 localStorage.setItem('typeOfWord', 'mine');
 
 const trainGameCard = async (userId: string, token: string) => {
