@@ -15,9 +15,6 @@ const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface }
   const textExample = cardObj.textExample.split(/<b.*?>(.*?)<\/b>/);
   // const textMeaningSplit = cardObj.textMeaning.split(/<i.*?>(.*?)<\/i>/);
   const state = useContext(StateContext);
-  for (let i = 0; i < 3; i += 1) {
-    console.log(trainGameCard(state.state.auth.userId, state.state.auth.token));
-  }
 
   return (
     <div className={style.cardContainer} id={cardObj.id}>
