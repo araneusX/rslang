@@ -21,22 +21,6 @@ const Results: React.FC<ResultsPropsType> = () => {
   const right: JSX.Element[] = [];
   const mistakes: JSX.Element[] = [];
 
-  words.forEach((word) => {
-    const element = (
-      <div className={style.item} key={word.id}>
-        <img src={`${process.env.PUBLIC_URL}/images/sound1.png`} alt="play" />
-        <div className={style.value}>{word.word}</div>
-        <div className={style.transcription}>{word.transcription}</div>
-        <div className={style.translate}>{word.wordTranslate}</div>
-      </div>
-    );
-    if (word.isRecognized) {
-      right.push(element);
-    } else {
-      mistakes.push(element);
-    }
-  });
-
   const handleContinue = () => {
     dispatch({ type: 'SET_SPEAKIT_SCREEN', value: 'main' });
   };
@@ -102,6 +86,37 @@ const Results: React.FC<ResultsPropsType> = () => {
   const handleStatistics = () => {
     setShowStatistics(!isShowStatistics);
   };
+
+  const handlePlay = (word: SpeakitWordInterface) => {
+    word.sound.play();
+  };
+
+  words.forEach((word) => {
+    const element = (
+      <div
+        className={style.item}
+        key={word.id}
+        onClick={handlePlay.bind(null, word)}
+        role="button"
+        tabIndex={0}
+        onKeyUp={(event) => {
+          if (event.key === 'Enter') {
+            handlePlay.bind(null, word);
+          }
+        }}
+      >
+        <img src={`${process.env.PUBLIC_URL}/images/sound1.png`} alt="play" />
+        <div className={style.value}>{word.word}</div>
+        <div className={style.transcription}>{word.transcription}</div>
+        <div className={style.translate}>{word.wordTranslate}</div>
+      </div>
+    );
+    if (word.isRecognized) {
+      right.push(element);
+    } else {
+      mistakes.push(element);
+    }
+  });
 
   return (
     <div className={style.wrapper}>
