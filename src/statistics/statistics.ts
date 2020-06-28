@@ -67,7 +67,11 @@ const statistics: StatisticsInterface = {
   },
 
   async saveMini(name, result) {
-    this.miniGames[name][getFormattedDate()].push(result);
+    const dateKey = getFormattedDate();
+    if (!this.miniGames[name][dateKey]) {
+      this.miniGames[name][dateKey] = [];
+    }
+    this.miniGames[name][dateKey].push(result);
     const userStatistics: UserStatisticsInterface = {
       days: this.days,
       progress: this.progress,
