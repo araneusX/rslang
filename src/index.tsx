@@ -5,16 +5,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { StateProvider } from './store/stateProvider';
 import { StatisticsProvider } from './statistics/statisticsProvider';
-import { BackendProvider } from './backend/backendProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <StateProvider>
-      <BackendProvider>
-        <StatisticsProvider>
-          <App />
-        </StatisticsProvider>
-      </BackendProvider>
+      <StatisticsProvider>
+        <App />
+      </StatisticsProvider>
     </StateProvider>
   </React.StrictMode>,
   document.getElementById('root')

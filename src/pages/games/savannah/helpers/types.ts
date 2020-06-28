@@ -1,12 +1,17 @@
+interface WordForGame {
+  [key:string]: any
+}
+
 export interface StartSavannah {
-  wordForGame: [],
-  allAnswerArray: [],
-  errorAnswerArray: [],
-  correctAnswer: [],
+  wordForGame: WordForGame[],
+  allAnswerArray: string[],
+  errorAnswerArray: string[],
+  correctAnswer: string[],
   life: number,
   startGame: boolean,
   endGame: boolean,
-  startTimer: number
+  startTimer: number,
+  level: number
 }
 
 export const initialSavannah: StartSavannah = {
@@ -17,5 +22,6 @@ export const initialSavannah: StartSavannah = {
   life: 5,
   startGame: false,
   endGame: false,
-  startTimer: 3
+  startTimer: 3,
+  level: 6
 };

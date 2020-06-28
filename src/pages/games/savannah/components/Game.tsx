@@ -10,6 +10,7 @@ interface Props {
 }
 
 const Game = (props:Props) => {
+  const levelsSelect = [0, 1, 2, 3, 4, 5, 6];
   const { savannah, setSavannah } = props;
   const startSecondsToAnswerValue = 250;
   const gameLength = savannah.wordForGame.length;
@@ -109,6 +110,12 @@ const Game = (props:Props) => {
               <div>
                 life:
                 { savannah.life }
+              </div>
+              <div>
+                select level:
+                <select name="levelSelect" id="levelSelect">
+                  {levelsSelect.map((i) => <option key={i} value={i}>{i}</option>)}
+                </select>
               </div>
             </div>
             <div className={`${style.wordWrapper}`} style={{ top: `${(300 - secondsToAnswer)}px` }}>
