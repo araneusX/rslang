@@ -67,23 +67,32 @@ const statistics: StatisticsInterface = {
   },
 
   async saveMini(name, result) {
-    this.miniGames[name][getFormattedDate()].push(result);
-    const userStatistics: UserStatisticsInterface = {
-      days: this.days,
-      progress: this.progress,
-      miniGames: this.miniGames
-    };
-    const statisticsRes = await setUserStatistics(this.userId, this.token, userStatistics);
+    if (result > 0) {
+      const dateKey = getFormattedDate();
+      if (!this.miniGames[name][dateKey]) {
+        this.miniGames[name][dateKey] = [];
+      }
+      this.miniGames[name][dateKey].push(result);
+      const userStatistics: UserStatisticsInterface = {
+        days: this.days,
+        progress: this.progress,
+        miniGames: this.miniGames
+      };
+      const statisticsRes = await setUserStatistics(this.userId, this.token, userStatistics);
 
-    if (!statisticsRes.ok) {
-      return { ok: false };
+      if (!statisticsRes.ok) {
+        return { ok: false };
+      }
     }
 
     return { ok: true };
   },
 
   getMini(name) {
-    return this.miniGames[name];
+    const results = this.miniGames[name];
+    const dates = Object.keys(results);
+    const resultsArr = dates.map((date) => ({ date, results: results[date] }));
+    return resultsArr;
   },
 
   async toggleParams(param: string, wordId: string) {
