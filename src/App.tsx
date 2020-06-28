@@ -3,13 +3,11 @@ import {
   BrowserRouter, Switch, Route, Redirect
 } from 'react-router-dom';
 import {
-  Authorization, Main, Settings, Statistics
+  Authorization, Main, Settings, Statistics, Games, SpeakIt
 } from './pages';
 
 import { Header } from './commonComponents';
 import { StateContext } from './store/stateProvider';
-
-import SpeakIt from './pages/games/speakit/speakit';
 
 function App() {
   const { state } = useContext(StateContext);
@@ -25,7 +23,8 @@ function App() {
             <Route exact path="/main" component={Main} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/statistics" component={Statistics} />
-            <Route exact path="/games" component={SpeakIt} />
+            <Route exact path="/games" component={Games} />
+            <Route exact path="/games/speakit" component={SpeakIt} />
           </>
           )}
           <Redirect to={isAuth ? '/main' : '/authorization'} />

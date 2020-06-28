@@ -96,3 +96,17 @@
   box-shadow: 0 -4px 4px 0px inset rgba(0, 0, 0, 0.25);
   margin: 0 10px;
 }
+
+.levels {
+  height: 5px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.radio {
+
+}
+.selects {
+  align-items: flex-end;
+}

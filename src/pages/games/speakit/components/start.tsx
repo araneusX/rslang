@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 
-import style from './startScreen.module.scss';
+import style from './start.module.scss';
 import { SpeakitScreenType } from '../../../../types';
 import { StateContext } from '../../../../store/stateProvider';
 
-type StartScreenPropsType = {};
+type startPropsType = {};
 
-const StartScreen: React.FC<StartScreenPropsType> = () => {
+const start: React.FC<startPropsType> = () => {
   const { dispatch } = useContext(StateContext);
 
   const handleStart = () => {
@@ -22,4 +22,4 @@ const StartScreen: React.FC<StartScreenPropsType> = () => {
   );
 };
 
-export default StartScreen;
+export default start;

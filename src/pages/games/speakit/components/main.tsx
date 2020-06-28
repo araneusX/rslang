@@ -1,8 +1,9 @@
+/* eslint-disable react/no-array-index-key */
 import React, {
   useState, useEffect, useMemo, useContext
 } from 'react';
 
-import style from './mainScreen.module.scss';
+import style from './main.module.scss';
 import { downloadNewWords, getManyWordsById } from '../../../../backend/words';
 import {
   BackendWordInterface, SpeakitWordInterface, SpeakitModeType, StatisticsInterface
@@ -11,9 +12,9 @@ import Recognition from '../recognition';
 import { StateContext } from '../../../../store/stateProvider';
 import { StatisticsContext } from '../../../../statistics/statisticsProvider';
 
-type MainScreenPropsType = {};
+type mainPropsType = {};
 
-const MainScreen: React.FC<MainScreenPropsType> = () => {
+const main: React.FC<mainPropsType> = () => {
   const { state, dispatch } = useContext(StateContext);
   const {
     round, level, words, game, mode
@@ -25,9 +26,15 @@ const MainScreen: React.FC<MainScreenPropsType> = () => {
   const [isPause, setPause] = useState(true);
   const recognition = useMemo(() => new Recognition(), []);
 
+  const isUserWords = (statistics.getAllWordsStatistics()).length >= 10;
+
   let imageUrl = '';
   let imageAlt = '';
   let fieldText = '';
+
+  if (!isUserWords && mode === 'user') {
+    dispatch({ type: 'SET_SPEAKIT_MODE', value: 'vocabulary' });
+  }
 
   if (current) {
     imageUrl = current.image.slice(6);
@@ -39,15 +46,11 @@ const MainScreen: React.FC<MainScreenPropsType> = () => {
 
   useEffect(() => {
     let ignore = false;
-    const userWordsIds = statistics.getAllWordsId().slice(0, 10);
-    console.log(userWordsIds);
-
     async function fetchData() {
       let result: any;
-      if (mode === 'user') {
-        if (userWordsIds.length === 10) {
-          result = await getManyWordsById(userWordsIds);
-        }
+      if (mode === 'user' && isUserWords) {
+        const userWordsIds = statistics.getAllWordsId().slice(0, 10);
+        result = await getManyWordsById(userWordsIds);
       } else {
         result = await downloadNewWords(level, round * 10, 10);
       }
@@ -61,8 +64,8 @@ const MainScreen: React.FC<MainScreenPropsType> = () => {
               index: i
             }
           ));
-          dispatch({ type: 'SET_SPEAKIT_WORDS', value: newWords });
           setCurrent(newWords[0]);
+          dispatch({ type: 'SET_SPEAKIT_WORDS', value: newWords });
         } else {
           console.log('BACKEND ERROR: Speak It');
         }
@@ -104,6 +107,8 @@ const MainScreen: React.FC<MainScreenPropsType> = () => {
         nowWord.isRecognized = false;
         return nowWord;
       });
+      const right = words.reduce((acc, word) => (word.isRecognized ? acc + 1 : acc), 0);
+      statistics.saveMini('speakit', right);
       dispatch({ type: 'SET_SPEAKIT_WORDS', value: nowWords });
     }
   };
@@ -121,6 +126,7 @@ const MainScreen: React.FC<MainScreenPropsType> = () => {
         nowWords[i].isRecognized = true;
         nowCurrent = nowWords[i];
         isNewWord = true;
+        statistics.saveWordMini(word.id, true);
       }
     });
     if (isNewWord) {
@@ -131,19 +137,34 @@ const MainScreen: React.FC<MainScreenPropsType> = () => {
       ), true);
       if (isAllRecognized) {
         recognition.stop();
+        statistics.saveMini('speakit', 10);
+
         dispatch({ type: 'SET_SPEAKIT_GAME', value: false });
         dispatch({ type: 'SET_SPEAKIT_COMPLETE', value: true });
+
         dispatch({ type: 'SET_SPEAKIT_SCREEN', value: 'results' });
       }
     }
   };
 
   const handleRadioChange = (value: SpeakitModeType) => {
+    const newMode = value;
+    setNewWords(level, round, newMode);
     dispatch({ type: 'SET_SPEAKIT_MODE', value });
   };
 
-  const setNewWords = async (newLevel: number, newRound: number) => {
-    const result: any = await downloadNewWords(newLevel, newRound * 10, 10);
+  const setNewWords = async (
+    newLevel: number,
+    newRound: number,
+    newMode: SpeakitModeType
+  ) => {
+    let result: any;
+    if (newMode === 'user' && isUserWords) {
+      const userWordsIds = statistics.getAllWordsId().slice(0, 10);
+      result = await getManyWordsById(userWordsIds);
+    } else {
+      result = await downloadNewWords(newLevel, newRound * 10, 10);
+    }
     if (result.ok) {
       const newWords: SpeakitWordInterface[] = result.content.map((word: BackendWordInterface, i:number) => (
         {
@@ -154,10 +175,13 @@ const MainScreen: React.FC<MainScreenPropsType> = () => {
         }
       ));
       recognition.stop();
+      const right = words.reduce((acc, word) => (word.isRecognized ? acc + 1 : acc), 0);
+      statistics.saveMini('speakit', right);
       dispatch({ type: 'SET_SPEAKIT_GAME', value: false });
       dispatch({ type: 'SET_SPEAKIT_COMPLETE', value: false });
       dispatch({ type: 'SET_SPEAKIT_WORDS', value: newWords });
       setCurrent(newWords[0]);
+      setPause(true);
     } else {
       console.log('BACKEND ERROR: Speak It');
     }
@@ -166,13 +190,16 @@ const MainScreen: React.FC<MainScreenPropsType> = () => {
   const handleLevelChange = (event: React.SyntheticEvent) => {
     const target = event.target as HTMLInputElement;
     const newLevel: number = Number(target.value);
-    setNewWords(newLevel, 0);
+    dispatch({ type: 'SET_SPEAKIT_LEVEL', value: newLevel });
+    dispatch({ type: 'SET_SPEAKIT_ROUND', value: 0 });
+    setNewWords(newLevel, 0, 'vocabulary');
   };
 
   const handleRoundChange = (event: React.FormEvent) => {
     const target = event.target as HTMLInputElement;
     const newRound: number = Number(target.value);
-    setNewWords(0, newRound);
+    dispatch({ type: 'SET_SPEAKIT_ROUND', value: newRound });
+    setNewWords(level, newRound, 'vocabulary');
   };
 
   return (
@@ -188,6 +215,7 @@ const MainScreen: React.FC<MainScreenPropsType> = () => {
               id="radio-user"
               value="user"
               checked={mode === 'user'}
+              disabled={!isUserWords}
               onChange={handleRadioChange.bind(null, 'user')}
             />
           </label>
@@ -206,16 +234,14 @@ const MainScreen: React.FC<MainScreenPropsType> = () => {
           mode === 'vocabulary'
           && (
           <div className={style.selects}>
-            <select onChange={handleLevelChange}>
+            <select onChange={handleLevelChange} defaultValue={`${level}`}>
               {(new Array(6)).fill('').map((v, i) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <option value={i} key={`${i}`}>{i + 1}</option>
+                <option value={`${i}`} key={`${i}`}>{i + 1}</option>
               ))}
             </select>
-            <select onChange={handleRoundChange}>
+            <select onChange={handleRoundChange} defaultValue={`${round}`}>
               {(new Array(60)).fill('').map((v, i) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <option value={i} key={`${i}`}>{i + 1}</option>
+                <option value={`${i}`} key={`${i}`}>{i + 1}</option>
               ))}
             </select>
           </div>
@@ -295,4 +321,4 @@ const MainScreen: React.FC<MainScreenPropsType> = () => {
   );
 };
 
-export default MainScreen;
+export default main;

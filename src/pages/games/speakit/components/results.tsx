@@ -1,17 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { StateContext } from '../../../../store/stateProvider';
 
 import style from './results.module.scss';
-import { SpeakitWordInterface, BackendWordInterface } from '../../../../types';
-import { downloadNewWords } from '../../../../backend/words';
+import { SpeakitWordInterface, BackendWordInterface, StatisticsInterface } from '../../../../types';
+import { downloadNewWords, getManyWordsById } from '../../../../backend/words';
+import { StatisticsContext } from '../../../../statistics/statisticsProvider';
 
 type ResultsPropsType = {};
 
 const Results: React.FC<ResultsPropsType> = () => {
   const { state, dispatch } = useContext(StateContext);
   const {
-    round, level, words, complete
+    round, level, words, complete, mode
   } = state.speakit;
+
+  const statistics = useContext(StatisticsContext) as StatisticsInterface;
+
+  const [isShowStatistics, setShowStatistics] = useState(false);
 
   const right: JSX.Element[] = [];
   const mistakes: JSX.Element[] = [];
@@ -51,19 +56,25 @@ const Results: React.FC<ResultsPropsType> = () => {
   const handleNew = async () => {
     dispatch({ type: 'SET_SPEAKIT_GAME', value: false });
     dispatch({ type: 'SET_SPEAKIT_COMPLETE', value: false });
-    let newLevel: number = level;
-    let newRound: number = round;
-    if (round === 59) {
-      if (level < 5) {
-        newLevel = level + 1;
+    let newLevel = level;
+    let newRound = round;
+    let result;
+    if (mode === 'vocabulary') {
+      if (round === 59) {
+        if (level < 5) {
+          newLevel = level + 1;
+        } else {
+          newLevel = 0;
+        }
+        newRound = 0;
       } else {
-        newLevel = 0;
+        newRound = round + 1;
       }
-      newRound = 0;
+      result = await downloadNewWords(newLevel, newRound * 10, 10);
     } else {
-      newRound = round + 1;
+      const userWordsIds = statistics.getAllWordsId().slice(0, 10);
+      result = await getManyWordsById(userWordsIds);
     }
-    const result: any = await downloadNewWords(newLevel, newRound * 10, 10);
     if (result.ok) {
       const newWords: SpeakitWordInterface[] = result.content.map((word: BackendWordInterface, i:number) => (
         {
@@ -74,6 +85,11 @@ const Results: React.FC<ResultsPropsType> = () => {
         }
       ));
 
+      if (!complete) {
+        const rightCount = words.reduce((acc, word) => (word.isRecognized ? acc + 1 : acc), 0);
+        statistics.saveMini('speakit', rightCount);
+      }
+
       dispatch({ type: 'SET_SPEAKIT_WORDS', value: newWords });
       dispatch({ type: 'SET_SPEAKIT_ROUND', value: newRound });
       dispatch({ type: 'SET_SPEAKIT_LEVEL', value: newLevel });
@@ -83,20 +99,46 @@ const Results: React.FC<ResultsPropsType> = () => {
     dispatch({ type: 'SET_SPEAKIT_SCREEN', value: 'main' });
   };
 
+  const handleStatistics = () => {
+    setShowStatistics(!isShowStatistics);
+  };
+
   return (
     <div className={style.wrapper}>
-      <div className={style.item_wrapper}>
-        <div className={style.head}>
-          <span className={style.title}>Right answers</span>
-          <span className={style.right_count}>{right.length}</span>
-        </div>
-        {right}
-        <div className={style.head}>
-          <span className={style.title}>Mistakes</span>
-          <span className={style.mistakes_count}>{mistakes.length}</span>
-        </div>
-        {mistakes}
-      </div>
+      {isShowStatistics
+        ? (
+          <div className={style.items_wrapper}>
+            {statistics.getMini('speakit').map((item) => (
+              <div className={style.statistics_date} key={item.date}>
+                <span className={style.title}>{item.date}</span>
+                {item.results.map((result, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <div className={style.statistics_item} key={i}>
+                    {`${i + 1}. `}
+                    Right answers:
+                    <span className={style.right_count}>{result}</span>
+                    Mistakes:
+                    <span className={style.mistakes_count}>{10 - result}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        )
+        : (
+          <div className={style.items_wrapper}>
+            <div className={style.head}>
+              <span className={style.title}>Right answers</span>
+              <span className={style.right_count}>{right.length}</span>
+            </div>
+            {right}
+            <div className={style.head}>
+              <span className={style.title}>Mistakes</span>
+              <span className={style.mistakes_count}>{mistakes.length}</span>
+            </div>
+            {mistakes}
+          </div>
+        )}
       <div className={style.controls}>
         <button
           className={style.button}
@@ -106,7 +148,9 @@ const Results: React.FC<ResultsPropsType> = () => {
           {complete ? 'Restart' : 'Continue'}
         </button>
         <button className={style.button} type="button" onClick={handleNew}>New Game</button>
-        <button className={style.button} type="button">Statistics</button>
+        <button className={style.button} type="button" onClick={handleStatistics}>
+          {isShowStatistics ? 'Results' : 'Statistics'}
+        </button>
       </div>
     </div>
   );
