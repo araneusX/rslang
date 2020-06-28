@@ -63,7 +63,7 @@ export interface StatisticsInterface extends UserStatisticsInterface {
 
   saveMini: (name: MiniGamesNamesType, result: number) => Promise<{ok: boolean}>,
 
-  getMini: (name: MiniGamesNamesType) => {};
+  getMini: (name: MiniGamesNamesType) => {date: string, results: number[]}[];
 
   initUser: (
     userId: string,
