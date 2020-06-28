@@ -120,7 +120,7 @@ export interface WordStatisticsInterface {
 
 export interface BackendWordInterface {
   id: string,
-  group: number,
+  group: 0|1|2|3|4|5,
   page: number,
   word: string,
   image: string,
@@ -138,6 +138,7 @@ export interface BackendWordInterface {
 
 export interface CardInterface{
   id: string,
+  group: 0|1|2|3|4|5,
   word: string,
   image: string,
   audio: string,

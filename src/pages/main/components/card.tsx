@@ -1,13 +1,69 @@
-import React, { useState, useContext  } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import style from './card.module.scss';
-import { CardInterface, CardSettingsInterface } from '../../../types';
-import trainGameCard from './training';
-import { StateContext } from '../../../store/stateProvider';
+import { CardSettingsInterface, StatisticsInterface, BackendWordInterface } from '../../../types';
+import { StatisticsContext } from '../../../statistics/statisticsProvider';
 
-const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, answer: any }> = (prop) => {
+const Card: React.FC<{ cardObj: BackendWordInterface,
+  settings: CardSettingsInterface, answer: boolean, callback: Function, count: number }> = (prop) => {
+  const statistics = useContext(StatisticsContext) as StatisticsInterface;
   const { cardObj } = prop;
   const { settings } = prop;
   const [inputState, setInputState] = useState('');
+  const [userAns, setUserAns] = useState(cardObj.word);
+  const [deleteWord, setDelete] = useState(false);
+  const [difficult, setDifficult] = useState(false);
+
+  const [difficultLevel, setDifficultLevel] = useState<0|1|2>(0);
+
+  useEffect(() => {
+    let ignore = false;
+    const isRight = cardObj.word.toLocaleLowerCase() === userAns.toLocaleLowerCase();
+    async function fetchData() {
+      if (prop.count != 0) {
+        console.log(cardObj.id, isRight, difficultLevel, cardObj.group);
+        await (statistics.saveWord(cardObj.id, isRight, difficultLevel, cardObj.group));
+        console.log('Данные отправляются');
+      }
+      if (!ignore) setDifficultLevel(0); console.log('Отправлены');
+    }
+    fetchData();
+    return () => { ignore = true; };
+  }, [prop.count]);
+
+  useEffect(() => {
+    let ignore = false;
+    async function fetchData() {
+      if (deleteWord) {
+        await (statistics.toggleDeleted(cardObj.id));
+        console.log('Я тут');
+      }
+      if (!ignore) console.log('Deleted!');
+    }
+    fetchData();
+    return () => { ignore = true; };
+  }, [deleteWord]);
+
+  useEffect(() => {
+    let ignore = false;
+    async function fetchData() {
+      if (difficult) {
+        await (statistics.toggleDifficult(cardObj.id));
+        console.log('Ятуут');
+      }
+      if (!ignore) console.log('Difficult!');
+    }
+    fetchData();
+    return () => { ignore = true; };
+  }, [difficult]);
+
+  useEffect(() => {
+    if (prop.answer) {
+      setUserAns(inputState);
+    } else {
+      setUserAns(cardObj.word);
+    }
+    setInputState('');
+  }, [prop.answer]);
 
   const textMeaning = () => ({ __html: cardObj.textMeaning });
   const textExample = () => ({ __html: cardObj.textExample });
@@ -15,16 +71,14 @@ const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, 
 
   const textExampleSplit = cardObj.textExample.split(/<b.*?>(.*?)<\/b>/);
   const textMeaningSplit = cardObj.textMeaning.split(/<i.*?>(.*?)<\/i>/);
-  const state = useContext(StateContext);
 
   const handlerInputChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     setInputState(event.target.value);
   };
 
   const currentWord = () => {
-    const word = prop.answer ? inputState : cardObj.word;
     const currentWordEl = cardObj.word.split('').map((element, index) => {
-      if (word[index] && element === word[index]) {
+      if (userAns[index] && element.toLocaleLowerCase() === userAns[index].toLocaleLowerCase()) {
         return `<span style="color: green ">${element}</span>`;
       }
       return `<span style="color: red ">${element}</span>`;
@@ -34,6 +88,7 @@ const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, 
 
   const handlerInputKeyPress = (event : React.KeyboardEvent) => {
     if (event.key === 'Enter') {
+      prop.callback(true);
       const audio = new Audio();
       audio.src = getRightWay(cardObj.audio);
       audio.play();
@@ -53,24 +108,15 @@ const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, 
         ) : (
           <div dangerouslySetInnerHTML={currentWord()} />
         )}
-        { prop.answer ? (
-          <input
-            value=""
-            onChange={handlerInputChange}
-            onKeyPress={handlerInputKeyPress}
-            maxLength={cardObj.word.length}
-          />
-        ) : (
-          <input
-            value={inputState}
-            onChange={handlerInputChange}
-            onKeyPress={handlerInputKeyPress}
-            maxLength={cardObj.word.length}
-          />
-        )}
+        <input
+          value={inputState}
+          onChange={handlerInputChange}
+          onKeyPress={handlerInputKeyPress}
+          maxLength={cardObj.word.length}
+        />
       </div>
       {settings.imageToCard
-                && <img src={getRightWay(prop.cardObj.image)} alt="kg" />}
+                && <img src={getRightWay(prop.cardObj.image)} alt="" />}
       <>
         {settings.translateToTheCard
                     && (
@@ -119,18 +165,18 @@ const Card: React.FC<{ cardObj: CardInterface, settings: CardSettingsInterface, 
         {settings.addGradeButton && prop.answer
                     && (
                     <div className={style.gradeContainer}>
-                      <div title="Легко" className={style.easyBtn}>Es</div>
-                      <div title="Средне" className={style.mediumBtn}>Md</div>
-                      <div title="Сложно" className={style.hardBtn}>Hrd</div>
+                      <div title="Легко" onClick={() => { setDifficultLevel(0); }} className={style.easyBtn}>Es</div>
+                      <div title="Средне" onClick={() => { setDifficultLevel(1); }} className={style.mediumBtn}>Md</div>
+                      <div title="Сложно" onClick={() => { setDifficultLevel(2); }} className={style.hardBtn}>Hrd</div>
                     </div>
                     )}
         <div className={style.controlContainer}>
           {settings.wordDeleteButton
-              && <div>del</div>}
+              && <div onClick={() => { setDelete(true); }}>del</div>}
           {settings.addToDifficultWordsButton
-              && <div>hrd</div>}
+              && <div onClick={() => { setDifficult(true); }}>hrd</div>}
           {settings.showAnswerButton
-              && <div>?</div>}
+              && <div onClick={() => { prop.callback(true); }}>?</div>}
         </div>
       </>
     </div>

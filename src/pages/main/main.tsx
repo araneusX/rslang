@@ -1,12 +1,28 @@
-import React, { useContext, useState } from 'react';
-
+import React, { useContext, useState, useEffect } from 'react';
 import style from './main.module.scss';
 import Card from './components/card';
+import { BackendWordInterface } from '../../types';
 import cardObj from '../../mosk/testCardObj';
 import { StateContext } from '../../store/stateProvider';
+import trainGameCard from './components/training';
 
 const Main = () => {
   const { state } = useContext(StateContext);
+  const [cardObject, setCardObject] = useState<BackendWordInterface >(cardObj[0] as BackendWordInterface);
+  const [startPreview, setStart] = useState(true);
+  const [count, setCount] = useState(0);
+  const [answer, setAns] = useState(false);
+
+  useEffect(() => {
+    let ignore = false;
+    async function fetchData() {
+      const result = await (trainGameCard(state.auth.userId, state.auth.token));
+      if (!ignore) setCardObject(result); console.log(result);
+    }
+    fetchData();
+    return () => { ignore = true; };
+  }, [count]);
+
   const {
     addGradeButton,
     addToDifficultWordsButton,
@@ -33,13 +49,13 @@ const Main = () => {
     wordDeleteButton
   };
 
-  const [startPreview, setStart] = useState(true);
-  const [count, setCount] = useState(0);
-  const [answer, setAns] = useState(false);
-
   const handleNext = () => {
-    setAns(false);
-    setCount(count + 1);
+    if (answer === false) {
+      setAns(true);
+    } else {
+      setAns(false);
+      setCount(count + 1);
+    }
   };
 
   return (
@@ -63,31 +79,15 @@ const Main = () => {
         ) : (
           <>
             <div className={style.sliderContainer}>
-              {count > 0 ? (
-                <img
-                  src="https://image.flaticon.com/icons/png/512/130/130884.png"
-                  className={style.leftArrowBtn}
-                  onClick={() => { setCount(count - 1); }}
-                />
-              ) : (
-                <img
-                  src="https://image.flaticon.com/icons/png/512/130/130884.png"
-                  className={style.leftArrowBtnInactive}
-                />
-              )}
-              <Card cardObj={cardObj[count]} settings={settings} answer={answer} />
-              <img
-                src="https://image.flaticon.com/icons/png/512/130/130884.png"
-                className={style.rightArrowBtn}
-                onClick={handleNext}
-              />
+              <Card cardObj={cardObject} settings={settings} answer={answer} callback={setAns} count={count} />
             </div>
             <div className={style.controlContainer}>
               <button onClick={() => { setAns(true); }}>Ответить</button>
+              <button onClick={handleNext}>Далее</button>
               <div className={style.progressBar}>
                 {count + 1}
-                <progress value={count + 1} max={cardObj.length} />
-                {cardObj.length}
+                <progress value={count + 1} max={20} />
+                {20}
               </div>
             </div>
           </>
