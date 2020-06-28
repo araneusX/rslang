@@ -9,6 +9,8 @@ import {
 import { Header } from './commonComponents';
 import { StateContext } from './store/stateProvider';
 
+import SpeakIt from './pages/games/speakit/speakit';
+
 function App() {
   const { state } = useContext(StateContext);
   const { isAuth } = state.auth;
@@ -23,6 +25,7 @@ function App() {
             <Route exact path="/main" component={Main} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/statistics" component={Statistics} />
+            <Route exact path="/games" component={SpeakIt} />
           </>
           )}
           <Redirect to={isAuth ? '/main' : '/authorization'} />

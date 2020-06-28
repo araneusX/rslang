@@ -1,3 +1,4 @@
+import { Resolver, resolve } from 'dns';
 import { WordStatisticsInterface } from '../types';
 
 export async function getWords(group: number, page: number) {
@@ -7,11 +8,25 @@ export async function getWords(group: number, page: number) {
   return data;
 }
 
-export async function getWordById(id: number) {
+export async function getWordById(id: string) {
   const url = `https://afternoon-falls-25894.herokuapp.com/words/${id}`;
   const response = await fetch(url);
   const data = await response.json();
   return data;
+}
+
+export async function getManyWordsById(ids: string[]) {
+  const promises = ids.map((id) => async (arrWord: any[]) => {
+    const word: any = await getWordById(id);
+    return [].concat(...arrWord, word);
+  });
+  try {
+    const applyAsync = (acc: any, val: any) => acc.then(val);
+    const content = await promises.reduce(applyAsync, Promise.resolve([]));
+    return { content, ok: true };
+  } catch (error) {
+    return { content: error, ok: false };
+  }
 }
 
 function chunk(start: number) {
@@ -41,7 +56,7 @@ export const downloadNewWords = async (group: number, startWith: number, quantit
       content: words.slice(withWord, quantity + withWord)
     };
   } catch (error) {
-    return { ok: false, content: error };
+    return { ok: false, content: [] };
   }
 };
 

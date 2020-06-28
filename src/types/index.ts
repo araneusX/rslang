@@ -121,7 +121,7 @@ export interface WordStatisticsInterface {
 export interface BackendWordInterface {
   id: string,
   group: number,
-  page: number,
+  round: number,
   word: string,
   image: string,
   audio: string,
@@ -178,7 +178,26 @@ export interface SettingsInterface {
   optional : SettingsOptionalInterface
 }
 
+export interface SpeakitWordInterface extends BackendWordInterface {
+  sound: HTMLAudioElement,
+  isRecognized: boolean,
+  index: number
+}
+
+export type SpeakitScreenType = 'start' | 'main' | 'results';
+export type SpeakitModeType = 'user' | 'vocabulary';
+export interface SpeakitStateInterface {
+  round: number,
+  level: number,
+  screen: SpeakitScreenType,
+  words: SpeakitWordInterface[],
+  complete: boolean,
+  game: boolean,
+  mode: SpeakitModeType
+}
+
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
+  speakit: SpeakitStateInterface
 }
