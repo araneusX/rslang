@@ -1,4 +1,3 @@
-import { Resolver, resolve } from 'dns';
 import { WordStatisticsInterface } from '../types';
 
 export async function getWords(group: number, page: number) {
