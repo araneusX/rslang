@@ -1,18 +1,15 @@
 import React, { useContext, useEffect } from 'react';
-import start from './components/start';
-import main from './components/main';
+import Start from './components/start';
+import Main from './components/main';
 import Results from './components/results';
 
 import style from './speakit.module.scss';
 import { StateContext } from '../../../store/stateProvider';
-import { StatisticsContext } from '../../../statistics/statisticsProvider';
 
 type SpeakItPropsType = {};
 
 const SpeakIt: React.FC<SpeakItPropsType> = () => {
   const { state, dispatch } = useContext(StateContext);
-  const { words } = state.speakit;
-  const statistics = useContext(StatisticsContext);
   const { screen } = state.speakit;
 
   useEffect(() => (() => {
@@ -21,8 +18,8 @@ const SpeakIt: React.FC<SpeakItPropsType> = () => {
 
   return (
     <div className={style.page}>
-      {screen === 'start' && <start />}
-      { screen === 'main' && <main />}
+      {screen === 'start' && <Start />}
+      { screen === 'main' && <Main />}
       { screen === 'results' && <Results />}
     </div>
   );

@@ -12,9 +12,9 @@ import Recognition from '../recognition';
 import { StateContext } from '../../../../store/stateProvider';
 import { StatisticsContext } from '../../../../statistics/statisticsProvider';
 
-type mainPropsType = {};
+type MainPropsType = {};
 
-const main: React.FC<mainPropsType> = () => {
+const Main: React.FC<MainPropsType> = () => {
   const { state, dispatch } = useContext(StateContext);
   const {
     round, level, words, game, mode
@@ -321,4 +321,4 @@ const main: React.FC<mainPropsType> = () => {
   );
 };
 
-export default main;
+export default Main;

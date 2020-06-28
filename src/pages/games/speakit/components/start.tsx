@@ -4,9 +4,9 @@ import style from './start.module.scss';
 import { SpeakitScreenType } from '../../../../types';
 import { StateContext } from '../../../../store/stateProvider';
 
-type startPropsType = {};
+type StartPropsType = {};
 
-const start: React.FC<startPropsType> = () => {
+const Start: React.FC<StartPropsType> = () => {
   const { dispatch } = useContext(StateContext);
 
   const handleStart = () => {
@@ -22,4 +22,4 @@ const start: React.FC<startPropsType> = () => {
   );
 };
 
-export default start;
+export default Start;
