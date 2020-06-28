@@ -1,5 +1,5 @@
 import {
-  UserStatisticsInterface, WordStatisticsInterface, DayInterface, SettingsInterface
+  UserStatisticsInterface, WordStatisticsInterface, DayInterface, SettingsInterface, TrainingStateInterface
 } from '../types';
 
 export const initialUserStatisticsObject: UserStatisticsInterface = {
@@ -53,4 +53,10 @@ export const initSettingsObject: SettingsInterface = {
     addToDifficultWordsButton: false,
     addGradeButton: false
   }
+};
+
+export const initTrainingObject: TrainingStateInterface = {
+  screen: 'start',
+  isAudioOn: true,
+  complete: false
 };
