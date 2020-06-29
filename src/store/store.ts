@@ -1,5 +1,7 @@
-import { initSettingsObject } from '../constants';
-import { SettingsInterface, StateInterface, AuthInterface } from '../types';
+import { initSettingsObject, initialSpeakitObject } from '../constants';
+import {
+  SettingsInterface, StateInterface, AuthInterface, SpeakitStateInterface
+} from '../types';
 
 const auth: AuthInterface = {
   isAuth: false,
@@ -9,7 +11,10 @@ const auth: AuthInterface = {
 
 const settings: SettingsInterface = { ...initSettingsObject };
 
+const speakit: SpeakitStateInterface = { ...initialSpeakitObject };
+
 export default {
   auth,
-  settings
+  settings,
+  speakit
 } as StateInterface;

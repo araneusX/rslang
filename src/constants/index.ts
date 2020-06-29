@@ -1,5 +1,5 @@
 import {
-  UserStatisticsInterface, WordStatisticsInterface, DayInterface, SettingsInterface
+  UserStatisticsInterface, WordStatisticsInterface, DayInterface, SettingsInterface, SpeakitStateInterface
 } from '../types';
 
 export const initialUserStatisticsObject: UserStatisticsInterface = {
@@ -53,4 +53,14 @@ export const initSettingsObject: SettingsInterface = {
     addToDifficultWordsButton: false,
     addGrageButton: false
   }
+};
+
+export const initialSpeakitObject: SpeakitStateInterface = {
+  level: 0,
+  round: 0,
+  screen: 'start',
+  words: [],
+  complete: false,
+  game: false,
+  mode: 'user'
 };
