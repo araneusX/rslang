@@ -1,2 +1,14 @@
-// import style from './games.module.scss';
-export { default } from './puzzle/puzzle';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import style from './games.module.scss';
+
+const Games = () => (
+  <>
+    <nav className={style.tiles}>
+      <Link to="/games/puzzle">
+        <div className={style.tile}>Puzzle</div>
+      </Link>
+    </nav>
+  </>
+);
+export default Games;
