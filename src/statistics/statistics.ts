@@ -245,6 +245,7 @@ const statistics: StatisticsInterface = {
 
   async initUser(userId, token) {
     this.isInit = this.userId === userId;
+
     this.userId = userId;
     this.token = token;
     if (!this.isInit) {
@@ -264,6 +265,7 @@ const statistics: StatisticsInterface = {
       this.days[key].date = getFormattedDate();
       this.series = 0;
       const statisticsData:any = await getUserStatistics(userId, token);
+
       if (statisticsData.status === 404) {
         const userStatistics: UserStatisticsInterface = {
           days: this.days,
@@ -271,7 +273,9 @@ const statistics: StatisticsInterface = {
           miniGames: this.miniGames
         };
         const statisticsRes = await setUserStatistics(this.userId, this.token, userStatistics);
-        return { ok: statisticsRes.ok };
+        if (!statisticsRes.ok) {
+          return { ok: false };
+        }
       }
 
       if (!statisticsData.ok) {
@@ -310,6 +314,7 @@ const statistics: StatisticsInterface = {
         this.days[nowKey] = createDayStatisticsObject();
       }
     }
+
     return { ok: true };
   }
 };

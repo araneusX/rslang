@@ -108,12 +108,14 @@ export const getUserStatistics = async (userId: string, token: string) => {
         Accept: 'application/json'
       }
     });
+
     if (!rawResponse.ok) {
       return { ok: false, status: rawResponse.status };
     }
+
     const content = await rawResponse.json();
     const dataStatistics = content.optional;
-    if (!dataStatistics.days) {
+    if (!(dataStatistics.days && dataStatistics.progress && dataStatistics.mini)) {
       return { ok: false, status: 404 };
     }
     const statistics = {
