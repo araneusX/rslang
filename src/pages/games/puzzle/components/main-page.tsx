@@ -1,44 +1,37 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useContext } from 'react';
 import getPhrase from '../ts/api.phrase';
-import RunPuzzle from './RunPuzzle';
-import { Game, GameNode } from '../ts/Game';
+import { Game } from '../ts/Game';
 import GameRounds from './main-page.rounds';
 import '../dragHandler';
+import { PuzzleContext } from '../context';
+import ImgAndWords from './ImgAndWords';
+import AssembledGamePuzzle from './AssembledGamePuzzle';
 
 const MainPage = () => {
-  const [level, setLevel] = useState('0');
-  const [page, setPage] = useState('0');
-  const [data, setData] = useState<null | GameNode>(null);
-  const [dataRun, setDataRun] = useState(null);
+  const { state, dispatch } = useContext(PuzzleContext);
 
   useEffect(() => {
     async function phrase() {
-      const res = await getPhrase(level, page);
-      setData(new Game(res));
-      setDataRun(null);
+      const response = await getPhrase(state.level, state.page);
+      console.log('use eff:', response);
+      dispatch({ type: 'set data', value: new Game(response) });
     }
     phrase();
-  }, [level, page]);
-
-  const updateData = (value: any) => {
-    if (value === 'get') {
-      return data;
-    }
-    setDataRun(value);
-    return 'set';
-  };
+  }, []);
 
   function handleChangeLevel(e: { target: HTMLSelectElement; }) {
     const { target } = e;
-    setLevel(target.value);
+    dispatch({ type: 'set level', value: target.value });
+    dispatch({ type: 'set mode', value: 'image and words' });
   }
 
   function handleChangePage(e: { target: HTMLSelectElement; }) {
     const { target } = e;
-    setPage(target.value);
+    dispatch({ type: 'set page', value: target.value });
+    dispatch({ type: 'set mode', value: 'image and words' });
   }
 
-  if (data) {
+  if (state.data) {
     return (
       <div className="main-page">
         <nav className="main-page-nav">
@@ -108,10 +101,8 @@ const MainPage = () => {
             <div className="image-all-prompt prompt" title="on / off cell image prompt" />
           </div>
         </nav>
-        {dataRun && <GameRounds data={dataRun} />}
-        <div className="wrapper-game">
-          <RunPuzzle updateData={updateData} />
-        </div>
+        { state.mode === 'image and words' && <ImgAndWords /> }
+        { state.mode === 'assembled-puzzle' && <AssembledGamePuzzle /> }
       </div>
     );
   }

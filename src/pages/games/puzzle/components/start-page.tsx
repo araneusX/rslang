@@ -5,8 +5,7 @@ function StartPage() {
   const { dispatch } = useContext(PuzzleContext);
 
   function handleStart() {
-    console.log(dispatch);
-    dispatch({ type: 'screen', value: 'main-page' });
+    dispatch({ type: 'set screen', value: 'main-page' });
   }
 
   return (

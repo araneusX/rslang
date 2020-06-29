@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { PuzzleContext } from '../context';
+import GameRounds from './main-page.rounds';
 
-function AssembledGamePuzzle(props: any) {
-  const { data } = props;
-  console.log('assembled game puzzle: ', props);
+function AssembledGamePuzzle() {
+  const { state } = useContext(PuzzleContext);
+  const { data } = state;
+  let gameY;
+  let height;
+
+  const childrenPuzzle: any = [];
 
   const wrapperGame = document.querySelector('.wrapper-game');
+
   let bounding: DOMRect;
   let game;
   if (wrapperGame) {
     bounding = wrapperGame.getBoundingClientRect();
     game = wrapperGame.children[0].children;
-  }
 
-  const childrenPuzzle: any = [];
+    const boundingRound = game[0].getBoundingClientRect();
+    gameY = Math.abs(boundingRound.bottom);
+    height = boundingRound.height;
+  }
 
   const childrenAssembledPuzzle: any = [];
   const assembledGamePuzzle = React.createElement('div', {
@@ -94,7 +103,14 @@ function AssembledGamePuzzle(props: any) {
       });
     });
   }
-  return assembledGamePuzzle;
+  return (
+    <>
+      <GameRounds data={data} childrenPuzzle={childrenPuzzle} gameY={gameY} height={height} />
+      <div className="wrapper-game">
+        {assembledGamePuzzle}
+      </div>
+    </>
+  );
 }
 
 export default AssembledGamePuzzle;

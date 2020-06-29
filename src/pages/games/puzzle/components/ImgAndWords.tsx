@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { SentenceNode } from '../ts/Game';
+import { PuzzleContext } from '../context';
 
-const ImgAndWords = (props: any) => {
-  const { data, handleOnload } = props;
+const ImgAndWords = () => {
+  const { state, dispatch } = useContext(PuzzleContext);
+  const { data } = state;
 
-  console.log('img and words:', props);
+  function handleOnload() {
+    dispatch({ type: 'set mode', value: 'assembled-puzzle' });
+  }
+
   const sent: any = [];
   data.sentences.forEach((sentence: SentenceNode, index: number) => {
     sent.push(
@@ -33,7 +38,7 @@ const ImgAndWords = (props: any) => {
     src: `https://raw.githubusercontent.com/mrINEX/english-puzzle/english-puzzle/english-puzzle/src/assets/data_paintings/${data.pageImage.imageSrc}`
   }));
 
-  return startGame;
+  return <div className="wrapper-game">{startGame}</div>;
 };
 
 export default ImgAndWords;

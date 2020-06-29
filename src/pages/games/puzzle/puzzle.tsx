@@ -5,7 +5,6 @@ import { PuzzleContextProvider, PuzzleContext } from './context';
 
 const PuzzleStart = () => {
   const { state } = useContext(PuzzleContext);
-  console.log('from render page: ', state);
 
   return (
     <>
