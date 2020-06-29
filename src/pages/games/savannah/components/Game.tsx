@@ -1,16 +1,22 @@
 import React, {
-  useEffect, useState, useCallback, useMemo
+  useEffect, useState, useCallback, useMemo, useContext
 } from 'react';
 import style from '../savannah.module.scss';
 import StatisticGame from './StatisticGame';
+import { initialSavannah, StartSavannah, WordForGame } from '../helpers/types';
+import { getManyWordsById, getWords } from '../../../../backend/words';
+import { StatisticsContext } from '../../../../statistics/statisticsProvider';
+import { StatisticsInterface } from '../../../../types';
+import { StateContext } from '../../../../store/stateProvider';
 
 interface Props {
-  savannah: {[key:string]: any},
-  setSavannah: any
+  savannah: StartSavannah,
+  setSavannah: (val: object)=>void
 }
 
 const Game = (props:Props) => {
-  const levelsSelect = [0, 1, 2, 3, 4, 5, 6];
+  const statistics = useContext(StatisticsContext) as StatisticsInterface;
+  const levelsSelect = [1, 2, 3, 4, 5, 6, 'User Word'];
   const { savannah, setSavannah } = props;
   const startSecondsToAnswerValue = 250;
   const gameLength = savannah.wordForGame.length;
@@ -19,6 +25,44 @@ const Game = (props:Props) => {
   const [word, setWord] = useState(savannah.wordForGame[0].word);
   const [answer, setAnswer] = useState(savannah.wordForGame[0].wordTranslate);
   const [step, setStep] = useState(0);
+  const { state } = useContext(StateContext);
+  const { auth } = state;
+
+  const changeLevel = async (e: React.FormEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    const { value } : any = e.target;
+    const userLearnedWord = statistics.getAllWordsId();
+    if (value === 'User Word' && userLearnedWord.length >= 20) {
+      const nextWordForGame = await getManyWordsById(userLearnedWord.slice(0, 20));
+      setSavannah({
+        ...initialSavannah,
+        wordForGame: nextWordForGame.content,
+        allAnswerArray: nextWordForGame.content.map((i:WordForGame) => i.wordTranslate)
+      });
+    } else {
+      const level = (value === 'User Word') ? 0 : (value - 1);
+      const nextWordForGame = await getWords(1, level);
+
+      let stateMiniGame: any = localStorage.getItem('stateMiniGame');
+      if (!stateMiniGame) {
+        stateMiniGame = {
+          [`savannah-${auth.userId}`]: {
+            [level]: 0
+          }
+        };
+        localStorage.setItem('stateMiniGame', JSON.stringify(stateMiniGame));
+      }
+
+      setSavannah({
+        ...initialSavannah,
+        level,
+        setLevel: true,
+        wordForGame: nextWordForGame,
+        allAnswerArray: nextWordForGame.map((i:WordForGame) => i.wordTranslate)
+      });
+
+    }
+  };
 
   const nextWord = useCallback(() => {
     const nextStep = step + 1;
@@ -113,7 +157,7 @@ const Game = (props:Props) => {
               </div>
               <div>
                 select level:
-                <select name="levelSelect" id="levelSelect">
+                <select name="levelSelect" id="levelSelect" onChange={changeLevel}>
                   {levelsSelect.map((i) => <option key={i} value={i}>{i}</option>)}
                 </select>
               </div>
