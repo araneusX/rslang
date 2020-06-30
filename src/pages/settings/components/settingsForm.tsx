@@ -10,12 +10,32 @@ const SettingsForm = () => {
 
   const [setting, setSetting] = useState(settings);
   const [loader, setLoader] = useState(false);
+  const levelsArray: number[] = [1, 2, 3, 4, 5, 6];
+
+  function changeLevel(event: React.ChangeEvent<HTMLSelectElement>):void {
+    const { value } = event.target;
+    const newSetting = {
+      ...setting
+    };
+    setting.optional.level = Number(value);
+    setSetting(newSetting);
+  }
 
   function changeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
     const { value, name } = event.target;
     const newSetting = {
       ...setting
     };
+
+    const arrayCardViewSettings = [
+      { key: 'image', value: setting.optional.imageToCard },
+      { key: 'pronounse', value: setting.optional.pronounseToCard },
+      { key: 'transcription', value: setting.optional.transcriptionToCard },
+      { key: 'translate', value: setting.optional.translateToTheCard },
+      { key: 'example', value: setting.optional.exampleToCard },
+      { key: 'explain', value: setting.optional.explainToCard }
+    ];
+    const arrayCardViewSettingsLength = arrayCardViewSettings.filter((i) => i.value);
 
     switch (name) {
       case 'cards-quantity':
@@ -25,23 +45,29 @@ const SettingsForm = () => {
         setting.optional.maxCountCard = Number(value);
         break;
       case 'image':
+        if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
         setting.optional.imageToCard = !setting.optional.imageToCard;
         break;
       case 'pronounse':
+        if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
         setting.optional.pronounseToCard = !setting.optional.pronounseToCard;
         break;
       case 'transcription':
+        if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
         setting.optional.transcriptionToCard = !setting.optional
           .transcriptionToCard;
         break;
       case 'translate':
+        if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
         setting.optional.translateToTheCard = !setting.optional
           .translateToTheCard;
         break;
       case 'example':
+        if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
         setting.optional.exampleToCard = !setting.optional.exampleToCard;
         break;
       case 'explain':
+        if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
         setting.optional.explainToCard = !setting.optional.explainToCard;
         break;
       case 'show-answer':
@@ -105,6 +131,13 @@ const SettingsForm = () => {
             max="50"
           />
           New words quantity
+        </label>
+        <br />
+        <label htmlFor="level">
+          Level:
+          <select name="level" id="level" value={setting.optional.level} onChange={changeLevel}>
+            {levelsArray.map((level) => <option key={level} value={level}>{level}</option>)}
+          </select>
         </label>
         <br />
       </fieldset>

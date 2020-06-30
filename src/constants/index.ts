@@ -51,7 +51,8 @@ export const initSettingsObject: SettingsInterface = {
     showAnswerButton: false,
     wordDeleteButton: false,
     addToDifficultWordsButton: false,
-    addGrageButton: false
+    addGrageButton: false,
+    level: 1
   }
 };
 
