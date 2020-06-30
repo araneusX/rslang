@@ -17,8 +17,8 @@ const Full = () => {
   const minCards = days.reduce((acc, day) => (
     acc > day.cards + day.newWords ? day.cards + day.newWords : acc),
   0);
-  const viewBox = { x: 300, y: 300 };
-  const padding = 10;
+  const viewBox = { x: 400, y: 400 };
+  const padding = 50;
   const stepX = (viewBox.x - padding * 2) / (days.length - 1);
   const stepY = (viewBox.y - padding * 2) / ((maxCards - minCards) || 1);
   const points = days.map((day, i) => ({
@@ -37,16 +37,28 @@ const Full = () => {
       >
         <path d={path} stroke="black" strokeWidth="2" fill="transparent" />
         {days.map((day, i) => (
-          <circle
-            cx={(i * stepX) + padding}
-            cy={(viewBox.y - padding) - (day.cards * stepY)}
-            r={5}
-            stroke="black"
-            strokeWidth="2"
-            fill="red"
-            // eslint-disable-next-line react/no-array-index-key
+          <g
+          // eslint-disable-next-line react/no-array-index-key
             key={i}
-          />
+
+          >
+            <circle
+              className={style.point}
+              cx={points[i].x}
+              cy={points[i].y}
+              r={5}
+              stroke="black"
+              strokeWidth="2"
+            />
+
+            <text
+              className={style.text}
+              x={points[i].x - 5}
+              y={points[i].y + 20}
+            >
+              {day.date}
+            </text>
+          </g>
         ))}
       </svg>
       {/* <div>

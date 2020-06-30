@@ -12,3 +12,19 @@
   height: 300px;
   width: 300px;
 }
+
+.point {
+  fill: red;
+
+  &:hover {
+    fill: green;
+  }
+}
+
+.point:hover+.text {
+  display: block;
+}
+
+.text {
+  display: none;
+}
