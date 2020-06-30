@@ -5,15 +5,12 @@ import { StartSavannah, initialSavannah } from './helpers/types';
 import { getWords, getManyWordsById } from '../../../backend/words';
 import { StatisticsContext } from '../../../statistics/statisticsProvider';
 import { StatisticsInterface } from '../../../types';
-import { StateContext } from '../../../store/stateProvider';
 
 const Savannah = () => {
   const startSavannah: StartSavannah = initialSavannah;
 
   const [savannah, setSavannah] = useState(startSavannah);
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
-  const { state } = useContext(StateContext);
-  const { auth } = state;
 
   const startData = async (page:number, level:number) => {
     const gameWord = await getWords(page, level);
