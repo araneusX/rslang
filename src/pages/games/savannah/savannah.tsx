@@ -19,6 +19,7 @@ const Savannah = () => {
     const gameWord = await getWords(page, level);
     setSavannah({
       ...savannah,
+      selectPage: page,
       wordForGame: gameWord,
       allAnswerArray: gameWord.map((i:any) => i.wordTranslate)
     });
@@ -28,20 +29,7 @@ const Savannah = () => {
     const userLearnedWord = statistics.getAllWordsId();
 
     if (userLearnedWord.length < 20 || savannah.setLevel) {
-      let stateMiniGame: any = localStorage.getItem('stateMiniGame');
-      if (stateMiniGame) {
-        stateMiniGame = JSON.parse(stateMiniGame);
-      } else {
-        stateMiniGame = {
-          [`savannah-${auth.userId}`]: {
-            [savannah.level]: 0
-          }
-
-        };
-        localStorage.setItem('stateMiniGame', JSON.stringify(stateMiniGame));
-      }
-      const page = stateMiniGame[`savannah-${auth.userId}`][savannah.level];
-
+      const page = Math.floor(Math.random() * (1 - 29 + 1)) + 1;
       startData(page, savannah.level);
     } else {
       getManyWordsById(userLearnedWord.slice(0, 20)).then((res) => {
