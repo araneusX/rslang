@@ -3,7 +3,7 @@ import {
   BrowserRouter, Switch, Route, Redirect
 } from 'react-router-dom';
 import {
-  Authorization, Main, Settings, Statistics, Games, Savannah
+  Authorization, Main, Settings, Statistics, SpeakIt, Savannah, Games
 } from './pages';
 
 import { Header } from './commonComponents';
@@ -25,6 +25,8 @@ function App() {
             <Route exact path="/statistics" component={Statistics} />
             <Route exact path="/games" component={Games} />
             <Route exact path="/games/savannah" component={Savannah} />
+            <Route exact path="/games/speakit" component={SpeakIt} />
+
           </>
           )}
           <Redirect to={isAuth ? '/main' : '/authorization'} />
