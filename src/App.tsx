@@ -24,8 +24,8 @@ function App() {
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/statistics" component={Statistics} />
             <Route exact path="/games" component={Games} />
-            <Route exact path="/games/savannah" component={Savannah} />
             <Route exact path="/games/speakit" component={SpeakIt} />
+            <Route exact path="/games/savannah" component={Savannah} />
 
           </>
           )}

@@ -7,7 +7,6 @@ import { initialSavannah, StartSavannah, WordForGame } from '../helpers/types';
 import { getManyWordsById, getWords } from '../../../../backend/words';
 import { StatisticsContext } from '../../../../statistics/statisticsProvider';
 import { StatisticsInterface } from '../../../../types';
-import { StateContext } from '../../../../store/stateProvider';
 
 interface Props {
   savannah: StartSavannah,
@@ -25,13 +24,11 @@ const Game = (props:Props) => {
   const [word, setWord] = useState(savannah.wordForGame[0].word);
   const [answer, setAnswer] = useState(savannah.wordForGame[0].wordTranslate);
   const [step, setStep] = useState(0);
-  const { state } = useContext(StateContext);
-  const { auth } = state;
+  const userLearnedWord = statistics.getAllWordsId();
 
   const changeLevel = async (e: React.FormEvent<HTMLSelectElement>) => {
     e.preventDefault();
     const { value } : any = e.target;
-    const userLearnedWord = statistics.getAllWordsId();
     if (value === 'User Word' && userLearnedWord.length >= 20) {
       const nextWordForGame = await getManyWordsById(userLearnedWord.slice(0, 20));
       setSavannah({
@@ -43,16 +40,6 @@ const Game = (props:Props) => {
       const level = (value === 'User Word') ? 0 : (value - 1);
       const nextWordForGame = await getWords(1, level);
 
-      let stateMiniGame: any = localStorage.getItem('stateMiniGame');
-      if (!stateMiniGame) {
-        stateMiniGame = {
-          [`savannah-${auth.userId}`]: {
-            [level]: 0
-          }
-        };
-        localStorage.setItem('stateMiniGame', JSON.stringify(stateMiniGame));
-      }
-
       setSavannah({
         ...initialSavannah,
         level,
@@ -60,7 +47,6 @@ const Game = (props:Props) => {
         wordForGame: nextWordForGame,
         allAnswerArray: nextWordForGame.map((i:WordForGame) => i.wordTranslate)
       });
-
     }
   };
 
@@ -148,17 +134,20 @@ const Game = (props:Props) => {
           <div>
             <div>
               <div>
-                sound: on
-                <button type="button">Off sound</button>
-              </div>
-              <div>
                 life:
                 { savannah.life }
               </div>
               <div>
                 select level:
-                <select name="levelSelect" id="levelSelect" onChange={changeLevel}>
-                  {levelsSelect.map((i) => <option key={i} value={i}>{i}</option>)}
+                <select name="levelSelect" id="levelSelect" onChange={changeLevel} value={!savannah.setLevel ? 'User Word' : savannah.level + 1}>
+                  {levelsSelect.map((i) => (
+                    <option
+                      key={i}
+                      value={i}
+                    >
+                      {i}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

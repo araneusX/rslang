@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import style from './main.module.scss';
+import style from './games.module.scss';
 
 const Games = () => (
   <>

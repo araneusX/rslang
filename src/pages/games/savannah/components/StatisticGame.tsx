@@ -3,7 +3,6 @@ import { initialSavannah, StartSavannah, WordForGame } from '../helpers/types';
 import { getWords, getManyWordsById } from '../../../../backend/words';
 import { StatisticsContext } from '../../../../statistics/statisticsProvider';
 import { StatisticsInterface } from '../../../../types';
-import { StateContext } from '../../../../store/stateProvider';
 
 interface Props {
   savannah: StartSavannah,
@@ -13,8 +12,7 @@ interface Props {
 const StatisticGame = (props:Props) => {
   const { savannah, setSavannah } = props;
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
-  const { state } = useContext(StateContext);
-  const { auth } = state;
+
   const [viewStatistic, setViewStatistic] = useState(false);
   const [allStatistic, setAllStatistic]:any[] = useState([{}]);
 
@@ -22,25 +20,15 @@ const StatisticGame = (props:Props) => {
     const userLearnedWord = statistics.getAllWordsId();
 
     if (userLearnedWord.length < 20 || savannah.setLevel) {
-      let stateMiniGame: any = localStorage.getItem('stateMiniGame');
-      stateMiniGame = JSON.parse(stateMiniGame);
-      let page = stateMiniGame[`savannah-${auth.userId}`][savannah.level];
-      page = page === 29 ? 1 : page + 1;
+      const page = Math.floor(Math.random() * (1 - 29 + 1)) + 1;
       const nextWordForGame = await getWords(page, savannah.level);
 
-      stateMiniGame = {
-        ...stateMiniGame,
-        [`savannah-${auth.userId}`]: {
-          [savannah.level]: page === 29 ? 1 : page + 1
-        }
-      };
       setSavannah({
         ...initialSavannah,
+        selectPage: page,
         wordForGame: nextWordForGame,
         allAnswerArray: nextWordForGame.map((i:WordForGame) => i.wordTranslate)
       });
-
-      localStorage.setItem('stateMiniGame', JSON.stringify(stateMiniGame));
     } else {
       await getManyWordsById(userLearnedWord.slice(0, 20)).then((res) => {
         const nextWordForGame = res.content;
@@ -57,9 +45,7 @@ const StatisticGame = (props:Props) => {
     const userLearnedWord = statistics.getAllWordsId();
 
     if (userLearnedWord.length < 20 || savannah.setLevel) {
-      let stateMiniGame: any = localStorage.getItem('stateMiniGame');
-      stateMiniGame = JSON.parse(stateMiniGame);
-      const page = stateMiniGame[`savannah-${auth.userId}`][savannah.level];
+      const page = savannah.selectPage;
       const nextWordForGame = await getWords(page, savannah.level);
 
       setSavannah({
