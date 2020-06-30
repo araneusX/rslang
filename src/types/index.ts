@@ -121,7 +121,7 @@ export interface WordStatisticsInterface {
 export interface BackendWordInterface {
   id: string,
   group: number,
-  page: number,
+  round: number,
   word: string,
   image: string,
   audio: string,

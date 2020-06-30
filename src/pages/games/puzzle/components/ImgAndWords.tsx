@@ -5,6 +5,9 @@ import { PuzzleContext } from '../context';
 const ImgAndWords = () => {
   const { state, dispatch } = useContext(PuzzleContext);
   const { data } = state;
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
   function handleOnload() {
     dispatch({ type: 'set mode', value: 'assembled-puzzle' });

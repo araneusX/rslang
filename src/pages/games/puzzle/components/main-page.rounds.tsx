@@ -1,22 +1,39 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { isDisabledText, isDisabledAudio } from '../ts/isDisabled';
-import { PuzzleContext } from '../context';
 
 function GameRounds(props: any) {
-  // const { state, dispatch } = useContext(PuzzleContext);
   const { data } = props;
   const { childrenPuzzle } = props;
-  let { gameY } = props;
+  const { gameY } = props;
   const { height } = props;
+  const { assembledDOM } = props;
 
   const [sentenceNumber, setSentenceNumber] = useState(0);
 
-  const assembledGamePuzzleDOM = document.querySelector('.wrapper-assembled-game-puzzle')?.children;
-  if (assembledGamePuzzleDOM) {
-    Array.from(assembledGamePuzzleDOM).forEach((sentence) => {
+  const { puzzleChld } = childrenPuzzle[sentenceNumber];
+
+  function roundSentence(puzzle: any[]) {
+    const roundWords: any = [];
+    puzzle.forEach((word: any) => {
+      roundWords.push(React.createElement(
+        word.el, word.property, word.word
+      ));
+    });
+    return roundWords;
+  }
+
+  const [visibleDontKnow, setVisibleDontKnow] = useState(true);
+  const [visibleCheck, setVisibleCheck] = useState(false);
+  const [visibleContinue, setVisibleContinue] = useState(false);
+  const [visibleResults, setVisibleResults] = useState(false);
+
+  useEffect(() => {
+    Array.from(assembledDOM.current.children).forEach((sentence: any) => {
       sentence.classList.remove('opacity-full', 'event-none-opacity-full');
     });
-  }
+
+    assembledDOM.current.children[sentenceNumber].classList.add('opacity-full');
+  });
 
   const classAudio = isDisabledAudio();
   const pronunciationAudio = React.createElement('div', {
@@ -35,8 +52,37 @@ function GameRounds(props: any) {
     className: 'wrapper-auto-pronunciation'
   }, pronunciationAudio, pronunciationText);
 
+  function handleDontKnowButton() {
+    const isDisabled = document.querySelector('.volume-prompt')?.classList.contains('disabled');
+    if (!isDisabled) {
+      data.sentences[sentenceNumber].audio.play();
+    }
+    const sentence = assembledDOM.current.children[sentenceNumber];
+    sentence.setAttribute('data-is-correct', 'false');
+    // sentence.classList.remove('opacity-full');
+    // sentence.classList.add('event-none-opacity-full');
+    // console.log(sentence.classList);
+
+    Array.from(assembledDOM.current.children[sentenceNumber].children)
+      .forEach((el: any, index: number) => {
+        el.textContent = data.sentences[sentenceNumber].words[index];
+      });
+
+    setVisibleDontKnow(!visibleDontKnow);
+    setVisibleContinue(!visibleContinue);
+  }
+
+  function handleContinueButton() {
+    if (sentenceNumber < 9) {
+      setSentenceNumber(sentenceNumber + 1);
+      setVisibleDontKnow(!visibleDontKnow);
+      setVisibleContinue(!visibleContinue);
+    }
+  }
+
   const dontKnowButton = React.createElement('button', {
     className: 'btn game-round-btn dont-know-botton',
+    onClick: handleDontKnowButton,
     type: 'button'
   }, "I don't know");
   const checkButton = React.createElement('button', {
@@ -45,35 +91,22 @@ function GameRounds(props: any) {
   }, 'Check');
   const continueButton = React.createElement('button', {
     className: 'btn game-round-btn continue-botton',
+    onClick: handleContinueButton,
     type: 'button'
   }, 'Continue');
   const resultsButton = React.createElement('button', {
     className: 'btn game-round-btn results-botton',
     type: 'button'
   }, 'Results');
+
   const gameRoundControls = React.createElement('div', {
     className: 'game-round-controls'
-  }, dontKnowButton, checkButton, continueButton, resultsButton);
+  }, visibleDontKnow && dontKnowButton,
+  visibleCheck && checkButton,
+  visibleContinue && continueButton,
+  visibleResults && resultsButton);
 
-  if (assembledGamePuzzleDOM) {
-    assembledGamePuzzleDOM[sentenceNumber].classList.add('opacity-full');
-  }
   if (sentenceNumber === 0) { window.scrollTo({ top: 0 }); }
-
-  if (sentenceNumber !== 0) {
-    gameY += height;
-  }
-
-  const { puzzleChld } = childrenPuzzle[sentenceNumber];
-  function roundSentence(puzzle: any[]) {
-    const roundWords: any = [];
-    puzzle.forEach((word: any) => {
-      roundWords.push(React.createElement(
-        word.el, word.property, word.word
-      ));
-    });
-    return roundWords;
-  }
 
   const GameRoundWords = React.createElement('div', {
     className: 'game-round-words'
@@ -82,7 +115,7 @@ function GameRounds(props: any) {
   const wrapperGameRound = React.createElement('div', {
     className: 'wrapper-game-round',
     style: {
-      top: `${gameY}px`
+      top: `${gameY + (height * sentenceNumber)}px`
     }
   }, GameRoundWords, gameRoundControls);
 

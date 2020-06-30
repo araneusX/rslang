@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-// import { GameNode } from './ts/Game';
 
 const initPuzzle: any = {
   level: '0',
@@ -9,7 +8,6 @@ const initPuzzle: any = {
 };
 
 function reducer(state: any, action: any) {
-  console.log('from reducer--=> action:', action, 'state:', state);
   switch (action.type) {
     case 'set level':
       return { ...state, level: action.value };

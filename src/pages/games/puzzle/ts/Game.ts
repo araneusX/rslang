@@ -94,7 +94,7 @@ export class Game {
       const { textExampleTranslate } = value;
       const sentence = sentenceText.split(' ');
       if (sentence.length < 11 && sentences.length < 10) {
-        const path = `./src/assets/${value.audioExample.replace('files', 'data')}`;
+        const path = `https://raw.githubusercontent.com/mrINEX/english-puzzle/english-puzzle/english-puzzle/src/assets/${value.audioExample.replace('files', 'data')}`;
 
         sentenceNode.sentenceText = sentenceText;
         sentenceNode.textExampleTranslate = textExampleTranslate;
