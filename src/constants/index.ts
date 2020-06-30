@@ -64,3 +64,5 @@ export const initialSpeakitObject: SpeakitStateInterface = {
   game: false,
   mode: 'user'
 };
+
+export const SERVER = 'http://pacific-castle-12388.herokuapp.com'; // https://afternoon-falls-25894.herokuapp.com
