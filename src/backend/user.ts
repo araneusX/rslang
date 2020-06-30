@@ -39,7 +39,7 @@ export const logInUser = async (user: object) => {
 };
 
 export const createUser = async (user: object) => {
-  const url = '${SERVER}/users';
+  const url = `${SERVER}/users`;
   const options = {
     method: 'POST',
     headers: {
