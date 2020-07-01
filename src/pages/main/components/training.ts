@@ -28,7 +28,6 @@ const trainGameCard = async (userId: string, token: string) => {
     startWord = 0;
   }
   startWord += 1;
-
   let newWordsArray = await getNewWords(group, startWord, wordsPerDay);
   const wordId = statistics.getWordId();
 

@@ -1,7 +1,10 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useContext, useEffect } from 'react';
 import style from './card.module.scss';
 import { CardSettingsInterface, StatisticsInterface, BackendWordInterface } from '../../../types';
 import { StatisticsContext } from '../../../statistics/statisticsProvider';
+import { StateContext } from '../../../store/stateProvider';
 
 const Card: React.FC<{ cardObj: BackendWordInterface,
   settings: CardSettingsInterface, answer: boolean, callback: Function, count: number }> = (prop) => {
@@ -15,12 +18,16 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
 
   const [difficultLevel, setDifficultLevel] = useState<0|1|2>(0);
 
+  const { state, dispatch } = useContext(StateContext);
+  const { card } = state.training;
+
   useEffect(() => {
     let ignore = false;
     const isRight = cardObj.word.toLocaleLowerCase() === userAns.toLocaleLowerCase();
     async function fetchData() {
-      if (prop.count != 0) {
+      if (prop.count !== 0) {
         console.log(cardObj.id, isRight, difficultLevel, cardObj.group);
+        dispatch({ type: 'SET_TRAINING_CARD', value: cardObj });
         await (statistics.saveWord(cardObj.id, isRight, difficultLevel, cardObj.group));
         console.log('Данные отправляются');
       }
