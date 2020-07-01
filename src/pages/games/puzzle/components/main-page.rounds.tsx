@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { isDisabledText, isDisabledAudio } from '../ts/isDisabled';
 import { PuzzleContext } from '../context';
 
@@ -16,7 +16,8 @@ function GameRounds(props: any) {
 
   const [visibleDontKnow, setVisibleDontKnow] = useState(true);
   const [visibleContinue, setVisibleContinue] = useState(false);
-  const [visibleResults, setVisibleResults] = useState(false);
+
+  const [knowledge, setKnowledge] = useState<any>([]);
 
   useEffect(() => {
     Array.from(assembledDOM.current.children).forEach((sentence: any) => {
@@ -49,6 +50,12 @@ function GameRounds(props: any) {
       data.sentences[sentenceNumber].audio.play();
     }
     const sentence = assembledDOM.current.children[sentenceNumber];
+    knowledge.push({
+      audio: data.sentences[sentenceNumber].audio,
+      sentence: data.sentences[sentenceNumber].sentenceText,
+      knowledge: false
+    });
+    console.log('knowledge:',knowledge);
     sentence.setAttribute('data-is-correct', 'false');
 
     const rounds = document.querySelector('.game-round-words');
@@ -71,6 +78,8 @@ function GameRounds(props: any) {
       setVisibleDontKnow(!visibleDontKnow);
       setVisibleContinue(!visibleContinue);
     } else if (sentenceNumber === 9) {
+      console.log('knowledge:',knowledge);
+      dispatch({ type: 'set knowledge', value: knowledge });
       dispatch({ type: 'set mode', value: 'image' });
       // const currentGame = this.statisticsСollection();
       // storage(currentGame.innerHTML);
@@ -125,7 +134,13 @@ function GameRounds(props: any) {
         const isNext = countCorrectSentence === assembledDOM.current.children[sentenceNumber].children.length;
         if (isNext) {
           data.sentences[sentenceNumber].audio.play();
-          assembledDOM.current.children[sentenceNumber].setAttribute('data-is-correct', `${isNext}`);
+          knowledge.push({
+            audio: data.sentences[sentenceNumber].audio,
+            sentence: data.sentences[sentenceNumber].sentenceText,
+            knowledge: true
+          });
+          console.log('knowledge:',knowledge);
+          // assembledDOM.current.children[sentenceNumber].setAttribute('data-is-correct', `${isNext}`);
           setVisibleDontKnow(!visibleDontKnow);
           setVisibleContinue(!visibleContinue);
         }

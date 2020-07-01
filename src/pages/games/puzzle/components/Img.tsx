@@ -12,6 +12,10 @@ const Img = () => {
     dispatch({ type: 'set mode', value: 'image and words' });
   }
 
+  function handleResults() {
+    dispatch({ type: 'set screen', value: 'results-page' });
+  }
+
   const img = React.createElement('img', {
     alt: 'galery',
     className: 'image-sentences-game',
@@ -25,18 +29,21 @@ const Img = () => {
   }, 'Continue');
   const resultsButton = React.createElement('button', {
     className: 'btn game-round-btn results-botton',
+    onClick: handleResults,
     type: 'button'
   }, 'Results');
 
   const gameRoundControls = React.createElement('div', {
-    className: 'wrapper-game-round'
+    className: 'round-controls'
   }, continueButton, resultsButton);
 
   return (
-    <div className="wrapper-game">
+    <>
       {gameRoundControls}
-      {img}
-    </div>
+      <div className="wrapper-game">
+        {img}
+      </div>
+    </>
   );
 };
 

@@ -21,6 +21,8 @@ function reducer(state: any, action: any) {
       return { ...state, data: action.value };
     case 'set start':
       return { ...state, isStart: action.value };
+    case 'set knowledge':
+      return { ...state, knowledge: action.value };
     default:
       return state;
   }
