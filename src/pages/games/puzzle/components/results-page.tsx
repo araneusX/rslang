@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { PuzzleContext } from '../context';
 
-const Img = () => {
+const Results = () => {
   const { state, dispatch } = useContext(PuzzleContext);
   const { data } = state;
 
@@ -12,12 +12,6 @@ const Img = () => {
     dispatch({ type: 'set mode', value: 'image and words' });
   }
 
-  const img = React.createElement('img', {
-    alt: 'galery',
-    className: 'image-sentences-game',
-    src: `https://raw.githubusercontent.com/mrINEX/english-puzzle/english-puzzle/english-puzzle/src/assets/data_paintings/${data.pageImage.imageSrc}`
-  });
-
   const continueButton = React.createElement('button', {
     className: 'btn game-round-btn continue-botton',
     onClick: handleContinue,
@@ -26,7 +20,7 @@ const Img = () => {
   const resultsButton = React.createElement('button', {
     className: 'btn game-round-btn results-botton',
     type: 'button'
-  }, 'Results');
+  }, 'Statistics');
 
   const gameRoundControls = React.createElement('div', {
     className: 'wrapper-game-round'
@@ -35,9 +29,8 @@ const Img = () => {
   return (
     <div className="wrapper-game">
       {gameRoundControls}
-      {img}
     </div>
   );
 };
 
-export default Img;
+export default Results;

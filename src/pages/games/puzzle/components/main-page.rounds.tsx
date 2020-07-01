@@ -74,28 +74,7 @@ function GameRounds(props: any) {
       dispatch({ type: 'set mode', value: 'image' });
       // const currentGame = this.statisticsСollection();
       // storage(currentGame.innerHTML);
-      // resultsBotton.classList.remove('hidden');
-      // const wrapperGame = document.querySelector('.wrapper-game');
-      // const imageSentencesGame = createElement('img', {
-      //   classList: ['image-sentences-game'],
-      //   src: `./src/assets/data_paintings/${this.pageImage.imageSrc}`,
-      // }, {
-      //   zIndex: 50,
-      //   position: 'absolute',
-      // });
-      // wrapperGame.append(imageSentencesGame);
-      // this.sentenceNumber += 1;
-    } 
-    // else {
-    //   existRemove('.results-page');
-    //   document.querySelector('.main-page').classList.remove('hidden');
-    //   document.querySelector('.select-level').value = this.nextLevel;
-    //   document.querySelector('.select-level-page').value = this.nextPage;
-    //   getPhrase(this.nextLevel, this.nextPage)
-    //     .then((nodes) => {
-    //       new Game(nodes).prepareForMakePuzzle();
-    //     });
-    // }
+    }
   }
 
   const dontKnowButton = React.createElement('button', {
@@ -103,25 +82,16 @@ function GameRounds(props: any) {
     onClick: handleDontKnowButton,
     type: 'button'
   }, "I don't know");
-  const checkButton = React.createElement('button', {
-    className: 'btn game-round-btn check-botton',
-    type: 'button'
-  }, 'Check');
   const continueButton = React.createElement('button', {
     className: 'btn game-round-btn continue-botton',
     onClick: handleContinueButton,
     type: 'button'
   }, 'Continue');
-  const resultsButton = React.createElement('button', {
-    className: 'btn game-round-btn results-botton',
-    type: 'button'
-  }, 'Results');
 
   const gameRoundControls = React.createElement('div', {
     className: 'game-round-controls'
   }, visibleDontKnow && dontKnowButton,
-  visibleContinue && continueButton,
-  visibleResults && resultsButton);
+  visibleContinue && continueButton);
 
   if (sentenceNumber === 0) { window.scrollTo({ top: 0 }); }
 
@@ -161,7 +131,7 @@ function GameRounds(props: any) {
         }
       }
     }
-  }, puzzleChld.sort(() => Math.random() - 0.5)); // roundSentence(puzzleChld).sort(() => Math.random() - 0.5));
+  }, puzzleChld.sort(() => Math.random() - 0.5));
 
   const wrapperGameRound = React.createElement('div', {
     className: 'wrapper-game-round',
