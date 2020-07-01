@@ -33,15 +33,8 @@ function AssembledGamePuzzle() {
   if (game) {
     Array.from(game).forEach((sentence, heightIndex) => {
       const puzzleChld: any = [];
-      const sentencePuzzle = { puzzleChld };
-      childrenPuzzle.push(sentencePuzzle);
 
       const assembledPuzzleChld: any = [];
-      // const assembledSentencePuzzle = React.createElement('div', {
-      //   className: `assembled-sentence-game-puzzle opacity-full sentence-${heightIndex}`,
-      //   key: `${sentence.children.length}${heightIndex.toString()}`
-      // }, assembledPuzzleChld);
-      // childrenAssembledPuzzle.push(assembledSentencePuzzle);
 
       let widthPuzzle = 0;
       Array.from(sentence.children).forEach((word, index) => {
@@ -69,7 +62,7 @@ function AssembledGamePuzzle() {
 
         const property = {
           className: classPuzzle,
-          'data-key-word': `${word?.textContent}`,
+          'data-key-word': `${word.textContent}`,
           'data-key-sentence': `${heightIndex}`,
           key: `property${index.toString()}`,
           style: {
@@ -81,7 +74,8 @@ function AssembledGamePuzzle() {
             backgroundPositionY: `-${bound.height * heightIndex}px`
           }
         };
-        const wordPuzzle = { el: 'div', property, word: word.textContent };
+        const wordPuzzle = React.createElement('div', property, word.textContent);
+        // { el: 'div', property, word: word.textContent };
 
         const propertyAssembled = {
           className: classPuzzleAssempled,
@@ -103,6 +97,12 @@ function AssembledGamePuzzle() {
         assembledPuzzleChld.push(assembledWordPuzzle);
         puzzleChld.push(wordPuzzle);
       });
+
+      function removePuzzleClds() {
+        puzzleChld.length = 0;
+      }
+      const sentencePuzzle = { puzzleChld, removePuzzleClds };
+      childrenPuzzle.push(sentencePuzzle);
 
       const assembledSentencePuzzle = React.createElement('div', {
         className: `assembled-sentence-game-puzzle sentence-${heightIndex}`, // opacity-full

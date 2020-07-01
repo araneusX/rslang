@@ -5,6 +5,7 @@ import '../dragHandler';
 import { PuzzleContext } from '../context';
 import ImgAndWords from './ImgAndWords';
 import AssembledGamePuzzle from './AssembledGamePuzzle';
+import Img from './Img';
 
 const MainPage = () => {
   const { state, dispatch } = useContext(PuzzleContext);
@@ -103,6 +104,7 @@ const MainPage = () => {
       </nav>
       { state.mode === 'image and words' && <ImgAndWords /> }
       { state.mode === 'assembled-puzzle' && <AssembledGamePuzzle /> }
+      { state.mode === 'image' && <Img /> }
     </div>
   );
 };

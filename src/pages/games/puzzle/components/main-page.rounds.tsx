@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { isDisabledText, isDisabledAudio } from '../ts/isDisabled';
+import { PuzzleContext } from '../context';
 
 function GameRounds(props: any) {
+  const { dispatch } = useContext(PuzzleContext);
   const { data } = props;
   const { childrenPuzzle } = props;
   const { gameY } = props;
@@ -10,20 +12,9 @@ function GameRounds(props: any) {
 
   const [sentenceNumber, setSentenceNumber] = useState(0);
 
-  const { puzzleChld } = childrenPuzzle[sentenceNumber];
-
-  function roundSentence(puzzle: any[]) {
-    const roundWords: any = [];
-    puzzle.forEach((word: any) => {
-      roundWords.push(React.createElement(
-        word.el, word.property, word.word
-      ));
-    });
-    return roundWords;
-  }
+  const { puzzleChld, removePuzzleClds } = childrenPuzzle[sentenceNumber];
 
   const [visibleDontKnow, setVisibleDontKnow] = useState(true);
-  const [visibleCheck, setVisibleCheck] = useState(false);
   const [visibleContinue, setVisibleContinue] = useState(false);
   const [visibleResults, setVisibleResults] = useState(false);
 
@@ -59,14 +50,16 @@ function GameRounds(props: any) {
     }
     const sentence = assembledDOM.current.children[sentenceNumber];
     sentence.setAttribute('data-is-correct', 'false');
-    // sentence.classList.remove('opacity-full');
-    // sentence.classList.add('event-none-opacity-full');
-    // console.log(sentence.classList);
 
+    const rounds = document.querySelector('.game-round-words');
     Array.from(assembledDOM.current.children[sentenceNumber].children)
       .forEach((el: any, index: number) => {
+        if (el.children.length && rounds) {
+          rounds.append(el.children[0]);
+        }
         el.textContent = data.sentences[sentenceNumber].words[index];
       });
+    removePuzzleClds();
 
     setVisibleDontKnow(!visibleDontKnow);
     setVisibleContinue(!visibleContinue);
@@ -77,7 +70,32 @@ function GameRounds(props: any) {
       setSentenceNumber(sentenceNumber + 1);
       setVisibleDontKnow(!visibleDontKnow);
       setVisibleContinue(!visibleContinue);
-    }
+    } else if (sentenceNumber === 9) {
+      dispatch({ type: 'set mode', value: 'image' });
+      // const currentGame = this.statisticsСollection();
+      // storage(currentGame.innerHTML);
+      // resultsBotton.classList.remove('hidden');
+      // const wrapperGame = document.querySelector('.wrapper-game');
+      // const imageSentencesGame = createElement('img', {
+      //   classList: ['image-sentences-game'],
+      //   src: `./src/assets/data_paintings/${this.pageImage.imageSrc}`,
+      // }, {
+      //   zIndex: 50,
+      //   position: 'absolute',
+      // });
+      // wrapperGame.append(imageSentencesGame);
+      // this.sentenceNumber += 1;
+    } 
+    // else {
+    //   existRemove('.results-page');
+    //   document.querySelector('.main-page').classList.remove('hidden');
+    //   document.querySelector('.select-level').value = this.nextLevel;
+    //   document.querySelector('.select-level-page').value = this.nextPage;
+    //   getPhrase(this.nextLevel, this.nextPage)
+    //     .then((nodes) => {
+    //       new Game(nodes).prepareForMakePuzzle();
+    //     });
+    // }
   }
 
   const dontKnowButton = React.createElement('button', {
@@ -102,15 +120,48 @@ function GameRounds(props: any) {
   const gameRoundControls = React.createElement('div', {
     className: 'game-round-controls'
   }, visibleDontKnow && dontKnowButton,
-  visibleCheck && checkButton,
   visibleContinue && continueButton,
   visibleResults && resultsButton);
 
   if (sentenceNumber === 0) { window.scrollTo({ top: 0 }); }
 
   const GameRoundWords = React.createElement('div', {
-    className: 'game-round-words'
-  }, roundSentence(puzzleChld).sort(() => Math.random() - 0.5));
+    className: 'game-round-words',
+    onMouseLeave: () => {
+      const rounds = document.querySelector('.game-round-words');
+      let countCorrectSentence = 0;
+      if (!rounds?.children.length && visibleDontKnow) {
+        Array.from(assembledDOM.current.children[sentenceNumber].children)
+          .forEach((el: any, index: number) => {
+            if (el.children.length && rounds) {
+              const keyNest = el.getAttribute('data-key-word');
+              const keyPuzzle = el.children[0].getAttribute('data-key-word');
+              el.classList.remove('correct-word', 'incorrect-word');
+              el.children[0].classList.remove('correct-word', 'incorrect-word');
+              if (keyNest === keyPuzzle) {
+                countCorrectSentence += 1;
+                el.classList.add('correct-word');
+                el.children[0].classList.add('correct-word');
+              } else {
+                el.classList.add('incorrect-word');
+                el.children[0].classList.add('incorrect-word');
+              }
+              el.children[0].classList.remove('absolute');
+              rounds.append(el.children[0]);
+            }
+            el.textContent = data.sentences[sentenceNumber].words[index];
+          });
+        removePuzzleClds();
+        const isNext = countCorrectSentence === assembledDOM.current.children[sentenceNumber].children.length;
+        if (isNext) {
+          data.sentences[sentenceNumber].audio.play();
+          assembledDOM.current.children[sentenceNumber].setAttribute('data-is-correct', `${isNext}`);
+          setVisibleDontKnow(!visibleDontKnow);
+          setVisibleContinue(!visibleContinue);
+        }
+      }
+    }
+  }, puzzleChld.sort(() => Math.random() - 0.5)); // roundSentence(puzzleChld).sort(() => Math.random() - 0.5));
 
   const wrapperGameRound = React.createElement('div', {
     className: 'wrapper-game-round',
