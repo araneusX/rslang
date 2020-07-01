@@ -63,7 +63,11 @@ const statistics: StatisticsInterface = {
       this.days[nowKey] = createDayStatisticsObject();
     }
     const days = Object.keys(this.days);
-    return days.map((i) => this.days[i]).sort((a, b) => (a.date < b.date ? -1 : 1));
+    return days.map((i) => this.days[i]).sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA < dateB ? -1 : 1;
+    });
   },
 
   async saveMini(name, result) {
@@ -152,6 +156,14 @@ const statistics: StatisticsInterface = {
     } else {
       this.userWordsId[wordId].continuedRight = 0;
       this.series = 0;
+    }
+
+    const minInterval = (this.userWords
+      .filter((word) => (!word.isDeleted && word.isCorrect))
+      .sort((a, b) => (a.interval - b.interval)))[1].interval;
+
+    if (this.userWordsId[wordId].interval < minInterval) {
+      this.userWordsId[wordId].interval = minInterval + 1;
     }
 
     if (this.userWordsId[wordId].maxContinuedRight < this.userWordsId[wordId].continuedRight) {
