@@ -30,13 +30,17 @@ const trainReducer = (state: TrainingStateInterface, action: Action): TrainingSt
       const { value } = action;
       return { ...state, screen: value };
     }
-    case 'SET_TRAINIG_COMPLETE': {
+    case 'SET_TRAINING_COMPLETE': {
       const { value } = action;
       return { ...state, complete: value };
     }
-    case 'SET_TRAINIG_AUDIO': {
+    case 'SET_TRAINING_AUDIO': {
       const { value } = action;
       return { ...state, isAudioOn: value };
+    }
+    case 'SET_TRAINING_CARD': {
+      const { value } = action;
+      return { ...state, card: value };
     }
     default: return state;
   }

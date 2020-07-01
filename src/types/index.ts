@@ -188,6 +188,7 @@ export type TrainingScreenType = 'start' | 'main';
 export interface TrainingStateInterface {
   screen: TrainingScreenType,
   isAudioOn: boolean,
+  card: BackendWordInterface,
   complete: boolean
 }
 
