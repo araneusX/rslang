@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React, { useContext, useState, useEffect } from 'react';
 import style from './main.module.scss';
 import Card from './components/card';
