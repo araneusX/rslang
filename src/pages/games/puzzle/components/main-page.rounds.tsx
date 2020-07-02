@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { isDisabledText, isDisabledAudio } from '../ts/isDisabled';
 import { PuzzleContext } from '../context';
+import getTimeDate from '../ts/getTimeDay';
+import storage from '../ts/storage';
 
 function GameRounds(props: any) {
   const { dispatch } = useContext(PuzzleContext);
@@ -17,7 +19,7 @@ function GameRounds(props: any) {
   const [visibleDontKnow, setVisibleDontKnow] = useState(true);
   const [visibleContinue, setVisibleContinue] = useState(false);
 
-  const [knowledge, setKnowledge] = useState<any>([]);
+  const [knowledge, setKnowledge] = useState<any>({ know: [], dontknow: [] });
 
   useEffect(() => {
     Array.from(assembledDOM.current.children).forEach((sentence: any) => {
@@ -49,14 +51,13 @@ function GameRounds(props: any) {
     if (!isDisabled) {
       data.sentences[sentenceNumber].audio.play();
     }
-    const sentence = assembledDOM.current.children[sentenceNumber];
-    knowledge.push({
+
+    const { dontknow } = knowledge;
+    dontknow.push({
       audio: data.sentences[sentenceNumber].audio,
       sentence: data.sentences[sentenceNumber].sentenceText,
       knowledge: false
     });
-    console.log('knowledge:',knowledge);
-    sentence.setAttribute('data-is-correct', 'false');
 
     const rounds = document.querySelector('.game-round-words');
     Array.from(assembledDOM.current.children[sentenceNumber].children)
@@ -78,11 +79,19 @@ function GameRounds(props: any) {
       setVisibleDontKnow(!visibleDontKnow);
       setVisibleContinue(!visibleContinue);
     } else if (sentenceNumber === 9) {
-      console.log('knowledge:',knowledge);
+      const statistics = {
+        time: `${getTimeDate()}`,
+        levelandpage: `Level: ${data.level + 1}. Page: ${data.page + 1}`,
+        srcimage: `https://raw.githubusercontent.com/mrINEX/english-puzzle/english-puzzle/english-puzzle/src/assets/data_paintings/${data.pageImage.imageSrc}`,
+        author: `${data.pageImage.author}`,
+        nameyear: `${data.pageImage.name}(${data.pageImage.year})`,
+        know: `I know ${knowledge.know.length}`,
+        dontknow: `I don't know ${knowledge.dontknow.length}`
+      };
+      storage(statistics);
+
       dispatch({ type: 'set knowledge', value: knowledge });
       dispatch({ type: 'set mode', value: 'image' });
-      // const currentGame = this.statisticsСollection();
-      // storage(currentGame.innerHTML);
     }
   }
 
@@ -134,13 +143,12 @@ function GameRounds(props: any) {
         const isNext = countCorrectSentence === assembledDOM.current.children[sentenceNumber].children.length;
         if (isNext) {
           data.sentences[sentenceNumber].audio.play();
-          knowledge.push({
+          const { know } = knowledge;
+          know.push({
             audio: data.sentences[sentenceNumber].audio,
             sentence: data.sentences[sentenceNumber].sentenceText,
             knowledge: true
           });
-          console.log('knowledge:',knowledge);
-          // assembledDOM.current.children[sentenceNumber].setAttribute('data-is-correct', `${isNext}`);
           setVisibleDontKnow(!visibleDontKnow);
           setVisibleContinue(!visibleContinue);
         }

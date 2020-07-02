@@ -4,6 +4,9 @@ import { PuzzleContext } from '../context';
 const Img = () => {
   const { state, dispatch } = useContext(PuzzleContext);
   const { data } = state;
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
   function handleContinue() {
     dispatch({ type: 'set level', value: data.nextLevel });

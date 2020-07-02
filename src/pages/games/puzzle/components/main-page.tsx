@@ -43,6 +43,7 @@ const MainPage = () => {
               id="level"
               onChange={handleChangeLevel}
               className="select-level"
+              value={level}
             >
               <option value="0">1</option>
               <option value="1">2</option>
@@ -60,6 +61,7 @@ const MainPage = () => {
               id="level-page"
               onChange={handleChangePage}
               className="select-level-page"
+              value={page}
             >
               <option value="0">1</option>
               <option value="1">2</option>
