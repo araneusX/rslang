@@ -97,6 +97,8 @@ export interface StatisticsInterface extends UserStatisticsInterface {
 
   getAllWordsStatistics: () => WordStatisticsInterface[],
 
+  getAllWordsStatisticsWithDeleted: () => WordStatisticsInterface[],
+
   getWordStatistics: () => WordStatisticsInterface | null,
 
   getAllWordsId: () => string[],
