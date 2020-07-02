@@ -92,8 +92,19 @@ const Results = () => {
         { statistics.map((val: any, index: number) => (
           <div key={index.toString()} className="game-statistics">
             <div className="wrapper-results-image">
-              {}
+              <img
+                className="result-image"
+                src={val.srcimage}
+                style={{ width: 300 }}
+                alt="results"
+              />
+              <h4 style={{ color: 'darkslategray' }}>{val.author}</h4>
+              <h4 style={{ color: 'darkslategray' }}>{val.nameyear}</h4>
             </div>
+            <div className="date-statistics">{val.time}</div>
+            <div className="levelAndPage">{val.levelandpage}</div>
+            <div>{val.know}</div>
+            <div>{val.dontknow}</div>
           </div>
         )) }
       </div>
