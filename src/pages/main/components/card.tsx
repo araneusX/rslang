@@ -11,9 +11,7 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
   const [inputState, setInputState] = useState('');
 
   const [userAns, setUserAns] = useState(cardObj.word);
-  const [deleteWord, setDelete] = useState(false);
-  const [difficult, setDifficult] = useState(false);
-  const [difficultLvlMarked, setDifficultLvlMarked] = useState(false);
+  const [showAns, setShowAns] = useState(false);
 
   const isRight = useMemo(() => (cardObj.word.toLocaleLowerCase() === inputState.toLocaleLowerCase()), [prop.answer]);
   const sound = useMemo(() => new Audio(), []);
@@ -25,8 +23,7 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
     async function fetchData() {
         console.log('Собираюсь отправить:', cardObj.id, isRight, difficultLevel, cardObj.group);
         await (statistics.saveWord(cardObj.id, isRight, difficultLevel, cardObj.group));
-        console.log('Данные отправляются');
-      if (!ignore) console.log('Отправлены');
+      if (!ignore) console.log('Отправлено');
     }
     fetchData();
     return () => { ignore = true; };
@@ -35,18 +32,16 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
   useEffect(() => {
     if (prop.answer) {
       setUserAns(inputState);
-      if (!settings.addGradeButton) {
-        sendData(1);
-      } else {
-        alert('Отметь уровень сложности!');
-        setDifficultLvlMarked(false);
+      if (settings.addGradeButton && (isRight || showAns)) {
+        console.log('отметь уровень сложности!');
       }
       if (prop.soundState) {
         playAudio();
       }
-      if (!settings.addGradeButton && !prop.soundState && isRight) {
-        prop.nextCard();
-        console.log('next card');
+      if (!settings.addGradeButton && !prop.soundState && (isRight || showAns)) {
+        sendData(1);
+        setTimeout(prop.nextCard, 1000);
+        setShowAns(false);
       }
     } else if(inputEl.current){
       setUserAns(cardObj.word);
@@ -54,10 +49,6 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
     }
     setInputState('');
   }, [prop.answer]);
-
-
-
-
 
 
   const playAudio = () => {
@@ -76,9 +67,10 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
     } else if ((sound.src === getRightWay(cardObj.audioMeaning)) && settings.exampleToCard) {
       sound.src = getRightWay(cardObj.audioExample);
       sound.play();
-    } else if (isRight && !settings.addGradeButton) {
+    } else if ((isRight || showAns) && !settings.addGradeButton) {
+      sendData(1);
       prop.nextCard();
-      console.log('next card');
+      setShowAns(false);
     }
   }
 
@@ -105,8 +97,7 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
   };
   const handlerInputChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     if ((prop.answer && !isRight && !settings.addGradeButton)
-      || (prop.answer && !isRight && settings.addGradeButton && difficultLvlMarked)) {
-      console.log(difficultLvlMarked);
+      || (prop.answer && !isRight && settings.addGradeButton && !showAns)) {
       prop.callback(false);
       sound.pause();
     } else if (!prop.answer) {
@@ -116,25 +107,25 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
 
   const handlerDeleteWord = () => {
     statistics.toggleDeleted(cardObj.id);
-    setDelete(true);
+    prop.nextCard();
   }
 
   const handlerToDifficult = () => {
     statistics.toggleDifficult(cardObj.id);
-    setDifficult(true);
+    prop.nextCard();
   }
 
   const handleShowAnswer = () => {
-    setInputState(cardObj.word);
+    setShowAns(true);
     prop.callback(true);
   }
 
   const handlerDifficultLevel = (level: 1|2|0) => {
-    sendData(level);
-    setDifficultLvlMarked(true);
-    if (isRight) {
+    if (isRight || showAns) {
+      sound.pause();
+      sendData(level);
       prop.nextCard();
-      console.log('next card');
+      setShowAns(false);
     }
   }
 
@@ -210,7 +201,7 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
                         )}
                       </>
                     )}
-        {settings.addGradeButton && prop.answer
+        {settings.addGradeButton && prop.answer && (isRight || showAns)
                     && (
                     <div className={style.gradeContainer}>
                       <div title="Легко" id={'easyLevel'} onClick={() => {handlerDifficultLevel(0)}} className={style.easyBtn}>Es</div>
