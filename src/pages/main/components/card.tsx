@@ -156,7 +156,7 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
         />
       </div>
       {settings.imageToCard
-                && <img src={prop.cardObj.image} alt="" />}
+                && <img src={getRightWay(prop.cardObj.image)} alt="" />}
       <>
         {settings.translateToTheCard
                     && (
