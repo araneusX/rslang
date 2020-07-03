@@ -1,49 +1,117 @@
-import React, { useContext } from 'react';
+import React, {
+  useContext, useRef, useEffect, useState, useMemo
+} from 'react';
 import style from './total.module.scss';
 import { StatisticsContext } from '../../../statistics/statisticsProvider';
-import { StatisticsInterface } from '../../../types';
+import { StatisticsInterface, DayInterface } from '../../../types';
 import { generateFullDays } from '../../../utils';
 import { WORDS_COUNT } from '../../../constants';
 
 const Total = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
 
-  const viewBox = { x: 400, y: 400 };
+  const [tile, setTile] = useState({
+    x: 0,
+    y: 0,
+    isArea: false,
+    point: 0
+  });
 
-  const savedDays = statistics.getForEachDayStatistics();
+  const viewBox = { x: 400, y: 400 };
+  const lineWidth = 2;
   const totalWords = statistics.getAllWordsStatistics().length;
   const ceiling = totalWords > WORDS_COUNT * 0.7
-    ? (viewBox.y * totalWords) / WORDS_COUNT
-    : viewBox.y * 0.7;
+    ? ((viewBox.y * totalWords) / WORDS_COUNT) - lineWidth
+    : (viewBox.y * 0.7) - lineWidth;
 
-  const days = generateFullDays(savedDays);
+  const days = useMemo<DayInterface[]>(() => {
+    const savedDays = statistics.getForEachDayStatistics();
+    generateFullDays(savedDays)
+  }, []);
+
+  for (let i = 1; i < days.length; i += 1) {
+    days[i].newWords += days[i - 1].newWords;
+  }
 
   const stepX = viewBox.x / (days.length - 1);
   const stepY = ceiling / totalWords;
 
   const points: { x: number, y: number }[] = [{ x: 0, y: 0 }];
-  for (let i = 1; i < days.length + 1; i += 1) {
+  days.forEach((day) => {
     points.push({
-      x: Math.round(i * stepX),
+      x: Math.round((i - 1) * stepX),
       y: points[i - 1].y + Math.round(days[i - 1].newWords * stepY)
-    });
-    console.log(days[i - 1].newWords);
-  }
-
+  })
   const startPoint = points.shift() as { x: number, y: number };
-  let path = `M ${startPoint.x} ${viewBox.y - startPoint.y}`;
-  points.forEach((point) => {
-    path += ` L ${point.x} ${viewBox.y - point.y}`;
-  });
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
+      canvas.width = viewBox.x;
+      canvas.height = viewBox.y;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.beginPath();
+        ctx.moveTo(startPoint.x, viewBox.y - startPoint.y - lineWidth);
+        points.forEach((point) => {
+          ctx.lineTo(point.x, viewBox.y - point.y - lineWidth);
+        });
+        ctx.lineTo(points[points.length - 1].x, viewBox.y - startPoint.y - lineWidth);
+        ctx.closePath();
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = 'black';
+        ctx.fill();
+      }
+    }
+  }, [canvasRef]);
+
+  const handleMouseCanvasMove = (event: any) => {
+    if (canvasRef.current) {
+      const { x, y } = canvasRef.current.getBoundingClientRect();
+      const positionX = event.clientX - x;
+      const positionY = viewBox.y - (event.clientY - y);
+      points.forEach((point, i) => {
+        if ((Math.abs(point.x - positionX) < stepX / 2)) {
+          setTile({
+            x: positionX,
+            y: positionY,
+            isArea: positionY - point.y < 10,
+            point: i
+          });
+        }
+      });
+    }
+  };
+
+  const handleMouseCanvasLeave = () => {
+    setTile({ ...tile, isArea: false });
+  };
 
   return (
     <div className={style.wrapper}>
-      <svg
-        className={style.graph}
-        viewBox={`0 0 ${viewBox.x} ${viewBox.y}`}
-      >
-        <path d={path} stroke="black" strokeWidth="2" fill="transparent" />
-      </svg>
+      <div className={style.graph}>
+        <canvas
+          ref={canvasRef}
+          onMouseMove={handleMouseCanvasMove}
+          onMouseLeave={handleMouseCanvasLeave}
+        />
+        {tile.isArea && (
+          <div
+            className={style.tile}
+            style={{
+              left: tile.x,
+              bottom: tile.y - 50
+            }}
+          >
+            <div>{days[tile.point].date}</div>
+            <div>{`Total words: ${days[tile.point].newWords}`}</div>
+          </div>
+        )}
+      </div>
+
       {/* <div>
         Words:
         {statisticsData.newWords}

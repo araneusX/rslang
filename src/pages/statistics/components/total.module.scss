@@ -9,8 +9,7 @@
 }
 
 .graph {
-  height: 300px;
-  width: 300px;
+  position: relative;
 }
 
 
@@ -24,4 +23,15 @@
 
 .text {
   display: none;
+}
+
+.tile {
+  position: absolute;
+  pointer-events: none;
+  width: 120px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.664);
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
 }
