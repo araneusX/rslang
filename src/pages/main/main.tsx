@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React, { useContext, useState, useEffect, useMemo } from 'react';
 import style from './main.module.scss';
 import Card from './components/card';
@@ -8,7 +9,7 @@ import trainGameCard from './components/training';
 import { StatisticsContext } from '../../statistics/statisticsProvider';
 
 const Main = () => {
-  const { state } = useContext(StateContext);
+  const { state, dispatch } = useContext(StateContext);
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
   const [cardObject, setCardObject] = useState<BackendWordInterface >(cardObj[0] as BackendWordInterface);
   const [startPreview, setStart] = useState(true);
@@ -16,6 +17,7 @@ const Main = () => {
 
   const [count, setCount] = useState<number>(statistics.getDayStatistics().cards + 1);
   const [answer, setAns] = useState(false);
+
   const [soundState, setSound] = useState(true);
   const [sessionVocWrdCount, setSessionVocWrdCount] = useState(0);
 
@@ -75,6 +77,18 @@ const Main = () => {
     transcriptionToCard,
     translateToTheCard,
     wordDeleteButton
+  };
+
+  const handleNext = () => {
+    if (answer === false) {
+      setAns(true);
+    } else {
+      setAns(false);
+      if ((count + 1) > state.settings.wordsPerDay) {
+        dispatch({ type: 'SET_TRAINING_COMPLETE', value: true });
+        alert('End of training!');
+      } else setCount(count + 1);
+    }
   };
 
   const handleSoundControl = () => {
@@ -144,6 +158,7 @@ const Main = () => {
               )}
               <button onClick={() => { setAns(true); }}>Ответить</button>
               <div className={style.progressBar}>
+
                 {count}
                 <progress value={count} max={state.settings.wordsPerDay} />
                 {state.settings.wordsPerDay}

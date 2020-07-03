@@ -1,13 +1,19 @@
+/* eslint-disable @typescript-eslint/no-implied-eval */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, {
   useState, useContext, useEffect, useMemo, useRef
 } from 'react';
 import style from './card.module.scss';
 import { CardSettingsInterface, StatisticsInterface, BackendWordInterface } from '../../../types';
 import { StatisticsContext } from '../../../statistics/statisticsProvider';
+import { StateContext } from '../../../store/stateProvider';
 
 const Card: React.FC<{ cardObj: BackendWordInterface,
   settings: CardSettingsInterface, answer: boolean,
   callback: Function, count: number, soundState: boolean, nextCard: Function }> = (prop) => {
+  const { dispatch } = useContext(StateContext);
+
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
   const { cardObj, settings } = prop;
   const [inputState, setInputState] = useState('');
@@ -39,7 +45,8 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
       }
       if (prop.soundState) {
         playAudio();
-      }
+        dispatch({ type: 'SET_TRAINING_AUDIO', value: true });
+      } else dispatch({ type: 'SET_TRAINING_AUDIO', value: false });
       if (!settings.addGradeButton && !prop.soundState && (isRight || showAns)) {
         sendData(1);
         prop.nextCard(false);

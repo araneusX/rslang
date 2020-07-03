@@ -183,7 +183,17 @@ export interface SettingsInterface {
   optional : SettingsOptionalInterface
 }
 
+export type TrainingScreenType = 'start' | 'main';
+
+export interface TrainingStateInterface {
+  screen: TrainingScreenType,
+  isAudioOn: boolean,
+  card: BackendWordInterface,
+  complete: boolean
+}
+
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
+  training: TrainingStateInterface
 }

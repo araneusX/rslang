@@ -1,5 +1,7 @@
-import { initSettingsObject } from '../constants';
-import { SettingsInterface, StateInterface, AuthInterface } from '../types';
+import { initSettingsObject, initTrainingObject } from '../constants';
+import {
+  SettingsInterface, StateInterface, AuthInterface, TrainingStateInterface
+} from '../types';
 
 const auth: AuthInterface = {
   isAuth: false,
@@ -9,7 +11,10 @@ const auth: AuthInterface = {
 
 const settings: SettingsInterface = { ...initSettingsObject };
 
+const training: TrainingStateInterface = { ...initTrainingObject };
+
 export default {
   auth,
-  settings
+  settings,
+  training
 } as StateInterface;
