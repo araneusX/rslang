@@ -1,5 +1,5 @@
-import { DayInterface } from "../types";
-import { initialDayStatisticsObject } from "../constants";
+import { DayInterface } from '../types';
+import { initialDayStatisticsObject } from '../constants';
 
 export function createIdFromDate(): string {
   const date = new Date();
