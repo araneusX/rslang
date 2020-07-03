@@ -4,4 +4,4 @@ export { default as Settings } from './settings';
 export { default as Statistics } from './statistics';
 export { default as Games } from './games';
 
-export { SpeakIt } from './games';
+export { SpeakIt, Sprint } from './games';
