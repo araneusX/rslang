@@ -20,29 +20,33 @@ const Total = () => {
 
   const viewBox = { x: 400, y: 400 };
   const lineWidth = 2;
-  const totalWords = statistics.getAllWordsStatistics().length;
+
+  const days = useMemo<DayInterface[]>(() => {
+    const savedDays = statistics.getForEachDayStatistics();
+    const allDays = generateFullDays(savedDays);
+    for (let i = 1; i < allDays.length; i += 1) {
+      allDays[i].newWords += allDays[i - 1].newWords;
+    }
+    return allDays;
+  }, []);
+
+  const totalWords = days[days.length - 1].newWords;
   const ceiling = totalWords > WORDS_COUNT * 0.7
     ? ((viewBox.y * totalWords) / WORDS_COUNT) - lineWidth
     : (viewBox.y * 0.7) - lineWidth;
 
-  const days = useMemo<DayInterface[]>(() => {
-    const savedDays = statistics.getForEachDayStatistics();
-    generateFullDays(savedDays)
-  }, []);
-
-  for (let i = 1; i < days.length; i += 1) {
-    days[i].newWords += days[i - 1].newWords;
-  }
-
-  const stepX = viewBox.x / (days.length - 1);
+  const stepX = viewBox.x / (((days.length - 1) - 1) || 1);
   const stepY = ceiling / totalWords;
 
   const points: { x: number, y: number }[] = [{ x: 0, y: 0 }];
-  days.forEach((day) => {
+
+  days.forEach((day, i) => {
     points.push({
       x: Math.round((i - 1) * stepX),
-      y: points[i - 1].y + Math.round(days[i - 1].newWords * stepY)
-  })
+      y: Math.round(day.newWords * stepY)
+    });
+  });
+
   const startPoint = points.shift() as { x: number, y: number };
 
   useEffect(() => {
