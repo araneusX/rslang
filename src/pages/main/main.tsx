@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useMemo } from 'react';
 import style from './main.module.scss';
 import Card from './components/card';
 import { BackendWordInterface, StatisticsInterface } from '../../types';
@@ -15,15 +15,22 @@ const Main = () => {
   const [startPreview, setStart] = useState(true);
   const [endPreview, setEndPreview] = useState(false);
 
-  const [count, setCount] = useState<number>(statistics.getDayStatistics().cards);
+  const [count, setCount] = useState<number>(statistics.getDayStatistics().cards + 1);
   const [answer, setAns] = useState(false);
 
   const [soundState, setSound] = useState(true);
+  const [sessionVocWrdCount, setSessionVocWrdCount] = useState(0);
+
+  useEffect(() => {
+    if (count > 1) {
+      setStart(false);
+    }
+  }, [startPreview]);
 
   useEffect(() => {
     let ignore = false;
     async function fetchData() {
-      if (count < state.settings.wordsPerDay) {
+      if (count <= state.settings.wordsPerDay) {
         const result = await (trainGameCard(state.auth.userId, state.auth.token));
         if (!ignore) console.log('текущая карточка', result); setCardObject(result);
       } else {
@@ -33,6 +40,18 @@ const Main = () => {
     fetchData();
     return () => { ignore = true; };
   }, [count]);
+
+  useEffect(() => {
+    let ignore = false;
+    async function fetchData() {
+      if (sessionVocWrdCount > 0) {
+        const result = await (trainGameCard(state.auth.userId, state.auth.token));
+        if (!ignore) console.log('текущая карточка', result); setCardObject(result);
+      }
+    }
+    fetchData();
+    return () => { ignore = true; };
+  }, [sessionVocWrdCount]);
 
   const {
     addGradeButton,
@@ -80,9 +99,13 @@ const Main = () => {
     }
   };
 
-  const nextCard = () => {
+  const nextCard = (vocabularyWord: boolean) => {
     setAns(false);
-    setCount(count + 1);
+    if (!vocabularyWord) {
+      setCount(count + 1);
+    } else {
+      setSessionVocWrdCount(sessionVocWrdCount + 1);
+    }
   };
 
   return (
@@ -134,7 +157,6 @@ const Main = () => {
                 <button className={style.soundOff} onClick={handleSoundControl}>Включить звук</button>
               )}
               <button onClick={() => { setAns(true); }}>Ответить</button>
-              <button onClick={handleNext}>Далее</button>
               <div className={style.progressBar}>
 
                 {count}

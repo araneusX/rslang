@@ -49,7 +49,7 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
       } else dispatch({ type: 'SET_TRAINING_AUDIO', value: false });
       if (!settings.addGradeButton && !prop.soundState && (isRight || showAns)) {
         sendData(1);
-        setTimeout(prop.nextCard, 1000);
+        prop.nextCard(false);
         setShowAns(false);
       }
     } else if (inputEl.current) {
@@ -77,7 +77,7 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
       sound.play();
     } else if ((isRight || showAns) && !settings.addGradeButton) {
       sendData(1);
-      prop.nextCard();
+      prop.nextCard(false);
       setShowAns(false);
     }
   };
@@ -114,12 +114,12 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
 
   const handlerDeleteWord = () => {
     statistics.toggleDeleted(cardObj.id);
-    prop.nextCard();
+    prop.nextCard(true);
   };
 
   const handlerToDifficult = () => {
     statistics.toggleDifficult(cardObj.id);
-    prop.nextCard();
+    prop.nextCard(true);
   };
 
   const handleShowAnswer = () => {
@@ -131,7 +131,7 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
     if (isRight || showAns) {
       sound.pause();
       sendData(level);
-      prop.nextCard();
+      prop.nextCard(false);
       setShowAns(false);
     }
   };
