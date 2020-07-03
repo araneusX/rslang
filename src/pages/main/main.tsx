@@ -8,11 +8,12 @@ import { StateContext } from '../../store/stateProvider';
 import trainGameCard from './components/training';
 
 const Main = () => {
-  const { state } = useContext(StateContext);
+  const { state, dispatch } = useContext(StateContext);
   const [cardObject, setCardObject] = useState<BackendWordInterface >(cardObj[0] as BackendWordInterface);
   const [startPreview, setStart] = useState(true);
   const [count, setCount] = useState(0);
   const [answer, setAns] = useState(false);
+  const { wordsPerDay } = state.settings;
 
   useEffect(() => {
     let ignore = false;
@@ -55,7 +56,10 @@ const Main = () => {
       setAns(true);
     } else {
       setAns(false);
-      setCount(count + 1);
+      if ((count + 1) > wordsPerDay) {
+        dispatch({ type: 'SET_TRAINING_COMPLETE', value: true });
+        alert('End of training');
+      } else setCount(count + 1);
     }
   };
 
@@ -87,8 +91,8 @@ const Main = () => {
               <button onClick={handleNext}>Далее</button>
               <div className={style.progressBar}>
                 {count + 1}
-                <progress value={count + 1} max={20} />
-                {20}
+                <progress value={count + 1} max={wordsPerDay} />
+                {wordsPerDay}
               </div>
             </div>
           </>
