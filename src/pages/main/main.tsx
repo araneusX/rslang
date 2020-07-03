@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useMemo } from 'react';
 import style from './main.module.scss';
 import Card from './components/card';
 import { BackendWordInterface, StatisticsInterface } from '../../types';
@@ -14,16 +14,23 @@ const Main = () => {
   const [startPreview, setStart] = useState(true);
   const [endPreview, setEndPreview] = useState(false);
 
-  const [count, setCount] = useState<number>(statistics.getDayStatistics().cards);
+  const [count, setCount] = useState<number>(statistics.getDayStatistics().cards + 1);
   const [answer, setAns] = useState(false);
   const [soundState, setSound] = useState(true);
+  const [sessionVocWrdCount, setSessionVocWrdCount] = useState(0);
+
+  useEffect(() => {
+    if (count > 1) {
+      setStart(false);
+    }
+  }, [startPreview]);
 
   useEffect(() => {
     let ignore = false;
     async function fetchData() {
-      if (count < state.settings.wordsPerDay) {
-      const result = await (trainGameCard(state.auth.userId, state.auth.token));
-      if (!ignore) console.log('текущая карточка', result); setCardObject(result);
+      if (count <= state.settings.wordsPerDay) {
+        const result = await (trainGameCard(state.auth.userId, state.auth.token));
+        if (!ignore) console.log('текущая карточка', result); setCardObject(result);
       } else {
         setEndPreview(true);
       }
@@ -31,6 +38,18 @@ const Main = () => {
     fetchData();
     return () => { ignore = true; };
   }, [count]);
+
+  useEffect(() => {
+    let ignore = false;
+    async function fetchData() {
+      if (sessionVocWrdCount > 0) {
+        const result = await (trainGameCard(state.auth.userId, state.auth.token));
+        if (!ignore) console.log('текущая карточка', result); setCardObject(result);
+      }
+    }
+    fetchData();
+    return () => { ignore = true; };
+  }, [sessionVocWrdCount]);
 
   const {
     addGradeButton,
@@ -42,7 +61,7 @@ const Main = () => {
     showAnswerButton,
     transcriptionToCard,
     translateToTheCard,
-    wordDeleteButton,
+    wordDeleteButton
   } = state.settings.optional;
 
   const settings = {
@@ -55,16 +74,7 @@ const Main = () => {
     showAnswerButton,
     transcriptionToCard,
     translateToTheCard,
-    wordDeleteButton,
-  };
-
-  const handleNext = () => {
-    if (answer === false) {
-      setAns(true);
-    } else {
-      setAns(false);
-      setCount(count + 1);
-    }
+    wordDeleteButton
   };
 
   const handleSoundControl = () => {
@@ -73,12 +83,16 @@ const Main = () => {
     } else {
       setSound(true);
     }
-  }
+  };
 
-  const nextCard = () => {
+  const nextCard = (vocabularyWord: boolean) => {
     setAns(false);
-    setCount(count + 1);
-  }
+    if (!vocabularyWord) {
+      setCount(count + 1);
+    } else {
+      setSessionVocWrdCount(sessionVocWrdCount + 1);
+    }
+  };
 
   return (
     <>
@@ -89,23 +103,23 @@ const Main = () => {
               <>
                 <h2>На сегодня все...</h2>
                 <p>
-                &#8195;Ты отлично постарался! Возвращайся завтра за новыми знаниями!
+                  &#8195;Ты отлично постарался! Возвращайся завтра за новыми знаниями!
                 </p>
               </>
             ) : (
               <>
-              <h2>Тренировка</h2>
-              <p>
-              &#8195;Улучшай свои знания с помощью крутых и не скучных тренировок.
-              По мере изучения языка у вас будут накапливаться слова на повторение.
-              Так что не удивляйтесь, если слова будут иногда повторяться.
-              </p>
-              <button
-                className={style.startLearnButton}
-                onClick={() => { setStart(false); }}
-              >
-                Начать изучать
-              </button>
+                <h2>Тренировка</h2>
+                <p>
+                  &#8195;Улучшай свои знания с помощью крутых и не скучных тренировок.
+                  По мере изучения языка у вас будут накапливаться слова на повторение.
+                  Так что не удивляйтесь, если слова будут иногда повторяться.
+                </p>
+                <button
+                  className={style.startLearnButton}
+                  onClick={() => { setStart(false); }}
+                >
+                  Начать изучать
+                </button>
               </>
             )}
           </div>
@@ -129,7 +143,6 @@ const Main = () => {
                 <button className={style.soundOff} onClick={handleSoundControl}>Включить звук</button>
               )}
               <button onClick={() => { setAns(true); }}>Ответить</button>
-              <button onClick={handleNext}>Далее</button>
               <div className={style.progressBar}>
                 {count}
                 <progress value={count} max={state.settings.wordsPerDay} />

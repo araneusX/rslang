@@ -1,4 +1,6 @@
-import React, { useState, useContext, useEffect, useMemo, useRef } from 'react';
+import React, {
+  useState, useContext, useEffect, useMemo, useRef
+} from 'react';
 import style from './card.module.scss';
 import { CardSettingsInterface, StatisticsInterface, BackendWordInterface } from '../../../types';
 import { StatisticsContext } from '../../../statistics/statisticsProvider';
@@ -21,13 +23,13 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
   const sendData = (difficultLevel: 0|1|2) => {
     let ignore = false;
     async function fetchData() {
-        console.log('Собираюсь отправить:', cardObj.id, isRight, difficultLevel, cardObj.group);
-        await (statistics.saveWord(cardObj.id, isRight, difficultLevel, cardObj.group));
+      console.log('Собираюсь отправить:', cardObj.id, isRight, difficultLevel, cardObj.group);
+      await (statistics.saveWord(cardObj.id, isRight, difficultLevel, cardObj.group));
       if (!ignore) console.log('Отправлено');
     }
     fetchData();
     return () => { ignore = true; };
-  }
+  };
 
   useEffect(() => {
     if (prop.answer) {
@@ -40,21 +42,20 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
       }
       if (!settings.addGradeButton && !prop.soundState && (isRight || showAns)) {
         sendData(1);
-        setTimeout(prop.nextCard, 1000);
+        prop.nextCard(false);
         setShowAns(false);
       }
-    } else if(inputEl.current){
+    } else if (inputEl.current) {
       setUserAns(cardObj.word);
       inputEl.current.focus();
     }
     setInputState('');
   }, [prop.answer]);
 
-
   const playAudio = () => {
     sound.src = getRightWay(cardObj.audio);
     sound.play();
-  }
+  };
 
   sound.onended = () => {
     if (sound.src === getRightWay(cardObj.audio)) {
@@ -69,11 +70,10 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
       sound.play();
     } else if ((isRight || showAns) && !settings.addGradeButton) {
       sendData(1);
-      prop.nextCard();
+      prop.nextCard(false);
       setShowAns(false);
     }
-  }
-
+  };
 
   const getRightWay = (url : string) => `https://raw.githubusercontent.com/araneusx/rslang-data/master/data/${url.slice(6)}`;
   const textExampleSplit = cardObj.textExample.split(/<b.*?>(.*?)<\/b>/);
@@ -107,42 +107,43 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
 
   const handlerDeleteWord = () => {
     statistics.toggleDeleted(cardObj.id);
-    prop.nextCard();
-  }
+    prop.nextCard(true);
+  };
 
   const handlerToDifficult = () => {
     statistics.toggleDifficult(cardObj.id);
-    prop.nextCard();
-  }
+    prop.nextCard(true);
+  };
 
   const handleShowAnswer = () => {
     setShowAns(true);
     prop.callback(true);
-  }
+  };
 
   const handlerDifficultLevel = (level: 1|2|0) => {
     if (isRight || showAns) {
       sound.pause();
       sendData(level);
-      prop.nextCard();
+      prop.nextCard(false);
       setShowAns(false);
     }
-  }
+  };
 
   const handleCurrentWord = () => {
-    if(inputEl.current && !isRight) {
+    if (inputEl.current && !isRight) {
       inputEl.current.focus();
     }
-  }
-
+  };
 
   return (
     <div className={style.cardContainer} id={cardObj.id}>
       <div className={style.wordContainer}>
         { prop.answer ? (
-          <div className={style.showCurrentWord}
+          <div
+            className={style.showCurrentWord}
             dangerouslySetInnerHTML={currentWord()}
-            onClick={handleCurrentWord} />
+            onClick={handleCurrentWord}
+          />
         ) : (
           <div dangerouslySetInnerHTML={currentWord()} />
         )}
@@ -155,7 +156,7 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
         />
       </div>
       {settings.imageToCard
-                && <img src={getRightWay(prop.cardObj.image)} alt="" />}
+                && <img src={prop.cardObj.image} alt="" />}
       <>
         {settings.translateToTheCard
                     && (
@@ -204,9 +205,9 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
         {settings.addGradeButton && prop.answer && (isRight || showAns)
                     && (
                     <div className={style.gradeContainer}>
-                      <div title="Легко" id={'easyLevel'} onClick={() => {handlerDifficultLevel(0)}} className={style.easyBtn}>Es</div>
-                      <div title="Средне" id={'middleLevel'} onClick={() => {handlerDifficultLevel(1)}} className={style.mediumBtn}>Md</div>
-                      <div title="Сложно" id={'hardLevel'} onClick={() => {handlerDifficultLevel(2)}} className={style.hardBtn}>Hrd</div>
+                      <div title="Легко" id="easyLevel" onClick={() => { handlerDifficultLevel(0); }} className={style.easyBtn}>Es</div>
+                      <div title="Средне" id="middleLevel" onClick={() => { handlerDifficultLevel(1); }} className={style.mediumBtn}>Md</div>
+                      <div title="Сложно" id="hardLevel" onClick={() => { handlerDifficultLevel(2); }} className={style.hardBtn}>Hrd</div>
                     </div>
                     )}
         <div className={style.controlContainer}>
