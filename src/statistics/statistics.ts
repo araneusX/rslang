@@ -231,6 +231,13 @@ const statistics: StatisticsInterface = {
     return words;
   },
 
+  getAllWordsStatisticsWithDeleted() {
+    const words = this.userWords
+      .filter((word) => (word.isCorrect))
+      .sort((a, b) => (a.interval - b.interval));
+    return words;
+  },
+
   getWordStatistics() {
     const words = this.userWords.filter((wordObj) => (!wordObj.isDeleted && wordObj.isCorrect));
     const word = words.length > 0
