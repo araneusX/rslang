@@ -1,7 +1,7 @@
 import appState from './store';
 import { Action } from './actionTypes';
 import {
-  StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface
+  StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface, SprintStateInterface
 } from '../types';
 
 const authReducer = (state: AuthInterface, action:Action): AuthInterface => {
@@ -58,13 +58,53 @@ const speakItReducer = (state: SpeakitStateInterface, action:Action): SpeakitSta
   }
 };
 
+const sprintReducer = (state: SprintStateInterface, action:Action): SprintStateInterface => {
+  switch (action.type) {
+    case 'SET_SPRINT_LEVEL': {
+      const { level, words } = action.value;
+      return {
+        ...state,
+        level,
+        words,
+        startGame: false,
+        screen: 'start',
+        pointsForRound: 0,
+        pointsLevel: 0
+      };
+    }
+    case 'SET_SPRINT_START_GAME': {
+      return { ...state, startGame: !state.startGame };
+    }
+    case 'SET_SPRINT_SCREEN': {
+      const { value } = action;
+      return { ...state, screen: value };
+    }
+    case 'SET_SPRINT_POINTS_LEVEL': {
+      const { value } = action;
+      return { ...state, pointsLevel: value };
+    }
+    case 'SET_SPRINT_ROUND_TIME': {
+      const { value } = action;
+      return { ...state, roundTime: value };
+    }
+    case 'SET_SPRINT_WORDS': {
+      const { value } = action;
+      return { ...state, words: value };
+    }
+    default: return state;
+  }
+};
+
 const mainReducer = (
-  { auth, settings, speakit }: StateInterface,
+  {
+    auth, settings, speakit, sprint
+  }: StateInterface,
   action:Action
 ): StateInterface => ({
   auth: authReducer(auth, action),
   settings: settingsReducer(settings, action),
-  speakit: speakItReducer(speakit, action)
+  speakit: speakItReducer(speakit, action),
+  sprint: sprintReducer(sprint, action)
 });
 
 export default mainReducer;

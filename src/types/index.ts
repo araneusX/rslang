@@ -198,8 +198,31 @@ export interface SpeakitStateInterface {
   mode: SpeakitModeType
 }
 
+export interface SprintWordInterface extends BackendWordInterface {
+  answerToUser: string
+}
+
+export type PointsLevelRange = 0|1|2;
+export type CorrectAnswersInRowRange = 0|1|2|3;
+export type SprintScreenType = 'start' | 'main' | 'results';
+export interface SprintStateInterface {
+  level: number,
+  step: number,
+  correctAnswersInRow: CorrectAnswersInRowRange,
+  selectLevel: boolean,
+  startGame: boolean,
+  finishGame: boolean,
+  screen: SprintScreenType,
+  words: SprintWordInterface[],
+  pointsForAnswer: number[],
+  pointsForRound: number,
+  pointsLevel: PointsLevelRange,
+  roundTime: number
+}
+
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
-  speakit: SpeakitStateInterface
+  speakit: SpeakitStateInterface,
+  sprint: SprintStateInterface
 }

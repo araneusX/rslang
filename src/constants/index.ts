@@ -1,5 +1,5 @@
 import {
-  UserStatisticsInterface, WordStatisticsInterface, DayInterface, SettingsInterface, SpeakitStateInterface
+  UserStatisticsInterface, WordStatisticsInterface, DayInterface, SettingsInterface, SpeakitStateInterface, SprintStateInterface
 } from '../types';
 
 export const initialUserStatisticsObject: UserStatisticsInterface = {
@@ -63,4 +63,19 @@ export const initialSpeakitObject: SpeakitStateInterface = {
   complete: false,
   game: false,
   mode: 'user'
+};
+
+export const initialSprintObject: SprintStateInterface = {
+  level: 0,
+  selectLevel: false,
+  screen: 'start',
+  step: 0,
+  correctAnswersInRow: 0,
+  words: [],
+  startGame: false,
+  finishGame: false,
+  pointsForAnswer: [20, 40, 80],
+  pointsForRound: 0,
+  pointsLevel: 0,
+  roundTime: 45
 };
