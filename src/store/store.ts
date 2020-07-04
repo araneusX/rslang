@@ -1,6 +1,6 @@
-import { initSettingsObject, initialSpeakitObject, initTrainingObject } from '../constants';
+import { initSettingsObject, initTrainingObject } from '../constants';
 import {
-  SettingsInterface, StateInterface, AuthInterface, SpeakitStateInterface, TrainingStateInterface
+  SettingsInterface, StateInterface, AuthInterface, TrainingStateInterface
 } from '../types';
 
 const auth: AuthInterface = {
@@ -11,14 +11,10 @@ const auth: AuthInterface = {
 
 const settings: SettingsInterface = { ...initSettingsObject };
 
-const speakit: SpeakitStateInterface = { ...initialSpeakitObject };
-
 const training: TrainingStateInterface = { ...initTrainingObject };
-
 
 export default {
   auth,
   settings,
-  speakit,
   training
 } as StateInterface;

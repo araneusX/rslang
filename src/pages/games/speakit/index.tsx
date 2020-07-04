@@ -1,1 +1,1 @@
-export { default } from './speakit';
+export {};
