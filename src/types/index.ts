@@ -138,8 +138,9 @@ export interface BackendWordInterface {
   wordsPerExampleSentence: number
 }
 
-export interface CardInterface{
+export interface CardInterface {
   id: string,
+  group: 0|1|2|3|4|5,
   word: string,
   image: string,
   audio: string,
@@ -161,11 +162,15 @@ export interface AuthInterface {
 
 export interface CardSettingsInterface {
   imageToCard: boolean,
-  pronounseToCard: boolean,
+  pronounceToCard: boolean,
   transcriptionToCard: boolean,
   translateToTheCard: boolean,
   exampleToCard: boolean,
   explainToCard: boolean,
+  showAnswerButton: boolean,
+  addToDifficultWordsButton: boolean,
+  addGradeButton: boolean,
+  wordDeleteButton: boolean,
 }
 
 export interface SettingsOptionalInterface extends CardSettingsInterface {
@@ -173,7 +178,7 @@ export interface SettingsOptionalInterface extends CardSettingsInterface {
   showAnswerButton: boolean,
   wordDeleteButton: boolean,
   addToDifficultWordsButton: boolean,
-  addGrageButton: boolean,
+  addGradeButton: boolean,
 }
 export interface SettingsInterface {
   wordsPerDay: number,
@@ -187,7 +192,9 @@ export interface SpeakitWordInterface extends BackendWordInterface {
 }
 
 export type SpeakitScreenType = 'start' | 'main' | 'results';
+
 export type SpeakitModeType = 'user' | 'vocabulary';
+
 export interface SpeakitStateInterface {
   round: number,
   level: number,
@@ -198,8 +205,18 @@ export interface SpeakitStateInterface {
   mode: SpeakitModeType
 }
 
+export type TrainingScreenType = 'start' | 'main';
+
+export interface TrainingStateInterface {
+  screen: TrainingScreenType,
+  isAudioOn: boolean,
+  card: BackendWordInterface,
+  complete: boolean
+}
+
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
-  speakit: SpeakitStateInterface
+  speakit: SpeakitStateInterface,
+  training: TrainingStateInterface
 }

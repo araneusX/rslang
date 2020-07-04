@@ -1,28 +1,123 @@
 .cardContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: whitesmoke;
-    width: 630px;
-    margin: 0 auto;
-    border: 1px solid;
-    border-radius: 5px;
-    padding: 15px;
-    height: 375px;
-    
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: whitesmoke;
+  width: 630px;
+  margin: 0 auto;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 15px;
+  height: 375px;
+  animation: switchCard 2s;
+
+  .wordContainer{
+    width: min-content;
+    position: relative;
+    margin: 5px;
+    background: white;
+    border-radius: 2px;
+    padding: 2px;
+    font-size: 20px;
+    div{
+      padding: 2px;
+      visibility: hidden;
+      color: red;
+      position: relative;
+      z-index: 2;
+    }
+    .showCurrentWord{
+      visibility: visible;
+    }
     input{
-        border: none;
-        background: skyblue;
-        border-radius: 2px;
-        outline: none;
+      border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 2px;
+    width: calc(100% - 8px);
+    display: inline;
+    background: none;
+    position: absolute;
+    z-index: 1;
+    top: 2px;
     }
+  }
+  @keyframes switchCard {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
-    p{
-        margin: 2px;
-    }
+  p{
+      margin: 2px;
+  }
 
-    img{
-        width: 300px;
+  .putDownOnAns{
+    animation: putDown 1s;
+  }
+
+  @keyframes putDown {
+    from{
+      margin-top: -24px;
+      opacity: 0;
     }
+    to{
+      margin-top: initial;
+      opacity: 1;
+    }
+  }
+
+  img{
+    width: 200px;
+    height: 150px;
+    border-radius: 5px;
+    border: 2px solid;
+  }
+  .gradeContainer{
+    display: flex;
+    width: 50px;
+    flex-direction: column;
+    align-items: center;
+    height: 155px;
+    justify-content: space-around;
+    align-self: start;
+    position: absolute;
+    div{
+      width: 40px;
+      height: 40px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .easyBtn{
+      background-color: greenyellow;
+    }
+    .mediumBtn{
+      background-color: yellow;
+    }
+    .hardBtn{
+      background-color: tomato;
+    }
+  }
+  .controlContainer{
+    display: flex;
+    width: 50px;
+    flex-direction: column;
+    align-items: center;
+    height: 155px;
+    justify-content: space-around;
+    align-self: flex-end;
+    position: absolute;
+    div{
+      width: 40px;
+      height: 40px;
+      border-radius: 3px;
+      background-color: burlywood;
+      cursor: pointer;
+    }
+  }
 }

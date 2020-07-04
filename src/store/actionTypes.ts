@@ -1,5 +1,5 @@
 import {
-  SettingsInterface, AuthInterface, SpeakitWordInterface, SpeakitScreenType, SpeakitModeType
+  SettingsInterface, AuthInterface, SpeakitWordInterface, SpeakitScreenType, SpeakitModeType, TrainingScreenType, BackendWordInterface
 } from '../types';
 
 export type Action =
@@ -12,3 +12,7 @@ export type Action =
 | { type: 'SET_SPEAKIT_COMPLETE', value: boolean}
 | { type: 'SET_SPEAKIT_MODE', value: SpeakitModeType}
 | { type: 'SET_SPEAKIT_GAME', value: boolean};
+| { type: 'SET_TRAINING_SCREEN', value: TrainingScreenType }
+| { type: 'SET_TRAINING_COMPLETE', value: boolean }
+| { type: 'SET_TRAINING_AUDIO', value: boolean }
+| { type: 'SET_TRAINING_CARD', value: BackendWordInterface };

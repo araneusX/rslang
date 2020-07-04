@@ -1,7 +1,7 @@
 import appState from './store';
 import { Action } from './actionTypes';
 import {
-  StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface
+  StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface, TrainingStateInterface
 } from '../types';
 
 const authReducer = (state: AuthInterface, action:Action): AuthInterface => {
@@ -53,18 +53,41 @@ const speakItReducer = (state: SpeakitStateInterface, action:Action): SpeakitSta
     case 'SET_SPEAKIT_MODE': {
       const { value } = action;
       return { ...state, mode: value };
+      }
+    default: return state;
+  }
+};
+
+const trainReducer = (state: TrainingStateInterface, action: Action): TrainingStateInterface => {
+  switch (action.type) {
+    case 'SET_TRAINING_SCREEN': {
+      const { value } = action;
+      return { ...state, screen: value };
+    }
+    case 'SET_TRAINING_COMPLETE': {
+      const { value } = action;
+      return { ...state, complete: value };
+    }
+    case 'SET_TRAINING_AUDIO': {
+      const { value } = action;
+      return { ...state, isAudioOn: value };
+    }
+    case 'SET_TRAINING_CARD': {
+      const { value } = action;
+      return { ...state, card: value };
     }
     default: return state;
   }
 };
 
 const mainReducer = (
-  { auth, settings, speakit }: StateInterface,
+  { auth, settings, training, speakit, training }: StateInterface,
   action:Action
 ): StateInterface => ({
   auth: authReducer(auth, action),
   settings: settingsReducer(settings, action),
-  speakit: speakItReducer(speakit, action)
+  speakit: speakItReducer(speakit, action),
+  training: trainReducer(training, action)
 });
 
 export default mainReducer;

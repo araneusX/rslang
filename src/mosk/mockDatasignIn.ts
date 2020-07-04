@@ -2,8 +2,8 @@ import { WordStatisticsInterface } from '../types';
 import { getFormattedDate } from '../utils';
 
 export default {
-  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZTJhZjlmNmI2ODlhMDAxNzllYWQ2ZSIsImlhdCI6MTU5MjY0MTMwMCwiZXhwIjoxNTkyNjU1NzAwfQ.f_siSu_bUBUQHjr3DghcVvJoHi4RS9dEkaU6-2tHz_Y",
-  userId: "5ee2af9f6b689a00179ead6e",
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZTJhZjlmNmI2ODlhMDAxNzllYWQ2ZSIsImlhdCI6MTU5MjY0MTMwMCwiZXhwIjoxNTkyNjU1NzAwfQ.f_siSu_bUBUQHjr3DghcVvJoHi4RS9dEkaU6-2tHz_Y',
+  userId: '5ee2af9f6b689a00179ead6e',
   input: {
     email: 'o@user.com',
     password: 'Gfhjkm_123'
