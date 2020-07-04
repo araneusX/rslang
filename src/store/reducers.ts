@@ -1,7 +1,7 @@
 import appState from './store';
 import { Action } from './actionTypes';
 import {
-  StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface
+  StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface, OurGameStateInterface
 } from '../types';
 
 const authReducer = (state: AuthInterface, action:Action): AuthInterface => {
@@ -58,13 +58,50 @@ const speakItReducer = (state: SpeakitStateInterface, action:Action): SpeakitSta
   }
 };
 
+const ourGameReducer = (state: OurGameStateInterface, action:Action): OurGameStateInterface => {
+  switch (action.type) {
+    case 'SET_OUR_ROUND': {
+      const { value } = action;
+      return { ...state, round: value };
+    }
+    case 'SET_OUR_LEVEL': {
+      const { value } = action;
+      return { ...state, level: value };
+    }
+    case 'SET_OUR_WORDS': {
+      const { value } = action;
+      return { ...state, words: value };
+    }
+    case 'SET_OUR_SCREEN': {
+      const { value } = action;
+      return { ...state, screen: value };
+    }
+    case 'SET_OUR_COMPLETE': {
+      const { value } = action;
+      return { ...state, complete: value };
+    }
+    case 'SET_OUR_GAME': {
+      const { value } = action;
+      return { ...state, game: value };
+    }
+    case 'SET_OUR_MODE': {
+      const { value } = action;
+      return { ...state, mode: value };
+    }
+    default: return state;
+  }
+};
+
 const mainReducer = (
-  { auth, settings, speakit }: StateInterface,
+  {
+    auth, settings, speakit, our
+  }: StateInterface,
   action:Action
 ): StateInterface => ({
   auth: authReducer(auth, action),
   settings: settingsReducer(settings, action),
-  speakit: speakItReducer(speakit, action)
+  speakit: speakItReducer(speakit, action),
+  our: ourGameReducer(our, action)
 });
 
 export default mainReducer;

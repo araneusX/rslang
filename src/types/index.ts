@@ -198,8 +198,24 @@ export interface SpeakitStateInterface {
   mode: SpeakitModeType
 }
 
+export interface OurGameWordInterface extends BackendWordInterface {
+  isChosen: boolean,
+  index: number
+}
+
+export interface OurGameStateInterface {
+  round: number,
+  level: number,
+  screen: SpeakitScreenType,
+  words: OurGameWordInterface[],
+  complete: boolean,
+  game: boolean,
+  mode: SpeakitModeType
+}
+
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
-  speakit: SpeakitStateInterface
+  speakit: SpeakitStateInterface,
+  our: OurGameStateInterface
 }
