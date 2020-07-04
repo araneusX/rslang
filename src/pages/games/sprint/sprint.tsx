@@ -14,8 +14,7 @@ export const SprintContext = createContext<{
   >}>(
     {
       getStartWords: async () => []
-    }
-    );
+    });
 
 const Sprint = () => {
   const { state, dispatch } = useContext(StateContext);
