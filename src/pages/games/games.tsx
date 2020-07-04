@@ -8,6 +8,9 @@ const Games = () => (
       <Link to="/games/speakit">
         <div className={style.tile}>Speak It</div>
       </Link>
+      <Link to="/games/ourGame">
+        <div className={style.tile}>Associations</div>
+      </Link>
     </nav>
   </>
 );
