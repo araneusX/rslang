@@ -63,7 +63,7 @@ export interface StatisticsInterface extends UserStatisticsInterface {
 
   saveMini: (name: MiniGamesNamesType, result: number) => Promise<{ok: boolean}>,
 
-  getMini: (name: MiniGamesNamesType) => {};
+  getMini: (name: MiniGamesNamesType) => {date: string, results: number[]}[];
 
   initUser: (
     userId: string,
@@ -97,6 +97,8 @@ export interface StatisticsInterface extends UserStatisticsInterface {
 
   getAllWordsStatistics: () => WordStatisticsInterface[],
 
+  getAllWordsStatisticsWithDeleted: () => WordStatisticsInterface[],
+
   getWordStatistics: () => WordStatisticsInterface | null,
 
   getAllWordsId: () => string[],
@@ -120,8 +122,8 @@ export interface WordStatisticsInterface {
 
 export interface BackendWordInterface {
   id: string,
-  group: 0|1|2|3|4|5,
-  page: number,
+  group: number,
+  round: number,
   word: string,
   image: string,
   audio: string,
@@ -136,7 +138,7 @@ export interface BackendWordInterface {
   wordsPerExampleSentence: number
 }
 
-export interface CardInterface{
+export interface CardInterface {
   id: string,
   group: 0|1|2|3|4|5,
   word: string,
@@ -183,6 +185,26 @@ export interface SettingsInterface {
   optional : SettingsOptionalInterface
 }
 
+export interface SpeakitWordInterface extends BackendWordInterface {
+  sound: HTMLAudioElement,
+  isRecognized: boolean,
+  index: number
+}
+
+export type SpeakitScreenType = 'start' | 'main' | 'results';
+
+export type SpeakitModeType = 'user' | 'vocabulary';
+
+export interface SpeakitStateInterface {
+  round: number,
+  level: number,
+  screen: SpeakitScreenType,
+  words: SpeakitWordInterface[],
+  complete: boolean,
+  game: boolean,
+  mode: SpeakitModeType
+}
+
 export type TrainingScreenType = 'start' | 'main';
 
 export interface TrainingStateInterface {
@@ -195,5 +217,6 @@ export interface TrainingStateInterface {
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
+  speakit: SpeakitStateInterface,
   training: TrainingStateInterface
 }

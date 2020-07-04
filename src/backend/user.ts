@@ -1,7 +1,8 @@
 import { UserStatisticsInterface, SettingsInterface } from '../types';
+import { SERVER } from '../constants';
 
 export const logInUser = async (user: object) => {
-  const url = 'https://afternoon-falls-25894.herokuapp.com/signin';
+  const url = `${SERVER}/signin`;
   const options = {
     method: 'POST',
     headers: {
@@ -38,7 +39,7 @@ export const logInUser = async (user: object) => {
 };
 
 export const createUser = async (user: object) => {
-  const url = 'https://afternoon-falls-25894.herokuapp.com/users';
+  const url = `${SERVER}/users`;
   const options = {
     method: 'POST',
     headers: {
@@ -75,7 +76,7 @@ export const createUser = async (user: object) => {
 };
 
 export const setUserStatistics = async (userId: string, token: string, optional: UserStatisticsInterface) => {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/statistics`;
+  const url = `${SERVER}/users/${userId}/statistics`;
   try {
     const rawResponse = await fetch(url, {
       method: 'PUT',
@@ -99,7 +100,7 @@ export const setUserStatistics = async (userId: string, token: string, optional:
 };
 
 export const getUserStatistics = async (userId: string, token: string) => {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/statistics`;
+  const url = `${SERVER}/users/${userId}/statistics`;
   try {
     const rawResponse = await fetch(url, {
       method: 'GET',
@@ -108,12 +109,14 @@ export const getUserStatistics = async (userId: string, token: string) => {
         Accept: 'application/json'
       }
     });
+
     if (!rawResponse.ok) {
       return { ok: false, status: rawResponse.status };
     }
+
     const content = await rawResponse.json();
     const dataStatistics = content.optional;
-    if (!dataStatistics.days) {
+    if (!(dataStatistics.days && dataStatistics.progress && dataStatistics.mini)) {
       return { ok: false, status: 404 };
     }
     const statistics = {
@@ -128,7 +131,7 @@ export const getUserStatistics = async (userId: string, token: string) => {
 };
 
 export const getSettings = async (userId: string, token: string) => {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
+  const url = `${SERVER}/users/${userId}/settings`;
   try {
     const rawResponse = await fetch(url, {
       method: 'GET',
@@ -159,7 +162,7 @@ export const getSettings = async (userId: string, token: string) => {
 };
 
 export const setSettings = async (userId: string, token: string, data?: SettingsInterface) => {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/settings`;
+  const url = `${SERVER}/users/${userId}/settings`;
   try {
     const rawResponse = await fetch(url, {
       method: 'PUT',
