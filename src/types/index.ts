@@ -205,6 +205,7 @@ export interface SprintWordInterface extends BackendWordInterface {
 export type SprintScreenType = 'start' | 'main' | 'results';
 export interface SprintStateInterface {
   level: number,
+  round: number,
   step: number,
   correctAnswersInRow: number,
   selectLevel: boolean,

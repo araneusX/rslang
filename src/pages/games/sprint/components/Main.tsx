@@ -3,21 +3,37 @@ import React, { useContext, useEffect } from 'react';
 import style from '../sprint.module.scss';
 import { StateContext } from '../../../../store/stateProvider';
 import SprintContext from '../sprintContext';
+import { StatisticsContext } from '../../../../statistics/statisticsProvider';
+import { StatisticsInterface } from '../../../../types';
 
 const Main = () => {
-  const levelsSelect = [1, 2, 3, 4, 5, 6];
+  const levelsSelect = [1, 2, 3, 4, 5, 6, 7];
+  const roundSelect = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const userWordValue = 7;
   const { getStartWords } = useContext(SprintContext);
   const { state, dispatch } = useContext(StateContext);
+  const { level, round } = state.sprint;
+  const statistics = useContext(StatisticsContext) as StatisticsInterface;
+  const userLearnedWord = statistics.getAllWordsId();
   const {
     roundTime, pointsForRound, words, pointsForAnswer, pointsLevel, correctAnswersInRow, step
   } = state.sprint;
 
-  const changeLevel = async (e: React.FormEvent<HTMLSelectElement>) => {
+  const sendLevel = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const { value } : any = e.target;
+    const nextWords = await getStartWords(level, level !== userWordValue, round);
+    dispatch({ type: 'SET_SPRINT_NEW_GAME', value: { level, words: nextWords, selectLevel: (level - 1) !== userWordValue } });
+  };
 
-    const nextWords = await getStartWords(state.sprint.level, state.sprint.selectLevel);
-    dispatch({ type: 'SET_SPRINT_NEW_GAME', value: { level: Number(value) - 1, words: nextWords, selectLevel: true } });
+  const changeLevel = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } : any = e.target;
+    dispatch({ type: 'SET_SPRINT_LEVEL_NUMBER', value: Number(value) - 1 });
+  };
+
+  const changeRound = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } : any = e.target;
+    dispatch({ type: 'SET_SPRINT_ROUND_NUMBER', value: Number(value) });
   };
 
   const setAnswer = (answer:boolean):void => {
@@ -70,16 +86,35 @@ const Main = () => {
         </div>
         <div>
           select level:
-          <select name="levelSelect" id="levelSelect" onChange={changeLevel} value={state.sprint.level + 1}>
+          <select name="levelSelect" id="levelSelect" onChange={changeLevel} value={level + 1}>
             {levelsSelect.map((i) => (
               <option
                 key={i}
                 value={i}
+                disabled={(userLearnedWord.length < 60 && i === userWordValue)}
               >
-                {i}
+                { (i === userWordValue) ? 'User words' : i}
               </option>
             ))}
           </select>
+          select round:
+          <select
+            name="roundSelect"
+            id="roundSelect"
+            disabled={level + 1 === userWordValue}
+            onChange={changeRound}
+            value={round}
+          >
+            {roundSelect.map((i) => (
+              <option
+                key={i}
+                value={i}
+              >
+                { i }
+              </option>
+            ))}
+          </select>
+          <button type="button" onClick={sendLevel}>Select Level</button>
         </div>
       </div>
       <div className={style.gameCard}>

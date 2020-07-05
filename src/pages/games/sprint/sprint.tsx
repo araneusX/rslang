@@ -21,9 +21,9 @@ const Sprint = () => {
     return Math.round(rand);
   }
 
-  const startData = async (_level:number) => {
-    const startWith = randomInteger(1, 520);
-    const gameWords = await downloadNewWords(_level, startWith, 80);
+  const startData = async (_level:number, _round: number) => {
+    const startWith = _round * 60;
+    const gameWords = await downloadNewWords(_level, startWith, 60);
     return gameWords.content;
   };
 
@@ -41,16 +41,16 @@ const Sprint = () => {
     return wordsArrayWithAnswer;
   };
 
-  const getStartWords = async (_level: number = 0, _selectLevel:boolean = false) => {
+  const getStartWords = async (_level: number = 0, _selectLevel:boolean = false, _round: number = 1) => {
     let startWord = [];
     if (_selectLevel) {
-      startWord = await startData(_level);
+      startWord = await startData(_level, _round);
     } else {
       const userLearnedWord = statistics.getAllWordsId();
-      if (userLearnedWord.length < 80) {
-        startWord = await startData(_level);
+      if (userLearnedWord.length < 60) {
+        startWord = await startData(_level, _round);
       } else {
-        const userWord = await getManyWordsById(userLearnedWord.slice(0, 80));
+        const userWord = await getManyWordsById(userLearnedWord.slice(0, 60));
         startWord = userWord.content;
       }
     }

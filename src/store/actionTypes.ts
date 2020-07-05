@@ -17,6 +17,8 @@ export type Action =
 | { type: 'SET_SPRINT_SCREEN', value: SprintScreenType}
 | { type: 'SET_SPRINT_POINTS_LEVEL', value: number}
 | { type: 'SET_SPRINT_ROUND_TIME', value: number}
+| { type: 'SET_SPRINT_ROUND_NUMBER', value: number}
+| { type: 'SET_SPRINT_LEVEL_NUMBER', value: number}
 | { type: 'SET_SPRINT_END_GAME'}
 | { type: 'SET_SPRINT_CORRECT_ANSWER', value: {correctAnswersInRowNext: number, pointsLevelNext: number, pointsForAnswerPlus: number}}
 | { type: 'SET_SPRINT_STEP_AND_CORRECT_ANSWERS_IN_ROW', value: number }

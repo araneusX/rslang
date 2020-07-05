@@ -67,7 +67,7 @@ const sprintReducer = (state: SprintStateInterface, action:Action): SprintStateI
         level,
         words,
         selectLevel,
-        startGame: false,
+        startGame: true,
         finishGame: false,
         screen: 'start',
         pointsForRound: 0,
@@ -94,6 +94,14 @@ const sprintReducer = (state: SprintStateInterface, action:Action): SprintStateI
     case 'SET_SPRINT_ROUND_TIME': {
       const { value } = action;
       return { ...state, roundTime: value };
+    }
+    case 'SET_SPRINT_ROUND_NUMBER': {
+      const { value } = action;
+      return { ...state, round: value };
+    }
+    case 'SET_SPRINT_LEVEL_NUMBER': {
+      const { value } = action;
+      return { ...state, level: value };
     }
     case 'SET_SPRINT_STEP_AND_CORRECT_ANSWERS_IN_ROW': {
       const { value } = action;

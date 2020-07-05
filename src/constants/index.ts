@@ -66,7 +66,8 @@ export const initialSpeakitObject: SpeakitStateInterface = {
 };
 
 export const initialSprintObject: SprintStateInterface = {
-  level: 0,
+  level: 6,
+  round: 1,
   selectLevel: false,
   screen: 'start',
   step: 0,
