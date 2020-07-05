@@ -2,12 +2,23 @@ import React, { useContext, useEffect } from 'react';
 
 import style from '../sprint.module.scss';
 import { StateContext } from '../../../../store/stateProvider';
+import SprintContext from '../sprintContext';
 
 const Main = () => {
+  const levelsSelect = [1, 2, 3, 4, 5, 6];
+  const { getStartWords } = useContext(SprintContext);
   const { state, dispatch } = useContext(StateContext);
   const {
     roundTime, pointsForRound, words, pointsForAnswer, pointsLevel, correctAnswersInRow, step
   } = state.sprint;
+
+  const changeLevel = async (e: React.FormEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    const { value } : any = e.target;
+
+    const nextWords = await getStartWords(state.sprint.level, state.sprint.selectLevel);
+    dispatch({ type: 'SET_SPRINT_NEW_GAME', value: { level: Number(value) - 1, words: nextWords, selectLevel: true } });
+  };
 
   const setAnswer = (answer:boolean):void => {
     if ((words[step].answerToUser === words[step].wordTranslate) === answer) {
@@ -56,6 +67,19 @@ const Main = () => {
         <div>
           pointsForRound:
           {pointsForRound}
+        </div>
+        <div>
+          select level:
+          <select name="levelSelect" id="levelSelect" onChange={changeLevel} value={!state.sprint.selectLevel ? 'User Word' : state.sprint.level + 1}>
+            {levelsSelect.map((i) => (
+              <option
+                key={i}
+                value={i}
+              >
+                {i}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
       <div className={style.gameCard}>

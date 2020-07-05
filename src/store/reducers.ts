@@ -60,7 +60,7 @@ const speakItReducer = (state: SpeakitStateInterface, action:Action): SpeakitSta
 
 const sprintReducer = (state: SprintStateInterface, action:Action): SprintStateInterface => {
   switch (action.type) {
-    case 'SET_SPRINT_LEVEL': {
+    case 'SET_SPRINT_NEW_GAME': {
       const { level, words, selectLevel } = action.value;
       return {
         ...state,

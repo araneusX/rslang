@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { SprintWordInterface } from '../../../types';
 
 const SprintContext = createContext<{
-  getStartWords:()=>Promise<SprintWordInterface[]
+  getStartWords:(level?: number, selectLevel?:boolean)=>Promise<SprintWordInterface[]
   >}>(
     {
       getStartWords: async () => []

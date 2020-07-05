@@ -15,8 +15,8 @@ const Results = () => {
   const [allStatistic, setAllStatistic]:any[] = useState([{}]);
 
   const newGame = async () => {
-    const nextWords = await getStartWords();
-    dispatch({ type: 'SET_SPRINT_LEVEL', value: { level: state.sprint.level, words: nextWords, selectLevel: state.sprint.selectLevel } });
+    const nextWords = await getStartWords(state.sprint.level, state.sprint.selectLevel);
+    dispatch({ type: 'SET_SPRINT_NEW_GAME', value: { level: state.sprint.level, words: nextWords, selectLevel: state.sprint.selectLevel } });
   };
 
   useEffect(() => {
