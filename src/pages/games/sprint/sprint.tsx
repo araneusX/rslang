@@ -23,7 +23,7 @@ const Sprint = () => {
 
   const startData = async (_level:number, _round: number) => {
     const startWith = _round * 60;
-    const gameWords = await downloadNewWords(_level, startWith, 60);
+    const gameWords = await downloadNewWords(_level === 6 ? 0 : _level, startWith, 60);
     return gameWords.content;
   };
 

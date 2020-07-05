@@ -17,6 +17,7 @@ const Results = () => {
   const newGame = async () => {
     const round = state.sprint.round < 10 ? state.sprint.round + 1 : 1;
     const nextWords = await getStartWords(state.sprint.level, state.sprint.selectLevel, round);
+
     dispatch({ type: 'SET_SPRINT_ROUND_NUMBER', value: round });
     dispatch({ type: 'SET_SPRINT_NEW_GAME', value: { level: state.sprint.level, words: nextWords, selectLevel: state.sprint.selectLevel } });
   };
