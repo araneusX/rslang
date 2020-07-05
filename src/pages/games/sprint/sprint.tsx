@@ -12,7 +12,7 @@ import SprintContext from './sprintContext';
 
 const Sprint = () => {
   const { state, dispatch } = useContext(StateContext);
-  const { screen, selectLevel, level } = state.sprint;
+  const { screen } = state.sprint;
 
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
 
