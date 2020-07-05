@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import style from './main.module.scss';
 import { downloadNewWords, getManyWordsById } from '../../../../backend/words';
@@ -21,9 +21,47 @@ const Main: React.FC<MainPropsType> = () => {
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
   const isUserWords = (statistics.getAllWordsStatistics()).length >= 10;
 
+  const [current, setCurrent] = useState<OurGameWordInterface>();
+
+  if (!isUserWords && mode === 'user') {
+    dispatch({ type: 'SET_OUR_MODE', value: 'vocabulary' });
+  }
+
+  const setNewWords = async (
+    newLevel: number,
+    newRound: number,
+    newMode: SpeakitModeType
+  ) => {
+    let result: any;
+    if (newMode === 'user' && isUserWords) {
+      const userWordsIds = statistics.getAllWordsId().slice(0, 10);
+      result = await getManyWordsById(userWordsIds);
+    } else {
+      result = await downloadNewWords(newLevel, newRound * 10, 10);
+    }
+    if (result.ok) {
+      const newWords: OurGameWordInterface[] = result.content.map((word: BackendWordInterface, i:number) => (
+        {
+          ...word,
+          isChosen: false,
+          index: i
+        }
+      ));
+      const right = words.reduce((acc, word) => (word.isChosen ? acc + 1 : acc), 0);
+      statistics.saveMini('our', right);
+      dispatch({ type: 'SET_OUR_GAME', value: false });
+      dispatch({ type: 'SET_OUR_COMPLETE', value: false });
+      dispatch({ type: 'SET_OUR_WORDS', value: newWords });
+      setCurrent(newWords[0]);
+    } else {
+      console.log('BACKEND ERROR: Associations');
+    }
+  };
+
   const handleRadioChange = (value: SpeakitModeType) => {
     const newMode = value;
-    dispatch({ type: 'SET_SPEAKIT_MODE', value });
+    setNewWords(level, round, newMode);
+    dispatch({ type: 'SET_OUR_MODE', value });
   };
 
   const handleLevelChange = (event: React.SyntheticEvent) => {
@@ -31,12 +69,14 @@ const Main: React.FC<MainPropsType> = () => {
     const newLevel: number = Number(target.value);
     dispatch({ type: 'SET_OUR_LEVEL', value: newLevel });
     dispatch({ type: 'SET_OUR_ROUND', value: 0 });
+    setNewWords(newLevel, 0, 'vocabulary');
   };
 
   const handleRoundChange = (event: React.FormEvent) => {
     const target = event.target as HTMLInputElement;
     const newRound: number = Number(target.value);
     dispatch({ type: 'SET_OUR_ROUND', value: newRound });
+    setNewWords(newRound, 0, 'vocabulary');
   };
 
   return (
@@ -85,6 +125,18 @@ const Main: React.FC<MainPropsType> = () => {
               )
             }
       </form>
+      {
+        current !== undefined
+        && (
+          <div className={style.wrapper}>
+            <div className={style.screen}>
+              <div className={style.images}>
+                {}
+              </div>
+            </div>
+          </div>
+        )
+      }
     </>
   );
 };

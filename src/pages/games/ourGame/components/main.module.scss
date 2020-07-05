@@ -33,10 +33,11 @@
   background-color: #D0FFF7;
 }
 
-.words {
+.words, .images {
   display: flex;
   flex-wrap: wrap;
 }
+
 
 .word {
   box-sizing: border-box;
