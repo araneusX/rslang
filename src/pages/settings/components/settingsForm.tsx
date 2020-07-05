@@ -10,7 +10,7 @@ const SettingsForm = () => {
 
   const [setting, setSetting] = useState(settings);
   const [loader, setLoader] = useState(false);
-  const levelsArray: number[] = [1, 2, 3, 4, 5, 6];
+  const levelsArray: number[] = [0, 1, 2, 3, 4, 5];
 
   function changeLevel(event: React.ChangeEvent<HTMLSelectElement>):void {
     const { value } = event.target;
@@ -136,7 +136,7 @@ const SettingsForm = () => {
         <label htmlFor="level">
           Level:
           <select name="level" id="level" value={setting.optional.level} onChange={changeLevel}>
-            {levelsArray.map((level) => <option key={level} value={level}>{level}</option>)}
+            {levelsArray.map((level) => <option key={level} value={level}>{level + 1}</option>)}
           </select>
         </label>
         <br />
