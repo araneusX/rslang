@@ -114,7 +114,7 @@ const Main = () => {
               </option>
             ))}
           </select>
-          <button type="button" onClick={sendLevel}>Select Level</button>
+          <button type="button" onClick={sendLevel}>Change Level</button>
         </div>
       </div>
       <div className={style.gameCard}>
