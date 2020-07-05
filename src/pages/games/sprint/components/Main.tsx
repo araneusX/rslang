@@ -70,7 +70,7 @@ const Main = () => {
         </div>
         <div>
           select level:
-          <select name="levelSelect" id="levelSelect" onChange={changeLevel} value={!state.sprint.selectLevel ? 'User Word' : state.sprint.level + 1}>
+          <select name="levelSelect" id="levelSelect" onChange={changeLevel} value={state.sprint.level + 1}>
             {levelsSelect.map((i) => (
               <option
                 key={i}
