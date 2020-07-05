@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, createContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Start from './components/Start';
 import Main from './components/Main';
 import Results from './components/Results';
@@ -6,15 +6,9 @@ import Results from './components/Results';
 import style from './sprint.module.scss';
 import { StateContext } from '../../../store/stateProvider';
 import { StatisticsContext } from '../../../statistics/statisticsProvider';
-import { StatisticsInterface, BackendWordInterface, SprintWordInterface } from '../../../types';
+import { StatisticsInterface, BackendWordInterface } from '../../../types';
 import { downloadNewWords, getManyWordsById } from '../../../backend/words';
-
-export const SprintContext = createContext<{
-  getStartWords:()=>Promise<SprintWordInterface[]
-  >}>(
-    {
-      getStartWords: async () => []
-    });
+import SprintContext from './sprintContext';
 
 const Sprint = () => {
   const { state, dispatch } = useContext(StateContext);

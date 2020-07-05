@@ -202,13 +202,11 @@ export interface SprintWordInterface extends BackendWordInterface {
   answerToUser: string
 }
 
-export type PointsLevelRange = 0|1|2;
-export type CorrectAnswersInRowRange = 0|1|2|3;
 export type SprintScreenType = 'start' | 'main' | 'results';
 export interface SprintStateInterface {
   level: number,
   step: number,
-  correctAnswersInRow: CorrectAnswersInRowRange,
+  correctAnswersInRow: number,
   selectLevel: boolean,
   startGame: boolean,
   finishGame: boolean,
@@ -216,7 +214,7 @@ export interface SprintStateInterface {
   words: SprintWordInterface[],
   pointsForAnswer: number[],
   pointsForRound: number,
-  pointsLevel: PointsLevelRange,
+  pointsLevel: number,
   roundTime: number
 }
 
