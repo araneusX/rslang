@@ -30,36 +30,36 @@
   margin: 0 5px;
   cursor: pointer;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .audio-prompt {
-  background: url('../../assets/img/micro.svg'), #00c49d;
+  background: url('../../assets/img/micro.svg'), #FF9900;
 }
 
 .translate-prompt {
-  background: url('../../assets/img/translate.svg'), #00c49d;
+  background: url('../../assets/img/translate.svg'), #FF9900;
   background-size: 22px;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .volume-prompt {
-  background: url('../../assets/img/music.svg'), #00c49d;
+  background: url('../../assets/img/music.svg'), #FF9900;
   background-size: 22px;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .image-card-prompt {
-  background: url('../../assets/img/image.svg'), #00c49d;
+  background: url('../../assets/img/image.svg'), #FF9900;
   background-size: 22px;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .image-all-prompt {
-  background: url('../../assets/img/imgCell.png'), #00c49d;
+  background: url('../../assets/img/imgCell.png'), #FF9900;
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: center;

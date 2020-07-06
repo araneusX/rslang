@@ -9,7 +9,7 @@ const Games = () => (
         <div className={style.tile}>Speak It</div>
       </Link>
       <Link to="/games/puzzle">
-        <div className={style.tile}>Puzzle</div>
+        <div className={style.tilePuzzle} />
       </Link>
     </nav>
   </>
