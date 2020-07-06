@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import React, { useContext, useState, useEffect, useMemo } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import style from './main.module.scss';
 import Card from './components/card';
 import { BackendWordInterface, StatisticsInterface } from '../../types';
@@ -10,15 +10,15 @@ import { StatisticsContext } from '../../statistics/statisticsProvider';
 
 const Main = () => {
   const { state, dispatch } = useContext(StateContext);
+  const { isAudioOn, isFirstVisit } = state.training
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
-  const [cardObject, setCardObject] = useState<BackendWordInterface >(cardObj[0] as BackendWordInterface);
+  //const [cardObject, setCardObject] = useState<BackendWordInterface >(cardObj[0] as BackendWordInterface);
   const [startPreview, setStart] = useState(true);
   const [endPreview, setEndPreview] = useState(false);
+  const [firstVisitOnGame, setFirstVisitOnGame] = useState(true);
 
   const [count, setCount] = useState<number>(statistics.getDayStatistics().cards + 1);
   const [answer, setAns] = useState(false);
-
-  const [soundState, setSound] = useState(true);
   const [sessionVocWrdCount, setSessionVocWrdCount] = useState(0);
 
   useEffect(() => {
@@ -31,8 +31,13 @@ const Main = () => {
     let ignore = false;
     async function fetchData() {
       if (count <= state.settings.wordsPerDay) {
-        const result = await (trainGameCard(state.auth.userId, state.auth.token));
-        if (!ignore) console.log('текущая карточка', result); setCardObject(result);
+        if (isFirstVisit || !firstVisitOnGame) {
+          const result = await (trainGameCard(state.auth.userId, state.auth.token));
+          if (!ignore) {
+            console.log('текущая карточка', result);
+            dispatch({ type: 'SET_TRAINING_CARD', value: result});
+          }
+        }
       } else {
         setEndPreview(true);
       }
@@ -46,12 +51,21 @@ const Main = () => {
     async function fetchData() {
       if (sessionVocWrdCount > 0) {
         const result = await (trainGameCard(state.auth.userId, state.auth.token));
-        if (!ignore) console.log('текущая карточка', result); setCardObject(result);
+        if (!ignore) {
+          dispatch({ type: 'SET_TRAINING_CARD', value: result});
+          console.log('текущая карточка', result);
+        }
       }
     }
     fetchData();
     return () => { ignore = true; };
   }, [sessionVocWrdCount]);
+
+
+  useEffect(() => {
+    dispatch({ type: 'SET_TRAINING_FIRST_VISIT', value: false});
+    setFirstVisitOnGame(false);
+  },[]);
 
   const {
     addGradeButton,
@@ -79,23 +93,12 @@ const Main = () => {
     wordDeleteButton
   };
 
-  const handleNext = () => {
-    if (answer === false) {
-      setAns(true);
-    } else {
-      setAns(false);
-      if ((count + 1) > state.settings.wordsPerDay) {
-        dispatch({ type: 'SET_TRAINING_COMPLETE', value: true });
-        alert('End of training!');
-      } else setCount(count + 1);
-    }
-  };
 
   const handleSoundControl = () => {
-    if (soundState) {
-      setSound(false);
+    if (isAudioOn) {
+      dispatch({ type: 'SET_TRAINING_AUDIO', value: false });
     } else {
-      setSound(true);
+      dispatch({ type: 'SET_TRAINING_AUDIO', value: true });
     }
   };
 
@@ -141,24 +144,22 @@ const Main = () => {
           <>
             <div className={style.sliderContainer}>
               <Card
-                cardObj={cardObject}
+                /*cardObj={cardObject}*/
                 settings={settings}
                 answer={answer}
                 callback={setAns}
                 count={count}
-                soundState={soundState}
                 nextCard={nextCard}
               />
             </div>
             <div className={style.controlContainer}>
-              { soundState ? (
+              { isAudioOn ? (
                 <button className={style.soundOn} onClick={handleSoundControl}>Выключить звук</button>
               ) : (
                 <button className={style.soundOff} onClick={handleSoundControl}>Включить звук</button>
               )}
               <button onClick={() => { setAns(true); }}>Ответить</button>
               <div className={style.progressBar}>
-
                 {count}
                 <progress value={count} max={state.settings.wordsPerDay} />
                 {state.settings.wordsPerDay}

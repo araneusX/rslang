@@ -189,7 +189,9 @@ export interface TrainingStateInterface {
   screen: TrainingScreenType,
   isAudioOn: boolean,
   card: BackendWordInterface,
-  complete: boolean
+  complete: boolean,
+  isFirstVisit: boolean,
+  trainingMode: 0|1|2;
 }
 
 export interface StateInterface {
