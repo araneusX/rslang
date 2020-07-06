@@ -45,16 +45,14 @@ export async function getWordsByFilter(
       word: BackendWordInterface
     }> = [];
 
-    if (result.length > 0) {
-      content = result[0].paginatedResults.map((wordObj: any) => {
-        const word = { ...wordObj };
-        delete word.userWord;
-        return {
-          statistics: wordObj.userWord.optional as WordStatisticsInterface,
-          word: word as BackendWordInterface
-        };
-      });
-    }
+    content = result[0].paginatedResults.map((wordObj: any) => {
+      const word = { ...wordObj };
+      delete word.userWord;
+      return {
+        statistics: wordObj.userWord.optional as WordStatisticsInterface,
+        word: word as BackendWordInterface
+      };
+    });
 
     return { ok: true, content };
   } catch (error) {
