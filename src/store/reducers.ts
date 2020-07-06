@@ -42,6 +42,14 @@ const trainReducer = (state: TrainingStateInterface, action: Action): TrainingSt
       const { value } = action;
       return { ...state, card: value };
     }
+    case 'SET_TRAINING_FIRST_VISIT': {
+      const { value } = action;
+      return { ...state, isFirstVisit: value};
+    }
+    case 'SET_TRAINING_MODE': {
+      const { value } = action;
+      return { ...state, trainingMode: value};
+    }
     default: return state;
   }
 };

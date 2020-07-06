@@ -9,19 +9,19 @@ import { CardSettingsInterface, StatisticsInterface, BackendWordInterface } from
 import { StatisticsContext } from '../../../statistics/statisticsProvider';
 import { StateContext } from '../../../store/stateProvider';
 
-const Card: React.FC<{ cardObj: BackendWordInterface,
+const Card: React.FC<{
   settings: CardSettingsInterface, answer: boolean,
-  callback: Function, count: number, soundState: boolean, nextCard: Function }> = (prop) => {
-  const { dispatch } = useContext(StateContext);
-
+  callback: Function, count: number, nextCard: Function }> = (prop) => {
+  const { state } = useContext(StateContext);
+  const { isAudioOn, card } = state.training;
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
-  const { cardObj, settings } = prop;
+  const { settings } = prop;
   const [inputState, setInputState] = useState('');
 
-  const [userAns, setUserAns] = useState(cardObj.word);
+  const [userAns, setUserAns] = useState(card.word);
   const [showAns, setShowAns] = useState(false);
 
-  const isRight = useMemo(() => (cardObj.word.toLocaleLowerCase() === inputState.toLocaleLowerCase()), [prop.answer]);
+  const isRight = useMemo(() => (card.word.toLocaleLowerCase() === inputState.toLocaleLowerCase()), [prop.answer]);
   const sound = useMemo(() => new Audio(), []);
 
   const inputEl = useRef<HTMLInputElement>(null);
@@ -29,8 +29,8 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
   const sendData = (difficultLevel: 0|1|2) => {
     let ignore = false;
     async function fetchData() {
-      console.log('Собираюсь отправить:', cardObj.id, isRight, difficultLevel, cardObj.group);
-      await (statistics.saveWord(cardObj.id, isRight, difficultLevel, cardObj.group));
+      console.log('Собираюсь отправить:', card.id, isRight, difficultLevel, card.group);
+      await (statistics.saveWord(card.id, isRight, difficultLevel, card.group));
       if (!ignore) console.log('Отправлено');
     }
     fetchData();
@@ -43,37 +43,36 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
       if (settings.addGradeButton && (isRight || showAns)) {
         console.log('отметь уровень сложности!');
       }
-      if (prop.soundState) {
+      if (isAudioOn) {
         playAudio();
-        dispatch({ type: 'SET_TRAINING_AUDIO', value: true });
-      } else dispatch({ type: 'SET_TRAINING_AUDIO', value: false });
-      if (!settings.addGradeButton && !prop.soundState && (isRight || showAns)) {
+      }
+      if (!settings.addGradeButton && !isAudioOn && (isRight || showAns)) {
         sendData(1);
         prop.nextCard(false);
         setShowAns(false);
       }
     } else if (inputEl.current) {
-      setUserAns(cardObj.word);
+      setUserAns(card.word);
       inputEl.current.focus();
     }
     setInputState('');
   }, [prop.answer]);
 
   const playAudio = () => {
-    sound.src = getRightWay(cardObj.audio);
+    sound.src = getRightWay(card.audio);
     sound.play();
   };
 
   sound.onended = () => {
-    if (sound.src === getRightWay(cardObj.audio)) {
+    if (sound.src === getRightWay(card.audio)) {
       if (settings.explainToCard) {
-        sound.src = getRightWay(cardObj.audioMeaning);
+        sound.src = getRightWay(card.audioMeaning);
       } else if (settings.exampleToCard) {
-        sound.src = getRightWay(cardObj.audioExample);
+        sound.src = getRightWay(card.audioExample);
       }
       sound.play();
-    } else if ((sound.src === getRightWay(cardObj.audioMeaning)) && settings.exampleToCard) {
-      sound.src = getRightWay(cardObj.audioExample);
+    } else if ((sound.src === getRightWay(card.audioMeaning)) && settings.exampleToCard) {
+      sound.src = getRightWay(card.audioExample);
       sound.play();
     } else if ((isRight || showAns) && !settings.addGradeButton) {
       sendData(1);
@@ -83,12 +82,12 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
   };
 
   const getRightWay = (url : string) => `https://raw.githubusercontent.com/araneusx/rslang-data/master/data/${url.slice(6)}`;
-  const textExampleSplit = cardObj.textExample.split(/<b.*?>(.*?)<\/b>/);
-  const textMeaningSplit = cardObj.textMeaning.split(/<i.*?>(.*?)<\/i>/);
-  const textMeaning = () => ({ __html: cardObj.textMeaning });
-  const textExample = () => ({ __html: cardObj.textExample });
+  const textExampleSplit = card.textExample.split(/<b.*?>(.*?)<\/b>/);
+  const textMeaningSplit = card.textMeaning.split(/<i.*?>(.*?)<\/i>/);
+  const textMeaning = () => ({ __html: card.textMeaning });
+  const textExample = () => ({ __html: card.textExample });
   const currentWord = () => {
-    const currentWordEl = cardObj.word.split('').map((element, index) => {
+    const currentWordEl = card.word.split('').map((element, index) => {
       if (userAns[index] && element.toLocaleLowerCase() === userAns[index].toLocaleLowerCase()) {
         return `<span style="color: green ">${element}</span>`;
       }
@@ -113,12 +112,12 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
   };
 
   const handlerDeleteWord = () => {
-    statistics.toggleDeleted(cardObj.id);
+    statistics.toggleDeleted(card.id);
     prop.nextCard(true);
   };
 
   const handlerToDifficult = () => {
-    statistics.toggleDifficult(cardObj.id);
+    statistics.toggleDifficult(card.id);
     prop.nextCard(true);
   };
 
@@ -143,7 +142,7 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
   };
 
   return (
-    <div className={style.cardContainer} id={cardObj.id}>
+    <div className={style.cardContainer} id={card.id}>
       <div className={style.wordContainer}>
         { prop.answer ? (
           <div
@@ -159,18 +158,18 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
           value={inputState}
           onChange={handlerInputChange}
           onKeyPress={handlerInputKeyPress}
-          maxLength={cardObj.word.length}
+          maxLength={card.word.length}
         />
       </div>
       {settings.imageToCard
-                && <img src={getRightWay(prop.cardObj.image)} alt="" />}
+                && <img src={getRightWay(card.image)} alt="" />}
       <>
         {settings.translateToTheCard
                     && (
                     <p>
-                      {cardObj.wordTranslate}
+                      {card.wordTranslate}
                       {settings.transcriptionToCard
-                      && <span>{cardObj.transcription}</span>}
+                      && <span>{card.transcription}</span>}
                     </p>
                     )}
         {settings.explainToCard
@@ -179,13 +178,13 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
                       {prop.answer ? (
                         <>
                           <p dangerouslySetInnerHTML={textMeaning()} />
-                          <p className={style.putDownOnAns}>{cardObj.textMeaningTranslate}</p>
+                          <p className={style.putDownOnAns}>{card.textMeaningTranslate}</p>
                         </>
                       ) : (
                         <p>
                           {textMeaningSplit[0]}
                           {inputState}
-                          {'•'.repeat(cardObj.word.length - inputState.length)}
+                          {'•'.repeat(card.word.length - inputState.length)}
                           {textMeaningSplit[2]}
                         </p>
                       )}
@@ -197,13 +196,13 @@ const Card: React.FC<{ cardObj: BackendWordInterface,
                         {prop.answer ? (
                           <>
                             <p dangerouslySetInnerHTML={textExample()} />
-                            <p className={style.putDownOnAns}>{cardObj.textExampleTranslate}</p>
+                            <p className={style.putDownOnAns}>{card.textExampleTranslate}</p>
                           </>
                         ) : (
                           <p>
                             {textExampleSplit[0]}
                             {inputState}
-                            {'•'.repeat(cardObj.word.length - inputState.length)}
+                            {'•'.repeat(card.word.length - inputState.length)}
                             {textExampleSplit[2]}
                           </p>
                         )}

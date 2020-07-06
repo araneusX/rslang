@@ -75,5 +75,7 @@ export const initTrainingObject: TrainingStateInterface = {
     wordTranslate: 'алкоголь',
     wordsPerExampleSentence: 15
   },
-  complete: false
+  complete: false,
+  isFirstVisit: true,
+  trainingMode: 1,
 };
