@@ -25,7 +25,7 @@ const MainPage = () => {
         const game = new Game(result.content);
 
         if (game.sentences.length < 11) {
-          setIsInterval(<h3>Interval</h3>);
+          setIsInterval(<h3 className="interval-game">Interval</h3>);
           dispatch({ type: 'set data', value: game });
         } else {
           setIsInterval(null);

@@ -91,9 +91,16 @@ function GameRounds(props: any) {
       setVisibleDontKnow(!visibleDontKnow);
       setVisibleContinue(!visibleContinue);
     } else if (sentenceNumber === 9) {
+      const interval = document.querySelector('.interval-game');
+      let LandP;
+      if (interval) {
+        LandP = 'Interval';
+      } else {
+        LandP = `Level: ${data.level + 1}. Page: ${data.page + 1}`;
+      }
       const statistics = {
         time: `${getTimeDate()}`,
-        levelandpage: `Level: ${data.level + 1}. Page: ${data.page + 1}`,
+        levelandpage: LandP,
         srcimage: `https://raw.githubusercontent.com/mrINEX/english-puzzle/english-puzzle/english-puzzle/src/assets/data_paintings/${data.pageImage.imageSrc}`,
         author: `${data.pageImage.author}`,
         nameyear: `${data.pageImage.name}(${data.pageImage.year})`,
