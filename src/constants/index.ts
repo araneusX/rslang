@@ -64,3 +64,7 @@ export const initialSpeakitObject: SpeakitStateInterface = {
   game: false,
   mode: 'user'
 };
+
+export const SERVER = 'https://afternoon-falls-25894.herokuapp.com'; // https://afternoon-falls-25894.herokuapp.com
+
+export const WORDS_COUNT = 3600;

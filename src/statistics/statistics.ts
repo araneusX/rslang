@@ -37,7 +37,7 @@ const statistics: StatisticsInterface = {
     if (!this.days[nowKey]) {
       this.days[nowKey] = createDayStatisticsObject();
     }
-    return this.days[nowKey];
+    return JSON.parse(JSON.stringify(this.days[nowKey]));
   },
 
   getAllDayStatistics() {
@@ -46,14 +46,16 @@ const statistics: StatisticsInterface = {
       this.days[nowKey] = createDayStatisticsObject();
     }
     const days = Object.values(this.days);
-    return days.reduce((acc, i) => (
-      {
-        cards: acc.cards + i.cards,
-        date: acc.date < i.date ? acc.date : i.date,
-        newWords: acc.newWords + i.newWords,
-        right: acc.right + i.right,
-        series: acc.series < i.right ? i.right : acc.series
-      }
+    return JSON.parse(JSON.stringify(
+      days.reduce((acc, i) => (
+        {
+          cards: acc.cards + i.cards,
+          date: acc.date < i.date ? acc.date : i.date,
+          newWords: acc.newWords + i.newWords,
+          right: acc.right + i.right,
+          series: acc.series < i.right ? i.right : acc.series
+        }
+      ))
     ));
   },
 
@@ -63,7 +65,13 @@ const statistics: StatisticsInterface = {
       this.days[nowKey] = createDayStatisticsObject();
     }
     const days = Object.keys(this.days);
-    return days.map((i) => this.days[i]).sort((a, b) => (a.date < b.date ? -1 : 1));
+    return JSON.parse(JSON.stringify(
+      days.map((i) => this.days[i]).sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA < dateB ? -1 : 1;
+      })
+    ));
   },
 
   async saveMini(name, result) {
@@ -92,7 +100,7 @@ const statistics: StatisticsInterface = {
     const results = this.miniGames[name];
     const dates = Object.keys(results);
     const resultsArr = dates.map((date) => ({ date, results: results[date] }));
-    return resultsArr;
+    return JSON.parse(JSON.stringify(resultsArr));
   },
 
   async toggleParams(param: string, wordId: string) {
@@ -152,6 +160,14 @@ const statistics: StatisticsInterface = {
     } else {
       this.userWordsId[wordId].continuedRight = 0;
       this.series = 0;
+    }
+
+    const minInterval = (this.userWords
+      .filter((word) => (!word.isDeleted && word.isCorrect))
+      .sort((a, b) => (a.interval - b.interval)))[1].interval;
+
+    if (this.userWordsId[wordId].interval < minInterval) {
+      this.userWordsId[wordId].interval = minInterval + 1;
     }
 
     if (this.userWordsId[wordId].maxContinuedRight < this.userWordsId[wordId].continuedRight) {
@@ -216,7 +232,14 @@ const statistics: StatisticsInterface = {
     const words = this.userWords
       .filter((word) => (!word.isDeleted && word.isCorrect))
       .sort((a, b) => (a.interval - b.interval));
-    return words;
+    return JSON.parse(JSON.stringify(words));
+  },
+
+  getAllWordsStatisticsWithDeleted() {
+    const words = this.userWords
+      .filter((word) => (word.isCorrect))
+      .sort((a, b) => (a.interval - b.interval));
+    return JSON.parse(JSON.stringify(words));
   },
 
   getWordStatistics() {
@@ -224,7 +247,7 @@ const statistics: StatisticsInterface = {
     const word = words.length > 0
       ? words.reduce((acc, wordObj) => (acc.interval > wordObj.interval ? wordObj : acc))
       : null;
-    return word;
+    return JSON.parse(JSON.stringify(word));
   },
 
   getAllWordsId() {
@@ -276,9 +299,7 @@ const statistics: StatisticsInterface = {
         if (!statisticsRes.ok) {
           return { ok: false };
         }
-      }
-
-      if (!statisticsData.ok) {
+      } else if (!statisticsData.ok) {
         return { ok: false };
       }
 
@@ -304,10 +325,12 @@ const statistics: StatisticsInterface = {
         this.userWordsId[wordId] = this.userWords[i];
       });
 
-      const userStatistics = statisticsData.statistics as UserStatisticsInterface;
-      this.progress = userStatistics.progress;
-      this.days = userStatistics.days;
-      this.miniGames = userStatistics.miniGames;
+      if (statisticsData.ok) {
+        const userStatistics = statisticsData.statistics as UserStatisticsInterface;
+        this.progress = userStatistics.progress;
+        this.days = userStatistics.days;
+        this.miniGames = userStatistics.miniGames;
+      }
 
       const nowKey = createIdFromDate();
       if (!this.days[nowKey]) {
