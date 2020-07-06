@@ -1,4 +1,6 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, {
+  useEffect, useContext, useState, useLayoutEffect
+} from 'react';
 import getPhrase from '../ts/api.phrase';
 import { Game } from '../ts/Game';
 import '../dragHandler';

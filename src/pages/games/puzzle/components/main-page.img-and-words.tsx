@@ -5,7 +5,7 @@ import { PuzzleContext } from '../context';
 const ImgAndWords = (props: any) => {
   const { dispatch } = useContext(PuzzleContext);
   const gameDOM = useRef<any>(null);
-  console.log(props);
+
   const { data } = props;
   if (!data) {
     return <div>Loading...</div>;

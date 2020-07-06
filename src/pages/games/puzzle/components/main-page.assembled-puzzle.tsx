@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import GameRounds from './main-page.rounds';
+import { pxTOvw } from '../ts/pxTovw';
 
 function AssembledGamePuzzle(props: any) {
   const assembledDOM = useRef(null);
@@ -64,12 +65,13 @@ function AssembledGamePuzzle(props: any) {
           'data-key-sentence': `${heightIndex}`,
           key: `property${index.toString()}`,
           style: {
-            width: `${width}px`,
-            height: `${bound?.height}px`,
+            width: `${pxTOvw(width)}vw`,
+            height: `${pxTOvw(bound?.height)}vw`,
             background: `url(https://raw.githubusercontent.com/mrINEX/english-puzzle/english-puzzle/english-puzzle/src/assets/data_paintings/${data.pageImage.imageSrc})`,
-            backgroundSize: `${bounding?.width}px`,
-            backgroundPositionX: `-${widthPuzzle}px`,
-            backgroundPositionY: `-${bound.height * heightIndex}px`
+            backgroundSize: `${pxTOvw(bounding?.width)}vw`,
+            backgroundPositionX: `-${pxTOvw(widthPuzzle)}vw`,
+            backgroundPositionY: `-${pxTOvw(bound.height * heightIndex)}vw`,
+            fontSize: '1.4vw'
           }
         };
         const wordPuzzle = React.createElement('div', property, word.textContent);
@@ -80,12 +82,12 @@ function AssembledGamePuzzle(props: any) {
           'data-key-sentence': `${heightIndex}`,
           key: `propertyAssembled${index.toString()}`,
           style: {
-            width: `${width}px`,
-            height: `${bound.height}px`,
+            width: `${pxTOvw(width)}vw`,
+            height: `${pxTOvw(bound.height)}vw`,
             background: `url(https://raw.githubusercontent.com/mrINEX/english-puzzle/english-puzzle/english-puzzle/src/assets/data_paintings/${data.pageImage.imageSrc})`,
-            backgroundSize: `${bounding.width}px`,
-            backgroundPositionX: `-${widthPuzzle}px`,
-            backgroundPositionY: `-${bound.height * heightIndex}px`
+            backgroundSize: `${pxTOvw(bounding.width)}vw`,
+            backgroundPositionX: `-${pxTOvw(widthPuzzle)}vw`,
+            backgroundPositionY: `-${pxTOvw(bound.height * heightIndex)}vw`
           }
         };
         const assembledWordPuzzle = React.createElement('div', propertyAssembled);

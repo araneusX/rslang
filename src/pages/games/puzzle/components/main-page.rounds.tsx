@@ -130,7 +130,7 @@ function GameRounds(props: any) {
   }, visibleDontKnow && dontKnowButton,
   visibleContinue && continueButton);
 
-  if (sentenceNumber === 0) { window.scrollTo({ top: 0 }); }
+  // if (sentenceNumber === 0) { window.scrollTo({ top: 0 }); }
 
   const GameRoundWords = React.createElement('div', {
     className: 'game-round-words',
