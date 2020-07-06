@@ -5,6 +5,9 @@ import style from './games.module.scss';
 const Games = () => (
   <>
     <nav className={style.tiles}>
+      <Link to="/games/speakit">
+        <div className={style.tile}>Speak It</div>
+      </Link>
       <Link to="/games/puzzle">
         <div className={style.tile}>Puzzle</div>
       </Link>

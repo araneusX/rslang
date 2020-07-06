@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { SentenceNode } from '../ts/Game';
 import { PuzzleContext } from '../context';
 
-const ImgAndWords = () => {
-  const { state, dispatch } = useContext(PuzzleContext);
-  const { data } = state;
+const ImgAndWords = (props: any) => {
+  const { dispatch } = useContext(PuzzleContext);
+  const gameDOM = useRef<any>(null);
+  console.log(props);
+  const { data } = props;
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -41,7 +43,7 @@ const ImgAndWords = () => {
     src: `https://raw.githubusercontent.com/mrINEX/english-puzzle/english-puzzle/english-puzzle/src/assets/data_paintings/${data.pageImage.imageSrc}`
   }));
 
-  return <div className="wrapper-game">{startGame}</div>;
+  return <div className="wrapper-game" ref={gameDOM}>{startGame}</div>;
 };
 
 export default ImgAndWords;

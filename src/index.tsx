@@ -6,14 +6,11 @@ import * as serviceWorker from './serviceWorker';
 import { StateProvider } from './store/stateProvider';
 import { StatisticsProvider } from './statistics/statisticsProvider';
 
-import Puzzle from './pages/games/puzzle/puzzle';
-
 ReactDOM.render(
   <React.StrictMode>
     <StateProvider>
       <StatisticsProvider>
-        <Puzzle />
-        {/* <App /> */}
+        <App />
       </StatisticsProvider>
     </StateProvider>
   </React.StrictMode>,

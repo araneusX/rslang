@@ -29,6 +29,7 @@ interface Images {
 }
 
 export interface SentenceNode {
+  id: string;
   textExampleTranslate: string;
   sentenceText: string,
   words: string[],
@@ -83,6 +84,7 @@ export class Game {
     this.data.sort(() => Math.random() - 0.5);
     this.data.forEach((value) => {
       const sentenceNode: SentenceNode = {
+        id: '',
         sentenceText: '',
         words: [],
         path: '',
@@ -91,13 +93,14 @@ export class Game {
         sentenceAudio: ''
       };
       const sentenceText = value.textExample.replace(/<b>|<\/b>/g, '');
-      const { textExampleTranslate } = value;
+      const { textExampleTranslate, id } = value;
       const sentence = sentenceText.split(' ');
       if (sentence.length < 11 && sentences.length < 10) {
         const path = `https://raw.githubusercontent.com/mrINEX/english-puzzle/english-puzzle/english-puzzle/src/assets/${value.audioExample.replace('files', 'data')}`;
 
         sentenceNode.sentenceText = sentenceText;
         sentenceNode.textExampleTranslate = textExampleTranslate;
+        sentenceNode.id = id;
         sentenceNode.words = sentence;
         sentenceNode.path = path;
         sentenceNode.audio = new Audio(path);

@@ -1,11 +1,9 @@
-import React, { useContext, useRef } from 'react';
-import { PuzzleContext } from '../context';
+import React, { useRef } from 'react';
 import GameRounds from './main-page.rounds';
 
-function AssembledGamePuzzle() {
-  const { state } = useContext(PuzzleContext);
+function AssembledGamePuzzle(props: any) {
   const assembledDOM = useRef(null);
-  const { data } = state;
+  const { data } = props;
   let gameY;
   let height;
 
@@ -75,7 +73,6 @@ function AssembledGamePuzzle() {
           }
         };
         const wordPuzzle = React.createElement('div', property, word.textContent);
-        // { el: 'div', property, word: word.textContent };
 
         const propertyAssembled = {
           className: classPuzzleAssempled,
@@ -105,7 +102,7 @@ function AssembledGamePuzzle() {
       childrenPuzzle.push(sentencePuzzle);
 
       const assembledSentencePuzzle = React.createElement('div', {
-        className: `assembled-sentence-game-puzzle sentence-${heightIndex}`, // opacity-full
+        className: `assembled-sentence-game-puzzle sentence-${heightIndex}`,
         key: `${sentence.children.length}${heightIndex.toString()}`
       }, assembledPuzzleChld);
       childrenAssembledPuzzle.push(assembledSentencePuzzle);

@@ -3,6 +3,8 @@ import { isDisabledText, isDisabledAudio } from '../ts/isDisabled';
 import { PuzzleContext } from '../context';
 import getTimeDate from '../ts/getTimeDay';
 import storage from '../ts/storage';
+import { StatisticsContext } from '../../../../statistics/statisticsProvider';
+import { StatisticsInterface } from '../../../../types';
 
 function GameRounds(props: any) {
   const { dispatch } = useContext(PuzzleContext);
@@ -11,6 +13,7 @@ function GameRounds(props: any) {
   const { gameY } = props;
   const { height } = props;
   const { assembledDOM } = props;
+  const stat = useContext(StatisticsContext) as StatisticsInterface;
 
   const [sentenceNumber, setSentenceNumber] = useState(0);
 
@@ -25,6 +28,15 @@ function GameRounds(props: any) {
     Array.from(assembledDOM.current.children).forEach((sentence: any) => {
       sentence.classList.remove('opacity-full', 'event-none-opacity-full');
     });
+
+    const isDisabled = document.querySelector('.image-card-prompt')?.classList.contains('disabled');
+    const puzzleCards = document.querySelectorAll('.assembled-word-game-puzzle');
+    if (isDisabled) {
+      puzzleCards.forEach((puzzle) => {
+        const currentStyle = puzzle.getAttribute('style');
+        puzzle.setAttribute('style', `${currentStyle}background: darkslategray;`);
+      });
+    }
 
     assembledDOM.current.children[sentenceNumber].classList.add('opacity-full');
   });

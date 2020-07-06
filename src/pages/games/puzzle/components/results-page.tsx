@@ -19,7 +19,6 @@ const Results = () => {
   let statistics;
   if (games) {
     statistics = JSON.parse(games);
-    // statiscicsGame(arr);
   }
 
   if (isResult) {
