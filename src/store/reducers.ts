@@ -1,7 +1,7 @@
 import appState from './store';
 import { Action } from './actionTypes';
 import {
-  StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface, OurGameStateInterface
+  StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface, OurGameStateInterface, PreloaderInterface
 } from '../types';
 
 const authReducer = (state: AuthInterface, action:Action): AuthInterface => {
@@ -9,6 +9,16 @@ const authReducer = (state: AuthInterface, action:Action): AuthInterface => {
     case 'SET_AUTH': {
       const { value } = action;
       return value;
+    }
+    default: return state;
+  }
+};
+
+const preloaderReducer = (state: PreloaderInterface, action: Action): PreloaderInterface => {
+  switch (action.type) {
+    case 'SET_LOADING': {
+      const { value } = action;
+      return { ...state, isLoading: value };
     }
     default: return state;
   }
@@ -94,14 +104,15 @@ const ourGameReducer = (state: OurGameStateInterface, action:Action): OurGameSta
 
 const mainReducer = (
   {
-    auth, settings, speakit, our
+    auth, settings, speakit, our, preloader
   }: StateInterface,
   action:Action
 ): StateInterface => ({
   auth: authReducer(auth, action),
   settings: settingsReducer(settings, action),
   speakit: speakItReducer(speakit, action),
-  our: ourGameReducer(our, action)
+  our: ourGameReducer(our, action),
+  preloader: preloaderReducer(preloader, action)
 });
 
 export default mainReducer;

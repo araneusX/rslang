@@ -213,9 +213,13 @@ export interface OurGameStateInterface {
   mode: SpeakitModeType
 }
 
+export interface PreloaderInterface {
+  isLoading: boolean
+}
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
+  preloader: PreloaderInterface,
   speakit: SpeakitStateInterface,
   our: OurGameStateInterface
 }

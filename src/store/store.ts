@@ -1,6 +1,8 @@
-import { initSettingsObject, initialSpeakitObject, initialOurGameObject } from '../constants';
 import {
-  SettingsInterface, StateInterface, AuthInterface, SpeakitStateInterface, OurGameStateInterface
+  initSettingsObject, initialSpeakitObject, initialOurGameObject, initLoadingObject
+} from '../constants';
+import {
+  SettingsInterface, StateInterface, AuthInterface, SpeakitStateInterface, OurGameStateInterface, PreloaderInterface
 } from '../types';
 
 const auth: AuthInterface = {
@@ -8,6 +10,8 @@ const auth: AuthInterface = {
   userId: '',
   token: ''
 };
+
+const preloader: PreloaderInterface = { ...initLoadingObject };
 
 const settings: SettingsInterface = { ...initSettingsObject };
 
@@ -17,6 +21,7 @@ const our: OurGameStateInterface = { ...initialOurGameObject };
 
 export default {
   auth,
+  preloader,
   settings,
   speakit,
   our

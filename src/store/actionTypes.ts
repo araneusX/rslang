@@ -4,6 +4,7 @@ import {
 
 export type Action =
 | { type: 'SET_AUTH', value: AuthInterface }
+| { type: 'SET_LOADING', value: boolean }
 | { type: 'SET_SETTINGS', value: SettingsInterface }
 | { type: 'SET_SPEAKIT_ROUND', value: number}
 | { type: 'SET_SPEAKIT_LEVEL', value: number}
