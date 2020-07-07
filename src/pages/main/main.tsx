@@ -8,7 +8,7 @@ import { Preloader } from '../../commonComponents';
 import { StateContext } from '../../store/stateProvider';
 
 const Main = () => {
-  const { state, dispatch } = useContext(StateContext);
+  const { state } = useContext(StateContext);
   const {
     imageToCard,
     pronounseToCard,
@@ -29,10 +29,10 @@ const Main = () => {
     explainToCard
   };
 
-  const dispatchLoading = () => {
+  /* const dispatchLoading = () => {
     setIsLoading(false);
   };
-  setInterval(dispatchLoading, 1500);
+  setInterval(dispatchLoading, 15000); */
 
   return (
     <>
