@@ -1,9 +1,9 @@
 function isDisabledAudio() {
   const isDisabled = document.querySelector('.audio-prompt')?.classList.contains('disabled');
   if (isDisabled) {
-    return 'pronunciation-audio prompt-responsive opacity-clear-zero';
+    return 'pronunciation-audio prompt opacity-clear-zero'; // prompt-responsive
   }
-  return 'pronunciation-audio prompt-responsive';
+  return 'pronunciation-audio prompt';
 }
 
 function isDisabledText() {
