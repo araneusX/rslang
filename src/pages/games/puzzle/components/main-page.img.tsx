@@ -30,12 +30,12 @@ const Img = () => {
     className: 'btn game-round-btn continue-botton',
     onClick: handleContinue,
     type: 'button'
-  }, 'Continue');
+  }, 'Продолжать');
   const resultsButton = React.createElement('button', {
     className: 'btn game-round-btn results-botton',
     onClick: handleResults,
     type: 'button'
-  }, 'Results');
+  }, 'Результаты');
 
   const gameRoundControls = React.createElement('div', {
     className: 'round-controls'

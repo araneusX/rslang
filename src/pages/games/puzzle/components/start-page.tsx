@@ -12,12 +12,12 @@ function StartPage() {
     <div className="start-page">
       <h1 className="start-page__title">ENGLISH PUZZLE</h1>
       <p className="start-page__text">
-        Click on words, collect phrases.
+        Нажмите на слова, собирайте фразы.
         <br />
-        Words can be drag and drop. Select tooltips in the menu.
+        Слова можно перетаскивать. Выбирать всплывающие подсказки в меню.
       </p>
       <button onClick={handleStart} type="button" className="start-page__button btn">
-        Start
+        Начать
       </button>
     </div>
   );

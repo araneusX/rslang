@@ -77,9 +77,9 @@ const Results = () => {
               ))}
             </div>
           </div>
-          <div className="wrapper-results-button" style={{ display: 'flex' }}>
-            <button type="button" onClick={handleContinue} className="btn game-round-btn">Continue</button>
-            <button type="button" onClick={() => { setIsResult(false); }} className="btn game-round-btn">Statistic</button>
+          <div className="wrapper-results-button">
+            <button type="button" onClick={handleContinue} className="btn game-round-btn">Продолжать</button>
+            <button type="button" onClick={() => { setIsResult(false); }} className="btn game-round-btn">Статистика</button>
           </div>
         </div>
       </div>
@@ -107,7 +107,7 @@ const Results = () => {
           </div>
         )) }
       </div>
-      <button type="button" onClick={() => { setIsResult(true); }} className="btn game-round-btn">return</button>
+      <button type="button" onClick={() => { setIsResult(true); }} className="btn game-round-btn">Закрыть</button>
     </div>
   );
 };

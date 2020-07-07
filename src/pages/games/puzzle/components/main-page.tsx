@@ -27,7 +27,7 @@ const MainPage = () => {
         const game = new Game(result.content);
 
         if (game.sentences.length < 11) {
-          setIsInterval(<h3 className="interval-game">Interval</h3>);
+          setIsInterval(<h3 className="interval-game">Интервал</h3>);
           dispatch({ type: 'set data', value: game });
         } else {
           setIsInterval(null);
@@ -62,7 +62,7 @@ const MainPage = () => {
         <>
           <div className="wrapper-level">
             <label htmlFor="level">
-              Level:
+              Уровень:
               <select
                 id="level"
                 onChange={handleChangeLevel}
@@ -80,7 +80,7 @@ const MainPage = () => {
           </div>
           <div className="wrapper-level-page">
             <label htmlFor="level-page">
-              level page:
+              Страница:
               <select
                 id="level-page"
                 onChange={handleChangePage}

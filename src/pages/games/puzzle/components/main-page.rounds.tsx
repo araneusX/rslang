@@ -114,12 +114,12 @@ function GameRounds(props: any) {
     className: 'btn game-round-btn dont-know-botton',
     onClick: handleDontKnowButton,
     type: 'button'
-  }, "I don't know");
+  }, 'Не знаю');
   const continueButton = React.createElement('button', {
     className: 'btn game-round-btn continue-botton',
     onClick: handleContinueButton,
     type: 'button'
-  }, 'Continue');
+  }, 'Продолжать');
 
   const gameRoundControls = React.createElement('div', {
     className: 'game-round-controls'

@@ -36,10 +36,10 @@ function Prompts() {
 
   return (
     <div className="wrapper-prompt">
-      <button type="button" aria-label="audio-prompt" onClick={handleAudio} className={`audio-prompt prompt ${disabledAudio}`} title="on / off audio prompt" />
-      <button type="button" aria-label="translate-prompt" onClick={handleTranslate} className={`translate-prompt prompt ${disabledTranslate}`} title="on / off translate prompt" />
-      <button type="button" aria-label="volume-prompt" onClick={handleVolume} className={`volume-prompt prompt ${disabledVolume}`} title="on / off volume prompt" />
-      <button type="button" aria-label="image-card-prompt" onClick={handleImageCard} className={`image-card-prompt prompt ${disabledImageCard}`} title="on / off card image prompt" />
+      <button type="button" aria-label="audio-prompt" onClick={handleAudio} className={`audio-prompt prompt ${disabledAudio}`} title="вкл / выкл аудио подсказку" />
+      <button type="button" aria-label="translate-prompt" onClick={handleTranslate} className={`translate-prompt prompt ${disabledTranslate}`} title="вкл / выкл подсказку с перевод" />
+      <button type="button" aria-label="volume-prompt" onClick={handleVolume} className={`volume-prompt prompt ${disabledVolume}`} title="вкл / выкл звуковую подсказку" />
+      <button type="button" aria-label="image-card-prompt" onClick={handleImageCard} className={`image-card-prompt prompt ${disabledImageCard}`} title="вкл / выкл подсказку с картиной" />
     </div>
   );
 }
