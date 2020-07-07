@@ -7,21 +7,11 @@ function AssembledGamePuzzle(props: any) {
   const assembledDOM = useRef(null);
   const { data } = props;
   const { state } = useContext(PuzzleContext);
-  let gameY;
-  let height;
 
   const wrapperGame = state.gameDOM.current;
-
-  let bounding: DOMRect;
-  let game;
-  if (wrapperGame) {
-    bounding = wrapperGame.getBoundingClientRect();
-    game = wrapperGame.children[0].children;
-
-    const boundingRound = game[0].getBoundingClientRect();
-    gameY = Math.abs(bounding.top) + boundingRound.height;
-    height = boundingRound.height;
-  }
+  const bounding: DOMRect = wrapperGame.getBoundingClientRect();
+  const game = wrapperGame.children[0].children;
+  const gameY = Math.abs(bounding.top);
 
   const childrenPuzzle: any = [];
   const childrenAssembledPuzzle: any = [];
@@ -74,8 +64,7 @@ function AssembledGamePuzzle(props: any) {
             backgroundPositionX: `-${pxTOvw(widthPuzzle)}vw`,
             backgroundPositionY: `-${pxTOvw(bound.height * heightIndex)}vw`,
             fontSize: '1.7vw',
-            fontWeight: 'bold',
-            flex: '1 0 auto'
+            fontWeight: 'bold'
           }
         };
         const wordPuzzle = React.createElement('div', property, word.textContent);
@@ -98,7 +87,7 @@ function AssembledGamePuzzle(props: any) {
           }
         };
         const assembledWordPuzzle = React.createElement('div', propertyAssembled);
-        widthPuzzle += Number(bound.width);
+        widthPuzzle += bound.width;
 
         assembledPuzzleChld.push(assembledWordPuzzle);
         puzzleChld.push(wordPuzzle);
@@ -125,7 +114,6 @@ function AssembledGamePuzzle(props: any) {
         assembledDOM={assembledDOM}
         childrenPuzzle={childrenPuzzle}
         gameY={gameY}
-        height={height}
       />
       <div className="wrapper-game">
         {assembledGamePuzzle}

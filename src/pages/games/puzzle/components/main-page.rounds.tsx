@@ -3,25 +3,19 @@ import { isDisabledText, isDisabledAudio } from '../ts/isDisabled';
 import { PuzzleContext } from '../context';
 import getTimeDate from '../ts/getTimeDay';
 import storage from '../ts/storage';
-import { StatisticsContext } from '../../../../statistics/statisticsProvider';
-import { StatisticsInterface } from '../../../../types';
 
 function GameRounds(props: any) {
   const { dispatch } = useContext(PuzzleContext);
   const { data } = props;
   const { childrenPuzzle } = props;
   const { gameY } = props;
-  // const { height } = props;
   const { assembledDOM } = props;
-  const stat = useContext(StatisticsContext) as StatisticsInterface;
-
   const [sentenceNumber, setSentenceNumber] = useState(0);
 
   const { puzzleChld, removePuzzleClds } = childrenPuzzle[sentenceNumber];
 
   const [visibleDontKnow, setVisibleDontKnow] = useState(true);
   const [visibleContinue, setVisibleContinue] = useState(false);
-
   const [knowledge, setKnowledge] = useState<any>({ know: [], dontknow: [] });
   const [height, setHeight] = useState(0);
 
@@ -39,7 +33,7 @@ function GameRounds(props: any) {
       });
     }
 
-    setHeight(assembledDOM.current.children[sentenceNumber].getBoundingClientRect().height);
+    setHeight(gameY + (assembledDOM.current.children[sentenceNumber].getBoundingClientRect().height * (1 + sentenceNumber)));
     assembledDOM.current.children[sentenceNumber].classList.add('opacity-full');
   });
 
@@ -180,7 +174,7 @@ function GameRounds(props: any) {
   const wrapperGameRound = React.createElement('div', {
     className: 'wrapper-game-round',
     style: {
-      top: `${gameY + (height * sentenceNumber)}px`
+      top: `${height}px`
     }
   }, GameRoundWords, gameRoundControls);
 
