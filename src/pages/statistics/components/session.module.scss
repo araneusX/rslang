@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    flex: 1 1 auto;
+    background: aliceblue;
+    border-radius: 0 20px 20px 20px;
+}
+
+.date {
+  margin: 30px auto 0;
+  font-size: 32px;
+  color: #ff7300;
+}
+
+.row {
+  border-bottom: 2px solid #ff7300;
+  margin: 0 40px;
+  padding: 10px 20px 10px ;
+  font-size: 24px;
+  text-align: center;
+}
+
+.value {
+  margin-left: 30px;
+}

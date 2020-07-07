@@ -97,6 +97,8 @@ export interface StatisticsInterface extends UserStatisticsInterface {
 
   getAllWordsStatistics: () => WordStatisticsInterface[],
 
+  getAllWordsStatisticsWithDeleted: () => WordStatisticsInterface[],
+
   getWordStatistics: () => WordStatisticsInterface | null,
 
   getAllWordsId: () => string[],
@@ -172,6 +174,7 @@ export interface SettingsOptionalInterface extends CardSettingsInterface {
   wordDeleteButton: boolean,
   addToDifficultWordsButton: boolean,
   addGrageButton: boolean,
+  level: number
 }
 export interface SettingsInterface {
   wordsPerDay: number,
