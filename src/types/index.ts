@@ -160,14 +160,14 @@ export interface AuthInterface {
 
 export interface CardSettingsInterface {
   imageToCard: boolean,
-  pronounceToCard: boolean,
+  pronounseToCard: boolean,
   transcriptionToCard: boolean,
   translateToTheCard: boolean,
   exampleToCard: boolean,
   explainToCard: boolean,
   showAnswerButton: boolean,
   addToDifficultWordsButton: boolean,
-  addGradeButton: boolean,
+  addGrageButton: boolean,
   wordDeleteButton: boolean,
 }
 
@@ -176,7 +176,7 @@ export interface SettingsOptionalInterface extends CardSettingsInterface {
   showAnswerButton: boolean,
   wordDeleteButton: boolean,
   addToDifficultWordsButton: boolean,
-  addGradeButton: boolean,
+  addGrageButton: boolean,
 }
 export interface SettingsInterface {
   wordsPerDay: number,

@@ -68,12 +68,12 @@ const Main = () => {
   },[]);
 
   const {
-    addGradeButton,
+    addGrageButton,
     addToDifficultWordsButton,
     exampleToCard,
     explainToCard,
     imageToCard,
-    pronounceToCard,
+    pronounseToCard,
     showAnswerButton,
     transcriptionToCard,
     translateToTheCard,
@@ -81,12 +81,12 @@ const Main = () => {
   } = state.settings.optional;
 
   const settings = {
-    addGradeButton,
+    addGrageButton,
     addToDifficultWordsButton,
     exampleToCard,
     explainToCard,
     imageToCard,
-    pronounceToCard,
+    pronounseToCard,
     showAnswerButton,
     transcriptionToCard,
     translateToTheCard,

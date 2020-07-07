@@ -28,7 +28,7 @@ const SettingsForm = () => {
         setting.optional.imageToCard = !setting.optional.imageToCard;
         break;
       case 'pronounse':
-        setting.optional.pronounceToCard = !setting.optional.pronounceToCard;
+        setting.optional.pronounseToCard = !setting.optional.pronounseToCard;
         break;
       case 'transcription':
         setting.optional.transcriptionToCard = !setting.optional
@@ -55,7 +55,7 @@ const SettingsForm = () => {
           .addToDifficultWordsButton;
         break;
       case 'grade':
-        setting.optional.addGradeButton = !setting.optional.addGradeButton;
+        setting.optional.addGrageButton = !setting.optional.addGrageButton;
         break;
       default:
         break;
@@ -124,7 +124,7 @@ const SettingsForm = () => {
         <label htmlFor="pronounse">
           <input
             onChange={changeHandler}
-            checked={setting.optional.pronounceToCard}
+            checked={setting.optional.pronounseToCard}
             id="pronounse"
             type="checkbox"
             name="pronounse"
@@ -215,7 +215,7 @@ const SettingsForm = () => {
         <label htmlFor="grade">
           <input
             onChange={changeHandler}
-            checked={setting.optional.addGradeButton}
+            checked={setting.optional.addGrageButton}
             id="grade"
             type="checkbox"
             name="grade"

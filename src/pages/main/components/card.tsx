@@ -43,13 +43,13 @@ const Card: React.FC<{
         inputEl.current.blur();
       }
       setUserAns(inputState);
-      if (settings.addGradeButton && (isRight || showAns)) {
+      if (settings.addGrageButton && (isRight || showAns)) {
         console.log('отметь уровень сложности!');
       }
       if (isAudioOn) {
         playAudio();
       }
-      if (!settings.addGradeButton && !isAudioOn && (isRight || showAns)) {
+      if (!settings.addGrageButton && !isAudioOn && (isRight || showAns)) {
         sendData(1);
         prop.nextCard(false);
         setShowAns(false);
@@ -77,7 +77,7 @@ const Card: React.FC<{
     } else if ((sound.src === getRightWay(card.audioMeaning)) && settings.exampleToCard) {
       sound.src = getRightWay(card.audioExample);
       sound.play();
-    } else if ((isRight || showAns) && !settings.addGradeButton) {
+    } else if ((isRight || showAns) && !settings.addGrageButton) {
       sendData(1);
       prop.nextCard(false);
       setShowAns(false);
@@ -105,8 +105,8 @@ const Card: React.FC<{
     }
   };
   const handlerInputChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-    if ((prop.answer && !isRight && !settings.addGradeButton)
-      || (prop.answer && !isRight && settings.addGradeButton && !showAns)) {
+    if ((prop.answer && !isRight && !settings.addGrageButton)
+      || (prop.answer && !isRight && settings.addGrageButton && !showAns)) {
       prop.callback(false);
       sound.pause();
     } else if (!prop.answer) {
@@ -211,7 +211,7 @@ const Card: React.FC<{
                         )}
                       </>
                     )}
-        {settings.addGradeButton && prop.answer && (isRight || showAns)
+        {settings.addGrageButton && prop.answer && (isRight || showAns)
                     && (
                     <div className={style.gradeContainer}>
                       <div title="Легко" id="easyLevel" onClick={() => { handlerDifficultLevel(0); }} className={style.easyBtn}>Es</div>
