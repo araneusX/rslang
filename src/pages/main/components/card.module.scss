@@ -1,25 +1,25 @@
 .cardContainer{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: whitesmoke;
-  width: 630px;
-  margin: 0 auto;
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 15px;
-  height: 375px;
-  animation: switchCard 2s;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: whitesmoke;
+    width: 630px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.24);
+    border-radius: 23px;
+    padding: 15px;
+    height: 375px;
 
   .wordContainer{
     width: min-content;
     position: relative;
     margin: 5px;
-    background: white;
-    border-radius: 2px;
     padding: 2px;
     font-size: 20px;
+    background: #D0FFF7;
+    border-radius: 10px;
     div{
       padding: 2px;
       visibility: hidden;
@@ -32,16 +32,16 @@
     }
     input{
       border: none;
-    outline: none;
-    font-family: inherit;
-    font-size: inherit;
-    padding: 2px;
-    width: calc(100% - 8px);
-    display: inline;
-    background: none;
-    position: absolute;
-    z-index: 1;
-    top: 2px;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      padding: 2px;
+      width: calc(100% - 8px);
+      display: inline;
+      background: none;
+      position: absolute;
+      z-index: 1;
+      top: 2px;
     }
   }
   @keyframes switchCard {
@@ -73,50 +73,53 @@
   }
 
   img{
-    width: 200px;
-    height: 150px;
+    width: 165px;
+    height: 135px;
     border-radius: 5px;
-    border: 2px solid;
   }
   .gradeContainer{
     display: flex;
-    width: 50px;
-    flex-direction: column;
+    width: 190px;
+    height: 56px;
     align-items: center;
-    height: 155px;
     justify-content: space-around;
-    align-self: start;
-    position: absolute;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
     div{
-      width: 40px;
+      width: 45px;
       height: 40px;
-      border-radius: 3px;
+      border-radius: 10px;
       cursor: pointer;
     }
     .easyBtn{
-      background-color: greenyellow;
+      background-color: #8BFF62;
+      box-shadow: 0px 2px 0px 0px #52D524;
     }
     .mediumBtn{
-      background-color: yellow;
+      background-color:  #FFF733;
+      box-shadow: 0px 2px 0px 0px #E8E02D;
     }
     .hardBtn{
-      background-color: tomato;
+      background-color: #FB0B0B;
+      box-shadow: 0px 2px 0px 0px #9F0B0B;
     }
   }
   .controlContainer{
     display: flex;
-    width: 50px;
+    width: 45px;
     flex-direction: column;
     align-items: center;
-    height: 155px;
-    justify-content: space-around;
+    height: 167px;
+    justify-content: space-between;
     align-self: flex-end;
     position: absolute;
     div{
-      width: 40px;
-      height: 40px;
-      border-radius: 3px;
-      background-color: burlywood;
+      width: 45px;
+      height: 45px;
+      background: #FF9900;
+      box-shadow: 0px 2px 0px 0px #DE8500;
+      border-radius: 22px;
       cursor: pointer;
     }
   }

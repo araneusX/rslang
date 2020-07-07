@@ -8,7 +8,7 @@ export async function getWords(group: number, page: number) {
 }
 
 export async function getWordById(id: string) {
-  const url = `https://afternoon-falls-25894.herokuapp.com/words/${id}`;
+  const url = `https://afternoon-falls-25894.herokuapp.com/words/${id}?noAssets=true`;
   const response = await fetch(url);
   const data = await response.json();
   return data;

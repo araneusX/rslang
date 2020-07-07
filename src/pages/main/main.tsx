@@ -142,16 +142,14 @@ const Main = () => {
           </div>
         ) : (
           <>
-            <div className={style.sliderContainer}>
-              <Card
-                /*cardObj={cardObject}*/
-                settings={settings}
-                answer={answer}
-                callback={setAns}
-                count={count}
-                nextCard={nextCard}
-              />
-            </div>
+            <Card
+              /*cardObj={cardObject}*/
+              settings={settings}
+              answer={answer}
+              callback={setAns}
+              count={count}
+              nextCard={nextCard}
+            />
             <div className={style.controlContainer}>
               { isAudioOn ? (
                 <button className={style.soundOn} onClick={handleSoundControl}>Выключить звук</button>
@@ -160,9 +158,9 @@ const Main = () => {
               )}
               <button onClick={() => { setAns(true); }}>Ответить</button>
               <div className={style.progressBar}>
-                {count}
+                <span>{count}</span>
                 <progress value={count} max={state.settings.wordsPerDay} />
-                {state.settings.wordsPerDay}
+                <span>{state.settings.wordsPerDay}</span>
               </div>
             </div>
           </>
