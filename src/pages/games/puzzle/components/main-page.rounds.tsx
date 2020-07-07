@@ -23,7 +23,7 @@ function GameRounds(props: any) {
   const [visibleContinue, setVisibleContinue] = useState(false);
 
   const [knowledge, setKnowledge] = useState<any>({ know: [], dontknow: [] });
-  const [height, setHeight] = useState<any>(0);
+  const [height, setHeight] = useState(0);
 
   useEffect(() => {
     Array.from(assembledDOM.current.children).forEach((sentence: any) => {

@@ -23,6 +23,8 @@ function reducer(state: any, action: any) {
       return { ...state, isStart: action.value };
     case 'set knowledge':
       return { ...state, knowledge: action.value };
+    case 'set gameDOM':
+      return { ...state, gameDOM: action.value };
     default:
       return state;
   }

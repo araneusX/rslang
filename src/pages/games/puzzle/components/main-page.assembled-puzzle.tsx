@@ -1,14 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import GameRounds from './main-page.rounds';
 import { pxTOvw } from '../ts/pxTovw';
+import { PuzzleContext } from '../context';
 
 function AssembledGamePuzzle(props: any) {
   const assembledDOM = useRef(null);
   const { data } = props;
+  const { state } = useContext(PuzzleContext);
   let gameY;
   let height;
 
-  const wrapperGame = document.querySelector('.wrapper-game');
+  const wrapperGame = state.gameDOM.current;
 
   let bounding: DOMRect;
   let game;
@@ -30,13 +32,13 @@ function AssembledGamePuzzle(props: any) {
   }, childrenAssembledPuzzle);
 
   if (game) {
-    Array.from(game).forEach((sentence, heightIndex) => {
+    Array.from(game).forEach((sentence: any, heightIndex) => {
       const puzzleChld: any = [];
 
       const assembledPuzzleChld: any = [];
 
       let widthPuzzle = 0;
-      Array.from(sentence.children).forEach((word, index) => {
+      Array.from(sentence.children).forEach((word: any, index) => {
         const bound = word.getBoundingClientRect();
 
         let width = Number(bound?.width);
@@ -72,7 +74,8 @@ function AssembledGamePuzzle(props: any) {
             backgroundPositionX: `-${pxTOvw(widthPuzzle)}vw`,
             backgroundPositionY: `-${pxTOvw(bound.height * heightIndex)}vw`,
             fontSize: '1.7vw',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            flex: '1 0 auto'
           }
         };
         const wordPuzzle = React.createElement('div', property, word.textContent);
@@ -90,7 +93,8 @@ function AssembledGamePuzzle(props: any) {
             backgroundPositionX: `-${pxTOvw(widthPuzzle)}vw`,
             backgroundPositionY: `-${pxTOvw(bound.height * heightIndex)}vw`,
             fontSize: '1.7vw',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            flex: '1 0 auto'
           }
         };
         const assembledWordPuzzle = React.createElement('div', propertyAssembled);

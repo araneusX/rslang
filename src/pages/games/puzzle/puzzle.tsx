@@ -3,6 +3,7 @@ import StartPage from './components/start-page';
 import MainPage from './components/main-page';
 import { PuzzleContextProvider, PuzzleContext } from './context';
 import Results from './components/results-page';
+import './scss/style.scss';
 
 const PuzzleStart = () => {
   const { state } = useContext(PuzzleContext);

@@ -13,6 +13,7 @@ const ImgAndWords = (props: any) => {
 
   function handleOnload() {
     dispatch({ type: 'set mode', value: 'assembled-puzzle' });
+    dispatch({ type: 'set gameDOM', value: gameDOM });
   }
 
   const sent: any = [];
