@@ -28,46 +28,49 @@
     margin-right: -50%;
     transform: translate(-50%, -50%);
 
-  .sliderContainer{
+  .progressBar{
     display: flex;
+    justify-content: center;
     align-items: center;
-
-    .rightArrowBtn, .leftArrowBtn, .leftArrowBtnInactive{
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-    }
-
-    .leftArrowBtn{
-      transform: rotateY(180deg);
-    }
-    .leftArrowBtnInactive{
-      opacity: .5;
-      cursor: default!important;
-      transform: rotateY(180deg);
+    span{
+      font-style: normal;
+      font-weight: bold;
+      font-size: 25px;
+      margin: 0px 3px 3px 3px;
     }
   }
-
   progress{
-    background-color: greenyellow;
-    border-radius: 5px;
+    background-color: #82FFC8;;
+    border-radius: 17px;
+    width: 60vw;
+    max-width: 690px;
+    height: 25px;
   }
   progress::-webkit-progress-bar {
-    background: whitesmoke;
-    border-radius: 5px;
+    background: #D4FDEB;
+    border-radius: 17px;
     overflow: hidden;
   }
   progress::-webkit-progress-value {
-    background-color:greenyellow;
+    background-color:#82FFC8;
 }
 }
 
 .controlContainer{
   text-align-last: center;
   button{
-    font-size: 15px;
+    background-color: #FF9900;
+    border-radius: 22px;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 27px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 3px 0px 0px #DE8500;
+    color: #5E2D00;
     margin: 10px;
-    padding: 6px;
+    padding: 8px;
+    cursor: pointer;
   }
 }
 

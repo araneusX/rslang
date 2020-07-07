@@ -39,6 +39,9 @@ const Card: React.FC<{
 
   useEffect(() => {
     if (prop.answer) {
+      if (inputEl.current) {
+        inputEl.current.blur();
+      }
       setUserAns(inputState);
       if (settings.addGradeButton && (isRight || showAns)) {
         console.log('отметь уровень сложности!');
