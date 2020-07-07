@@ -12,7 +12,6 @@ const auth: AuthInterface = {
 const settings: SettingsInterface = { ...initSettingsObject };
 
 const speakit: SpeakitStateInterface = { ...initialSpeakitObject };
-
 const training: TrainingStateInterface = { ...initTrainingObject };
 
 export default {

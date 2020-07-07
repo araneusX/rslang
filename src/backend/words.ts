@@ -15,30 +15,6 @@ export async function getWordById(id: string) {
   return data;
 }
 
-export async function getManyWordsByIdSorted(ids: string[]) {
-  const promisesFunc = ids.map((id) => async (arrWord: any[]) => {
-    const word: any = await getWordById(id);
-    return [].concat(...arrWord, word);
-  });
-  try {
-    const applyAsync = (acc: any, val: any) => acc.then(val);
-    const content = await promisesFunc.reduce(applyAsync, Promise.resolve([]));
-    return { content, ok: true };
-  } catch (error) {
-    return { content: error, ok: false };
-  }
-}
-
-export async function getManyWordsById(ids: string[]) {
-  const promises = ids.map((id) => getWordById(id));
-  try {
-    const content = await Promise.all(promises);
-    return { content, ok: true };
-  } catch (error) {
-    return { content: error, ok: false };
-  }
-}
-
 function chunk(start: number) {
   return { page: Math.floor(start / 20), withWord: start % 20 };
 }
@@ -51,25 +27,22 @@ function countRequest(startNum: number, quantityNum: number) {
 }
 
 export const downloadNewWords = async (group: number, startWith: number, quantity: number) => {
-  const totalWords = new Array(countRequest(startWith, quantity)).fill('');
+  const totalWords = Array(countRequest(startWith, quantity));
 
   const { page, withWord } = chunk(startWith);
 
-  const promisesFunc = totalWords.map((v, i) => async (arrWord: any[]) => {
-    const words: any = await getWords(group, page + i);
-    return [].concat(...arrWord, words.flat());
-  });
-
+  for (let i = 0; i < totalWords.length; i += 1) {
+    totalWords[i] = getWords(group, page + i);
+  }
+  let words;
   try {
-    const applyAsync = (acc: any, val: any) => acc.then(val);
-    const words = await promisesFunc.reduce(applyAsync, Promise.resolve([]));
-    const content = words.slice(withWord, quantity + withWord);
+    words = await (await Promise.all(totalWords)).flat();
     return {
       ok: true,
-      content
+      content: words.slice(withWord, quantity + withWord)
     };
   } catch (error) {
-    return { ok: false, content: [] };
+    return { ok: false, content: error };
   }
 };
 
@@ -104,7 +77,7 @@ export async function downloadWordStatistics(
   token: string,
   wordId: string
 ): Promise<{content: {} | Error, ok: boolean}> {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${wordId}`;
+  const url = `${SERVER}/users/${userId}/words/${wordId}`;
   try {
     const rawResponse = await fetch(url, {
       method: 'GET',
@@ -129,7 +102,7 @@ export async function uploadWordStatistics(
   token: string,
   word: WordStatisticsInterface
 ): Promise<{ ok: boolean}> {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word.wordId}`;
+  const url = `${SERVER}/users/${userId}/words/${word.wordId}`;
   try {
     const rawResponse = await fetch(url, {
       method: 'POST',
