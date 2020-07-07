@@ -11,7 +11,7 @@ function GameRounds(props: any) {
   const { data } = props;
   const { childrenPuzzle } = props;
   const { gameY } = props;
-  const { height } = props;
+  // const { height } = props;
   const { assembledDOM } = props;
   const stat = useContext(StatisticsContext) as StatisticsInterface;
 
@@ -23,6 +23,7 @@ function GameRounds(props: any) {
   const [visibleContinue, setVisibleContinue] = useState(false);
 
   const [knowledge, setKnowledge] = useState<any>({ know: [], dontknow: [] });
+  const [height, setHeight] = useState<any>(0);
 
   useEffect(() => {
     Array.from(assembledDOM.current.children).forEach((sentence: any) => {
@@ -38,6 +39,7 @@ function GameRounds(props: any) {
       });
     }
 
+    setHeight(assembledDOM.current.children[sentenceNumber].getBoundingClientRect().height);
     assembledDOM.current.children[sentenceNumber].classList.add('opacity-full');
   });
 

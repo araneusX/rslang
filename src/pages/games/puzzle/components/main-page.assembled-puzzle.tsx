@@ -17,7 +17,7 @@ function AssembledGamePuzzle(props: any) {
     game = wrapperGame.children[0].children;
 
     const boundingRound = game[0].getBoundingClientRect();
-    gameY = Math.abs(boundingRound.top) + boundingRound.height;
+    gameY = Math.abs(bounding.top) + boundingRound.height;
     height = boundingRound.height;
   }
 
