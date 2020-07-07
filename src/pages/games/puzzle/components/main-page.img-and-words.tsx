@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import { SentenceNode } from '../ts/Game';
 import { PuzzleContext } from '../context';
+import Preloader from '../../../../commonComponents/preloader/preloader';
 
 const ImgAndWords = (props: any) => {
   const { dispatch } = useContext(PuzzleContext);
@@ -8,7 +9,7 @@ const ImgAndWords = (props: any) => {
 
   const { data } = props;
   if (!data) {
-    return <div>Loading...</div>;
+    return <Preloader />;
   }
 
   function handleOnload() {

@@ -5,6 +5,7 @@ import {
 import {
   Authorization, Main, Settings, Statistics, Games, Puzzle, SpeakIt
 } from './pages';
+import OurGame from './pages/games/ourGame/ourGame';
 
 import { Header } from './commonComponents';
 import { StateContext } from './store/stateProvider';

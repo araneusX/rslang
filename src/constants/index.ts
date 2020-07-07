@@ -1,5 +1,5 @@
 import {
-  UserStatisticsInterface, WordStatisticsInterface, DayInterface, SettingsInterface, SpeakitStateInterface
+  UserStatisticsInterface, WordStatisticsInterface, DayInterface, SettingsInterface, SpeakitStateInterface, OurGameStateInterface, PreloaderInterface
 } from '../types';
 
 export const initialUserStatisticsObject: UserStatisticsInterface = {
@@ -63,6 +63,20 @@ export const initialSpeakitObject: SpeakitStateInterface = {
   complete: false,
   game: false,
   mode: 'user'
+};
+
+export const initialOurGameObject: OurGameStateInterface = {
+  level: 0,
+  round: 0,
+  screen: 'start',
+  words: [],
+  complete: false,
+  game: false,
+  mode: 'user'
+};
+
+export const initLoadingObject: PreloaderInterface = {
+  isLoading: true
 };
 
 export const SERVER = 'https://afternoon-falls-25894.herokuapp.com'; // https://afternoon-falls-25894.herokuapp.com

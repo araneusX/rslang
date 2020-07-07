@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { PuzzleContext } from '../context';
+import Preloader from '../../../../commonComponents/preloader/preloader';
 
 const Img = () => {
   const { state, dispatch } = useContext(PuzzleContext);
   const { data } = state;
   if (!data) {
-    return <div>Loading...</div>;
+    return <Preloader />;
   }
 
   function handleContinue() {
