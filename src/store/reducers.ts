@@ -3,6 +3,7 @@ import { Action } from './actionTypes';
 import {
   StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface, SprintStateInterface
 } from '../types';
+import { initialSprintObject } from '../constants';
 
 const authReducer = (state: AuthInterface, action:Action): AuthInterface => {
   switch (action.type) {
@@ -111,7 +112,7 @@ const sprintReducer = (state: SprintStateInterface, action:Action): SprintStateI
     }
     case 'SET_SPRINT_WORDS': {
       const { value } = action;
-      return { ...state, words: value };
+      return { ...initialSprintObject, words: value };
     }
     case 'SET_SPRINT_CORRECT_ANSWER': {
       const { correctAnswersInRowNext, pointsLevelNext, pointsForAnswerPlus } = action.value;

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import style from '../sprint.module.scss';
 import { StateContext } from '../../../../store/stateProvider';
@@ -9,7 +9,9 @@ const Start = () => {
   const { startGame } = state.sprint;
 
   const startGameF = () => {
-    dispatch({ type: 'SET_SPRINT_START_GAME' });
+    if (state.sprint.words.length) {
+      dispatch({ type: 'SET_SPRINT_START_GAME' });
+    }
   };
 
   return (
@@ -17,9 +19,20 @@ const Start = () => {
       {startGame ? <StartGameTimer />
         : (
           <div className={style.page}>
-            <button type="button" onClick={startGameF}>
-              Start game
-            </button>
+            <div className={style.startPageWrapper}>
+              <div className={style.startCard}>
+                <h2>
+                  Sprint
+                </h2>
+                <p>
+                  Let’s play sprint. The more questions you answer correctly, the more experience you get.
+                </p>
+                <button type="button" onClick={startGameF}>
+                  Start
+                </button>
+              </div>
+
+            </div>
           </div>
         )}
     </>

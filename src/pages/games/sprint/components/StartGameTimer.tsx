@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { StateContext } from '../../../../store/stateProvider';
+import style from '../sprint.module.scss';
 
 const StartGameTimer = () => {
   const [seconds, setSeconds] = useState(3);
@@ -17,10 +18,12 @@ const StartGameTimer = () => {
   }, [seconds, dispatch]);
 
   return (
-    <div>
-      seconds to start game:
-      {seconds}
+    <div className={style.page}>
+      <div className={style.secondWrap}>
+        {seconds}
+      </div>
     </div>
+
   );
 };
 

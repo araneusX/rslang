@@ -75,7 +75,7 @@ const Sprint = () => {
 
   return (
     <SprintContext.Provider value={{ getStartWords }}>
-      <div className={style.page}>
+      <div className={style.wrap}>
         {screen === 'start' && <Start />}
         { screen === 'main' && <Main />}
         { screen === 'results' && <Results />}
