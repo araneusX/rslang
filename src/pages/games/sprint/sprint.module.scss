@@ -261,6 +261,10 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.statisticPageBody{
+    max-height: 500px;
+    overflow-y: auto;
+}
 
 .resultPageText{
     color: #333333;
