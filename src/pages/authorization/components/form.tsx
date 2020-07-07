@@ -42,6 +42,13 @@ const Form = () => {
           setMessage(userAuthInfo.error);
           return;
         }
+
+        userAuthInfo = await logInUser(user);
+
+        if (!userAuthInfo.ok) {
+          setMessage(userAuthInfo.error);
+          return;
+        }
         break;
       default:
         break;
@@ -53,7 +60,7 @@ const Form = () => {
       userId: userAuthInfo.userId
     };
 
-    await statistics.initUser(auth.userId, auth.token);
+    const initStatus = await statistics.initUser(auth.userId, auth.token);
 
     let userSettings: SettingsInterface = initSettingsObject;
     const userSettingsData = await getSettings(auth.userId, auth.token);
