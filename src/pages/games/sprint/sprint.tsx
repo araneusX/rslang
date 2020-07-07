@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Start from './components/Start';
 import Main from './components/Main';
 import Results from './components/Results';
@@ -9,10 +9,12 @@ import { StatisticsContext } from '../../../statistics/statisticsProvider';
 import { StatisticsInterface, BackendWordInterface } from '../../../types';
 import { downloadNewWords, getManyWordsById } from '../../../backend/words';
 import SprintContext from './sprintContext';
+import { Preloader } from '../../../commonComponents';
 
 const Sprint = () => {
   const { state, dispatch } = useContext(StateContext);
   const { screen } = state.sprint;
+  const [isLoading, setIsLoading] = useState(true);
 
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
 
@@ -67,6 +69,7 @@ const Sprint = () => {
       const wordForGame = await getStartWords();
       if (wordForGame.length) {
         dispatch({ type: 'SET_SPRINT_WORDS', value: wordForGame });
+        setIsLoading(false);
       }
     }
     startDataF();
@@ -75,6 +78,7 @@ const Sprint = () => {
 
   return (
     <SprintContext.Provider value={{ getStartWords }}>
+      {isLoading ? <Preloader /> : null}
       <div className={style.wrap}>
         {screen === 'start' && <Start />}
         { screen === 'main' && <Main />}

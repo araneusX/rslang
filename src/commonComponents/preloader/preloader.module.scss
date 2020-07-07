@@ -1,0 +1,24 @@
+$breakpoint-tablet: 768px;
+$breakpoint-mobile: 375px;
+$breakpoint-smallmobile: 320px;
+
+.preloaderWrapper{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    /* @media (max-width: $breakpoint-tablet){
+
+    }
+    @media (max-width: $breakpoint-mobile){
+
+    }
+    @media (max-width: $breakpoint-smallmobile){
+
+    } */
+}

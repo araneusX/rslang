@@ -1,6 +1,9 @@
-import { initSettingsObject, initialSpeakitObject, initialSprintObject } from '../constants';
 import {
-  SettingsInterface, StateInterface, AuthInterface, SpeakitStateInterface, SprintStateInterface
+  initSettingsObject, initialSpeakitObject, initialSprintObject, initialOurGameObject, initLoadingObject
+} from '../constants';
+
+import {
+  SettingsInterface, StateInterface, AuthInterface, SpeakitStateInterface, OurGameStateInterface, PreloaderInterface, SprintStateInterface
 } from '../types';
 
 const auth: AuthInterface = {
@@ -9,15 +12,20 @@ const auth: AuthInterface = {
   token: ''
 };
 
+const preloader: PreloaderInterface = { ...initLoadingObject };
+
 const settings: SettingsInterface = { ...initSettingsObject };
 
 const speakit: SpeakitStateInterface = { ...initialSpeakitObject };
 
 const sprint: SprintStateInterface = { ...initialSprintObject };
+const our: OurGameStateInterface = { ...initialOurGameObject };
 
 export default {
   auth,
+  preloader,
   settings,
   speakit,
-  sprint
+  sprint,
+  our
 } as StateInterface;

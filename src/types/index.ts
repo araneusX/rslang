@@ -219,9 +219,29 @@ export interface SprintStateInterface {
   roundTime: number
 }
 
+export interface OurGameWordInterface extends BackendWordInterface {
+  isChosen: boolean,
+  index: number
+}
+
+export interface OurGameStateInterface {
+  round: number,
+  level: number,
+  screen: SpeakitScreenType,
+  words: OurGameWordInterface[],
+  complete: boolean,
+  game: boolean,
+  mode: SpeakitModeType
+}
+
+export interface PreloaderInterface {
+  isLoading: boolean
+}
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
+  preloader: PreloaderInterface,
   speakit: SpeakitStateInterface,
+  our: OurGameStateInterface,
   sprint: SprintStateInterface
 }

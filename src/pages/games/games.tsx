@@ -11,6 +11,9 @@ const Games = () => (
       <Link to="/games/sprint">
         <div className={style.tile}>Sprint</div>
       </Link>
+      <Link to="/games/ourGame">
+        <div className={style.tile}>Associations</div>
+      </Link>
     </nav>
   </>
 );

@@ -5,6 +5,7 @@ import {
 import {
   Authorization, Main, Settings, Statistics, Games, SpeakIt, Sprint
 } from './pages';
+import OurGame from './pages/games/ourGame/ourGame';
 
 import { Header } from './commonComponents';
 import { StateContext } from './store/stateProvider';
@@ -26,6 +27,7 @@ function App() {
             <Route exact path="/games" component={Games} />
             <Route exact path="/games/speakit" component={SpeakIt} />
             <Route exact path="/games/sprint" component={Sprint} />
+            <Route exact path="/games/ourGame" component={OurGame} />
           </>
           )}
           <Redirect to={isAuth ? '/main' : '/authorization'} />
