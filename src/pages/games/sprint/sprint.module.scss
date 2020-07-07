@@ -1,0 +1,395 @@
+.gameWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.wrap{
+    height: 100%;
+    flex: 1 0 100%;
+    display: flex;
+}
+
+.page{
+    flex: 1 0 100%;
+    min-height: 100%;
+    background: url('/images/sprint/bg-start.jpg') no-repeat center;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.startCard{
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    h2{
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 60px;
+        line-height: 71px;
+        color: #333333;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    p{
+        margin-top: 0;
+        margin-bottom: 40px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 25px;
+        line-height: 34px;  
+    }
+    button{
+        padding: 10px;
+        max-width: 280px;
+        width: 100%;
+        background: #F39200;
+        border-radius: 15px;
+        border: none;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 41px;
+        text-align: center;
+        color: #000000;
+        transition: all 0.3s;
+        box-shadow: 0px 3px 3px 0px rgba(243,146,0,1);
+        &:hover{
+            cursor: pointer;
+            box-shadow: 0px 4px 4px 0px rgba(243,146,0,1);
+            opacity: 0.9;
+        }
+    }
+}
+
+.secondWrap{
+    width: 180px;
+    height: 200px;
+    background: url('/images/sprint/timerIcon.svg') no-repeat center;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    font-size: 45px;
+}
+
+.mainGameWrapper{
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: url('/images/sprint/bg-main.png') no-repeat center;
+    background-size: cover;
+}
+
+.settingBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.levelSelect{
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: #333333;
+    select{
+        width: 100px;
+        height: 25px;
+        border-radius: 5px;
+        border: 1px solid #333333;
+        background-color: inherit;
+        margin-left: 3px;
+        margin-right: 10px;
+    }
+    button{
+        width: 100px;
+        height: 25px;
+        border-radius: 5px;
+        border: 1px solid #333333;
+        border: none;
+        background-color: #FF9900;
+    }
+}
+
+.dots{
+    display: flex;
+    span{
+        display: block;
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+        margin-left: 5px;
+        border-radius: 50%;
+    }
+    .greenDot{
+        background-color: #52D424;
+    }
+    .grayDot{
+        background-color: #DEDEDE;
+    }
+}
+
+.gameCardWrapper{
+    flex: 1 0 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+}
+
+.stepNow{
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333333;
+    text-align: center;
+    .stepNowText{
+        display: block;
+        font-size: 10px;
+    }
+}
+
+.gameCard{
+    display: flex;
+    min-width: 300px;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.pointsForRound{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 55px;
+    line-height: 65px;
+    color: #333333;
+}
+
+.roundTime{
+    position: absolute;
+    right: 25%;
+    top: 50%;
+    width: 100px;
+    height: 120px;
+    background: url('/images/sprint/timerIcon.svg') no-repeat center;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    font-size: 25px;
+}
+
+.wordWrap{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    text-align: center;
+}
+.answerButton{
+    margin-top: 20px;
+    width: 100%;
+    button{
+        width: 45%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 27px;
+        color: #333333;
+        transition: all 0.3s;
+        &:hover{
+            opacity: .8;
+        }
+    }
+    button.colorRed{
+        background-color: #FB0B0B;
+    }
+    button.colorGreen{
+        background-color: #8BFF62;
+    }
+
+}
+
+.wordWrapWord{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 54px;
+    color: #333333;
+}
+
+.wordWrapAnswer{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 33px;
+    line-height: 45px;
+    color: #333333;
+}
+
+.resultPageWrapper{
+    flex: 1 0 200px;
+    display: flex;
+    background: url('/images/sprint/bg-main.png') no-repeat center;
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+}
+
+.resultPage,
+.statisticPage{
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    min-width: 300px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.resultPageText{
+    color: #333333;
+    h3{
+        font-size: 30px;
+    }
+    .statisticPagePoints{
+        margin-top: 20px;
+        font-size: 24px;
+        span{
+            font-size: 26px;
+            color: #52D424;
+        }
+    }
+    .statisticPageAllWord{
+        margin-top: 10px;
+        font-size: 20px;
+        span{
+            font-size: 26px;
+            color: #52D424;
+        }
+    }
+}
+
+.resultPageBtn{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    button{
+        cursor: pointer;
+        font-weight: 600;
+        margin-right: 5px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #FF9900;
+        color: #5E2D00;
+        transition: all .3s;
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+}
+
+.statisticPageHeader{
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    color:#333333;
+    margin-bottom: 20px;
+    h4{
+        padding: 0;
+        margin: 0;
+    }
+    button{
+        font-size: 16px;
+        margin-right: 5px;
+        border: none;
+        border-radius: 5px;
+        background-color: #FF9900;
+        color: #5E2D00;
+        transition: all .3s;
+        cursor: pointer;
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+}
+
+.statisticPageDate{
+    margin: 10px 0;
+    font-size: 20px;
+    padding: 0 10px;
+    background-color: #DE8500;
+}
+
+@media screen and (max-width: 1024px) {
+    .roundTime {
+        right: 10%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .roundTime {
+        position: absolute;
+        top: 220px;
+        right: 20px;
+    }
+    .levelSelect{
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+        select{
+            width: 100%;
+            margin-right: 0;
+            margin-left: 0;
+        }
+    }
+    .gameCardWrapper{
+        margin-top: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .levelSelect{
+        button{
+            height: 30px;
+            margin-top: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .roundTime {
+        position: absolute;
+        top: 260px;
+        right: 10%;
+    }
+    .pointsForRound{
+        position: absolute;
+        left: 15%;
+        top: 290px;
+    }
+    .gameCard{
+        margin-top: 110px;
+        min-width: 290px;
+    }
+    .resultPage,
+    .statisticPage{
+        min-width: 280px;
+    }
+}

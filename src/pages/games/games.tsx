@@ -9,6 +9,9 @@ const Games = () => (
         <div className={style.tile}>Speak It</div>
       </Link>
       <Link to="/games/savannah"> Savvannah </Link>
+      <Link to="/games/sprint">
+        <div className={style.tile}>Sprint</div>
+      </Link>
     </nav>
   </>
 );

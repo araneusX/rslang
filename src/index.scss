@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-sprint-error{
+  border: 4px solid #E30000;
+}
+
+.game-sprint-correct{
+  border: 4px solid #57FF1C;
+}
