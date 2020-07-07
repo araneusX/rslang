@@ -27,6 +27,7 @@ function App() {
             <Route exact path="/games" component={Games} />
             <Route exact path="/games/speakit" component={SpeakIt} />
             <Route exact path="/games/puzzle" component={Puzzle} />
+            <Route exact path="/games/ourGame" component={OurGame} />
           </>
           )}
           <Redirect to={isAuth ? '/main' : '/authorization'} />
