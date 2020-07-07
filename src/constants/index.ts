@@ -78,7 +78,7 @@ export const initTrainingObject: TrainingStateInterface = {
   },
   complete: false,
   isFirstVisit: true,
-  trainingMode: 1,
+  trainingMode: 1
 };
 
 export const initialSpeakitObject: SpeakitStateInterface = {
