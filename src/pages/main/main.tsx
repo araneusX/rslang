@@ -10,9 +10,9 @@ import { StatisticsContext } from '../../statistics/statisticsProvider';
 
 const Main = () => {
   const { state, dispatch } = useContext(StateContext);
-  const { isAudioOn, isFirstVisit } = state.training
+  const { isAudioOn, isFirstVisit } = state.training;
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
-  //const [cardObject, setCardObject] = useState<BackendWordInterface >(cardObj[0] as BackendWordInterface);
+  // const [cardObject, setCardObject] = useState<BackendWordInterface >(cardObj[0] as BackendWordInterface);
   const [startPreview, setStart] = useState(true);
   const [endPreview, setEndPreview] = useState(false);
   const [firstVisitOnGame, setFirstVisitOnGame] = useState(true);
@@ -32,10 +32,10 @@ const Main = () => {
     async function fetchData() {
       if (count <= state.settings.wordsPerDay) {
         if (isFirstVisit || !firstVisitOnGame) {
-          const result = await (trainGameCard(state.auth.userId, state.auth.token));
+          const result = await (trainGameCard(state.auth.userId, state.auth.token, 'standart'));
           if (!ignore) {
             console.log('текущая карточка', result);
-            dispatch({ type: 'SET_TRAINING_CARD', value: result});
+            dispatch({ type: 'SET_TRAINING_CARD', value: result });
           }
         }
       } else {
@@ -50,9 +50,9 @@ const Main = () => {
     let ignore = false;
     async function fetchData() {
       if (sessionVocWrdCount > 0) {
-        const result = await (trainGameCard(state.auth.userId, state.auth.token));
+        const result = await (trainGameCard(state.auth.userId, state.auth.token, 'standart'));
         if (!ignore) {
-          dispatch({ type: 'SET_TRAINING_CARD', value: result});
+          dispatch({ type: 'SET_TRAINING_CARD', value: result });
           console.log('текущая карточка', result);
         }
       }
@@ -61,11 +61,10 @@ const Main = () => {
     return () => { ignore = true; };
   }, [sessionVocWrdCount]);
 
-
   useEffect(() => {
-    dispatch({ type: 'SET_TRAINING_FIRST_VISIT', value: false});
+    dispatch({ type: 'SET_TRAINING_FIRST_VISIT', value: false });
     setFirstVisitOnGame(false);
-  },[]);
+  }, []);
 
   const {
     addGradeButton,
@@ -92,7 +91,6 @@ const Main = () => {
     translateToTheCard,
     wordDeleteButton
   };
-
 
   const handleSoundControl = () => {
     if (isAudioOn) {
@@ -143,7 +141,7 @@ const Main = () => {
         ) : (
           <>
             <Card
-              /*cardObj={cardObject}*/
+              /* cardObj={cardObject} */
               settings={settings}
               answer={answer}
               callback={setAns}
