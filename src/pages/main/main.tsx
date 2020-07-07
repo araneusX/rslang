@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import style from './main.module.scss';
 import Card from './components/card';
 import cardObj from '../../mosk/testCardObj';
-import Preloader from '../../commonComponents/preloader/Preloader';
+import { Preloader } from '../../commonComponents';
 import { StateContext } from '../../store/stateProvider';
 
 const Main = () => {
