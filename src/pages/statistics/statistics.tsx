@@ -1,31 +1,43 @@
 import React, { useState } from 'react';
 import Session from './components/session';
 import Full from './components/full';
+import Total from './components/total';
 import style from './statistics.module.scss';
 
+type PeriodType = 'session' | 'total' | 'full';
+
 const Statistics = () => {
-  const [isSession, setToggled] = useState(true);
-  const toggleTrueFalse = (value: boolean) => setToggled(value);
+  const [periodType, setPeriodType] = useState<PeriodType>('session');
+  const handlePeriodChange = (value: PeriodType) => setPeriodType(value);
 
   return (
     <div className={style.statsContainer}>
       <div className={style.buttonWrapper}>
         <button
-          className={isSession ? style.activeTab : style.passiveTab}
+          className={periodType === 'session' ? style.activeTab : style.passiveTab}
           type="button"
-          onClick={() => toggleTrueFalse(true)}
+          onClick={handlePeriodChange.bind(null, 'session')}
         >
           Session stats
         </button>
         <button
-          className={isSession ? style.passiveTab : style.activeTab}
+          className={periodType === 'total' ? style.activeTab : style.passiveTab}
           type="button"
-          onClick={() => toggleTrueFalse(false)}
+          onClick={handlePeriodChange.bind(null, 'total')}
         >
           Total stats
         </button>
+        <button
+          className={periodType === 'full' ? style.activeTab : style.passiveTab}
+          type="button"
+          onClick={handlePeriodChange.bind(null, 'full')}
+        >
+          Full stats
+        </button>
       </div>
-      { isSession ? <Session /> : <Full /> }
+      { periodType === 'session' && <Session />}
+      { periodType === 'total' && <Total /> }
+      { periodType === 'full' && <Full /> }
     </div>
   );
 };

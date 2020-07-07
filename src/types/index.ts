@@ -95,13 +95,15 @@ export interface StatisticsInterface extends UserStatisticsInterface {
     isRight: boolean,
   ) => Promise<{ok: boolean}>,
 
-  getAllWordsStatistics: () => WordStatisticsInterface[],
+  getAllWordsStatistics: (filter?: 'all' | 'difficult') => WordStatisticsInterface[],
 
-  getWordStatistics: () => WordStatisticsInterface | null,
+  getWordStatistics: (filter?: 'all' | 'difficult') => WordStatisticsInterface | null,
 
-  getAllWordsId: () => string[],
+  getAllWordsId: (filter?: 'all' | 'difficult') => string[],
 
-  getWordId: () => string | null
+  getWordId: (filter?: 'all' | 'difficult') => string | null,
+
+  getAllWordsStatisticsWithDeleted: () => WordStatisticsInterface[]
 
 }
 
