@@ -17,7 +17,7 @@ function AssembledGamePuzzle(props: any) {
     game = wrapperGame.children[0].children;
 
     const boundingRound = game[0].getBoundingClientRect();
-    gameY = Math.abs(boundingRound.bottom) + boundingRound.height;
+    gameY = Math.abs(boundingRound.top) + boundingRound.height;
     height = boundingRound.height;
   }
 
@@ -71,7 +71,8 @@ function AssembledGamePuzzle(props: any) {
             backgroundSize: `${pxTOvw(bounding?.width)}vw`,
             backgroundPositionX: `-${pxTOvw(widthPuzzle)}vw`,
             backgroundPositionY: `-${pxTOvw(bound.height * heightIndex)}vw`,
-            fontSize: '1.4vw'
+            fontSize: '1.7vw',
+            fontWeight: 'bold'
           }
         };
         const wordPuzzle = React.createElement('div', property, word.textContent);
@@ -87,7 +88,9 @@ function AssembledGamePuzzle(props: any) {
             background: `url(https://raw.githubusercontent.com/mrINEX/english-puzzle/english-puzzle/english-puzzle/src/assets/data_paintings/${data.pageImage.imageSrc})`,
             backgroundSize: `${pxTOvw(bounding.width)}vw`,
             backgroundPositionX: `-${pxTOvw(widthPuzzle)}vw`,
-            backgroundPositionY: `-${pxTOvw(bound.height * heightIndex)}vw`
+            backgroundPositionY: `-${pxTOvw(bound.height * heightIndex)}vw`,
+            fontSize: '1.7vw',
+            fontWeight: 'bold'
           }
         };
         const assembledWordPuzzle = React.createElement('div', propertyAssembled);

@@ -3,15 +3,6 @@
     margin: 0;
 }
 
-html {
-    font-size: 10px;
-}
-
-body {
-    font-family: monospace;
-    @include font($size: 1.6rem, $weight: bold);
-}
-
 .event-none {
     pointer-events: none;
     opacity: .5;
