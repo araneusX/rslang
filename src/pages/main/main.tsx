@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import style from './main.module.scss';
@@ -18,7 +18,7 @@ const Main = () => {
     explainToCard
   } = state.settings.optional;
 
-  const { isLoading } = state.preloader;
+  const [isLoading, setIsLoading] = useState(true);
 
   const settings = {
     imageToCard,
@@ -28,10 +28,9 @@ const Main = () => {
     exampleToCard,
     explainToCard
   };
-  /*  dispatch({ type: 'SET_LOADING', value: true }); */
 
   const dispatchLoading = () => {
-    dispatch({ type: 'SET_LOADING', value: false });
+    setIsLoading(false);
   };
   setInterval(dispatchLoading, 1500);
 
