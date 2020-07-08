@@ -39,6 +39,10 @@ const Card: React.FC<{
 
   useEffect(() => {
     if (prop.answer) {
+      if (!isRight && !showAns) {
+        document.getElementById('currentWord')?.classList.add(style.opacity);
+      }
+
       if (inputEl.current) {
         inputEl.current.blur();
       }
@@ -129,12 +133,15 @@ const Card: React.FC<{
     prop.callback(true);
   };
 
-  const handlerDifficultLevel = (level: 1|2|0) => {
+  const handlerDifficultLevel = (level: 1|2|0|3) => {
     if (isRight || showAns) {
       sound.pause();
-      sendData(level);
-      prop.nextCard(false);
+      prop.callback(false);
       setShowAns(false);
+      if (level !== 3) {
+        sendData(level);
+        prop.nextCard(false);
+      }
     }
   };
 
@@ -144,6 +151,7 @@ const Card: React.FC<{
     }
   };
 
+
   return (
     <div className={style.cardContainer} id={card.id}>
       <div className={style.wordContainer}>
@@ -152,6 +160,7 @@ const Card: React.FC<{
             className={style.showCurrentWord}
             dangerouslySetInnerHTML={currentWord()}
             onClick={handleCurrentWord}
+            id='currentWord'
           />
         ) : (
           <div dangerouslySetInnerHTML={currentWord()} />
@@ -214,18 +223,19 @@ const Card: React.FC<{
         {settings.addGrageButton && prop.answer && (isRight || showAns)
                     && (
                     <div className={style.gradeContainer}>
-                      <div title="Легко" id="easyLevel" onClick={() => { handlerDifficultLevel(0); }} className={style.easyBtn}>Es</div>
-                      <div title="Средне" id="middleLevel" onClick={() => { handlerDifficultLevel(1); }} className={style.mediumBtn}>Md</div>
-                      <div title="Сложно" id="hardLevel" onClick={() => { handlerDifficultLevel(2); }} className={style.hardBtn}>Hrd</div>
+                      <div title="Заново" id="repeat" onClick={() => { handlerDifficultLevel(3); }} className={style.repeatBtn}></div>
+                      <div title="Легко" id="easyLevel" onClick={() => { handlerDifficultLevel(0); }} className={style.easyBtn}></div>
+                      <div title="Средне" id="middleLevel" onClick={() => { handlerDifficultLevel(1); }} className={style.mediumBtn}></div>
+                      <div title="Сложно" id="hardLevel" onClick={() => { handlerDifficultLevel(2); }} className={style.hardBtn}></div>
                     </div>
                     )}
         <div className={style.controlContainer}>
           {settings.wordDeleteButton
-              && <div onClick={handlerDeleteWord}>del</div>}
+              && <div title='Удалить слово' className={style.deleteBtn} onClick={handlerDeleteWord}></div>}
           {settings.addToDifficultWordsButton
-              && <div onClick={handlerToDifficult}>hrd</div>}
+              && <div title='Занести слово в словарь' className={style.toDifficultBtn} onClick={handlerToDifficult}></div>}
           {settings.showAnswerButton
-              && <div onClick={handleShowAnswer}>?</div>}
+              && <div title='Показать ответ' className={style.showAnsBtn} onClick={handleShowAnswer}></div>}
         </div>
       </>
     </div>

@@ -1,9 +1,8 @@
 /* eslint-disable react/button-has-type */
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, ChangeEventHandler } from 'react';
 import style from './main.module.scss';
 import Card from './components/card';
 import { BackendWordInterface, StatisticsInterface } from '../../types';
-import cardObj from '../../mosk/testCardObj';
 import { StateContext } from '../../store/stateProvider';
 import trainGameCard from './components/training';
 import { StatisticsContext } from '../../statistics/statisticsProvider';
@@ -11,9 +10,8 @@ import { StatisticsContext } from '../../statistics/statisticsProvider';
 const Main = () => {
   const { state, dispatch } = useContext(StateContext);
 
-  const { isAudioOn, isFirstVisit } = state.training;
+  const { isAudioOn, isFirstVisit, trainingMode } = state.training;
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
-  // const [cardObject, setCardObject] = useState<BackendWordInterface >(cardObj[0] as BackendWordInterface);
   const [startPreview, setStart] = useState(true);
   const [endPreview, setEndPreview] = useState(false);
   const [firstVisitOnGame, setFirstVisitOnGame] = useState(true);
@@ -33,7 +31,7 @@ const Main = () => {
     async function fetchData() {
       if (count <= state.settings.wordsPerDay) {
         if (isFirstVisit || !firstVisitOnGame) {
-          const result = await (trainGameCard(state.auth.userId, state.auth.token, 'standart'));
+          const result = await (trainGameCard(state.auth.userId, state.auth.token, trainingMode));
           if (!ignore) {
             console.log('текущая карточка', result);
             dispatch({ type: 'SET_TRAINING_CARD', value: result });
@@ -51,7 +49,7 @@ const Main = () => {
     let ignore = false;
     async function fetchData() {
       if (sessionVocWrdCount > 0) {
-        const result = await (trainGameCard(state.auth.userId, state.auth.token, 'standart'));
+        const result = await (trainGameCard(state.auth.userId, state.auth.token, trainingMode));
         if (!ignore) {
           dispatch({ type: 'SET_TRAINING_CARD', value: result });
           console.log('текущая карточка', result);
@@ -110,6 +108,11 @@ const Main = () => {
     }
   };
 
+  const selectHandler = (event: React.ChangeEvent<HTMLSelectElement>):void => {
+    dispatch({ type: 'SET_TRAINING_MODE', value: event.target.value});
+    setSessionVocWrdCount(sessionVocWrdCount + 1);
+  }
+
   return (
     <>
       <div className={style.learnContainer}>
@@ -142,7 +145,6 @@ const Main = () => {
         ) : (
           <>
             <Card
-              /* cardObj={cardObject} */
               settings={settings}
               answer={answer}
               callback={setAns}
@@ -150,6 +152,11 @@ const Main = () => {
               nextCard={nextCard}
             />
             <div className={style.controlContainer}>
+            <select onChange={selectHandler}>
+              <option value='standart'>Стандартный режим</option>
+              <option value='difficult'>Сложные слова</option>
+              <option value='forRepeat'>Режим повторения</option>
+            </select>
               { isAudioOn ? (
                 <button className={style.soundOn} onClick={handleSoundControl}>Выключить звук</button>
               ) : (

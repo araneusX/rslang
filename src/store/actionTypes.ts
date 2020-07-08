@@ -17,4 +17,4 @@ export type Action =
 | { type: 'SET_TRAINING_AUDIO', value: boolean }
 | { type: 'SET_TRAINING_CARD', value: BackendWordInterface }
 | { type: 'SET_TRAINING_FIRST_VISIT', value: boolean }
-| { type: 'SET_TRAINING_MODE', value: 0|1|2 };
+| { type: 'SET_TRAINING_MODE', value: string };

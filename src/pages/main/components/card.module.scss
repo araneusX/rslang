@@ -10,7 +10,23 @@
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.24);
     border-radius: 23px;
     padding: 15px;
-    height: 375px;
+    width: 60vw;
+    max-width: 640px;
+    margin-top: 30px;
+
+  .opacity{
+    animation: opacityDown 2s;
+    opacity: .5;
+  }
+
+  @keyframes opacityDown{
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: .5;
+    }
+  }
 
   .wordContainer{
     width: min-content;
@@ -20,6 +36,8 @@
     font-size: 20px;
     background: #D0FFF7;
     border-radius: 10px;
+    font-weight: bold;
+    font-size: 25px;
     div{
       padding: 2px;
       visibility: hidden;
@@ -35,6 +53,7 @@
       outline: none;
       font-family: inherit;
       font-size: inherit;
+      font-weight: inherit;
       padding: 2px;
       width: calc(100% - 8px);
       display: inline;
@@ -54,16 +73,22 @@
   }
 
   p{
-      margin: 2px;
+    margin: 2px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
   }
 
   .putDownOnAns{
     animation: putDown 1s;
+    font-style: normal;
+    font-weight: normal;
+    margin-bottom: 30px;
   }
 
   @keyframes putDown {
     from{
-      margin-top: -24px;
+      margin-top: -40px;
       opacity: 0;
     }
     to{
@@ -79,7 +104,7 @@
   }
   .gradeContainer{
     display: flex;
-    width: 190px;
+    width: 270px;
     height: 56px;
     align-items: center;
     justify-content: space-around;
@@ -91,18 +116,30 @@
       height: 40px;
       border-radius: 10px;
       cursor: pointer;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto;
+      animation: switchCard 1s;
     }
     .easyBtn{
       background-color: #8BFF62;
       box-shadow: 0px 2px 0px 0px #52D524;
+      background-image: url(/images/greateBtn.svg);
     }
     .mediumBtn{
       background-color:  #FFF733;
       box-shadow: 0px 2px 0px 0px #E8E02D;
+      background-image: url(/images/goodBtn.svg);
     }
     .hardBtn{
       background-color: #FB0B0B;
       box-shadow: 0px 2px 0px 0px #9F0B0B;
+      background-image: url(/images/sadBtn.svg);
+    }
+    .repeatBtn{
+      background-color: #1BE2FD;
+      box-shadow: 0px 2px 0px 0px #08B3CA;
+      background-image: url(/images/repeatBtn.svg);
     }
   }
   .controlContainer{
@@ -121,6 +158,24 @@
       box-shadow: 0px 2px 0px 0px #DE8500;
       border-radius: 22px;
       cursor: pointer;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto;
+    }
+    .deleteBtn{
+      background-image: url(/images/deleteBtn.svg);
+    }
+    .toDifficultBtn{
+      background-image: url(/images/difficultBtn.svg);
+    }
+    .showAnsBtn{
+      background-image: url(/images/showAnsBtn.svg);
     }
   }
 }
+
+.deleteBtn:hover, .toDifficultBtn:hover, .showAnsBtn:hover,
+.easyBtn:hover, .mediumBtn:hover, .hardBtn:hover, .repeatBtn:hover{
+  filter: grayscale(0.4);
+}
+
