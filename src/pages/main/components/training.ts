@@ -146,7 +146,7 @@ const newWordsGame = async (progress: Map<string, unknown>, maxCountCard: number
   startWord += 1;
 
   const newWordsArray = await getNewWords(group, startWord, maxCountCard);
-  if (newWordsArray || newWordsArray[countOfShowedCards] === undefined) return null;
+  if (newWordsArray === undefined || newWordsArray[countOfShowedCards] === undefined) return null;
   return newWordsArray[countOfShowedCards];
 };
 
