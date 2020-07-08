@@ -212,7 +212,7 @@ export interface TrainingStateInterface {
   card: BackendWordInterface,
   complete: boolean,
   isFirstVisit: boolean,
-  trainingMode: 0|1|2;
+  trainingMode: string;
 }
 
 export interface StateInterface {
