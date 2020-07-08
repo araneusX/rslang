@@ -48,7 +48,6 @@ const standartGame = async (progress: Map<string, unknown>, maxCountCard: number
       startWord += maxCountCard;
       newWordsArray = newWordsArray.concat(await getNewWords(group, startWord, sizeOfNextPack));
     }
-    console.log(newWordsArray);
     return newWordsArray[Math.floor(countOfShowedCards / 2)];
   }
   if (wordId === null) {
@@ -67,11 +66,11 @@ const forRepeatGame = async (progress: Map<string, unknown>, wordsPerDay: number
     startWord = 0;
   }
   startWord += 1;
-  let newWordsArray = await getNewWords(group, startWord, maxCountCard);
 
   const sizeOfUsersWordsPack = wordsPerDay - maxCountCard;
   const wordId = statistics.getWordId();
 
+  let newWordsArray = await getNewWords(group, startWord, maxCountCard);
   let counterOfUsersWords = 0;
   let counterOfNewWords = 0;
 
@@ -106,12 +105,28 @@ const difficultGame = () => {
   });
   let index = Number(localStorage.getItem('showedDeletedWord'));
   const returnedWord = getWordById(wordsId[index]);
-  index += 1;
-  localStorage.setItem('showedDeletedWord', `${index}`);
-  return returnedWord;
+  if (returnedWord !== undefined) {
+    index += 1;
+    localStorage.setItem('showedDeletedWord', `${index}`);
+    return returnedWord;
+  } return null;
 };
 
-// typeOfGame = 'standart' | 'difficult' | 'forRepeat'
+const newWordsGame = async (progress: Map<string, unknown>, maxCountCard: number, countOfShowedCards: number) => {
+  let group: number = 0; // get value from settings
+  let startWord: number = Number(progress.get(`${group}`));
+
+  if (startWord === 600) {
+    group += 1;
+    startWord = 0;
+  }
+  startWord += 1;
+
+  const newWordsArray = await getNewWords(group, startWord, maxCountCard);
+  return newWordsArray[countOfShowedCards];
+};
+
+// typeOfGame = 'basic' | 'difficult' | 'repeat' | 'new'
 const trainGameCard = async (userId: string, token: string, typeOfGame: string) => {
   const userSettings = await getSettings(userId, token);
   const dayStatistic = statistics.getDayStatistics();
@@ -123,7 +138,9 @@ const trainGameCard = async (userId: string, token: string, typeOfGame: string) 
   const countOfShowedCards = dayStatistic.cards;
 
   switch (typeOfGame) {
-    case 'forRepeat':
+    case 'new':
+      return await newWordsGame(progress, maxCountCard, countOfShowedCards);
+    case 'repeat':
       return await forRepeatGame(progress, maxCountCard, wordsPerDay, countOfShowedCards);
     case 'difficult':
       return difficultGame();
