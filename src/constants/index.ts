@@ -51,7 +51,8 @@ export const initSettingsObject: SettingsInterface = {
     showAnswerButton: false,
     wordDeleteButton: false,
     addToDifficultWordsButton: false,
-    addGrageButton: false
+    addGrageButton: false,
+    level: 1
   }
 };
 
@@ -80,3 +81,6 @@ export const initialSprintObject: SprintStateInterface = {
   pointsLevel: 0,
   roundTime: 45
 };
+export const SERVER = 'https://afternoon-falls-25894.herokuapp.com'; // https://afternoon-falls-25894.herokuapp.com
+
+export const WORDS_COUNT = 3600;

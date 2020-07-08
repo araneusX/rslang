@@ -1,14 +1,67 @@
-import { WordStatisticsInterface } from '../types';
+import { WordStatisticsInterface, BackendWordInterface } from '../types';
+import { SERVER } from '../constants';
 
 export async function getWords(group: number, page: number) {
-  const url = `https://afternoon-falls-25894.herokuapp.com/words?group=${group}&page=${page}`;
+  const url = `${SERVER}/words?group=${group}&page=${page}`;
   const response = await fetch(url);
   const data = await response.json();
   return data;
 }
 
+export async function getWordsByFilter(
+  userId:string,
+  token: string,
+  filters: { [key: string]: any}
+): Promise<{
+    ok: boolean,
+    content: Array<{
+      statistics: WordStatisticsInterface,
+      word: BackendWordInterface
+    }>
+  }> {
+  const url = `${SERVER}/users/${userId}/aggregatedWords`;
+  const filter = {} as {'$and': Array<{[key: string]: any}> };
+  filter.$and = [
+    Object.keys(filters).reduce((param, key) => {
+      // eslint-disable-next-line no-param-reassign
+      param[`userWord.optional.${key}`] = filters[key];
+      return param;
+    }, {} as {[key: string]: any})
+  ];
+  const param = encodeURIComponent(JSON.stringify(filter));
+  try {
+    const rawResponse = await fetch(`${url}?filter=${param}&wordsPerPage=3600`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json'
+      }
+    });
+
+    const result = await rawResponse.json();
+
+    let content: Array<{
+      statistics: WordStatisticsInterface,
+      word: BackendWordInterface
+    }> = [];
+
+    content = result[0].paginatedResults.map((wordObj: any) => {
+      const word = { ...wordObj };
+      delete word.userWord;
+      return {
+        statistics: wordObj.userWord.optional as WordStatisticsInterface,
+        word: word as BackendWordInterface
+      };
+    });
+
+    return { ok: true, content };
+  } catch (error) {
+    return { ok: false, content: [] };
+  }
+}
+
 export async function getWordById(id: string) {
-  const url = `https://afternoon-falls-25894.herokuapp.com/words/${id}`;
+  const url = `${SERVER}/words/${id}?noAssets=true`;
   const response = await fetch(url);
   const data = await response.json();
   return data;
@@ -76,7 +129,7 @@ export async function downloadAllWordsStatistics(
   userId: string,
   token: string
 ): Promise<{content: [], ok: boolean}> {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words`;
+  const url = `${SERVER}/users/${userId}/words`;
   try {
     const rawResponse = await fetch(url, {
       method: 'GET',
@@ -103,7 +156,7 @@ export async function downloadWordStatistics(
   token: string,
   wordId: string
 ): Promise<{content: {} | Error, ok: boolean}> {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${wordId}`;
+  const url = `${SERVER}/users/${userId}/words/${wordId}`;
   try {
     const rawResponse = await fetch(url, {
       method: 'GET',
@@ -128,7 +181,7 @@ export async function uploadWordStatistics(
   token: string,
   word: WordStatisticsInterface
 ): Promise<{ ok: boolean}> {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word.wordId}`;
+  const url = `${SERVER}/users/${userId}/words/${word.wordId}`;
   try {
     const rawResponse = await fetch(url, {
       method: 'POST',
@@ -153,7 +206,7 @@ export async function updateWordStatistics(
   token: string,
   word:WordStatisticsInterface
 ): Promise<{ ok: boolean}> {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word.wordId}`;
+  const url = `${SERVER}/users/${userId}/words/${word.wordId}`;
   try {
     const rawResponse = await fetch(url, {
       method: 'PUT',
@@ -178,7 +231,7 @@ export async function deleteWordStatistics(
   token: string,
   wordId: string
 ): Promise<{ ok: boolean}> {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${wordId}`;
+  const url = `${SERVER}/users/${userId}/words/${wordId}`;
   try {
     const rawResponse = await fetch(url, {
       method: 'DELETE',

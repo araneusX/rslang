@@ -1,15 +1,23 @@
-.headerLinkButton {
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: #999999;
+.link-button {
   text-decoration: none;
-  border: 1px solid black;
-  border-radius: 3px;
+  color: #333333;
+  margin: 10px;
 
-  &:hover,
   &:active,
+  &:hover,
   &:focus {
-    cursor: pointer;
-    background-color: #666666;
+    color: #333333;
+  }
+
+  &.current {
+    color: #FF9900;
+    text-shadow: 0 0 2px black, 0 0 4px black;
+
+    &:active,
+    &:hover,
+    &:focus {
+      color: #FF9900;
+    }
+
   }
 }
