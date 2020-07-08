@@ -14,8 +14,11 @@ interface Props {
 }
 
 const Game = (props:Props) => {
+  const UserWordLevel = 7;
+
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
-  const levelsSelect = [1, 2, 3, 4, 5, 6, 'User Word'];
+  const levelsSelect = [1, 2, 3, 4, 5, 6, 7];
+  const pagesSelect = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
   const { savannah, setSavannah } = props;
   const startSecondsToAnswerValue = 250;
   const gameLength = savannah.wordForGame.length;
@@ -26,24 +29,43 @@ const Game = (props:Props) => {
   const [step, setStep] = useState(0);
   const userLearnedWord = statistics.getAllWordsId();
 
-  const changeLevel = async (e: React.FormEvent<HTMLSelectElement>) => {
+  const [localLevel, setLocalLevel] = useState(savannah.level + 1);
+  const [localPage, setLocalPage] = useState(savannah.page);
+
+  const changePage = (e: React.FormEvent<HTMLSelectElement>) => {
     e.preventDefault();
     const { value } : any = e.target;
-    if (value === 'User Word' && userLearnedWord.length >= 20) {
+    setLocalPage(Number(value));
+  };
+
+  const changeLevel = (e: React.FormEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    const { value } : any = e.target;
+    setLocalLevel(Number(value));
+  };
+
+  const setLevel = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (localLevel === UserWordLevel && userLearnedWord.length >= 20) {
       const nextWordForGame = await getManyWordsById(userLearnedWord.slice(0, 20));
       setSavannah({
         ...initialSavannah,
+        level: 6,
+        repeatGame: true,
         wordForGame: nextWordForGame.content,
         allAnswerArray: nextWordForGame.content.map((i:WordForGame) => i.wordTranslate)
       });
     } else {
-      const level = (value === 'User Word') ? 0 : (value - 1);
-      const nextWordForGame = await getWords(1, level);
+      const level = (localLevel === UserWordLevel) ? 0 : (localLevel - 1);
+      const page = localPage;
+      const nextWordForGame = await getWords(level, page);
 
       setSavannah({
         ...initialSavannah,
         level,
+        page,
         setLevel: true,
+        repeatGame: true,
         wordForGame: nextWordForGame,
         allAnswerArray: nextWordForGame.map((i:WordForGame) => i.wordTranslate)
       });
@@ -139,8 +161,20 @@ const Game = (props:Props) => {
               </div>
               <div>
                 select level:
-                <select name="levelSelect" id="levelSelect" onChange={changeLevel} value={!savannah.setLevel ? 'User Word' : savannah.level + 1}>
+                <select name="levelSelect" id="levelSelect" onChange={changeLevel} value={localLevel}>
                   {levelsSelect.map((i) => (
+                    <option
+                      key={i}
+                      value={i}
+                      disabled={userLearnedWord.length < 20 && i === UserWordLevel}
+                    >
+                      { i === UserWordLevel ? 'User word' : i}
+                    </option>
+                  ))}
+                </select>
+                select page:
+                <select name="pageSelect" id="pageSelect" onChange={changePage} value={localPage} disabled={localLevel === UserWordLevel}>
+                  {pagesSelect.map((i) => (
                     <option
                       key={i}
                       value={i}
@@ -149,6 +183,7 @@ const Game = (props:Props) => {
                     </option>
                   ))}
                 </select>
+                <button type="button" onClick={setLevel}>Изменить Уровень</button>
               </div>
             </div>
             <div className={`${style.wordWrapper}`} style={{ top: `${(300 - secondsToAnswer)}px` }}>

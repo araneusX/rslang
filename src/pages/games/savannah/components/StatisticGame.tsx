@@ -20,12 +20,14 @@ const StatisticGame = (props:Props) => {
     const userLearnedWord = statistics.getAllWordsId();
 
     if (userLearnedWord.length < 20 || savannah.setLevel) {
-      const page = Math.floor(Math.random() * (1 - 29 + 1)) + 1;
+      const page = savannah.page === 29 ? 1 : savannah.page + 1;
       const nextWordForGame = await getWords(page, savannah.level);
 
       setSavannah({
         ...initialSavannah,
+        page,
         selectPage: page,
+        repeatGame: true,
         wordForGame: nextWordForGame,
         allAnswerArray: nextWordForGame.map((i:WordForGame) => i.wordTranslate)
       });
@@ -34,6 +36,8 @@ const StatisticGame = (props:Props) => {
         const nextWordForGame = res.content;
         setSavannah({
           ...initialSavannah,
+          level: 6,
+          repeatGame: true,
           wordForGame: nextWordForGame,
           allAnswerArray: nextWordForGame.map((i:WordForGame) => i.wordTranslate)
         });
@@ -45,11 +49,12 @@ const StatisticGame = (props:Props) => {
     const userLearnedWord = statistics.getAllWordsId();
 
     if (userLearnedWord.length < 20 || savannah.setLevel) {
-      const page = savannah.selectPage;
+      const { page } = savannah;
       const nextWordForGame = await getWords(page, savannah.level);
 
       setSavannah({
         ...initialSavannah,
+        repeatGame: true,
         wordForGame: nextWordForGame,
         allAnswerArray: nextWordForGame.map((i:WordForGame) => i.wordTranslate)
       });
@@ -58,6 +63,8 @@ const StatisticGame = (props:Props) => {
         const nextWordForGame = res.content;
         setSavannah({
           ...initialSavannah,
+          level: 6,
+          repeatGame: true,
           wordForGame: nextWordForGame,
           allAnswerArray: nextWordForGame.map((i:WordForGame) => i.wordTranslate)
         });
@@ -66,7 +73,9 @@ const StatisticGame = (props:Props) => {
   };
 
   const getStatistics = () => {
-    setViewStatistic(true);
+    if (allStatistic.length) {
+      setViewStatistic(true);
+    }
   };
 
   useEffect(() => {

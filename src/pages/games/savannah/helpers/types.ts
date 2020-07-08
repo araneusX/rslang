@@ -26,7 +26,9 @@ export interface StartSavannah {
   endGame: boolean,
   startTimer: number,
   level: number,
+  page: number,
   selectPage: number,
+  repeatGame: boolean
   setLevel: boolean
 }
 
@@ -36,10 +38,12 @@ export const initialSavannah: StartSavannah = {
   errorAnswerArray: [],
   correctAnswer: [],
   life: 5,
+  repeatGame: false,
   startGame: false,
   endGame: false,
   startTimer: 3,
   level: 0,
+  page: 1,
   selectPage: 1,
   setLevel: false
 };
