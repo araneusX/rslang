@@ -1,12 +1,20 @@
+@import '../scss/style.scss';
+
 .link-button {
   text-decoration: none;
   color: #333333;
   margin: 10px;
+  white-space: nowrap;
+  @include media-mobiles-big() {
+    margin: 0;
+  }
 
   &:active,
-  &:hover,
   &:focus {
     color: #333333;
+  }
+  &:hover {
+    color: #FF9900;
   }
 
   &.current {

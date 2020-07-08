@@ -12,7 +12,10 @@
   box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.08);
   @include media-tablet() {
     position: relative;
-    padding: 5px 5px 30px 5px;
+    padding: 5px 5px 40px 5px;
+  }
+  @include media-mobiles-big() {
+    padding: 5px;
   }
   @include media-mobiles-small() {
     height: initial;
@@ -67,14 +70,21 @@
   @include media-tablet() {
     display: flex;
     position: absolute;
-    bottom: 10px;
+    bottom: 6px;
     width: 100%;
     justify-content: space-evenly;
+  }
+  @include media-mobiles-big() {
+    position: initial;
+    flex-direction: column;
+    width: initial;
+    font-size: initial;
   }
   @include media-mobiles-small() {
     flex-direction: column;
     align-items: center;
     position: initial;
+    font-size: 22px;
   }
 }
 
@@ -93,7 +103,7 @@
   font-weight: bold;
   font-size: 20px;
   @include media-mobiles-small() {
-    margin: auto;
+    margin: 10px auto;
   }
 }
 
