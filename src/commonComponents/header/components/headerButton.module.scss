@@ -1,12 +1,23 @@
-.headerLinkButton {
+.link-button {
+  text-decoration: none;
+  color: #333333;
+  margin: 10px;
+
   &:active,
   &:hover,
   &:focus {
     color: #333333;
   }
-}
 
-.link-button {
-  text-decoration: none;
-  color: #333333;
+  &.current {
+    color: #FF9900;
+    text-shadow: 0 0 2px black, 0 0 4px black;
+
+    &:active,
+    &:hover,
+    &:focus {
+      color: #FF9900;
+    }
+
+  }
 }

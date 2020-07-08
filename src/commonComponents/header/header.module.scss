@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700&display=swap');
 
 @import './scss/style.scss';
 
@@ -62,8 +61,9 @@
   font-weight: 600;
   font-size: 20px;
   color: #333333;
-  width: 500px;
   justify-content: space-between;
+  align-items: center;
+
   @include media-tablet() {
     display: flex;
     position: absolute;
