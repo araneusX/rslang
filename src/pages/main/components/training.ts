@@ -20,6 +20,7 @@ const standartGame = async (progress: Map<string, unknown>, maxCountCard: number
   }
   startWord += 1;
   let newWordsArray = await getNewWords(group, startWord, maxCountCard);
+  if (newWordsArray === undefined) return null;
   const wordId = statistics.getWordId();
 
   if (wordId === null) {
@@ -30,6 +31,7 @@ const standartGame = async (progress: Map<string, unknown>, maxCountCard: number
     }
     startWord += maxCountCard;
     newWordsArray = newWordsArray.concat(await getNewWords(group, startWord, sizeOfNextPack));
+    if (newWordsArray === undefined) return null;
   }
 
   const typeOfWord = localStorage.getItem('typeOfWord');
@@ -37,6 +39,7 @@ const standartGame = async (progress: Map<string, unknown>, maxCountCard: number
     localStorage.setItem('typeOfWord', 'new');
     return getWordById(wordId);
   }
+
   if (typeOfWord === 'new' && wordId !== null) {
     localStorage.setItem('typeOfWord', 'mine');
     if (newWordsArray[Math.floor(countOfShowedCards / 2)] === undefined) {
@@ -48,12 +51,16 @@ const standartGame = async (progress: Map<string, unknown>, maxCountCard: number
       startWord += maxCountCard;
       newWordsArray = newWordsArray.concat(await getNewWords(group, startWord, sizeOfNextPack));
     }
+    if (newWordsArray === undefined || newWordsArray[Math.floor(countOfShowedCards / 2)] === undefined) return null;
     return newWordsArray[Math.floor(countOfShowedCards / 2)];
   }
+
   if (wordId === null) {
     localStorage.setItem('typeOfWord', 'new');
+    if (newWordsArray[countOfShowedCards] === undefined) return null;
     return newWordsArray[countOfShowedCards];
   }
+
   return true;
 };
 
@@ -71,6 +78,7 @@ const forRepeatGame = async (progress: Map<string, unknown>, wordsPerDay: number
   const wordId = statistics.getWordId();
 
   let newWordsArray = await getNewWords(group, startWord, maxCountCard);
+  if (newWordsArray === undefined) return null;
   let counterOfUsersWords = 0;
   let counterOfNewWords = 0;
 
@@ -90,6 +98,7 @@ const forRepeatGame = async (progress: Map<string, unknown>, wordsPerDay: number
   }
   if ((counterOfUsersWords > sizeOfUsersWordsPack) && (wordId !== null)) {
     counterOfNewWords += 1;
+    if (newWordsArray[counterOfNewWords - 1] === undefined) return null;
     return newWordsArray[counterOfNewWords - 1];
   }
   return true;
@@ -123,6 +132,7 @@ const newWordsGame = async (progress: Map<string, unknown>, maxCountCard: number
   startWord += 1;
 
   const newWordsArray = await getNewWords(group, startWord, maxCountCard);
+  if (newWordsArray || newWordsArray[countOfShowedCards] === undefined) return null;
   return newWordsArray[countOfShowedCards];
 };
 
