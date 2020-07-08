@@ -1,0 +1,34 @@
+.wrapper-game-round {
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  z-index: 100;
+}
+
+.game-round-words {
+  display: flex;
+}
+
+.pronunciation-text {
+  font-size: 2.2vw;
+}
+
+.correct-word {
+  box-shadow: inset 0px 0px 2px 3px #0c8f0d;
+    color: #0c8f0d;
+}
+
+.incorrect-word {
+  box-shadow: inset 0px 0px 2px 3px darkred;
+  color: darkred;
+}
+
+.correct-sentence {
+  border: 2px solid greenyellow;
+  background: greenyellow;
+}
+
+.incorrect-sentence {
+  border: 2px solid darkred;
+  background: darkred;
+}
