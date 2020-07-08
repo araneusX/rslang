@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import HeaderButton from './components/headerButton';
 
 import style from './header.module.scss';
@@ -24,6 +25,8 @@ const Header:React.ComponentType = () => {
     dispatch({ type: 'SET_AUTH', value: auth });
   }
 
+  const { pathname } = useLocation();
+
   return (
     <div className={`${style.header}`}>
       <div className={style['header-logo']}>
@@ -38,6 +41,7 @@ const Header:React.ComponentType = () => {
             title={el[0]}
             link={el[1]}
             key={`${i.toString()}header`}
+            current={pathname === el[1]}
           />
         ))
       }
