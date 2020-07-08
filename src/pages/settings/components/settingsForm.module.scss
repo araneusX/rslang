@@ -1,34 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 .settingsForm {
-  width: 50%;
-  margin: 0 auto;
+  display: flex;
+}
 
-  & fieldset {
-    margin-bottom: 10px;
-    border-radius: 5px;
-    background-color: #dddddd;
-  }
-  & legend {
-    font-style: bold;
-  }
+.recommendation {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  color: #989898;
+  width: 285.43px;
+  margin: 0 0 0 20px;
+}
 
-  & input + span {
-    color: #666666;
+.learning-title {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  color: #989898;
+  width: 89px;
+  height: 40px;
+  background: linear-gradient(180deg, #FFFDF9 0%, rgba(255, 255, 255, 0.93) 100%);
+}
 
-    &:hover,
-    &:focus,
-    &:active {
-      cursor: pointer;
-      color: #000000;
+.learning-border {
+  width: 350px;
+  height: 214px;
+  background: #FFFFFF;
+  border: 1px solid #DCDCDC;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.card-border {
+  width: 353px;
+  height: 402px;
+  background: #FFFFFF;
+  border: 1px solid #DCDCDC;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin: 20px;
+  display: flex;
+  & label {
+    & input {
+      width: 20px;
+      height: 20px;
+      margin-right: 20px;
+      flex-shrink: 0;
     }
+    display: flex;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
   }
+}
 
-  & input:checked + span {
-    color: green;
-    &:hover,
-    &:focus,
-    &:active {
-      cursor: pointer;
-      opacity: 0.5;
+.control-border {
+  width: 353px;
+  height: 402px;
+  background: #FFFFFF;
+  border: 1px solid #DCDCDC;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin: 20px;
+  display: flex;
+  & label {
+    & input {
+      width: 20px;
+      height: 20px;
+      margin-right: 20px;
+      flex-shrink: 0;
     }
+    & span {
+      display: block;
+    }
+    display: flex;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
   }
+}
+
+.learning-label {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
+
+.learning-day {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  color: #333333;
+  width: 174px;
+  height: 40px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.card-day {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  color: #333333;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+
+.learning-input {
+  width: 50px;
+  height: 27px;
+  align-self: center;
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  color: #333333;
+  text-align-last: center;
+}
+
+.learning-level {
+  width: 58px;
+  height: 27px;
+  align-self: center;
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  color: #333333;
+  text-align-last: center;
+}
+
+.wrapper-label {
+  display: flex;
+  flex-direction: column;
+  height: 260px;
+  justify-content: space-evenly;
+  margin: 0 0 0 20px;
+}
+
+.wrapper-control {
+  display: flex;
+  flex-direction: column;
+  height: 180px;
+  justify-content: space-evenly;
+  margin: 0 0 20px 20px;
 }
