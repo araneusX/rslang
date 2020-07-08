@@ -19,16 +19,16 @@ const standartGame = async (progress: Map<string, unknown>, maxCountCard: number
     startWord = 0;
   }
   startWord += 1;
-  let newWordsArray = await getNewWords(group, startWord, wordsPerDay);
+  let newWordsArray = await getNewWords(group, startWord, maxCountCard);
   const wordId = statistics.getWordId();
 
   if (wordId === null) {
-    const sizeOfNextPack = maxCountCard - countOfShowedCards;
+    const sizeOfNextPack = wordsPerDay - countOfShowedCards;
     if (startWord === 600) {
       group += 1;
       startWord = 0;
     }
-    startWord += wordsPerDay;
+    startWord += maxCountCard;
     newWordsArray = newWordsArray.concat(await getNewWords(group, startWord, sizeOfNextPack));
   }
 
@@ -39,16 +39,17 @@ const standartGame = async (progress: Map<string, unknown>, maxCountCard: number
   }
   if (typeOfWord === 'new' && wordId !== null) {
     localStorage.setItem('typeOfWord', 'mine');
-    if (newWordsArray[Math.ceil(countOfShowedCards / 2)] === undefined) {
-      const sizeOfNextPack = maxCountCard - countOfShowedCards;
+    if (newWordsArray[Math.floor(countOfShowedCards / 2)] === undefined) {
+      const sizeOfNextPack = wordsPerDay - countOfShowedCards;
       if (startWord === 600) {
         group += 1;
         startWord = 0;
       }
-      startWord += wordsPerDay;
+      startWord += maxCountCard;
       newWordsArray = newWordsArray.concat(await getNewWords(group, startWord, sizeOfNextPack));
     }
-    return newWordsArray[Math.ceil(countOfShowedCards / 2)];
+    console.log(newWordsArray);
+    return newWordsArray[Math.floor(countOfShowedCards / 2)];
   }
   if (wordId === null) {
     localStorage.setItem('typeOfWord', 'new');
@@ -66,21 +67,21 @@ const forRepeatGame = async (progress: Map<string, unknown>, wordsPerDay: number
     startWord = 0;
   }
   startWord += 1;
-  let newWordsArray = await getNewWords(group, startWord, wordsPerDay);
+  let newWordsArray = await getNewWords(group, startWord, maxCountCard);
 
-  const sizeOfUsersWordsPack = maxCountCard - wordsPerDay;
+  const sizeOfUsersWordsPack = wordsPerDay - maxCountCard;
   const wordId = statistics.getWordId();
 
   let counterOfUsersWords = 0;
   let counterOfNewWords = 0;
 
   if (wordId === null) {
-    const sizeOfNextPack = maxCountCard - countOfShowedCards;
+    const sizeOfNextPack = wordsPerDay - countOfShowedCards;
     if (startWord === 600) {
       group += 1;
       startWord = 0;
     }
-    startWord += wordsPerDay;
+    startWord += maxCountCard;
     newWordsArray = newWordsArray.concat(await getNewWords(group, startWord, sizeOfNextPack));
     return newWordsArray[countOfShowedCards];
   }
