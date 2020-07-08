@@ -1,7 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, {
-  useState, useEffect, useMemo, useRef, useContext
+  useState, useEffect, useContext
 } from 'react';
+import { Preloader } from '../../commonComponents';
+
 import style from './vocabulary.module.scss';
 import { getWordsByFilter } from '../../backend/words';
 import { StateContext } from '../../store/stateProvider';
@@ -257,8 +259,17 @@ const Vocabulary = () => {
             ))}
           </div>
         )}
-        {selectedWords.length === 0 && (tab === 'all' ? 'Загрузка словаря, подождите...' : 'В данной категории нет слов')}
+        {selectedWords.length === 0 && (
+          <div className={style.empty}>
+            {tab === 'all' ? 'Загрузка словаря, подождите...' : 'В данной категории нет слов'}
+          </div>
+        )}
       </div>
+      {selectedWords.length === 0 && (
+      <div className={style.preloader_wrapper}>
+        <Preloader />
+      </div>
+      )}
     </div>
   );
 };
