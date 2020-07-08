@@ -23,6 +23,8 @@ const standartGame = async (progress: Map<string, unknown>, maxCountCard: number
   if (newWordsArray === undefined) return null;
   const wordId = statistics.getWordId();
 
+  const deletedWords = statistics.getAllWordsStatisticsWithDeleted();
+
   if (wordId === null) {
     const sizeOfNextPack = wordsPerDay - countOfShowedCards;
     if (startWord === 600) {
@@ -37,7 +39,12 @@ const standartGame = async (progress: Map<string, unknown>, maxCountCard: number
   const typeOfWord = localStorage.getItem('typeOfWord');
   if (typeOfWord === 'mine' && wordId !== null) {
     localStorage.setItem('typeOfWord', 'new');
-    return getWordById(wordId);
+    const returnedWord = await getWordById(wordId);
+    if (deletedWords.includes(returnedWord)) {
+      const otherUserWords = statistics.getAllWordsId();
+      return otherUserWords[1];
+    }
+    return returnedWord;
   }
 
   if (typeOfWord === 'new' && wordId !== null) {
@@ -77,6 +84,8 @@ const forRepeatGame = async (progress: Map<string, unknown>, wordsPerDay: number
   const sizeOfUsersWordsPack = wordsPerDay - maxCountCard;
   const wordId = statistics.getWordId();
 
+  const deletedWords = statistics.getAllWordsStatisticsWithDeleted();
+
   let newWordsArray = await getNewWords(group, startWord, maxCountCard);
   if (newWordsArray === undefined) return null;
   let counterOfUsersWords = 0;
@@ -94,7 +103,12 @@ const forRepeatGame = async (progress: Map<string, unknown>, wordsPerDay: number
   }
   if ((counterOfUsersWords < sizeOfUsersWordsPack) && (wordId !== null)) {
     counterOfUsersWords += 1;
-    return getWordById(wordId);
+    const returnedWord = await getWordById(wordId);
+    if (deletedWords.includes(returnedWord)) {
+      const otherUserWords = statistics.getAllWordsId();
+      return otherUserWords[1];
+    }
+    return returnedWord;
   }
   if ((counterOfUsersWords > sizeOfUsersWordsPack) && (wordId !== null)) {
     counterOfNewWords += 1;
@@ -104,7 +118,7 @@ const forRepeatGame = async (progress: Map<string, unknown>, wordsPerDay: number
   return true;
 };
 
-localStorage.setItem('showedDeletedWord', '0');
+localStorage.setItem('showedDifficultWord', '0');
 
 const difficultGame = () => {
   const difficultUserWords = statistics.getAllWordsStatistics('difficult');
@@ -112,7 +126,7 @@ const difficultGame = () => {
   difficultUserWords.forEach((word, i) => {
     wordsId[i] = word.wordId;
   });
-  let index = Number(localStorage.getItem('showedDeletedWord'));
+  let index = Number(localStorage.getItem('showedDifficultWord'));
   const returnedWord = getWordById(wordsId[index]);
   if (returnedWord !== undefined) {
     index += 1;
