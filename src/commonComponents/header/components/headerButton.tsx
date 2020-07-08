@@ -10,7 +10,7 @@ export interface HeaderButtonProps {
 }
 
 const HeaderButton = ({ title, link }: HeaderButtonProps) => (
-  <Link to={link}>
+  <Link to={link} className={style['link-button']}>
     <div className={`${style.headerLinkButton}`}>
       { title }
     </div>

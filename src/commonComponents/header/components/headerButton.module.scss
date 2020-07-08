@@ -1,15 +1,12 @@
 .headerLinkButton {
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: #999999;
-  text-decoration: none;
-  border: 1px solid black;
-  border-radius: 3px;
-
-  &:hover,
   &:active,
+  &:hover,
   &:focus {
-    cursor: pointer;
-    background-color: #666666;
+    color: #333333;
   }
+}
+
+.link-button {
+  text-decoration: none;
+  color: #333333;
 }
