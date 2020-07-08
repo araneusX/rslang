@@ -11,6 +11,7 @@ const namesOfButtons: [string, string][] = [
   ['Обучение', '/main'],
   ['Мини-игры', '/games'],
   ['Настройки', '/settings'],
+  ['Словарь', '/vocabulary'],
   ['Статистика', '/statistics']
 ];
 

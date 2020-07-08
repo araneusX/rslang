@@ -40,13 +40,14 @@ export async function getWordsByFilter(
 
     const result = await rawResponse.json();
 
-    let content: Array<{
-      statistics: WordStatisticsInterface,
-      word: BackendWordInterface
-    }> = [];
+    let content: any[] = [];
 
     content = result[0].paginatedResults.map((wordObj: any) => {
       const word = { ...wordObj };
+      // eslint-disable-next-line no-underscore-dangle
+      word.id = word._id;
+      // eslint-disable-next-line no-underscore-dangle
+      delete word._id;
       delete word.userWord;
       return {
         statistics: wordObj.userWord.optional as WordStatisticsInterface,
