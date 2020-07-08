@@ -8,7 +8,8 @@ const namesOfButtons: [string, string][] = [
   ['Main', '/main'],
   ['Mini-Games', '/games'],
   ['Statistics', '/statistics'],
-  ['Settings', '/settings']
+  ['Settings', '/settings'],
+  ['Vacabulary', '/vocabulary']
 ];
 
 const Header:React.ComponentType = () => (

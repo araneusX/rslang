@@ -3,7 +3,7 @@ import {
   BrowserRouter, Switch, Route, Redirect
 } from 'react-router-dom';
 import {
-  Authorization, Main, Settings, Statistics, Games, SpeakIt
+  Authorization, Main, Settings, Statistics, Games, SpeakIt, Vocabulary
 } from './pages';
 
 import { Header } from './commonComponents';
@@ -23,6 +23,7 @@ function App() {
             <Route exact path="/main" component={Main} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/statistics" component={Statistics} />
+            <Route exact path="/vocabulary" component={Vocabulary} />
             <Route exact path="/games" component={Games} />
             <Route exact path="/games/speakit" component={SpeakIt} />
           </>
