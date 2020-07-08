@@ -17,8 +17,14 @@
   text-decoration: none;
   color: #999A9E;
   &:active,
-  &:hover,
   &:focus {
     color: #999A9E;
   }
+  &:hover {
+    color: #FF9900;
+  }
+}
+
+.active {
+  color: #FF9900;
 }
