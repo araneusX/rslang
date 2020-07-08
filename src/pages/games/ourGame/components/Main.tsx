@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import style from './main.module.scss';
 import { downloadNewWords, getManyWordsById } from '../../../../backend/words';
 import {
-  BackendWordInterface, OurGameWordInterface, SpeakitModeType, StatisticsInterface
+  BackendWordInterface, OurGameWordInterface, SpeakitModeType, StatisticsInterface, SpeakitWordInterface
 } from '../../../../types';
 
 import { StateContext } from '../../../../store/stateProvider';
@@ -23,9 +23,47 @@ const Main: React.FC<MainPropsType> = () => {
 
   const [current, setCurrent] = useState<OurGameWordInterface>();
 
+  const partOfUrl = 'https://raw.githubusercontent.com/araneusx/rslang-data/master/data/';
+
   if (!isUserWords && mode === 'user') {
     dispatch({ type: 'SET_OUR_MODE', value: 'vocabulary' });
   }
+
+  useEffect(() => {
+    let ignore = false;
+    async function fetchData() {
+      let result: any;
+      if (mode === 'user' && isUserWords) {
+        const userWordsIds = statistics.getAllWordsId().slice(0, 5);
+        result = await getManyWordsById(userWordsIds);
+      } else {
+        result = await downloadNewWords(level, round * 10, 5);
+      }
+      if (!ignore) {
+        if (result.ok) {
+          const newWords: OurGameWordInterface[] = result.content.map((word: BackendWordInterface, i:number) => (
+            {
+              ...word,
+              sound: new Audio(`https://raw.githubusercontent.com/araneusx/rslang-data/master/data/${word.audio.slice(6)}`),
+              isRecognized: false,
+              index: i
+            }
+          ));
+          setCurrent(newWords[0]);
+          dispatch({ type: 'SET_OUR_WORDS', value: newWords });
+        } else {
+          console.log('BACKEND ERROR: Speak It');
+        }
+      }
+    }
+
+    if (words.length === 0) {
+      fetchData();
+    } else {
+      setCurrent(words[0]);
+    }
+    return () => { ignore = true; };
+  }, []);
 
   const setNewWords = async (
     newLevel: number,
@@ -34,10 +72,10 @@ const Main: React.FC<MainPropsType> = () => {
   ) => {
     let result: any;
     if (newMode === 'user' && isUserWords) {
-      const userWordsIds = statistics.getAllWordsId().slice(0, 10);
+      const userWordsIds = statistics.getAllWordsId().slice(0, 5);
       result = await getManyWordsById(userWordsIds);
     } else {
-      result = await downloadNewWords(newLevel, newRound * 10, 10);
+      result = await downloadNewWords(newLevel, newRound * 10, 5);
     }
     if (result.ok) {
       const newWords: OurGameWordInterface[] = result.content.map((word: BackendWordInterface, i:number) => (
@@ -131,7 +169,64 @@ const Main: React.FC<MainPropsType> = () => {
           <div className={style.wrapper}>
             <div className={style.screen}>
               <div className={style.images}>
-                {}
+                {words.map((word: OurGameWordInterface, i:number) => {
+                  let classNames = `${style.imageCardWrapper}`;
+                  if (!game) {
+                    if (word.index === current.index) {
+                      classNames += ` ${style.current}`;
+                    } else {
+                      classNames += ` ${style.usual}`;
+                    }
+                  } else if (word.isChosen) {
+                    classNames += ` ${style.recognized}`;
+                  }
+                  return (
+                    <div
+                      className={`${classNames}`}
+                      key={word.id}
+                      role={game ? undefined : 'button'}
+                      tabIndex={game ? undefined : 0}
+                    >
+                      <img className={`${style.imageCard} ${word.word}`} src={`${partOfUrl}${word.image.slice(6)}`} alt="some" />
+                      <p>{word.textMeaning}</p>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className={style.words}>
+                {words.map((word: OurGameWordInterface, i:number) => {
+                  let classNames = `${style.word}`;
+                  if (!game) {
+                    if (word.index === current.index) {
+                      classNames += ` ${style.current}`;
+                    } else {
+                      classNames += ` ${style.usual}`;
+                    }
+                  } else if (word.isChosen) {
+                    classNames += ` ${style.recognized}`;
+                  }
+                  return (
+                    <div
+                      className={classNames}
+                      key={word.id}
+                      role={game ? undefined : 'button'}
+                      tabIndex={game ? undefined : 0}
+                    >
+                      <div className={style.wordInnerWrapper}>
+                        <div className={style.value}>{word.word}</div>
+                        <div className={style.transcription}>{word.transcription}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className={style.controls}>
+                <div
+                  className={style.button}
+                >
+                  Restart
+                </div>
+                <button className={style.button} type="button">Results</button>
               </div>
             </div>
           </div>
