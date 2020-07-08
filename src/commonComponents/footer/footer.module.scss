@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+
+.footer {
+  background: #555555;
+  height: 100px;
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  color: #999A9E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link-button {
+  text-decoration: none;
+  color: #999A9E;
+  &:active,
+  &:hover,
+  &:focus {
+    color: #999A9E;
+  }
+}
