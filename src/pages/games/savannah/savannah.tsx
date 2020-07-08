@@ -26,7 +26,6 @@ const Savannah = () => {
   };
 
   useEffect(() => {
-    debugger;
     const userLearnedWord = statistics.getAllWordsId();
 
     if (userLearnedWord.length < 20 || savannah.setLevel) {
