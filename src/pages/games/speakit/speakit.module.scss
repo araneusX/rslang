@@ -1,0 +1,8 @@
+.page {
+  flex: 1;
+
+  &.background {
+    background: url(/images/speakit/background.png);
+    background-size: cover;
+    background-position: bottom;  }
+}

@@ -2,8 +2,7 @@
 import React, {
   useState, useEffect, useMemo, useContext
 } from 'react';
-
-import style from './main.module.scss';
+import { SimpleButton } from '../../../../commonComponents';
 import { downloadNewWords, getManyWordsById } from '../../../../backend/words';
 import {
   BackendWordInterface, SpeakitWordInterface, SpeakitModeType, StatisticsInterface
@@ -11,6 +10,8 @@ import {
 import Recognition from '../recognition';
 import { StateContext } from '../../../../store/stateProvider';
 import { StatisticsContext } from '../../../../statistics/statisticsProvider';
+
+import style from './main.module.scss';
 
 type MainPropsType = {};
 
@@ -39,7 +40,7 @@ const Main: React.FC<MainPropsType> = () => {
   if (current) {
     imageUrl = current.image.slice(6);
     imageAlt = current.word;
-    fieldText = current.word;
+    fieldText = current.wordTranslate;
   }
 
   useEffect(() => (() => recognition.stop()), []);
@@ -204,54 +205,55 @@ const Main: React.FC<MainPropsType> = () => {
 
   return (
     <>
-      <form
-        className={style.levels}
-      >
-        <div className={style.radio}>
-          <label htmlFor="radio-user">
-            My words
-            <input
-              type="radio"
-              id="radio-user"
-              value="user"
-              checked={mode === 'user'}
-              disabled={!isUserWords}
-              onChange={handleRadioChange.bind(null, 'user')}
-            />
-          </label>
-          <label htmlFor="radio-vocabulary">
-            Vocabulary
-            <input
-              type="radio"
-              id="radio-vocabulary"
-              value="vocabulary"
-              checked={mode === 'vocabulary'}
-              onChange={handleRadioChange.bind(null, 'vocabulary')}
-            />
-          </label>
-        </div>
-        {
-          mode === 'vocabulary'
-          && (
-          <div className={style.selects}>
-            <select onChange={handleLevelChange} defaultValue={`${level}`}>
-              {(new Array(6)).fill('').map((v, i) => (
-                <option value={`${i}`} key={`${i}`}>{i + 1}</option>
-              ))}
-            </select>
-            <select onChange={handleRoundChange} defaultValue={`${round}`}>
-              {(new Array(60)).fill('').map((v, i) => (
-                <option value={`${i}`} key={`${i}`}>{i + 1}</option>
-              ))}
-            </select>
-          </div>
-          )
-        }
-      </form>
-      {
-        current !== undefined
+      {current !== undefined
         && (
         <div className={style.wrapper}>
+          <form
+            className={style.levels}
+          >
+            <div className={style.radio}>
+              <label htmlFor="radio-user" className={style.label}>
+                Изученные слова
+                <input
+                  type="radio"
+                  id="radio-user"
+                  value="user"
+                  checked={mode === 'user'}
+                  disabled={!isUserWords}
+                  onChange={handleRadioChange.bind(null, 'user')}
+                />
+              </label>
+              <label htmlFor="radio-vocabulary" className={style.label}>
+                Все слова
+                <input
+                  type="radio"
+                  id="radio-vocabulary"
+                  value="vocabulary"
+                  checked={mode === 'vocabulary'}
+                  onChange={handleRadioChange.bind(null, 'vocabulary')}
+                />
+              </label>
+            </div>
+            {
+            mode === 'vocabulary'
+            && (
+            <div className={style.selects}>
+              <div className={style.label}>Уровень:</div>
+              <select onChange={handleLevelChange} defaultValue={`${level}`}>
+                {(new Array(6)).fill('').map((v, i) => (
+                  <option value={`${i}`} key={`${i}`}>{i + 1}</option>
+                ))}
+              </select>
+              <div className={style.label}>Раунд:</div>
+              <select onChange={handleRoundChange} defaultValue={`${round}`}>
+                {(new Array(60)).fill('').map((v, i) => (
+                  <option value={`${i}`} key={`${i}`}>{i + 1}</option>
+                ))}
+              </select>
+            </div>
+            )
+          }
+          </form>
           <div className={style.screen}>
             <img
               className={style.image}
@@ -260,7 +262,7 @@ const Main: React.FC<MainPropsType> = () => {
               height="260px"
               width="390px"
             />
-            <div className={style.field}>{fieldText}</div>
+            <div className={`${style.field} ${!isPause ? style.game : ''}`}>{fieldText}</div>
           </div>
           <div className={style.words}>
             {words.map((word: SpeakitWordInterface, i:number) => {
@@ -297,26 +299,24 @@ const Main: React.FC<MainPropsType> = () => {
             })}
           </div>
           <div className={style.controls}>
-            <button
-              className={style.button}
-              type="button"
-              onClick={handleRestart}
-            >
-              Restart
-            </button>
-            <button
-              className={style.button}
-              type="button"
-              onClick={handleRecognitionClick}
-            >
-              {!isPause && <span>*</span>}
-              {isPause ? 'Click and Speak' : 'Speak Please'}
-            </button>
-            <button className={style.button} type="button" onClick={handleResults}>Results</button>
+            <SimpleButton
+              clickHandler={handleRestart}
+              text="Начать заново"
+              size="s2"
+            />
+            <SimpleButton
+              clickHandler={handleRecognitionClick}
+              text={isPause ? 'Играть (вкл. микрофон)' : 'Пауза (выкл. микрофон)'}
+              size="s2"
+            />
+            <SimpleButton
+              clickHandler={handleResults}
+              text="Результаты"
+              size="s2"
+            />
           </div>
         </div>
-        )
-      }
+        )}
     </>
   );
 };

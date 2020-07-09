@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
+import SimpleButton from '../../../../commonComponents/simpleButton/simpleButton';
 import { StateContext } from '../../../../store/stateProvider';
-
-import style from './results.module.scss';
 import { SpeakitWordInterface, BackendWordInterface, StatisticsInterface } from '../../../../types';
 import { downloadNewWords, getManyWordsById } from '../../../../backend/words';
 import { StatisticsContext } from '../../../../statistics/statisticsProvider';
+
+import style from './results.module.scss';
 
 type ResultsPropsType = {};
 
@@ -130,9 +131,9 @@ const Results: React.FC<ResultsPropsType> = () => {
                   // eslint-disable-next-line react/no-array-index-key
                   <div className={style.statistics_item} key={i}>
                     {`${i + 1}. `}
-                    Right answers:
+                    Правильно произнесено:
                     <span className={style.right_count}>{result}</span>
-                    Mistakes:
+                    Неправильно:
                     <span className={style.mistakes_count}>{10 - result}</span>
                   </div>
                 ))}
@@ -143,29 +144,33 @@ const Results: React.FC<ResultsPropsType> = () => {
         : (
           <div className={style.items_wrapper}>
             <div className={style.head}>
-              <span className={style.title}>Right answers</span>
+              <span className={style.title}>Правильно произнесено:</span>
               <span className={style.right_count}>{right.length}</span>
             </div>
             {right}
             <div className={style.head}>
-              <span className={style.title}>Mistakes</span>
+              <span className={style.title}>Не произнесено / неверно:</span>
               <span className={style.mistakes_count}>{mistakes.length}</span>
             </div>
             {mistakes}
           </div>
         )}
       <div className={style.controls}>
-        <button
-          className={style.button}
-          type="button"
-          onClick={complete ? handleRestart : handleContinue}
-        >
-          {complete ? 'Restart' : 'Continue'}
-        </button>
-        <button className={style.button} type="button" onClick={handleNew}>New Game</button>
-        <button className={style.button} type="button" onClick={handleStatistics}>
-          {isShowStatistics ? 'Results' : 'Statistics'}
-        </button>
+        <SimpleButton
+          clickHandler={complete ? handleRestart : handleContinue}
+          text={complete ? 'Начать заново' : 'Продолжить'}
+          size="s3"
+        />
+        <SimpleButton
+          clickHandler={handleNew}
+          size="s3"
+          text="Новая игра"
+        />
+        <SimpleButton
+          clickHandler={handleStatistics}
+          text={isShowStatistics ? 'Вернуться' : 'Долгосрочная статистика'}
+          size="s3"
+        />
       </div>
     </div>
   );
