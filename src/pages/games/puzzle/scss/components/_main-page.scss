@@ -78,6 +78,11 @@
   position: relative;
 }
 
+.on-level-page {
+  opacity: .8;
+  cursor: pointer;
+}
+
 .first-puzzle {
   padding-left: 0;
   clip-path: polygon(0% 1%, calc(100% - 10px) 1%, calc(100% - 10px) 40%, calc(100% - 5px) 35%, 100% 40%, 100% 60%, calc(100% - 5px) 65%, calc(100% - 10px) 60%, calc(100% - 10px) 99%, 0% 99%, 0% 0%);

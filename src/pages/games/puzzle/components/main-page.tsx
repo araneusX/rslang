@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useContext, useState, useLayoutEffect
+  useEffect, useContext, useState
 } from 'react';
 import getPhrase from '../ts/api.phrase';
 import { Game } from '../ts/Game';
@@ -17,24 +17,37 @@ const MainPage = () => {
   const { state, dispatch } = useContext(PuzzleContext);
   const { level, page, data } = state;
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
-  const [isInterval, setIsInterval] = useState<any>(null);
+  const [isInterval, setIsInterval] = useState<any>(state.isInterval);
+  const [isLevel, setIsLevel] = useState<any>(state.isLevel);
 
   useEffect(() => {
     async function phrase() {
       const response = await getPhrase(level, page);
       const result = await getManyWordsById(statistics.getAllWordsId());
+
       if (result.ok) {
+        dispatch({ type: 'set asyncLevel', value: new Game(response) });
         const game = new Game(result.content);
 
         if (game.sentences.length < 11) {
-          setIsInterval(<h3 className="interval-game">Интервал</h3>);
-          dispatch({ type: 'set data', value: game });
+          dispatch({ type: 'set asyncInterval', value: game });
+          if (state.isLevel) {
+            setIsInterval(false);
+            setIsLevel(true);
+            dispatch({ type: 'set data', value: new Game(response) });
+          } else {
+            setIsInterval(true);
+            setIsLevel(false);
+            dispatch({ type: 'set data', value: game });
+          }
         } else {
-          setIsInterval(null);
+          setIsInterval(false);
+          setIsLevel(true);
           dispatch({ type: 'set data', value: new Game(response) });
         }
       } else {
-        setIsInterval(null);
+        setIsInterval(false);
+        setIsLevel(true);
         dispatch({ type: 'set data', value: new Game(response) });
       }
     }
@@ -58,8 +71,41 @@ const MainPage = () => {
   return (
     <div className="main-page">
       <nav className="main-page-nav">
-        {isInterval || (
+        {isInterval && (
+          <>
+            <button
+              type="button"
+              className="on-level-page"
+              onClick={() => {
+                dispatch({ type: 'set data', value: state.asyncLevel });
+                dispatch({ type: 'set mode', value: 'image and words' });
+                dispatch({ type: 'set is interval', value: false });
+                dispatch({ type: 'set is level', value: true });
+                setIsInterval(false);
+                setIsLevel(true);
+              }}
+            >
+              Уровень: №. Страница: №.
+            </button>
+            <h3 className="interval-game">Интервал</h3>
+          </>
+        )}
+        {isLevel && (
         <>
+          <button
+            type="button"
+            className="on-level-page"
+            onClick={() => {
+              dispatch({ type: 'set data', value: state.asyncInterval });
+              dispatch({ type: 'set mode', value: 'image and words' });
+              dispatch({ type: 'set is interval', value: true });
+              dispatch({ type: 'set is level', value: false });
+              setIsInterval(true);
+              setIsLevel(false);
+            }}
+          >
+            Интервал
+          </button>
           <div className="wrapper-level">
             <label htmlFor="level">
               Уровень:
