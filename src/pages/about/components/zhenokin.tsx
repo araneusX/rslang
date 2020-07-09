@@ -2,6 +2,10 @@ import React from 'react';
 
 import style from '../about.module.scss';
 // Yauheni Vaitkevich Евгений Вайткевич zhenokin
+import { zhenokin } from '../data/todolist';
+import ToDoList from './ListToDo';
+import ToDo from './interface';
+
 const Zhenokin = () => (
   <div>
     <div className={style['todo-avatar']}>
@@ -13,7 +17,7 @@ const Zhenokin = () => (
         <span className={style.role}>Mentor</span>
       </div>
       <div className={style.todo}>
-        ...data...
+        {zhenokin.map((todo: ToDo) => <ToDoList key={todo.title} todo={todo} style={style} />)}
       </div>
       <div className={style.github}>
         Github:

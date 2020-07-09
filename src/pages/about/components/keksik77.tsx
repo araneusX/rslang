@@ -1,6 +1,9 @@
 import React from 'react';
 
 import style from '../about.module.scss';
+import { keksik77 } from '../data/todolist';
+import ToDo from './interface';
+import ToDoList from './ListToDo';
 // Timofei Lukashevich Тимофей Лукашевич keksik77
 const Keksik77 = () => (
   <div>
@@ -13,7 +16,7 @@ const Keksik77 = () => (
         <span className={style.role}>Developer</span>
       </div>
       <div className={style.todo}>
-        ...data...
+        {keksik77.map((todo: ToDo) => <ToDoList key={todo.title} todo={todo} style={style} />)}
       </div>
       <div className={style.github}>
         Github:

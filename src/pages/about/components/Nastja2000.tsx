@@ -1,6 +1,9 @@
 import React from 'react';
 
 import style from '../about.module.scss';
+import { nastja2000 } from '../data/todolist';
+import ToDo from './interface';
+import ToDoList from './ListToDo';
 //  Zizeko Anastasia Анастасия Зизеко Nastja2000
 const Nastja2000 = () => (
   <div>
@@ -13,7 +16,7 @@ const Nastja2000 = () => (
         <span className={style.role}>Developer</span>
       </div>
       <div className={style.todo}>
-        ...data...
+        {nastja2000.map((todo: ToDo) => <ToDoList key={todo.title} todo={todo} style={style} />)}
       </div>
       <div className={style.github}>
         Github:

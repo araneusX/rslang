@@ -1,6 +1,9 @@
 import React from 'react';
 
 import style from '../about.module.scss';
+import { araneusx } from '../data/todolist';
+import ToDoList from './ListToDo';
+import ToDo from './interface';
 // Oleshkevich Alexander Александр Олешкевич araneusX
 const AraneusX = () => (
   <div>
@@ -13,7 +16,7 @@ const AraneusX = () => (
         <span className={style.role}>Team Lead</span>
       </div>
       <div className={style.todo}>
-        ...data...
+        {araneusx.map((todo: ToDo) => <ToDoList key={todo.title} todo={todo} style={style} />)}
       </div>
       <div className={style.github}>
         Github:

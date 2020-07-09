@@ -1,6 +1,9 @@
 import React from 'react';
 
 import style from '../about.module.scss';
+import { pavelChukashev } from '../data/todolist';
+import ToDo from './interface';
+import ToDoList from './ListToDo';
 // Pavel Chukashev Павел Чукашев PavelChukashev
 const PavelChukashev = () => (
   <div>
@@ -13,7 +16,7 @@ const PavelChukashev = () => (
         <span className={style.role}>Developer</span>
       </div>
       <div className={style.todo}>
-        ...data...
+        {pavelChukashev.map((todo: ToDo) => <ToDoList key={todo.title} todo={todo} style={style} />)}
       </div>
       <div className={style.github}>
         Github:
