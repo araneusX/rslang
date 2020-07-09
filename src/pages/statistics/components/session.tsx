@@ -11,25 +11,25 @@ const Session = () => {
     <div className={style.wrapper}>
       <div className={style.date}>{getFormattedDate()}</div>
       <div className={style.row}>
-        Cards complete:
+        Карточек просмотрено:
         <span className={style.value}>
           {statisticsData.cards}
         </span>
       </div>
       <div className={style.row}>
-        Right answers:
+        Карточек пройдено успешно:
         <span className={style.value}>
           {`${((statisticsData.right / statisticsData.cards || 0) * 100).toFixed(1)}%`}
         </span>
       </div>
       <div className={style.row}>
-        New words:
+        Изучено слов:
         <span className={style.value}>
           {statisticsData.newWords}
         </span>
       </div>
       <div className={style.row}>
-        Longest streak:
+        Самая длинная серия правильных ответов:
         <span className={style.value}>
           {statisticsData.series}
         </span>
