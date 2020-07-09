@@ -15,9 +15,8 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header />
-        <About />
-        {/* <Switch>
+        {isAuth && <Header />}
+        <Switch>
           <Route exact path="/authorization" component={Authorization} />
           {isAuth && (
           <>
@@ -32,8 +31,8 @@ function App() {
           </>
           )}
           <Redirect to={isAuth ? '/main' : '/authorization'} />
-        </Switch> */}
-        <Footer />
+        </Switch>
+        {isAuth && <Footer />}
       </BrowserRouter>
     </>
   );
