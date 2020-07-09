@@ -25,8 +25,9 @@ const MainPage = () => {
       const response = await getPhrase(level, page);
       const result = await getManyWordsById(statistics.getAllWordsId());
 
-      if (result.ok) {
+      if (result.content.length && response) {
         dispatch({ type: 'set asyncLevel', value: new Game(response) });
+        console.log('result:', result);
         const game = new Game(result.content);
 
         if (game.sentences.length < 11) {
@@ -96,12 +97,14 @@ const MainPage = () => {
             type="button"
             className="on-level-page"
             onClick={() => {
-              dispatch({ type: 'set data', value: state.asyncInterval });
-              dispatch({ type: 'set mode', value: 'image and words' });
-              dispatch({ type: 'set is interval', value: true });
-              dispatch({ type: 'set is level', value: false });
-              setIsInterval(true);
-              setIsLevel(false);
+              if (state.asyncInterval.sentences && state.asyncInterval.sentences.length < 11) {
+                dispatch({ type: 'set data', value: state.asyncInterval });
+                dispatch({ type: 'set mode', value: 'image and words' });
+                dispatch({ type: 'set is interval', value: true });
+                dispatch({ type: 'set is level', value: false });
+                setIsInterval(true);
+                setIsLevel(false);
+              }
             }}
           >
             Интервал

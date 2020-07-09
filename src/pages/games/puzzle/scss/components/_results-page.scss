@@ -3,11 +3,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   text-align: center;
   padding: 40px 10px 10px;
   transition: .5s;
@@ -43,6 +38,7 @@
   cursor: pointer;
   border: 1px solid black;
   border-radius: 5px;
+  flex-shrink: 0;
 }
 
 .result-dont-know,
@@ -52,4 +48,9 @@
 
 .wrapper-results-button {
   justify-content: center;
+}
+
+.round-controls {
+  display: flex;
+  flex-direction: column;
 }

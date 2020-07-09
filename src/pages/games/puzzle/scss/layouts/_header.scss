@@ -12,6 +12,9 @@
   > * {
     padding: 0 5px;
   }
+  @include media-tablet() {
+    flex-direction: column;
+  }
 }
 
 .wrapper-prompt {
@@ -76,6 +79,7 @@
 
 .pronunciation-audio {
   background: url('../../assets/img/micro.svg');
+  flex-shrink: 0;
 }
 
 .prompt-img-card-off {
