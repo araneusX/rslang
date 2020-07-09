@@ -11,8 +11,8 @@ import { initSettingsObject } from '../../../constants';
 
 const Form = () => {
   const history = useHistory();
-  const [email, setEmail] = useState('o@user.com');
-  const [password, setPassword] = useState('Gfhjkm_123');
+  const [email, setEmail] = useState('qw@qw.qw');
+  const [password, setPassword] = useState('12qw!@QW');
   const [message, setMessage] = useState('input your email and password');
 
   const { dispatch } = useContext(StateContext);
