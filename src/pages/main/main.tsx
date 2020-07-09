@@ -1,5 +1,7 @@
 /* eslint-disable react/button-has-type */
-import React, { useContext, useState, useEffect, ChangeEventHandler } from 'react';
+import React, {
+  useContext, useState, useEffect, ChangeEventHandler
+} from 'react';
 import style from './main.module.scss';
 import cardStyle from './components/card.module.scss';
 import Card from './components/card';
@@ -7,13 +9,15 @@ import { BackendWordInterface, StatisticsInterface } from '../../types';
 import { StateContext } from '../../store/stateProvider';
 import trainGameCard from './components/training';
 import { StatisticsContext } from '../../statistics/statisticsProvider';
-import Preloader from '../../commonComponents/preloader/preloader'
+import Preloader from '../../commonComponents/preloader/preloader';
 
 const Main = () => {
   const { state, dispatch } = useContext(StateContext);
 
   const [preloaderState, setPreloaderState] = useState(false);
-  const { isAudioOn, isFirstVisit, trainingMode, card } = state.training;
+  const {
+    isAudioOn, isFirstVisit, trainingMode, card
+  } = state.training;
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
   const [startPreview, setStart] = useState(true);
   const [endPreview, setEndPreview] = useState(false);
@@ -86,7 +90,7 @@ const Main = () => {
     } else {
       document.getElementById('difficultBtn')?.classList.remove(cardStyle.restoreDifficult);
     }
-  }
+  };
 
   useEffect(() => {
     dispatch({ type: 'SET_TRAINING_FIRST_VISIT', value: false });
@@ -138,17 +142,16 @@ const Main = () => {
 
   const selectHandler = (event: React.ChangeEvent<HTMLSelectElement>):void => {
     setErrorCard(false);
-    if(!answer){
-      dispatch({ type: 'SET_TRAINING_MODE', value: event.target.value});
+    if (!answer) {
+      dispatch({ type: 'SET_TRAINING_MODE', value: event.target.value });
       setSessionVocWrdCount(sessionVocWrdCount + 1);
     }
-  }
+  };
 
   return (
     <>
-      {preloaderState &&
-        <Preloader></Preloader>
-      }
+      {preloaderState
+        && <Preloader />}
       <div className={style.learnContainer}>
         {startPreview || endPreview ? (
           <div className={style.startBasicGameContainer}>
@@ -179,46 +182,52 @@ const Main = () => {
         ) : (
           <>
             <div className={style.commonControlContainer}>
-            <select id='selectMode' value={trainingMode} onChange={selectHandler} disabled={answer}>
-              <option value='basic'>Слова вперемешку</option>
-              <option value='difficult'>Сложные слова</option>
-              <option value='repeat'>Слова на повторение</option>
-              <option value='new'>Новые слова</option>
-            </select>
+              <select id="selectMode" value={trainingMode} onChange={selectHandler} disabled={answer}>
+                <option value="basic">Слова вперемешку</option>
+                <option value="difficult">Сложные слова</option>
+                <option value="repeat">Слова на повторение</option>
+                <option value="new">Новые слова</option>
+              </select>
               { isAudioOn ? (
-                <div className={style.soundOn} onClick={handleSoundControl}></div>
+                <div className={style.soundOn} onClick={handleSoundControl} />
               ) : (
-                <div className={style.soundOff} onClick={handleSoundControl}></div>
+                <div className={style.soundOff} onClick={handleSoundControl} />
               )}
             </div>
             {!errorCard ? (
               <>
-              <Card
-                settings={settings}
-                answer={answer}
-                callback={setAns}
-                count={count}
-                nextCard={nextCard}
-              />
-              <div className={style.cardBottomContainer}>
-                <p className={style.wordTranslateContainer}>
-                  {settings.translateToTheCard
-                    && <span>{card.wordTranslate} </span>}
-                  {settings.transcriptionToCard
+                <Card
+                  settings={settings}
+                  answer={answer}
+                  callback={setAns}
+                  count={count}
+                  nextCard={nextCard}
+                />
+                <div className={style.cardBottomContainer}>
+                  <p className={style.wordTranslateContainer}>
+                    {settings.translateToTheCard
+                    && (
+                    <span>
+                      {card.wordTranslate}
+                      {' '}
+                    </span>
+                    )}
+                    {settings.transcriptionToCard
                     && <span><i>{card.transcription}</i></span>}
-                </p>
-                <div onClick={() => { setAns(true); }}>Ответить</div>
-              </div>
+                  </p>
+                  <div onClick={() => { setAns(true); }}>Ответить</div>
+                </div>
               </>
             ) : (
               <>
-              <h2>Карточек в этом режиме не осталось...</h2>
+                <h2>Карточек в этом режиме не осталось...</h2>
                 <p>
-                  &#8195;Поменяй один из следующих пунктов чтобы продолжить изучение:</p>
-                  <ul>
-                    <li>Режим игры(выпадающий список сверху)</li>
-                    <li>Колличество новых слов на сегодня(в настройках)</li>
-                  </ul>
+                  &#8195;Поменяй один из следующих пунктов чтобы продолжить изучение:
+                </p>
+                <ul>
+                  <li>Режим игры(выпадающий список сверху)</li>
+                  <li>Колличество новых слов на сегодня(в настройках)</li>
+                </ul>
               </>
             )}
             <div className={style.controlContainer}>

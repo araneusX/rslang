@@ -10,8 +10,8 @@ const getNewWords = async (group: number, page: number, countOfWords: number) =>
 
 localStorage.setItem('typeOfWord', 'new');
 
-const standartGame = async (group: number, progress: Map<string, unknown>, maxCountCard: number, wordsPerDay: number, countOfShowedCards: number) => {
-  let otherGroup: number = group; // get value from settings
+const standartGame = async (group: number, progress: Map<string, unknown>, maxCountCard: number, wordsPerDay: number, countOfShowedCards: number, countOfNewWords: number) => {
+  let otherGroup: number = group;
   let startWord: number = Number(progress.get(`${group}`));
 
   if (startWord === 600) {
@@ -21,58 +21,72 @@ const standartGame = async (group: number, progress: Map<string, unknown>, maxCo
   startWord += 1;
   let newWordsArray = await getNewWords(otherGroup, startWord, maxCountCard);
   if (newWordsArray === undefined) return null;
-  const wordId = statistics.getWordId();
 
+  const wordId = statistics.getWordId();
   const deletedWords = statistics.getAllWordsStatisticsWithDeleted();
+  const wordsId: Array<string> = [];
+  const allUsersWords: Array<string> = statistics.getAllWordsId();
+
+  deletedWords.forEach((word, i) => {
+    wordsId[i] = word.wordId;
+  });
 
   if (wordId === null) {
     const sizeOfNextPack = wordsPerDay - countOfShowedCards;
+
     if (startWord === 600) {
       otherGroup += 1;
       startWord = 0;
     }
     startWord += maxCountCard;
     newWordsArray = newWordsArray.concat(await getNewWords(otherGroup, startWord, sizeOfNextPack));
-    if (newWordsArray === undefined) return null;
+    localStorage.setItem('typeOfWord', 'new');
+
+    if (allUsersWords.includes(newWordsArray[countOfShowedCards].id)) {
+      newWordsArray = newWordsArray.concat(await getNewWords(otherGroup, startWord + 1, 1));
+      return newWordsArray[countOfShowedCards + 1];
+    }
+    return newWordsArray[countOfShowedCards];
   }
 
   const typeOfWord = localStorage.getItem('typeOfWord');
   if (typeOfWord === 'mine' && wordId !== null) {
     localStorage.setItem('typeOfWord', 'new');
-    const returnedWord = await getWordById(wordId);
-    if (deletedWords.includes(returnedWord)) {
+    let returnedWord = await getWordById(wordId);
+    if (wordsId.includes(returnedWord.id)) {
       const otherUserWords = statistics.getAllWordsId();
-      return otherUserWords[1];
+      returnedWord = await getWordById(otherUserWords[1]);
     }
     return returnedWord;
   }
 
   if (typeOfWord === 'new' && wordId !== null) {
     localStorage.setItem('typeOfWord', 'mine');
-    if (newWordsArray[Math.floor(countOfShowedCards / 2)] === undefined) {
-      const sizeOfNextPack = wordsPerDay - countOfShowedCards;
+    if (newWordsArray[Math.floor(countOfNewWords)] === undefined) {
+      let sizeOfNextPack = wordsPerDay - countOfShowedCards;
+      if (sizeOfNextPack < countOfNewWords) sizeOfNextPack = countOfNewWords;
       if (startWord === 600) {
         otherGroup += 1;
         startWord = 0;
       }
       startWord += maxCountCard;
+      console.log('здеся');
       newWordsArray = newWordsArray.concat(await getNewWords(otherGroup, startWord, sizeOfNextPack));
     }
-    if (newWordsArray === undefined || newWordsArray[Math.floor(countOfShowedCards / 2)] === undefined) return null;
-    return newWordsArray[Math.floor(countOfShowedCards / 2)];
+    if (wordsId.includes(newWordsArray[countOfNewWords].id)) {
+      return newWordsArray[countOfNewWords + 1];
+    }
+    if (allUsersWords.includes(newWordsArray[countOfNewWords].id)) {
+      newWordsArray = newWordsArray.concat(await getNewWords(otherGroup, startWord + 1, 1));
+      return newWordsArray[countOfNewWords + 1];
+    }
+    return newWordsArray[countOfNewWords];
   }
-
-  if (wordId === null) {
-    localStorage.setItem('typeOfWord', 'new');
-    if (newWordsArray[countOfShowedCards] === undefined) return null;
-    return newWordsArray[countOfShowedCards];
-  }
-
   return true;
 };
 
-const forRepeatGame = async (group: number, progress: Map<string, unknown>, wordsPerDay: number, maxCountCard: number, countOfShowedCards: number) => {
-  let otherGroup: number = group; // get value from settings
+const forRepeatGame = async (group: number, progress: Map<string, unknown>, wordsPerDay: number, maxCountCard: number, countOfShowedCards: number, countOfNewWords: number) => {
+  let otherGroup: number = group;
   let startWord: number = Number(progress.get(`${group}`));
 
   if (startWord === 600) {
@@ -84,10 +98,15 @@ const forRepeatGame = async (group: number, progress: Map<string, unknown>, word
   const sizeOfUsersWordsPack = wordsPerDay - maxCountCard;
   const wordId = statistics.getWordId();
 
+  const allUsersWords: Array<string> = statistics.getAllWordsId();
+
   const deletedWords = statistics.getAllWordsStatisticsWithDeleted();
+  const wordsId: Array<string> = [];
+  deletedWords.forEach((word, i) => {
+    wordsId[i] = word.wordId;
+  });
 
   let newWordsArray = await getNewWords(otherGroup, startWord, maxCountCard);
-  if (newWordsArray === undefined) return null;
   let counterOfUsersWords = 0;
   let counterOfNewWords = 0;
 
@@ -103,16 +122,24 @@ const forRepeatGame = async (group: number, progress: Map<string, unknown>, word
   }
   if ((counterOfUsersWords < sizeOfUsersWordsPack) && (wordId !== null)) {
     counterOfUsersWords += 1;
-    const returnedWord = await getWordById(wordId);
-    if (deletedWords.includes(returnedWord)) {
+    let returnedWord = await getWordById(wordId);
+
+    if (wordsId.includes(returnedWord.id)) {
       const otherUserWords = statistics.getAllWordsId();
-      return otherUserWords[1];
+      returnedWord = await getWordById(otherUserWords[1]);
     }
     return returnedWord;
   }
   if ((counterOfUsersWords > sizeOfUsersWordsPack) && (wordId !== null)) {
     counterOfNewWords += 1;
+
     if (newWordsArray[counterOfNewWords - 1] === undefined) return null;
+
+    if (allUsersWords.includes(newWordsArray[counterOfNewWords - 1].id)) {
+      console.log('тамака');
+      newWordsArray = newWordsArray.concat(await getNewWords(otherGroup, startWord + 1, 1));
+      return newWordsArray[counterOfNewWords];
+    }
     return newWordsArray[counterOfNewWords - 1];
   }
   return true;
@@ -127,28 +154,73 @@ const difficultGame = () => {
     wordsId[i] = word.wordId;
   });
   let index = Number(localStorage.getItem('showedDifficultWord'));
+  if (index >= difficultUserWords.length) {
+    localStorage.setItem('showedDifficultWord', '0');
+    return null;
+  }
   const returnedWord = getWordById(wordsId[index]);
   if (returnedWord !== undefined) {
     index += 1;
     localStorage.setItem('showedDifficultWord', `${index}`);
     return returnedWord;
-  } return null;
+  }
+  localStorage.setItem('showedDifficultWord', '0');
+  return null;
 };
 
+localStorage.setItem('showedNewWord', '0');
+
 const newWordsGame = async (group: number, progress: Map<string, unknown>, maxCountCard: number, countOfShowedCards: number) => {
-  let startWord: number = Number(progress.get(`${group}`));
   let otherGroup: number = group;
+  let startWord: number = Number(progress.get(`${otherGroup}`));
   if (startWord === 600) {
     otherGroup += 1;
     startWord = 0;
   }
   startWord += 1;
+  let index = Number(localStorage.getItem('showedNewWord'));
 
-  const newWordsArray = await getNewWords(otherGroup, startWord, maxCountCard);
-  // if (newWordsArray === undefined || newWordsArray[countOfShowedCards] === undefined) return null;
-  console.log(newWordsArray);
-  console.log(newWordsArray[countOfShowedCards]);
-  return newWordsArray[countOfShowedCards];
+  const deletedWords = statistics.getAllWordsStatisticsWithDeleted();
+  const wordsId: Array<string> = [];
+  deletedWords.forEach((word, i) => {
+    wordsId[i] = word.wordId;
+  });
+
+  const allUsersWords: Array<string> = statistics.getAllWordsId();
+
+  let newWordsArray = await getNewWords(otherGroup, startWord, maxCountCard);
+
+  if (wordsId.includes(newWordsArray[index].id)) {
+    console.log('здеся');
+    if (allUsersWords.includes(newWordsArray[index + 1].id)) {
+      newWordsArray = newWordsArray.concat(await getNewWords(otherGroup, startWord + 1, 1));
+      index += 2;
+      localStorage.setItem('showedNewWord', `${index}`);
+      return newWordsArray[index];
+    }
+    return newWordsArray[index + 1];
+  }
+
+  if (allUsersWords.includes(newWordsArray[index].id)) {
+    console.log('тамака');
+    newWordsArray = newWordsArray.concat(await getNewWords(otherGroup, startWord + 1, 1));
+    index += 1;
+    localStorage.setItem('showedNewWord', `${index}`);
+    return newWordsArray[index];
+  }
+
+  const returnedWord = newWordsArray[index];
+  if (returnedWord !== undefined) {
+    console.log('туть');
+    index += 1;
+    localStorage.setItem('showedNewWord', `${index}`);
+    return returnedWord;
+  }
+  if (returnedWord === undefined) {
+    localStorage.setItem('showedNewWord', '0');
+    return null;
+  }
+  return true;
 };
 
 // typeOfGame = 'basic' | 'difficult' | 'repeat' | 'new'
@@ -162,16 +234,18 @@ const trainGameCard = async (userId: string, token: string, typeOfGame: string) 
   const { maxCountCard } = userSettings.content.optional;
 
   const countOfShowedCards = dayStatistic.cards;
-
+  const countOfNewWords = dayStatistic.newWords;
+  console.log(countOfNewWords);
+  console.log(progress);
   switch (typeOfGame) {
     case 'new':
-      return await newWordsGame(group, progress, wordsPerDay, countOfShowedCards);
+      return await newWordsGame(group, progress, maxCountCard, countOfShowedCards);
     case 'repeat':
-      return await forRepeatGame(group, progress, maxCountCard, wordsPerDay, countOfShowedCards);
+      return await forRepeatGame(group, progress, maxCountCard, wordsPerDay, countOfShowedCards, countOfNewWords);
     case 'difficult':
       return difficultGame();
     default: {
-      return await standartGame(group, progress, maxCountCard, wordsPerDay, countOfShowedCards);
+      return await standartGame(group, progress, maxCountCard, wordsPerDay, countOfShowedCards, countOfNewWords);
     }
   }
 };

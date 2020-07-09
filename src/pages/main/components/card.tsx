@@ -76,7 +76,7 @@ const Card: React.FC<{
       } else if (settings.exampleToCard) {
         sound.src = getRightWay(card.audioExample);
       }
-      if(sound.src !== getRightWay(card.audio)) {
+      if (sound.src !== getRightWay(card.audio)) {
         sound.play();
       }
     } else if ((sound.src === getRightWay(card.audioMeaning)) && settings.exampleToCard) {
@@ -154,31 +154,30 @@ const Card: React.FC<{
     }
   };
 
-
   return (
     <div className={style.cardContainer} id={card.id}>
       <div className={style.mainInfoContainer}>
-      <div className={style.wordContainer}>
-        { prop.answer ? (
-          <div
-            className={style.showCurrentWord}
-            dangerouslySetInnerHTML={currentWord()}
-            onClick={handleCurrentWord}
-            id='currentWord'
+        <div className={style.wordContainer}>
+          { prop.answer ? (
+            <div
+              className={style.showCurrentWord}
+              dangerouslySetInnerHTML={currentWord()}
+              onClick={handleCurrentWord}
+              id="currentWord"
+            />
+          ) : (
+            <div dangerouslySetInnerHTML={currentWord()} />
+          )}
+          <input
+            id="inputAnswer"
+            ref={inputEl}
+            value={inputState}
+            onChange={handlerInputChange}
+            onKeyPress={handlerInputKeyPress}
+            maxLength={card.word.length}
           />
-        ) : (
-          <div dangerouslySetInnerHTML={currentWord()} />
-        )}
-        <input
-          id='inputAnswer'
-          ref={inputEl}
-          value={inputState}
-          onChange={handlerInputChange}
-          onKeyPress={handlerInputKeyPress}
-          maxLength={card.word.length}
-        />
-      </div>
-      {settings.imageToCard
+        </div>
+        {settings.imageToCard
                 && <img src={getRightWay(card.image)} alt="" />}
         {settings.explainToCard
                     && (
@@ -219,21 +218,21 @@ const Card: React.FC<{
         {settings.addGrageButton && prop.answer && (isRight || showAns)
                     && (
                     <div className={style.gradeContainer}>
-                      <div title="Заново" id="repeat" onClick={() => { handlerDifficultLevel(3); }} className={style.repeatBtn}></div>
-                      <div title="Легко" id="easyLevel" onClick={() => { handlerDifficultLevel(0); }} className={style.easyBtn}></div>
-                      <div title="Средне" id="middleLevel" onClick={() => { handlerDifficultLevel(1); }} className={style.mediumBtn}></div>
-                      <div title="Сложно" id="hardLevel" onClick={() => { handlerDifficultLevel(2); }} className={style.hardBtn}></div>
+                      <div title="Заново" id="repeat" onClick={() => { handlerDifficultLevel(3); }} className={style.repeatBtn} />
+                      <div title="Легко" id="easyLevel" onClick={() => { handlerDifficultLevel(0); }} className={style.easyBtn} />
+                      <div title="Средне" id="middleLevel" onClick={() => { handlerDifficultLevel(1); }} className={style.mediumBtn} />
+                      <div title="Сложно" id="hardLevel" onClick={() => { handlerDifficultLevel(2); }} className={style.hardBtn} />
                     </div>
                     )}
-        </div>
-        <div className={style.controlContainer}>
-          {settings.wordDeleteButton
-              && <div id='deleteBtn' title='Удалить слово' className={style.deleteBtn} onClick={handlerDeleteWord}></div>}
-          {settings.addToDifficultWordsButton
-              && <div id='difficultBtn' title='Занести слово в словарь' className={style.toDifficultBtn} onClick={handlerToDifficult}></div>}
-          {settings.showAnswerButton
-              && <div title='Показать ответ' className={style.showAnsBtn} onClick={handleShowAnswer}></div>}
-        </div>
+      </div>
+      <div className={style.controlContainer}>
+        {settings.wordDeleteButton
+              && <div id="deleteBtn" title="Удалить слово" className={style.deleteBtn} onClick={handlerDeleteWord} />}
+        {settings.addToDifficultWordsButton
+              && <div id="difficultBtn" title="Занести слово в словарь" className={style.toDifficultBtn} onClick={handlerToDifficult} />}
+        {settings.showAnswerButton
+              && <div title="Показать ответ" className={style.showAnsBtn} onClick={handleShowAnswer} />}
+      </div>
     </div>
   );
 };
