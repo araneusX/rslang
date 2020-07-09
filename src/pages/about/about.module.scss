@@ -48,3 +48,48 @@
     width: 310px;
   }
 }
+
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > * {
+    width: 719px;
+    display: flex;
+  }
+}
+
+.name {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.todo-data {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  align-items: center;
+  height: 288px;
+  justify-content: space-between;
+  background: #f7d2a6;
+}
+
+.todo-avatar {
+  width: 40%
+}
+
+.todo {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.github {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+}

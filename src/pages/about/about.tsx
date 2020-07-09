@@ -17,13 +17,15 @@ const About = () => (
       <p className={style['about-main']}>Если хочешь познакомится с нашей командой поближе, то ты попал по адресу! Нас семеро весёлых, компанейских, а главное горящих своим делом человек. Мы собрались с разных городов и стран, чтобы сделать одно крутое дело. Про каждого из нас более подробно ниже</p>
       <div className={style['about-image']} />
     </div>
-    <AraneusX />
-    <SLeshenko />
-    <Nastja2000 />
-    <MrINEX />
-    <Keksik77 />
-    <PavelChukashev />
-    <Zhenokin />
+    <div className={style.team}>
+      <Zhenokin />
+      <AraneusX />
+      <SLeshenko />
+      <Nastja2000 />
+      <MrINEX />
+      <Keksik77 />
+      <PavelChukashev />
+    </div>
   </div>
 );
 
