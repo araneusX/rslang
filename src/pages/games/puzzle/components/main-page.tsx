@@ -27,7 +27,7 @@ const MainPage = () => {
 
       if (result.content.length && response) {
         dispatch({ type: 'set asyncLevel', value: new Game(response) });
-        console.log('result:', result);
+
         const game = new Game(result.content);
 
         if (game.sentences.length < 11) {

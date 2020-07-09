@@ -11,7 +11,6 @@ function AssembledGamePuzzle(props: any) {
   const wrapperGame = state.gameDOM.current;
   const bounding: DOMRect = wrapperGame.getBoundingClientRect();
   const game = wrapperGame.children[0].children;
-  const gameY = Math.abs(bounding.top);
 
   const childrenPuzzle: any = [];
   const childrenAssembledPuzzle: any = [];
@@ -113,7 +112,6 @@ function AssembledGamePuzzle(props: any) {
         data={data}
         assembledDOM={assembledDOM}
         childrenPuzzle={childrenPuzzle}
-        gameY={gameY}
       />
       <div className="wrapper-game">
         {assembledGamePuzzle}

@@ -8,7 +8,6 @@ function GameRounds(props: any) {
   const { dispatch } = useContext(PuzzleContext);
   const { data } = props;
   const { childrenPuzzle } = props;
-  const { gameY } = props;
   const { assembledDOM } = props;
   const [sentenceNumber, setSentenceNumber] = useState(0);
 
@@ -33,7 +32,12 @@ function GameRounds(props: any) {
       });
     }
 
-    setHeight(gameY + (assembledDOM.current.children[sentenceNumber].getBoundingClientRect().height * (1 + sentenceNumber)));
+    const y = window.scrollY;
+    window.scrollTo({ top: 0 });
+    const bound = assembledDOM.current.children[sentenceNumber].getBoundingClientRect();
+    setHeight(bound.bottom);
+    window.scrollTo({ top: y });
+
     assembledDOM.current.children[sentenceNumber].classList.add('opacity-full');
   });
 
@@ -125,8 +129,6 @@ function GameRounds(props: any) {
     className: 'game-round-controls'
   }, visibleDontKnow && dontKnowButton,
   visibleContinue && continueButton);
-
-  // if (sentenceNumber === 0) { window.scrollTo({ top: 0 }); }
 
   const GameRoundWords = React.createElement('div', {
     className: 'game-round-words',
