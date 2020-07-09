@@ -22,16 +22,15 @@
 
 }
 .learnContainer{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+  width: 66vw;
+  margin: auto;
+  margin-top: 70px;
 
   .progressBar{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 30px;
     span{
       font-style: normal;
       font-weight: bold;
@@ -39,6 +38,7 @@
       margin: 0px 3px 3px 3px;
     }
   }
+
   progress{
     background-color: #82FFC8;;
     border-radius: 17px;
@@ -53,7 +53,7 @@
   }
   progress::-webkit-progress-value {
     background-color:#82FFC8;
-}
+  }
 }
 
 .controlContainer{
@@ -74,3 +74,86 @@
   }
 }
 
+.commonControlContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  .soundOn{
+    background-image: url(/images/soundOnBtn.svg);
+  }
+  .soundOff{
+    background-image: url(/images/soundOffBtn.svg);
+  }
+  .soundOn, .soundOff{
+    height: 45px;
+    width: 45px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-color: #FF9900;
+    border-radius: 22px;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 27px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 3px 0px 0px #DE8500;
+    color: #5E2D00;
+    margin: 10px;
+    cursor: pointer;
+  }
+  select{
+    height: 45px;
+    background-color: #FF9900;
+    border-radius: 10px 10px 0 0;
+    border: none;
+    border-bottom: 2px solid #DE8500;
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 27px;
+    outline: none;
+    color: #5E2D00;
+    margin: 10px;
+    padding: 8px;
+    cursor: pointer;
+  }
+}
+
+.cardBottomContainer{
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-bottom: 60px;
+  margin-top: 10px;
+  max-width: 640px;
+
+  div{
+    background-color: #FF9900;
+    border-radius: 22px;
+    font-weight: bold;
+    box-shadow: 0px 3px 0px 0px #DE8500;
+    color: #5E2D00;
+    cursor: pointer;
+    font-size: 20px;
+    width: 140px;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 22px;
+    text-align: center;
+  }
+
+.wordTranslateContainer{
+  font-weight: bold;
+  font-size: 22px;
+  margin: 0;
+  i{
+    font-weight: normal;
+  }
+}
+}
+
+option:hover, option:checked{
+  background-color: #ffb546;
+}

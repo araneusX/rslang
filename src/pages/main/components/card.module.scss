@@ -1,19 +1,23 @@
 .cardContainer{
   display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    background: whitesmoke;
-    width: 630px;
     margin: 0 auto;
     background: #FFFFFF;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.24);
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.24);
     border-radius: 23px;
     padding: 15px;
     width: 60vw;
     max-width: 640px;
-    margin-top: 30px;
+    margin-top: 10px;
+    min-height: 200px;
 
+  .mainInfoContainer{
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    width: 85%;
+  }
   .opacity{
     animation: opacityDown 2s;
     opacity: .5;
@@ -149,8 +153,6 @@
     align-items: center;
     height: 167px;
     justify-content: space-between;
-    align-self: flex-end;
-    position: absolute;
     div{
       width: 45px;
       height: 45px;
@@ -165,8 +167,16 @@
     .deleteBtn{
       background-image: url(/images/deleteBtn.svg);
     }
+    .restore{
+      background-image: url(/images/restoreBtn.svg);
+      background-size: 26px;
+    }
     .toDifficultBtn{
       background-image: url(/images/difficultBtn.svg);
+    }
+    .restoreDifficult{
+      background-image: url(/images/smartBtn.png);
+      background-size: 26px;
     }
     .showAnsBtn{
       background-image: url(/images/showAnsBtn.svg);
