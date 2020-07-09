@@ -1,4 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+
+@import './scss/style.scss';
+
 .about-page {
   position: relative;
   min-height: calc(100vh - 210px); // header[110px] + footer[100px] = 210px
+}
+
+.about-title {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 78px;
+  white-space: nowrap;
+  margin: 20px;
+}
+
+.about-header {
+  text-align: center;
+}
+
+.about-image {
+  background: url('./data/work_team.png');
+  background-size: 100%;
+  width: 588px;
+  height: 325px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: bottom;
+  margin: auto;
+  @include media-mobiles-small() {
+    width: 310px;
+    height: 180px;
+  }
+}
+
+.about-main {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  width: 588px;
+  text-align: center;
+  margin: auto;
+  @include media-mobiles-small() {
+    width: 310px;
+  }
 }

@@ -2,7 +2,8 @@ import React from 'react';
 
 const Keksik77 = () => (
   <div>
-    Timofei Lukashevich
+    {/* Timofei Lukashevich */}
+    Тимофей Лукашевич
     {' '}
     <strong>keksik77</strong>
   </div>

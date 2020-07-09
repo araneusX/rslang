@@ -2,7 +2,8 @@ import React from 'react';
 
 const MrINEX = () => (
   <div>
-    Kazak Uladzimir
+    {/* Kazak Uladzimir */}
+    Владимир Казак
     {' '}
     <strong>mrINEX</strong>
   </div>

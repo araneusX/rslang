@@ -2,7 +2,8 @@ import React from 'react';
 
 const SLeshenko = () => (
   <div>
-    Alexandr Leshenko
+    {/* Alexandr Leshenko */}
+    Александр Лещенко
     {' '}
     <strong>SLeshenko</strong>
   </div>
