@@ -7,11 +7,12 @@ import { BackendWordInterface, StatisticsInterface } from '../../types';
 import { StateContext } from '../../store/stateProvider';
 import trainGameCard from './components/training';
 import { StatisticsContext } from '../../statistics/statisticsProvider';
-
+import Preloader from '../../commonComponents/preloader/preloader'
 
 const Main = () => {
   const { state, dispatch } = useContext(StateContext);
 
+  const [preloaderState, setPreloaderState] = useState(false);
   const { isAudioOn, isFirstVisit, trainingMode, card } = state.training;
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
   const [startPreview, setStart] = useState(true);
@@ -34,6 +35,7 @@ const Main = () => {
     async function fetchData() {
       if (count <= state.settings.wordsPerDay) {
         if (isFirstVisit || !firstVisitOnGame) {
+          setPreloaderState(true);
           const result = await (trainGameCard(state.auth.userId, state.auth.token, trainingMode));
           if (!ignore) {
             if (result === null) {
@@ -43,6 +45,7 @@ const Main = () => {
               console.log('текущая карточка', result);
               togglerButtons();
             }
+            setPreloaderState(false);
           }
         }
       } else {
@@ -57,6 +60,7 @@ const Main = () => {
     let ignore = false;
     async function fetchData() {
       if (sessionVocWrdCount > 0) {
+        setPreloaderState(true);
         const result = await (trainGameCard(state.auth.userId, state.auth.token, trainingMode));
         if (!ignore) {
           if (result === null) {
@@ -66,6 +70,7 @@ const Main = () => {
             togglerButtons();
             console.log('текущая карточка', result);
           }
+          setPreloaderState(false);
         }
       }
     }
@@ -141,6 +146,9 @@ const Main = () => {
 
   return (
     <>
+      {preloaderState &&
+        <Preloader></Preloader>
+      }
       <div className={style.learnContainer}>
         {startPreview || endPreview ? (
           <div className={style.startBasicGameContainer}>
