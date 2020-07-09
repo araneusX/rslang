@@ -153,7 +153,6 @@ const statistics: StatisticsInterface = {
 
     if (isRight) {
       this.userWordsId[wordId].allRight += 1;
-      this.userWordsId[wordId].lastRight = getFormattedDate();
       this.userWordsId[wordId].continuedRight += 1;
       this.userWordsId[wordId].interval += 1;
       this.series += 1;
@@ -174,6 +173,7 @@ const statistics: StatisticsInterface = {
       this.userWordsId[wordId].maxContinuedRight = this.userWordsId[wordId].continuedRight;
     }
 
+    this.userWordsId[wordId].lastRight = getFormattedDate();
     this.userWordsId[wordId].allShow += 1;
     this.userWordsId[wordId].interval += (3 - difficulty);
 
