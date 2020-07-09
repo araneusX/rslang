@@ -15,6 +15,9 @@ interface Props {
 
 const Game = (props:Props) => {
   const UserWordLevel = 7;
+  const [sound, setSound] = useState(true);
+
+  const lifes = [1, 2, 3, 4, 5];
 
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
   const levelsSelect = [1, 2, 3, 4, 5, 6, 7];
@@ -86,9 +89,17 @@ const Game = (props:Props) => {
 
   const clickAnswer = (_answer:string, e: React.MouseEvent<HTMLButtonElement>) => {
     if (answer === _answer) {
+      if (sound) {
+        const audio = new Audio('/mp3/cor.mp3');
+        audio.play();
+      }
       props.setSavannah({ ...savannah, correctAnswer: [...savannah.correctAnswer, answer] });
       setSecondsToAnswer(startSecondsToAnswerValue);
     } else {
+      if (sound) {
+        const audio = new Audio('/mp3/no-otveta.mp3');
+        audio.play();
+      }
       props.setSavannah({ ...savannah, life: savannah.life - 1, errorAnswerArray: [...savannah.errorAnswerArray, answer] });
 
       if (savannah.life > 1) {
@@ -149,18 +160,18 @@ const Game = (props:Props) => {
 
   return (
     <>
-      <div className={`${style.mainContainer}`}>
+      <div className={style.heightAuto}>
         {endGame ? (
           <StatisticGame savannah={savannah} setSavannah={setSavannah} />
         ) : (
-          <div>
-            <div>
-              <div>
-                life:
-                { savannah.life }
+          <div className={style.gameMainWrapper}>
+            <div className={style.gameMainHead}>
+              <div className={style.gameMainLifes}>
+                {lifes.map((i) => (i <= savannah.life ? <span key={i} className={style.gameMainLifeOn} />
+                  : <span key={i} className={style.gameMainLifeOff} />))}
               </div>
-              <div>
-                select level:
+              <div className={style.gameMainLevels}>
+                уровень:
                 <select name="levelSelect" id="levelSelect" onChange={changeLevel} value={localLevel}>
                   {levelsSelect.map((i) => (
                     <option
@@ -172,7 +183,7 @@ const Game = (props:Props) => {
                     </option>
                   ))}
                 </select>
-                select page:
+                стр.:
                 <select name="pageSelect" id="pageSelect" onChange={changePage} value={localPage} disabled={localLevel === UserWordLevel}>
                   {pagesSelect.map((i) => (
                     <option
@@ -183,13 +194,13 @@ const Game = (props:Props) => {
                     </option>
                   ))}
                 </select>
-                <button type="button" onClick={setLevel}>Изменить Уровень</button>
+                <button type="button" onClick={setLevel}>Выбрать</button>
               </div>
             </div>
             <div className={`${style.wordWrapper}`} style={{ top: `${(300 - secondsToAnswer)}px` }}>
               {word}
             </div>
-            <div className={`${style.answerBlock}`}>
+            <div className={style.answerBlock}>
               {answerArray.map((i) => (
                 <div key={i}>
                   <button

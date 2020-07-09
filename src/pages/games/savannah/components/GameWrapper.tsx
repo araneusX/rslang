@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StartSavannah } from '../helpers/types';
 import Game from './Game';
+import style from '../savannah.module.scss';
 
 interface Props {
   savannah: StartSavannah,
@@ -26,9 +27,12 @@ const SavannahGameWrapper = (props:Props) => {
   return (
     <>
       {secondsToStartGame ? (
-        <div>
-          seconds to start game:
-          {secondsToStartGame}
+        <div className={style.startButtonWrapper}>
+          <div>
+            <h2>
+              {secondsToStartGame}
+            </h2>
+          </div>
         </div>
       ) : (<Game savannah={savannah} setSavannah={setSavannah} />
       )}

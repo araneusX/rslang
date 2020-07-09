@@ -6,6 +6,7 @@ import { getWords, getManyWordsById } from '../../../backend/words';
 import { StatisticsContext } from '../../../statistics/statisticsProvider';
 import { StatisticsInterface } from '../../../types';
 import { Preloader } from '../../../commonComponents';
+import style from './savannah.module.scss';
 
 const Savannah = () => {
   const startSavannah: StartSavannah = initialSavannah;
@@ -56,7 +57,7 @@ const Savannah = () => {
   }, [savannah]);
 
   return (
-    <div>
+    <div className={style.contentWrapper}>
       {isLoading ? <Preloader /> : null}
       {savannah.startGame
         ? <SavannahGameWrapper savannah={savannah} setSavannah={setSavannah} />

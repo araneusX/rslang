@@ -4,6 +4,8 @@ import { getWords, getManyWordsById } from '../../../../backend/words';
 import { StatisticsContext } from '../../../../statistics/statisticsProvider';
 import { StatisticsInterface } from '../../../../types';
 
+import style from '../savannah.module.scss';
+
 interface Props {
   savannah: StartSavannah,
   setSavannah: (val: StartSavannah)=>void
@@ -78,6 +80,9 @@ const StatisticGame = (props:Props) => {
     }
   };
 
+  const correctAnswerArr = savannah.wordForGame.filter((i) => savannah.correctAnswer.includes(i.wordTranslate));
+  const errorAnswerArr = savannah.wordForGame.filter((i) => savannah.errorAnswerArray.includes(i.wordTranslate));
+
   useEffect(() => {
     statistics.saveMini('savannah', savannah.correctAnswer.length).then((res) => {
       const mini = statistics.getMini('savannah');
@@ -88,20 +93,23 @@ const StatisticGame = (props:Props) => {
   }, []);
 
   return (
-    <>
+    <div className={style.statisticWrapper}>
       {viewStatistic
         ? (
-          <div>
-            <div>
+          <div className={style.statisticRound}>
+            <div className={style.statisticRoundContent}>
               {allStatistic.map((obj: { date: string, results: number[]; }) => (
                 <div key={obj.date}>
-                  date:
-                  {obj.date}
-                  :
+                  <span className={style.statisticRoundContentDate}>
+                    Дата:
+                    {obj.date}
+                    :
+                  </span>
                   <div>
-                    results round:
-                    {obj.results.map((i:number) => (
-                      <span key={i}>
+                    Правильных ответов в раунде:
+                    {obj.results.map((i:number, index) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <span key={index}>
                         {i}
                         ,
                       </span>
@@ -110,40 +118,54 @@ const StatisticGame = (props:Props) => {
                 </div>
               ))}
             </div>
-            <button onClick={() => setViewStatistic(false)} type="button">Back</button>
+            <button className={style.btnBackStatistic} onClick={() => setViewStatistic(false)} type="button">Назад</button>
           </div>
         )
 
         : (
-          <div>
-            <div>
-              Words Learned Faithfully:
-              { savannah.correctAnswer.length }
-              Words Learning:
-              { savannah.errorAnswerArray.length }
-            </div>
-            <div>
+          <div className={style.statisticRound}>
+            <div className={style.statisticRoundContent}>
               <div>
-                Know:
-                {savannah.correctAnswer.map((i:string) => (
-                  <li key={i}>{i}</li>
+                <div className={style.correctAnswerBlock}>
+                  Знаю:
+                  {' '}
+                  { savannah.correctAnswer.length }
+                </div>
+                {correctAnswerArr.map((i:any) => (
+                  <li key={i.id}>
+                    {i.word}
+                    {' '}
+                    {i.transcription}
+                    {' '}
+                    {i.wordTranslate}
+                  </li>
                 ))}
               </div>
               <div>
-                Errors:
-                {savannah.errorAnswerArray.map((i:string) => (
-                  <li key={i}>{i}</li>
+                <div className={style.errorAnswerBlock}>
+                  Не знаю:
+                  {' '}
+                  { savannah.errorAnswerArray.length }
+                </div>
+                {errorAnswerArr.map((i:any) => (
+                  <li key={i.id}>
+                    {i.word}
+                    {' '}
+                    {i.transcription}
+                    {' '}
+                    {i.wordTranslate}
+                  </li>
                 ))}
               </div>
             </div>
-            <div>
-              <button onClick={newGame} type="button">Продолжить тренеровку</button>
-              <button onClick={repeatGame} type="button">Повторить раунд</button>
-              <button onClick={getStatistics} type="button">Показать статистику</button>
+            <div className={style.statisticRoundBtn}>
+              <button onClick={newGame} type="button">Продолжить</button>
+              <button onClick={repeatGame} type="button">Повтор</button>
+              <button onClick={getStatistics} type="button">Cтатистика</button>
             </div>
           </div>
         )}
-    </>
+    </div>
   );
 };
 
