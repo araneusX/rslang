@@ -12,8 +12,8 @@ import { StateContext } from '../../../store/stateProvider';
 const Card: React.FC<{
   settings: CardSettingsInterface, answer: boolean,
   callback: Function, count: number, nextCard: Function }> = (prop) => {
-  const { state } = useContext(StateContext);
-  const { isAudioOn, card } = state.training;
+  const { state, dispatch } = useContext(StateContext);
+  const { isAudioOn, card, isCardDelete } = state.training;
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
   const { settings } = prop;
   const [inputState, setInputState] = useState('');
@@ -122,12 +122,16 @@ const Card: React.FC<{
 
   const handlerDeleteWord = (event: React.MouseEvent<HTMLDivElement>):void => {
     statistics.toggleDeleted(card.id);
-    event.currentTarget?.classList.toggle(style.restore);
+    dispatch({type: 'SET_TRAINING_CARD_DELETE', value: !isCardDelete});
   };
 
   const handlerToDifficult = (event: React.MouseEvent<HTMLDivElement>):void => {
     statistics.toggleDifficult(card.id);
-    event.currentTarget.classList.toggle(style.restoreDifficult);
+    if (event.currentTarget.classList.toggle(style.restoreDifficult)) {
+      event.currentTarget.title = 'Удалить из словаря';
+    } else {
+      event.currentTarget.title = 'Занести в словарь';
+    }
   };
 
   const handleShowAnswer = () => {
@@ -226,10 +230,20 @@ const Card: React.FC<{
                     )}
       </div>
       <div className={style.controlContainer}>
-        {settings.wordDeleteButton
-              && <div id="deleteBtn" title="Удалить слово" className={style.deleteBtn} onClick={handlerDeleteWord} />}
+        {settings.wordDeleteButton && isCardDelete &&
+          <div
+            title="Восстановить слово"
+            className={style.restore}
+            onClick={handlerDeleteWord}
+          />}
+        {settings.wordDeleteButton && !isCardDelete &&
+          <div
+            title="Удалить слово"
+            className={style.deleteBtn}
+            onClick={handlerDeleteWord}
+        />}
         {settings.addToDifficultWordsButton
-              && <div id="difficultBtn" title="Занести слово в словарь" className={style.toDifficultBtn} onClick={handlerToDifficult} />}
+              && <div id="difficultBtn" title="Занести в словарь" className={style.toDifficultBtn} onClick={handlerToDifficult} />}
         {settings.showAnswerButton
               && <div title="Показать ответ" className={style.showAnsBtn} onClick={handleShowAnswer} />}
       </div>

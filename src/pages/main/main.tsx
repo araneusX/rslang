@@ -28,6 +28,7 @@ const Main = () => {
   const [answer, setAns] = useState(false);
   const [sessionVocWrdCount, setSessionVocWrdCount] = useState(0);
 
+
   useEffect(() => {
     if (count > 1) {
       setStart(false);
@@ -46,8 +47,8 @@ const Main = () => {
               setErrorCard(true);
             } else {
               dispatch({ type: 'SET_TRAINING_CARD', value: result });
+              document.getElementById('inputAnswer')?.focus();
               console.log('текущая карточка', result);
-              togglerButtons();
             }
             setPreloaderState(false);
           }
@@ -71,7 +72,7 @@ const Main = () => {
             setErrorCard(true);
           } else {
             dispatch({ type: 'SET_TRAINING_CARD', value: result });
-            togglerButtons();
+            document.getElementById('inputAnswer')?.focus();
             console.log('текущая карточка', result);
           }
           setPreloaderState(false);
@@ -82,15 +83,20 @@ const Main = () => {
     return () => { ignore = true; };
   }, [sessionVocWrdCount]);
 
-  const togglerButtons = () => {
-    document.getElementById('inputAnswer')?.focus();
-    document.getElementById('deleteBtn')?.classList.remove(cardStyle.restore);
-    if (trainingMode === 'difficult') {
-      document.getElementById('difficultBtn')?.classList.add(cardStyle.restoreDifficult);
-    } else {
-      document.getElementById('difficultBtn')?.classList.remove(cardStyle.restoreDifficult);
+
+  const toggleDifficultBtn = () => {
+    const findDifficult = statistics.getAllWordsStatistics('difficult').some((elem) => elem.wordId === card.id);
+    if (findDifficult)  document.getElementById('difficultBtn')?.classList.add(cardStyle.restoreDifficult);
+    else document.getElementById('difficultBtn')?.classList.remove(cardStyle.restoreDifficult);
+  }
+
+  useEffect(() => {
+    toggleDifficultBtn();
+    if (isFirstVisit || !firstVisitOnGame) {
+      dispatch({type: 'SET_TRAINING_CARD_DELETE', value: false});
     }
-  };
+  }, [card]);
+
 
   useEffect(() => {
     dispatch({ type: 'SET_TRAINING_FIRST_VISIT', value: false });

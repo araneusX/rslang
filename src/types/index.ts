@@ -212,7 +212,8 @@ export interface TrainingStateInterface {
   card: BackendWordInterface,
   complete: boolean,
   isFirstVisit: boolean,
-  trainingMode: string;
+  trainingMode: string,
+  isCardDelete: boolean;
 }
 
 export interface StateInterface {

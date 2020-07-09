@@ -80,6 +80,10 @@ const trainReducer = (state: TrainingStateInterface, action: Action): TrainingSt
       const { value } = action;
       return { ...state, trainingMode: value };
     }
+    case 'SET_TRAINING_CARD_DELETE': {
+      const { value } = action;
+      return { ...state, isCardDelete: value };
+    }
     default: return state;
   }
 };
