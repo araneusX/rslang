@@ -4,7 +4,7 @@ import style from './settings.module.scss';
 import SettingsForm from './components/settingsForm';
 
 const Settings = () => (
-  <div>
+  <div className={style.setting}>
     <SettingsForm />
   </div>
 );
