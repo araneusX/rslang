@@ -1,12 +1,15 @@
 .link-button {
   text-decoration: none;
   color: #333333;
-  margin: 10px;
+  margin: 0 10px;
+  white-space: nowrap;
 
   &:active,
-  &:hover,
   &:focus {
     color: #333333;
+  }
+  &:hover {
+    color: #FF9900;
   }
 
   &.current {
