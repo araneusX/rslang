@@ -10,6 +10,7 @@ import { StateContext } from '../../store/stateProvider';
 import trainGameCard from './components/training';
 import { StatisticsContext } from '../../statistics/statisticsProvider';
 import Preloader from '../../commonComponents/preloader/preloader';
+import { Link } from 'react-router-dom';
 
 const Main = () => {
   const { state, dispatch } = useContext(StateContext);
@@ -168,10 +169,13 @@ const Main = () => {
           <div className={style.startBasicGameContainer}>
             {endPreview ? (
               <>
-                <h2>На сегодня все...</h2>
+                <h2>Ура! На сегодня все.</h2>
                 <p>
-                  &#8195;Ты отлично постарался! Возвращайся завтра за новыми знаниями!
+                  &#8195;Есть еще новые карточки, но дневной лимит исчерпан.
+                   Вы можете увеличить лимит в настройках, но пожалуйста, имейте
+                   в виду, что чем больше новых карточек вы просмотрите, тем больше вам надо будет повторять в ближайшее время.
                 </p>
+                <Link to={'/statistics'} className={style.toStatisticsBtn} > Статистика </Link>
               </>
             ) : (
               <>
@@ -184,9 +188,7 @@ const Main = () => {
                 <button
                   className={style.startLearnButton}
                   onClick={() => { setStart(false); }}
-                >
-                  Начать изучать
-                </button>
+                > Start </button>
               </>
             )}
           </div>
@@ -230,8 +232,8 @@ const Main = () => {
                 </div>
               </>
             ) : (
-              <>
-                <h2>Карточек в этом режиме не осталось...</h2>
+              <div className={style.startBasicGameContainer}>
+                <h2>Карточек в этом режиме не осталось!</h2>
                 <p>
                   &#8195;Поменяй один из следующих пунктов чтобы продолжить изучение:
                 </p>
@@ -239,7 +241,7 @@ const Main = () => {
                   <li>Режим игры(выпадающий список сверху)</li>
                   <li>Колличество новых слов на сегодня(в настройках)</li>
                 </ul>
-              </>
+              </div>
             )}
             <div className={style.controlContainer}>
               <div className={style.progressBar}>

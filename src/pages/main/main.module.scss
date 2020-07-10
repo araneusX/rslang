@@ -1,25 +1,52 @@
 .startBasicGameContainer{
-  position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    display: flex;
+  display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    max-width: 620px;
+    margin-bottom: 70px;
 
-  .startLearnButton{
+  .startLearnButton, .toStatisticsBtn{
+    background-color: #FF9900;
       width: 170px;
       height: 50px;
-      font-size: 19px;
-  }
-  p{
-    width: 355px;
-    overflow-wrap: break-word;
-    margin-bottom: 50px;
+      font-size: 20px;
+      font-weight: bold;
+      outline: none;
+      border: none;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0px 2px 0px 1px #DE8500;
+      transition: 0.5s;
+      cursor: pointer;
   }
 
+  .toStatisticsBtn{
+    text-decoration: none;
+    text-align: center;
+    padding: 14px;
+    width: initial;
+    height: initial;
+    color: #000 !important;
+  }
+
+  .startLearnButton:hover, .toStatisticsBtn:hover{
+    box-shadow: none;
+  }
+
+  p{
+    overflow-wrap: break-word;
+    margin-bottom: 50px;
+    font-size: 19px;
+  }
+
+  h2{
+    font-size: 28px;
+  }
+
+  ul{
+    margin-top: -25px;
+  }
 }
 .learnContainer{
   width: 66vw;
@@ -66,7 +93,7 @@
     line-height: 27px;
     outline: none;
     border: none;
-    box-shadow: 0px 3px 0px 0px #DE8500;
+    box-shadow: 0px 2px 0px 1px #DE8500;
     color: #5E2D00;
     margin: 10px;
     padding: 8px;
