@@ -1,5 +1,5 @@
 import {
-  UserStatisticsInterface, WordStatisticsInterface, DayInterface, SettingsInterface, SpeakitStateInterface, SprintStateInterface
+  UserStatisticsInterface, WordStatisticsInterface, DayInterface, SettingsInterface, SpeakitStateInterface, SprintStateInterface, AudioCallStateInterface
 } from '../types';
 
 export const initialUserStatisticsObject: UserStatisticsInterface = {
@@ -84,3 +84,17 @@ export const initialSprintObject: SprintStateInterface = {
 export const SERVER = 'https://afternoon-falls-25894.herokuapp.com'; // https://afternoon-falls-25894.herokuapp.com
 
 export const WORDS_COUNT = 3600;
+
+export const initialAudioCallObject: AudioCallStateInterface = {
+  level: 0,
+  round: 1,
+  step: 0,
+  selectLevel: false,
+  startGame: false,
+  finishGame: false,
+  screen: 'start',
+  words: [],
+  allAnswerArray: [],
+  correctAnswer: [],
+  errorAnswer: []
+};

@@ -220,9 +220,25 @@ export interface SprintStateInterface {
   roundTime: number
 }
 
+export type AudioCallScreenType = 'start' | 'main' | 'results';
+export interface AudioCallStateInterface {
+  level: number,
+  round: number,
+  step: number,
+  selectLevel: boolean,
+  startGame: boolean,
+  finishGame: boolean,
+  screen: SprintScreenType,
+  words: BackendWordInterface[],
+  allAnswerArray: string[],
+  correctAnswer: BackendWordInterface[],
+  errorAnswer: BackendWordInterface[],
+}
+
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
   speakit: SpeakitStateInterface,
-  sprint: SprintStateInterface
+  sprint: SprintStateInterface,
+  audioCall: AudioCallStateInterface
 }

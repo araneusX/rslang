@@ -1,7 +1,7 @@
 import appState from './store';
 import { Action } from './actionTypes';
 import {
-  StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface, SprintStateInterface
+  StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface, SprintStateInterface, AudioCallStateInterface
 } from '../types';
 import { initialSprintObject } from '../constants';
 
@@ -129,16 +129,30 @@ const sprintReducer = (state: SprintStateInterface, action:Action): SprintStateI
   }
 };
 
+const audioReducer = (state: AudioCallStateInterface, action:Action): AudioCallStateInterface => {
+  switch (action.type) {
+    case 'SET_AUDIO_NEW_GAME': {
+      const words = action.value;
+      return {
+        ...state,
+        words
+      };
+    }
+    default: return state;
+  }
+};
+
 const mainReducer = (
   {
-    auth, settings, speakit, sprint
+    auth, settings, speakit, sprint, audioCall
   }: StateInterface,
   action:Action
 ): StateInterface => ({
   auth: authReducer(auth, action),
   settings: settingsReducer(settings, action),
   speakit: speakItReducer(speakit, action),
-  sprint: sprintReducer(sprint, action)
+  sprint: sprintReducer(sprint, action),
+  audioCall: audioReducer(audioCall, action)
 });
 
 export default mainReducer;
