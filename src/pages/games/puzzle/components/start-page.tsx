@@ -1,8 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { PuzzleContext } from '../context';
+import userStorage from '../ts/storage.user';
 
 function StartPage() {
   const { dispatch } = useContext(PuzzleContext);
+  const { level, page } = userStorage({});
+
+  useLayoutEffect(() => {
+    dispatch({ type: 'set level', value: level });
+    dispatch({ type: 'set page', value: page });
+  }, [level, page]);
 
   function handleStart() {
     dispatch({ type: 'set screen', value: 'main-page' });

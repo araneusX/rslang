@@ -3,12 +3,14 @@ import { isDisabledText, isDisabledAudio } from '../ts/isDisabled';
 import { PuzzleContext } from '../context';
 import getTimeDate from '../ts/getTimeDay';
 import storage from '../ts/storage';
+import userStorage from '../ts/storage.user';
 
 function GameRounds(props: any) {
   const { dispatch } = useContext(PuzzleContext);
   const { data } = props;
   const { childrenPuzzle } = props;
   const { assembledDOM } = props;
+  userStorage({ level: data.level, page: data.page, action: 'set' });
   const [sentenceNumber, setSentenceNumber] = useState(0);
 
   const { puzzleChld, removePuzzleClds } = childrenPuzzle[sentenceNumber];
