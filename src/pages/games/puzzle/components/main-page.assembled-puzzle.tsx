@@ -91,6 +91,7 @@ function AssembledGamePuzzle(props: any) {
         assembledPuzzleChld.push(assembledWordPuzzle);
         puzzleChld.push(wordPuzzle);
       });
+      puzzleChld.sort(() => Math.random() - 0.5);
 
       function removePuzzleClds() {
         puzzleChld.length = 0;

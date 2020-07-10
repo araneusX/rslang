@@ -39,6 +39,17 @@ function GameRounds(props: any) {
     window.scrollTo({ top: y });
 
     assembledDOM.current.children[sentenceNumber].classList.add('opacity-full');
+
+    function updateSize() {
+      const { scrollY } = window;
+      window.scrollTo({ top: 0 });
+      const { bottom } = assembledDOM.current.children[sentenceNumber].getBoundingClientRect();
+      setHeight(bottom);
+      window.scrollTo({ top: scrollY });
+    }
+
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
   });
 
   const classAudio = isDisabledAudio();
@@ -171,7 +182,7 @@ function GameRounds(props: any) {
         }
       }
     }
-  }, puzzleChld.sort(() => Math.random() - 0.5));
+  }, puzzleChld);
 
   const wrapperGameRound = React.createElement('div', {
     className: 'wrapper-game-round',

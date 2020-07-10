@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { SentenceNode } from '../ts/Game';
 import { PuzzleContext } from '../context';
 import Preloader from '../../../../commonComponents/preloader/preloader';
@@ -37,7 +37,7 @@ const ImgAndWords = (props: any) => {
     );
   });
   const startGame: any = React.createElement(React.Fragment, null, React.createElement('div', {
-    className: 'wrapper-sentences-game'
+    className: 'wrapper-sentences-game opacity-clear-zero'
   }, sent), React.createElement('img', {
     alt: 'galery',
     onLoad: handleOnload,
