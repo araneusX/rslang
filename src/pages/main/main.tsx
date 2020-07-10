@@ -85,9 +85,13 @@ const Main = () => {
 
 
   const toggleDifficultBtn = () => {
+    const difficultBtn = document.getElementById('difficultBtn');
     const findDifficult = statistics.getAllWordsStatistics('difficult').some((elem) => elem.wordId === card.id);
-    if (findDifficult)  document.getElementById('difficultBtn')?.classList.add(cardStyle.restoreDifficult);
-    else document.getElementById('difficultBtn')?.classList.remove(cardStyle.restoreDifficult);
+    if (findDifficult) {
+      difficultBtn?.classList.add(cardStyle.restoreDifficult);
+    } else {
+      difficultBtn?.classList.remove(cardStyle.restoreDifficult);
+    }
   }
 
   useEffect(() => {
@@ -99,6 +103,7 @@ const Main = () => {
 
 
   useEffect(() => {
+    toggleDifficultBtn();
     dispatch({ type: 'SET_TRAINING_FIRST_VISIT', value: false });
     setFirstVisitOnGame(false);
   }, []);
@@ -195,9 +200,9 @@ const Main = () => {
                 <option value="new">Новые слова</option>
               </select>
               { isAudioOn ? (
-                <div className={style.soundOn} onClick={handleSoundControl} />
+                <div className={style.soundOn} onClick={handleSoundControl} title='Выключить автовоспроизведение' />
               ) : (
-                <div className={style.soundOff} onClick={handleSoundControl} />
+                <div className={style.soundOff} onClick={handleSoundControl} title='Включить автовоспроизведение' />
               )}
             </div>
             {!errorCard ? (

@@ -54,7 +54,7 @@ const Card: React.FC<{
       }
       if (!settings.addGrageButton && !isAudioOn && (isRight || showAns)) {
         sendData(1);
-        prop.nextCard(false);
+        setTimeout(prop.nextCard, 4000, false);
         setShowAns(false);
       }
     } else if (inputEl.current) {
@@ -127,11 +127,7 @@ const Card: React.FC<{
 
   const handlerToDifficult = (event: React.MouseEvent<HTMLDivElement>):void => {
     statistics.toggleDifficult(card.id);
-    if (event.currentTarget.classList.toggle(style.restoreDifficult)) {
-      event.currentTarget.title = 'Удалить из словаря';
-    } else {
-      event.currentTarget.title = 'Занести в словарь';
-    }
+    event.currentTarget.classList.toggle(style.restoreDifficult);
   };
 
   const handleShowAnswer = () => {
@@ -174,6 +170,7 @@ const Card: React.FC<{
           )}
           <input
             id="inputAnswer"
+            autoComplete='off'
             ref={inputEl}
             value={inputState}
             onChange={handlerInputChange}
@@ -224,7 +221,7 @@ const Card: React.FC<{
                     <div className={style.gradeContainer}>
                       <div title="Заново" id="repeat" onClick={() => { handlerDifficultLevel(3); }} className={style.repeatBtn} />
                       <div title="Легко" id="easyLevel" onClick={() => { handlerDifficultLevel(0); }} className={style.easyBtn} />
-                      <div title="Средне" id="middleLevel" onClick={() => { handlerDifficultLevel(1); }} className={style.mediumBtn} />
+                      <div title="Нормально" id="middleLevel" onClick={() => { handlerDifficultLevel(1); }} className={style.mediumBtn} />
                       <div title="Сложно" id="hardLevel" onClick={() => { handlerDifficultLevel(2); }} className={style.hardBtn} />
                     </div>
                     )}
@@ -243,7 +240,7 @@ const Card: React.FC<{
             onClick={handlerDeleteWord}
         />}
         {settings.addToDifficultWordsButton
-              && <div id="difficultBtn" title="Занести в словарь" className={style.toDifficultBtn} onClick={handlerToDifficult} />}
+              && <div id="difficultBtn" title="Занести или удалить из словаря" className={style.toDifficultBtn} onClick={handlerToDifficult} />}
         {settings.showAnswerButton
               && <div title="Показать ответ" className={style.showAnsBtn} onClick={handleShowAnswer} />}
       </div>

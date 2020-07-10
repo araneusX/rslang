@@ -42,10 +42,11 @@
     border-radius: 10px;
     font-weight: bold;
     font-size: 25px;
+    margin-bottom: 15px;
     div{
       padding: 2px;
       visibility: hidden;
-      color: red;
+      color: tomato;
       position: relative;
       z-index: 2;
     }
@@ -105,6 +106,7 @@
     width: 165px;
     height: 135px;
     border-radius: 5px;
+    margin-bottom: 15px;
   }
   .gradeContainer{
     display: flex;
@@ -124,26 +126,31 @@
       background-repeat: no-repeat;
       background-size: auto;
       animation: switchCard 1s;
+      transition: 0.5s ease-out;
+    }
+    div:hover{
+      box-shadow: none;
     }
     .easyBtn{
       background-color: #8BFF62;
-      box-shadow: 0px 2px 0px 0px #52D524;
+      box-shadow: 0px 2px 0px 1px #52D524;
       background-image: url(/images/greateBtn.svg);
     }
     .mediumBtn{
       background-color:  #FFF733;
-      box-shadow: 0px 2px 0px 0px #E8E02D;
+      box-shadow: 0px 2px 0px 1px #E8E02D;
       background-image: url(/images/goodBtn.svg);
     }
     .hardBtn{
       background-color: #FB0B0B;
-      box-shadow: 0px 2px 0px 0px #9F0B0B;
+      box-shadow: 0px 2px 0px 1px #9F0B0B;
       background-image: url(/images/sadBtn.svg);
     }
     .repeatBtn{
       background-color: #1BE2FD;
-      box-shadow: 0px 2px 0px 0px #08B3CA;
+      box-shadow: 0px 2px 0px 1px #08B3CA;
       background-image: url(/images/repeatBtn.svg);
+      background-size: 28px;
     }
   }
   .controlContainer{
@@ -157,12 +164,16 @@
       width: 45px;
       height: 45px;
       background: #FF9900;
-      box-shadow: 0px 2px 0px 0px #DE8500;
+      box-shadow: 0px 2px 0px 1px #DE8500;
       border-radius: 22px;
       cursor: pointer;
       background-position: center;
       background-repeat: no-repeat;
       background-size: auto;
+      transition: 0.5s ease-out;
+    }
+    div:hover{
+      box-shadow: none;
     }
     .deleteBtn{
       background-image: url(/images/deleteBtn.svg);
@@ -184,8 +195,29 @@
   }
 }
 
-.deleteBtn:hover, .toDifficultBtn:hover, .showAnsBtn:hover,
 .easyBtn:hover, .mediumBtn:hover, .hardBtn:hover, .repeatBtn:hover{
-  filter: grayscale(0.4);
+  box-shadow: none;
 }
 
+@media screen and (max-width: 500px){
+  .gradeContainer{
+    width: 100%!important;
+  }
+
+  .cardContainer{
+    width: 71vw!important;
+    p{
+      font-size: 17px;
+    }
+  }
+}
+
+@media screen and (max-width: 370px){
+  .gradeContainer{
+    height: 45px!important;
+    div{
+      width: 35px!important;
+      height: 32px!important;
+    }
+  }
+}
