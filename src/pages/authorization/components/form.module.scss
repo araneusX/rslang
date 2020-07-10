@@ -1,12 +1,111 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-image: url(./background.png);
+    background-size: cover;
+}
+
+.logInContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background: transparent;
+    height: 50vh;
+    width: 40vw;
+}
+
+.learnMore {
+    width: 200px;
+    height: 50px;
+    align-self: center;
+    background: #FF9900;
+    border: none;
+    border-radius: 15px;
+    box-shadow: #e48900 0 5px;
+    cursor: pointer;
+}
+
+.learnMore:hover{
+    background: #cc7a00;
+    box-shadow: #bb7000 0 5px;
+}
+
 .form {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
-    margin-top: 1rem;
-    padding: 1rem;
-    border: 3px solid #000;
-    border-radius: 5px;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: #778899 1px 1px 5px 5px;
 }
+
+form input {
+    width: 200px;
+    height: 40px;
+    border: lightslategrey 1px solid;
+    border-radius: 10px;
+}
+
+.btnContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 20vw;
+}
+
+.signInButton {
+    width: 100px;
+    height: 30px;
+    background: #FF9900;
+    box-shadow: #e48900 0 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.signUpButton {
+    width: 100px;
+    height: 30px;
+    background: #B2FDDC;
+    box-shadow: #6fffc1 0 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1020px) {
+    .btnContainer {
+      flex-direction: column;
+      height: 90px;
+      justify-content: space-around;
+      align-items: center;;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .logInContainer {
+      flex-direction: column;
+    }
+    .description {
+        width: 80vw;
+    }
+    .btnContainer {
+        flex-direction: row;
+        width: 250px;
+        height: auto;
+    }
+  }

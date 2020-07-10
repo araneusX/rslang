@@ -13,7 +13,7 @@ const Form = () => {
   const history = useHistory();
   const [email, setEmail] = useState('qw@qw.qw');
   const [password, setPassword] = useState('12qw!@QW');
-  const [message, setMessage] = useState('input your email and password');
+  const [message, setMessage] = useState('Введите e-mail и пароль');
 
   const { dispatch } = useContext(StateContext);
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
@@ -99,13 +99,26 @@ const Form = () => {
   }
 
   return (
-    <form className={style.form} onSubmit={submitHandler}>
-      <input type="email" name="email" placeholder="Enter your E-mail" value={email} onChange={(changeHandler)} />
-      <input type="text" name="password" placeholder="Password" value={password} onChange={changeHandler} />
-      <div className="output">{message}</div>
-      <button type="submit" value="log" onClick={(event) => clickHandler(event, 'log')}>Sign In</button>
-      <button type="submit" value="create" onClick={(event) => clickHandler(event, 'create')}>Sign Up</button>
-    </form>
+    <div className={style.logInContainer}>
+      <div className={style.description}>
+        <h1>Добро пожаловать в RSLang!</h1>
+        <span className={style.descriptionText}>
+          Rslang - это приложение, которое поможет вам выучить английский быстрее и наиболее интересным способом.
+          Вам будет весело и никогда не надоест учиться. Присоединяйтесь к нам!
+        </span>
+        <button type="button" className={style.learnMore}>Узнать больше</button>
+      </div>
+      <form className={style.form} onSubmit={submitHandler}>
+        <b>Бесплатная регистрация</b>
+        <input type="email" name="email" placeholder="Enter your E-mail" value={email} onChange={(changeHandler)} />
+        <input type="text" name="password" placeholder="Password" value={password} onChange={changeHandler} />
+        <div className="output">{message}</div>
+        <div className={style.btnContainer}>
+          <button type="submit" value="log" className={style.signInButton} onClick={(event) => clickHandler(event, 'log')}>Вход</button>
+          <button type="submit" value="create" className={style.signUpButton} onClick={(event) => clickHandler(event, 'create')}>Регистрация</button>
+        </div>
+      </form>
+    </div>
   );
 };
 
