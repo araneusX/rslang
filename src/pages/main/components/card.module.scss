@@ -206,8 +206,16 @@
 
   .cardContainer{
     width: 71vw!important;
+    flex-direction: column-reverse;
     p{
       font-size: 17px;
+    }
+    .controlContainer{
+      width: 85%;
+      height: 45px;
+      justify-content: space-around;
+      margin-bottom: 15px;
+      flex-direction: initial;
     }
   }
 }

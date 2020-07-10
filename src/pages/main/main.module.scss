@@ -182,7 +182,12 @@ option:hover, option:checked{
       width: -webkit-fill-available!important;
     }
   }
-
+  .cardBottomContainer{
+    width: 95%!important;
+    .wordTranslateContainer{
+      font-size: 19px;
+    }
+  }
   .learnContainer{
     width: 80vw!important;
   }
