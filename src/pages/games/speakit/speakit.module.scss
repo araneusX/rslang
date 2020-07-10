@@ -4,5 +4,10 @@
   &.background {
     background: url(/images/speakit/background.png);
     background-size: cover;
-    background-position: bottom;  }
+    background-position: bottom;
+
+    @media (max-width: 768px) {
+      background: none;
+    }
+  }
 }
