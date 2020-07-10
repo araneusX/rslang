@@ -1,16 +1,16 @@
 /* eslint-disable react/button-has-type */
 import React, {
-  useContext, useState, useEffect, ChangeEventHandler
+  useContext, useState, useEffect
 } from 'react';
+import { Link } from 'react-router-dom';
 import style from './main.module.scss';
 import cardStyle from './components/card.module.scss';
 import Card from './components/card';
-import { BackendWordInterface, StatisticsInterface } from '../../types';
+import { StatisticsInterface } from '../../types';
 import { StateContext } from '../../store/stateProvider';
 import trainGameCard from './components/training';
 import { StatisticsContext } from '../../statistics/statisticsProvider';
 import Preloader from '../../commonComponents/preloader/preloader';
-import { Link } from 'react-router-dom';
 
 const Main = () => {
   const { state, dispatch } = useContext(StateContext);
@@ -28,7 +28,6 @@ const Main = () => {
   const [count, setCount] = useState<number>(statistics.getDayStatistics().cards + 1);
   const [answer, setAns] = useState(false);
   const [sessionVocWrdCount, setSessionVocWrdCount] = useState(0);
-
 
   useEffect(() => {
     if (count > 1) {
@@ -84,7 +83,6 @@ const Main = () => {
     return () => { ignore = true; };
   }, [sessionVocWrdCount]);
 
-
   const toggleDifficultBtn = () => {
     const difficultBtn = document.getElementById('difficultBtn');
     const findDifficult = statistics.getAllWordsStatistics('difficult').some((elem) => elem.wordId === card.id);
@@ -93,15 +91,14 @@ const Main = () => {
     } else {
       difficultBtn?.classList.remove(cardStyle.restoreDifficult);
     }
-  }
+  };
 
   useEffect(() => {
     toggleDifficultBtn();
     if (isFirstVisit || !firstVisitOnGame) {
-      dispatch({type: 'SET_TRAINING_CARD_DELETE', value: false});
+      dispatch({ type: 'SET_TRAINING_CARD_DELETE', value: false });
     }
   }, [card]);
-
 
   useEffect(() => {
     toggleDifficultBtn();
@@ -172,10 +169,10 @@ const Main = () => {
                 <h2>Ура! На сегодня все.</h2>
                 <p>
                   &#8195;Есть еще новые карточки, но дневной лимит исчерпан.
-                   Вы можете увеличить лимит в настройках, но пожалуйста, имейте
-                   в виду, что чем больше новых карточек вы просмотрите, тем больше вам надо будет повторять в ближайшее время.
+                  Вы можете увеличить лимит в настройках, но пожалуйста, имейте
+                  в виду, что чем больше новых карточек вы просмотрите, тем больше вам надо будет повторять в ближайшее время.
                 </p>
-                <Link to={'/statistics'} className={style.toStatisticsBtn} > Статистика </Link>
+                <Link to="/statistics" className={style.toStatisticsBtn}> Статистика </Link>
               </>
             ) : (
               <>
@@ -188,7 +185,11 @@ const Main = () => {
                 <button
                   className={style.startLearnButton}
                   onClick={() => { setStart(false); }}
-                > Start </button>
+                >
+                  {' '}
+                  Start
+                  {' '}
+                </button>
               </>
             )}
           </div>
@@ -202,9 +203,9 @@ const Main = () => {
                 <option value="new">Новые слова</option>
               </select>
               { isAudioOn ? (
-                <div className={style.soundOn} onClick={handleSoundControl} title='Выключить автовоспроизведение' />
+                <div className={style.soundOn} onClick={handleSoundControl} title="Выключить автовоспроизведение" />
               ) : (
-                <div className={style.soundOff} onClick={handleSoundControl} title='Включить автовоспроизведение' />
+                <div className={style.soundOff} onClick={handleSoundControl} title="Включить автовоспроизведение" />
               )}
             </div>
             {!errorCard ? (

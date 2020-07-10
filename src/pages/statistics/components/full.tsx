@@ -15,7 +15,7 @@ const Full = () => {
   const fullDays = useMemo(() => generateFullDays(savedDays), [savedDays]);
   const days = [...fullDays];
   if (fullDays.length < 2) {
-    const start = { ... fullDays[0], newWords: 0, cards: 0 };
+    const start = { ...fullDays[0], newWords: 0, cards: 0 };
     days.unshift(start);
   }
 

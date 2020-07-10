@@ -122,7 +122,7 @@ const Card: React.FC<{
 
   const handlerDeleteWord = (event: React.MouseEvent<HTMLDivElement>):void => {
     statistics.toggleDeleted(card.id);
-    dispatch({type: 'SET_TRAINING_CARD_DELETE', value: !isCardDelete});
+    dispatch({ type: 'SET_TRAINING_CARD_DELETE', value: !isCardDelete });
   };
 
   const handlerToDifficult = (event: React.MouseEvent<HTMLDivElement>):void => {
@@ -170,7 +170,7 @@ const Card: React.FC<{
           )}
           <input
             id="inputAnswer"
-            autoComplete='off'
+            autoComplete="off"
             ref={inputEl}
             value={inputState}
             onChange={handlerInputChange}
@@ -226,24 +226,32 @@ const Card: React.FC<{
                     </div>
                     )}
       </div>
-      <div className={style.controlContainer}>
-        {settings.wordDeleteButton && isCardDelete &&
-          <div
-            title="Восстановить слово"
-            className={style.restore}
-            onClick={handlerDeleteWord}
-          />}
-        {settings.wordDeleteButton && !isCardDelete &&
-          <div
-            title="Удалить слово"
-            className={style.deleteBtn}
-            onClick={handlerDeleteWord}
-        />}
-        {settings.addToDifficultWordsButton
-              && <div id="difficultBtn" title="Занести или удалить из словаря" className={style.toDifficultBtn} onClick={handlerToDifficult} />}
-        {settings.showAnswerButton
-              && <div title="Показать ответ" className={style.showAnsBtn} onClick={handleShowAnswer} />}
-      </div>
+      { (settings.wordDeleteButton || settings.addToDifficultWordsButton
+        || settings.showAnswerButton)
+        && (
+        <div className={style.controlContainer}>
+          {settings.wordDeleteButton && isCardDelete
+            && (
+            <div
+              title="Восстановить слово"
+              className={style.restore}
+              onClick={handlerDeleteWord}
+            />
+            )}
+          {settings.wordDeleteButton && !isCardDelete
+            && (
+            <div
+              title="Удалить слово"
+              className={style.deleteBtn}
+              onClick={handlerDeleteWord}
+            />
+            )}
+          {settings.addToDifficultWordsButton
+            && <div id="difficultBtn" title="Занести или удалить из словаря" className={style.toDifficultBtn} onClick={handlerToDifficult} />}
+          {settings.showAnswerButton
+            && <div title="Показать ответ" className={style.showAnsBtn} onClick={handleShowAnswer} />}
+        </div>
+        )}
     </div>
   );
 };
