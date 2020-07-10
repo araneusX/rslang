@@ -6,6 +6,7 @@ import { downloadNewWords, getManyWordsById } from '../../../../backend/words';
 import { StatisticsContext } from '../../../../statistics/statisticsProvider';
 
 import style from './results.module.scss';
+import { Preloader } from '../../../../commonComponents';
 
 type ResultsPropsType = {};
 
@@ -18,6 +19,7 @@ const Results: React.FC<ResultsPropsType> = () => {
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
 
   const [isShowStatistics, setShowStatistics] = useState(false);
+  const [isPreloader, setPreloader] = useState(false);
 
   const right: JSX.Element[] = [];
   const mistakes: JSX.Element[] = [];
@@ -39,6 +41,7 @@ const Results: React.FC<ResultsPropsType> = () => {
   };
 
   const handleNew = async () => {
+    setPreloader(true);
     dispatch({ type: 'SET_SPEAKIT_GAME', value: false });
     dispatch({ type: 'SET_SPEAKIT_COMPLETE', value: false });
     let newLevel = level;
@@ -81,6 +84,7 @@ const Results: React.FC<ResultsPropsType> = () => {
     } else {
       console.error('BACKEND ERROR: Speak It');
     }
+    setPreloader(false);
     dispatch({ type: 'SET_SPEAKIT_SCREEN', value: 'main' });
   };
 
@@ -172,6 +176,7 @@ const Results: React.FC<ResultsPropsType> = () => {
           size="s3"
         />
       </div>
+      {isPreloader && <div className={style.preloader}><Preloader /></div>}
     </div>
   );
 };

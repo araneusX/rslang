@@ -2,7 +2,7 @@
 import React, {
   useState, useEffect, useMemo, useContext
 } from 'react';
-import { SimpleButton } from '../../../../commonComponents';
+import { SimpleButton, Preloader } from '../../../../commonComponents';
 import { downloadNewWords, getManyWordsById } from '../../../../backend/words';
 import {
   BackendWordInterface, SpeakitWordInterface, SpeakitModeType, StatisticsInterface
@@ -25,6 +25,7 @@ const Main: React.FC<MainPropsType> = () => {
 
   const [current, setCurrent] = useState<{word: SpeakitWordInterface, field: string}>();
   const [isPause, setPause] = useState(true);
+  const [isPreloader, setPreloader] = useState(false);
 
   const recognition = useMemo(() => new Recognition(), []);
 
@@ -50,6 +51,7 @@ const Main: React.FC<MainPropsType> = () => {
     let ignore = false;
     async function fetchData() {
       let result: any;
+      setPreloader(true);
       if (mode === 'user' && isUserWords) {
         const userWordsIds = statistics.getAllWordsId().slice(0, 10);
         result = await getManyWordsById(userWordsIds);
@@ -66,6 +68,7 @@ const Main: React.FC<MainPropsType> = () => {
               index: i
             }
           ));
+          setPreloader(false);
           setCurrent({ word: newWords[0], field: newWords[0].wordTranslate });
           dispatch({ type: 'SET_SPEAKIT_WORDS', value: newWords });
         } else {
@@ -79,6 +82,7 @@ const Main: React.FC<MainPropsType> = () => {
     } else {
       setCurrent({ word: words[0], field: words[0].wordTranslate });
     }
+
     return () => { ignore = true; };
   }, []);
 
@@ -171,6 +175,7 @@ const Main: React.FC<MainPropsType> = () => {
     newMode: SpeakitModeType
   ) => {
     let result: any;
+    setPreloader(true);
     if (newMode === 'user' && isUserWords) {
       const userWordsIds = statistics.getAllWordsId().slice(0, 10);
       result = await getManyWordsById(userWordsIds);
@@ -197,6 +202,7 @@ const Main: React.FC<MainPropsType> = () => {
     } else {
       console.error('BACKEND ERROR: Speak It');
     }
+    setPreloader(false);
   };
 
   const handleLevelChange = (event: React.SyntheticEvent) => {
@@ -215,10 +221,10 @@ const Main: React.FC<MainPropsType> = () => {
   };
 
   return (
-    <>
+    <div className={style.wrapper}>
       {current !== undefined
         && (
-        <div className={style.wrapper}>
+        <>
           <form
             className={style.levels}
           >
@@ -326,9 +332,10 @@ const Main: React.FC<MainPropsType> = () => {
               size="s2"
             />
           </div>
-        </div>
+        </>
         )}
-    </>
+      {isPreloader && <div className={style.preloader}><Preloader /></div>}
+    </div>
   );
 };
 
