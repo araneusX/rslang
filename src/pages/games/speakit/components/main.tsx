@@ -23,8 +23,9 @@ const Main: React.FC<MainPropsType> = () => {
 
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
 
-  const [current, setCurrent] = useState<SpeakitWordInterface>();
+  const [current, setCurrent] = useState<{word: SpeakitWordInterface, field: string}>();
   const [isPause, setPause] = useState(true);
+
   const recognition = useMemo(() => new Recognition(), []);
 
   const isUserWords = (statistics.getAllWordsStatistics()).length >= 10;
@@ -38,9 +39,9 @@ const Main: React.FC<MainPropsType> = () => {
   }
 
   if (current) {
-    imageUrl = current.image.slice(6);
-    imageAlt = current.word;
-    fieldText = current.wordTranslate;
+    imageUrl = current.word.image.slice(6);
+    imageAlt = current.word.word;
+    fieldText = current.field;
   }
 
   useEffect(() => (() => recognition.stop()), []);
@@ -65,10 +66,10 @@ const Main: React.FC<MainPropsType> = () => {
               index: i
             }
           ));
-          setCurrent(newWords[0]);
+          setCurrent({ word: newWords[0], field: newWords[0].wordTranslate });
           dispatch({ type: 'SET_SPEAKIT_WORDS', value: newWords });
         } else {
-          console.log('BACKEND ERROR: Speak It');
+          console.error('BACKEND ERROR: Speak It');
         }
       }
     }
@@ -76,7 +77,7 @@ const Main: React.FC<MainPropsType> = () => {
     if (words.length === 0) {
       fetchData();
     } else {
-      setCurrent(words[0]);
+      setCurrent({ word: words[0], field: words[0].wordTranslate });
     }
     return () => { ignore = true; };
   }, []);
@@ -92,12 +93,16 @@ const Main: React.FC<MainPropsType> = () => {
       recognition.stop();
       setPause(true);
     }
+
+    if (!game && current) {
+      setCurrent({ ...current, field: '' });
+    }
   };
 
   const handleChoose = (word: SpeakitWordInterface) => {
     if (!game) {
       word.sound.play();
-      setCurrent(word);
+      setCurrent({ word, field: word.wordTranslate });
     }
   };
 
@@ -111,6 +116,9 @@ const Main: React.FC<MainPropsType> = () => {
       const right = words.reduce((acc, word) => (word.isRecognized ? acc + 1 : acc), 0);
       statistics.saveMini('speakit', right);
       dispatch({ type: 'SET_SPEAKIT_WORDS', value: nowWords });
+      if (current) {
+        setCurrent({ ...current, field: '' });
+      }
     }
   };
 
@@ -120,12 +128,15 @@ const Main: React.FC<MainPropsType> = () => {
 
   const onResultRecognition = (resultArr: string[]) => {
     let isNewWord = false;
-    let nowCurrent = current;
+    let nowCurrent: any = { ...current, field: '' };
     const nowWords = [...words];
     words.forEach((word, i) => {
       if (resultArr.includes(word.word.toLowerCase()) && !word.isRecognized) {
         nowWords[i].isRecognized = true;
-        nowCurrent = nowWords[i];
+        nowCurrent = {
+          word: nowWords[i],
+          field: nowCurrent && nowCurrent.field === '' ? nowWords[i].word : `${nowCurrent.field}, ${nowWords[i].word}`
+        };
         isNewWord = true;
         statistics.saveWordMini(word.id, true);
       }
@@ -181,10 +192,10 @@ const Main: React.FC<MainPropsType> = () => {
       dispatch({ type: 'SET_SPEAKIT_GAME', value: false });
       dispatch({ type: 'SET_SPEAKIT_COMPLETE', value: false });
       dispatch({ type: 'SET_SPEAKIT_WORDS', value: newWords });
-      setCurrent(newWords[0]);
+      setCurrent({ word: newWords[0], field: newWords[0].wordTranslate });
       setPause(true);
     } else {
-      console.log('BACKEND ERROR: Speak It');
+      console.error('BACKEND ERROR: Speak It');
     }
   };
 
@@ -268,7 +279,7 @@ const Main: React.FC<MainPropsType> = () => {
             {words.map((word: SpeakitWordInterface, i:number) => {
               let classNames = `${style.word}`;
               if (!game) {
-                if (word.index === current.index) {
+                if (word.index === current.word.index) {
                   classNames += ` ${style.current}`;
                 } else {
                   classNames += ` ${style.usual}`;

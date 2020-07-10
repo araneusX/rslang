@@ -79,7 +79,7 @@ const Results: React.FC<ResultsPropsType> = () => {
       dispatch({ type: 'SET_SPEAKIT_ROUND', value: newRound });
       dispatch({ type: 'SET_SPEAKIT_LEVEL', value: newLevel });
     } else {
-      console.log('BACKEND ERROR: Speak It');
+      console.error('BACKEND ERROR: Speak It');
     }
     dispatch({ type: 'SET_SPEAKIT_SCREEN', value: 'main' });
   };
