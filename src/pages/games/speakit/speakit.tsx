@@ -17,7 +17,11 @@ const SpeakIt: React.FC<SpeakItPropsType> = () => {
   }), []);
 
   return (
-    <div className={style.page}>
+    <div
+      className={
+        `${style.page} ${screen === 'start' || screen === 'results' ? `${style.background}` : ''}`
+      }
+    >
       {screen === 'start' && <Start />}
       { screen === 'main' && <Main />}
       { screen === 'results' && <Results />}

@@ -1,0 +1,14 @@
+.page {
+  flex: 1;
+  position: relative;
+
+  &.background {
+    background: url(/images/speakit/background.png);
+    background-size: cover;
+    background-position: bottom;
+
+    @media (max-width: 768px) {
+      background: none;
+    }
+  }
+}
