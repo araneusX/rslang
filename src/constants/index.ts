@@ -87,13 +87,15 @@ export const WORDS_COUNT = 3600;
 
 export const initialAudioCallObject: AudioCallStateInterface = {
   level: 0,
-  round: 1,
+  page: 1,
   step: 0,
   selectLevel: false,
   startGame: false,
   finishGame: false,
   screen: 'start',
   words: [],
+  sound: true,
+  answerArray: [],
   allAnswerArray: [],
   correctAnswer: [],
   errorAnswer: []

@@ -1,5 +1,5 @@
 import {
-  SettingsInterface, AuthInterface, SpeakitWordInterface, SpeakitScreenType, SpeakitModeType, SprintWordInterface, SprintScreenType, BackendWordInterface
+  SettingsInterface, AuthInterface, SpeakitWordInterface, SpeakitScreenType, SpeakitModeType, SprintWordInterface, SprintScreenType, BackendWordInterface, AudioCallScreenType
 } from '../types';
 
 export type Action =
@@ -23,4 +23,6 @@ export type Action =
 | { type: 'SET_SPRINT_CORRECT_ANSWER', value: {correctAnswersInRowNext: number, pointsLevelNext: number, pointsForAnswerPlus: number}}
 | { type: 'SET_SPRINT_STEP_AND_CORRECT_ANSWERS_IN_ROW', value: number }
 | { type: 'SET_SPRINT_WORDS', value: SprintWordInterface[]}
-| { type: 'SET_AUDIO_NEW_GAME', value: BackendWordInterface[]};
+| { type: 'SET_AUDIO_WORDS', value: BackendWordInterface[]}
+| { type: 'SET_AUDIO_START_GAME'}
+| { type: 'SET_AUDIO_SCREEN', value: AudioCallScreenType};

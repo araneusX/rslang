@@ -223,7 +223,7 @@ export interface SprintStateInterface {
 export type AudioCallScreenType = 'start' | 'main' | 'results';
 export interface AudioCallStateInterface {
   level: number,
-  round: number,
+  page: number,
   step: number,
   selectLevel: boolean,
   startGame: boolean,
@@ -231,6 +231,9 @@ export interface AudioCallStateInterface {
   screen: SprintScreenType,
   words: BackendWordInterface[],
   allAnswerArray: string[],
+  answer?: BackendWordInterface,
+  sound: boolean,
+  answerArray: string[],
   correctAnswer: BackendWordInterface[],
   errorAnswer: BackendWordInterface[],
 }
