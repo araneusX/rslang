@@ -1,5 +1,12 @@
 import {
-  SettingsInterface, AuthInterface, SpeakitWordInterface, SpeakitScreenType, SpeakitModeType, TrainingScreenType, BackendWordInterface
+  SettingsInterface,
+  AuthInterface,
+  SpeakitWordInterface,
+  SpeakitScreenType,
+  SpeakitModeType,
+  SprintWordInterface,
+  SprintScreenType
+  TrainingScreenType,
 } from '../types';
 
 export type Action =
@@ -12,6 +19,17 @@ export type Action =
 | { type: 'SET_SPEAKIT_COMPLETE', value: boolean}
 | { type: 'SET_SPEAKIT_MODE', value: SpeakitModeType}
 | { type: 'SET_SPEAKIT_GAME', value: boolean}
+| { type: 'SET_SPRINT_NEW_GAME', value: {level: number, words: SprintWordInterface[], selectLevel:boolean} }
+| { type: 'SET_SPRINT_START_GAME'}
+| { type: 'SET_SPRINT_SCREEN', value: SprintScreenType}
+| { type: 'SET_SPRINT_POINTS_LEVEL', value: number}
+| { type: 'SET_SPRINT_ROUND_TIME', value: number}
+| { type: 'SET_SPRINT_ROUND_NUMBER', value: number}
+| { type: 'SET_SPRINT_LEVEL_NUMBER', value: number}
+| { type: 'SET_SPRINT_END_GAME'}
+| { type: 'SET_SPRINT_CORRECT_ANSWER', value: {correctAnswersInRowNext: number, pointsLevelNext: number, pointsForAnswerPlus: number}}
+| { type: 'SET_SPRINT_STEP_AND_CORRECT_ANSWERS_IN_ROW', value: number }
+| { type: 'SET_SPRINT_WORDS', value: SprintWordInterface[]}
 | { type: 'SET_TRAINING_SCREEN', value: TrainingScreenType }
 | { type: 'SET_TRAINING_COMPLETE', value: boolean }
 | { type: 'SET_TRAINING_AUDIO', value: boolean }
@@ -19,3 +37,4 @@ export type Action =
 | { type: 'SET_TRAINING_FIRST_VISIT', value: boolean }
 | { type: 'SET_TRAINING_MODE', value: string }
 | { type: 'SET_TRAINING_CARD_DELETE', value: boolean};
+

@@ -1,4 +1,4 @@
-import { WordStatisticsInterface } from '../types';
+import { WordStatisticsInterface, BackendWordInterface } from '../types';
 import { SERVER } from '../constants';
 
 export async function getWords(group: number, page: number) {
@@ -6,6 +6,59 @@ export async function getWords(group: number, page: number) {
   const response = await fetch(url);
   const data = await response.json();
   return data;
+}
+
+export async function getWordsByFilter(
+  userId:string,
+  token: string,
+  filters: { [key: string]: any}
+): Promise<{
+    ok: boolean,
+    content: Array<{
+      statistics: WordStatisticsInterface,
+      word: BackendWordInterface
+    }>
+  }> {
+  const url = `${SERVER}/users/${userId}/aggregatedWords`;
+  const filter = {} as {'$and': Array<{[key: string]: any}> };
+  filter.$and = [
+    Object.keys(filters).reduce((param, key) => {
+      // eslint-disable-next-line no-param-reassign
+      param[`userWord.optional.${key}`] = filters[key];
+      return param;
+    }, {} as {[key: string]: any})
+  ];
+  const param = encodeURIComponent(JSON.stringify(filter));
+  try {
+    const rawResponse = await fetch(`${url}?filter=${param}&wordsPerPage=3600`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json'
+      }
+    });
+
+    const result = await rawResponse.json();
+
+    let content: any[] = [];
+
+    content = result[0].paginatedResults.map((wordObj: any) => {
+      const word = { ...wordObj };
+      // eslint-disable-next-line no-underscore-dangle
+      word.id = word._id;
+      // eslint-disable-next-line no-underscore-dangle
+      delete word._id;
+      delete word.userWord;
+      return {
+        statistics: wordObj.userWord.optional as WordStatisticsInterface,
+        word: word as BackendWordInterface
+      };
+    });
+
+    return { ok: true, content };
+  } catch (error) {
+    return { ok: false, content: [] };
+  }
 }
 
 export async function getWordById(id: string) {

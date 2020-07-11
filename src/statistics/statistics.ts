@@ -67,8 +67,10 @@ const statistics: StatisticsInterface = {
     const days = Object.keys(this.days);
     return JSON.parse(JSON.stringify(
       days.map((i) => this.days[i]).sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
+        const [dayA, monthA, yearA] = a.date.split('-');
+        const [dayB, monthB, yearB] = b.date.split('-');
+        const dateA = new Date(`${monthA}-${dayA}-${yearA}`);
+        const dateB = new Date(`${monthB}-${dayB}-${yearB}`);
         return dateA < dateB ? -1 : 1;
       })
     ));
@@ -153,7 +155,6 @@ const statistics: StatisticsInterface = {
 
     if (isRight) {
       this.userWordsId[wordId].allRight += 1;
-      this.userWordsId[wordId].lastRight = getFormattedDate();
       this.userWordsId[wordId].continuedRight += 1;
       this.userWordsId[wordId].interval += 1;
       this.series += 1;
@@ -174,6 +175,7 @@ const statistics: StatisticsInterface = {
       this.userWordsId[wordId].maxContinuedRight = this.userWordsId[wordId].continuedRight;
     }
 
+    this.userWordsId[wordId].lastRight = getFormattedDate();
     this.userWordsId[wordId].allShow += 1;
     this.userWordsId[wordId].interval += (3 - difficulty);
 
@@ -228,9 +230,14 @@ const statistics: StatisticsInterface = {
     return { ok: true };
   },
 
-  getAllWordsStatistics() {
+  getAllWordsStatistics(filter = 'all') {
     const words = this.userWords
-      .filter((word) => (!word.isDeleted && word.isCorrect))
+      .filter((word) => {
+        if (filter === 'difficult') {
+          return (!word.isDeleted && word.isCorrect && word.isDifficult);
+        }
+        return (!word.isDeleted && word.isCorrect);
+      })
       .sort((a, b) => (a.interval - b.interval));
     return JSON.parse(JSON.stringify(words));
   },
@@ -242,26 +249,24 @@ const statistics: StatisticsInterface = {
     return JSON.parse(JSON.stringify(words));
   },
 
-  getWordStatistics() {
-    const words = this.userWords.filter((wordObj) => (!wordObj.isDeleted && wordObj.isCorrect));
+  getWordStatistics(filter = 'all') {
+    const words = this.getAllWordsStatistics(filter);
     const word = words.length > 0
-      ? words.reduce((acc, wordObj) => (acc.interval > wordObj.interval ? wordObj : acc))
+      ? words[0]
       : null;
     return JSON.parse(JSON.stringify(word));
   },
 
-  getAllWordsId() {
-    const wordIds = this.userWords
-      .filter((word) => (!word.isDeleted && word.isCorrect))
-      .sort((a, b) => (a.interval - b.interval))
-      .map((word) => word.wordId);
+  getAllWordsId(filter = 'all') {
+    const words = this.getAllWordsStatistics(filter);
+    const wordIds = words.map((word) => word.wordId);
     return wordIds;
   },
 
-  getWordId() {
-    const words = this.userWords.filter((wordObj) => (!wordObj.isDeleted && wordObj.isCorrect));
-    const wordId = words.length > 0
-      ? words.reduce((acc, wordObj) => (acc.interval > wordObj.interval ? wordObj : acc)).wordId
+  getWordId(filter = 'all') {
+    const wordIds = this.getAllWordsId(filter);
+    const wordId = wordIds.length > 0
+      ? wordIds[0]
       : null;
     return wordId;
   },
@@ -287,7 +292,7 @@ const statistics: StatisticsInterface = {
       this.days[key] = initialDayStatisticsObject;
       this.days[key].date = getFormattedDate();
       this.series = 0;
-      const statisticsData:any = await getUserStatistics(userId, token);
+      const statisticsData: any = await getUserStatistics(userId, token);
 
       if (statisticsData.status === 404) {
         const userStatistics: UserStatisticsInterface = {

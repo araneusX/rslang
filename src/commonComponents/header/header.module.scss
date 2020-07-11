@@ -1,4 +1,114 @@
-.headerButtons {
+@import './scss/style.scss';
+
+.header {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
+  align-items: center;
+  height: 110px;
+  background: #FFFDF9;
+  box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.08);
+  @include media-tablet() {
+    position: relative;
+    padding: 5px 5px 40px 5px;
+  }
+  @include media-mobiles-big() {
+    padding: 5px;
+  }
+  @include media-mobiles-small() {
+    height: initial;
+    display: block;
+    padding: 5px;
+  }
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  @include media-tablet() {
+    justify-content: center;
+  }
+}
+
+.logo-rslang {
+  background: url('./data/LogoHeader.png');
+  width: 51px;
+  height: 67px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.rs {
+  font-family: 'Rubik', sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 36px;
+  color: #333333;
+  padding-left: 5px;
+}
+
+.lang {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-size: 36px;
+  color: #333333;
+}
+
+.header-links {
+  display: flex;
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  color: #333333;
+  justify-content: space-between;
+  align-items: center;
+
+  @include media-tablet() {
+    display: flex;
+    position: absolute;
+    bottom: 6px;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+  @include media-mobiles-big() {
+    position: initial;
+    flex-direction: column;
+    width: initial;
+    font-size: initial;
+  }
+  @include media-mobiles-small() {
+    flex-direction: column;
+    align-items: center;
+    position: initial;
+    font-size: 22px;
+  }
+}
+
+.log-out {
+  width: 190px;
+  height: 61px;
+  background: #FF9900;
+  color: #5E2D00;
+  border-radius: 22px;
+  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  @include media-mobiles-small() {
+    margin: 10px auto;
+  }
+}
+
+.logout-image {
+  background: url('./data/exit\ 1.png');
+  width: 41px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }

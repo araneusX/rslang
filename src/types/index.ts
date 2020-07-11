@@ -63,7 +63,7 @@ export interface StatisticsInterface extends UserStatisticsInterface {
 
   saveMini: (name: MiniGamesNamesType, result: number) => Promise<{ok: boolean}>,
 
-  getMini: (name: MiniGamesNamesType) => {};
+  getMini: (name: MiniGamesNamesType) => {date: string, results: number[]}[];
 
   initUser: (
     userId: string,
@@ -122,8 +122,8 @@ export interface WordStatisticsInterface {
 
 export interface BackendWordInterface {
   id: string,
-  group: 0|1|2|3|4|5,
-  page: number,
+  group: number,
+  round: number,
   word: string,
   image: string,
   audio: string,
@@ -140,7 +140,6 @@ export interface BackendWordInterface {
 
 export interface CardInterface{
   id: string,
-  group: 0|1|2|3|4|5,
   word: string,
   image: string,
   audio: string,
@@ -167,10 +166,6 @@ export interface CardSettingsInterface {
   translateToTheCard: boolean,
   exampleToCard: boolean,
   explainToCard: boolean,
-  showAnswerButton: boolean,
-  addToDifficultWordsButton: boolean,
-  addGrageButton: boolean,
-  wordDeleteButton: boolean,
 }
 
 export interface SettingsOptionalInterface extends CardSettingsInterface {
@@ -204,6 +199,27 @@ export interface SpeakitStateInterface {
   mode: SpeakitModeType
 }
 
+export interface SprintWordInterface extends BackendWordInterface {
+  answerToUser: string
+}
+
+export type SprintScreenType = 'start' | 'main' | 'results';
+export interface SprintStateInterface {
+  level: number,
+  round: number,
+  step: number,
+  correctAnswersInRow: number,
+  selectLevel: boolean,
+  startGame: boolean,
+  finishGame: boolean,
+  screen: SprintScreenType,
+  words: SprintWordInterface[],
+  pointsForAnswer: number[],
+  pointsForRound: number,
+  pointsLevel: number,
+  roundTime: number
+}
+
 export type TrainingScreenType = 'start' | 'main';
 
 export interface TrainingStateInterface {
@@ -220,5 +236,6 @@ export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
   speakit: SpeakitStateInterface,
+  sprint: SprintStateInterface,
   training: TrainingStateInterface
 }

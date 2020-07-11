@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 
 import style from './start.module.scss';
-import { SpeakitScreenType } from '../../../../types';
 import { StateContext } from '../../../../store/stateProvider';
+import { SimpleButton } from '../../../../commonComponents';
 
 type StartPropsType = {};
 
@@ -16,8 +16,11 @@ const Start: React.FC<StartPropsType> = () => {
   return (
     <div className={style.wrapper}>
       <p className={style.title}>Speak It</p>
-      <p className={style.text}>Click on the words to hear them sound. Click on the button and speak the words into the microphone.</p>
-      <button className={style.button} type="button" onClick={handleStart}>Start</button>
+      <p className={style.text}>
+        {`Вам понадобится микрофон. Дайте разрешение браузеру на использование микрофона.
+        Во время игры кликните по кнопке "Включить микрофон" и произносите слова.`}
+      </p>
+      <SimpleButton clickHandler={handleStart} text="Начать!" size="s1" />
     </div>
   );
 };
