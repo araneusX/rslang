@@ -37,6 +37,17 @@ const Card: React.FC<{
     return () => { ignore = true; };
   };
 
+  useEffect (() => () => { sound.pause(); sound.src = sound.src; }, []);
+  useEffect(() => {
+    const difficultBtn = document.getElementById('difficultBtn');
+    const findDifficult = statistics.getAllWordsStatistics('difficult').some((elem) => elem.wordId === card.id);
+    if (findDifficult) {
+      difficultBtn?.classList.add(style.restoreDifficult);
+    } else {
+      difficultBtn?.classList.remove(style.restoreDifficult);
+    }
+  }, [])
+
   useEffect(() => {
     if (prop.answer) {
       if (!isRight && !showAns) {
@@ -57,11 +68,11 @@ const Card: React.FC<{
         setTimeout(prop.nextCard, 4000, false);
         setShowAns(false);
       }
+      setInputState('');
     } else if (inputEl.current) {
       setUserAns(card.word);
       inputEl.current.focus();
     }
-    setInputState('');
   }, [prop.answer]);
 
   const playAudio = () => {
@@ -113,8 +124,9 @@ const Card: React.FC<{
     if ((prop.answer && !isRight && !settings.addGrageButton)
       || (prop.answer && !isRight && settings.addGrageButton && !showAns)) {
       prop.callback(false);
-      sound.currentTime = 0;
       sound.pause();
+      sound.src = sound.src;
+      setInputState(event.target.value);
     } else if (!prop.answer) {
       setInputState(event.target.value);
     }
@@ -137,8 +149,8 @@ const Card: React.FC<{
 
   const handlerDifficultLevel = (level: 1|2|0|3) => {
     if (isRight || showAns) {
-      sound.currentTime = 0;
       sound.pause();
+      sound.src = sound.src;
       prop.callback(false);
       setShowAns(false);
       if (level !== 3) {

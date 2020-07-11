@@ -101,7 +101,6 @@ const Main = () => {
   }, [card]);
 
   useEffect(() => {
-    toggleDifficultBtn();
     dispatch({ type: 'SET_TRAINING_FIRST_VISIT', value: false });
     setFirstVisitOnGame(false);
   }, []);
@@ -159,9 +158,9 @@ const Main = () => {
 
   return (
     <>
-      {preloaderState
-        && <Preloader />}
       <div className={style.learnContainer}>
+        {preloaderState
+          && <Preloader />}
         {startPreview || endPreview ? (
           <div className={style.startBasicGameContainer}>
             {endPreview ? (
