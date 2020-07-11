@@ -42,16 +42,16 @@ export const initSettingsObject: SettingsInterface = {
   wordsPerDay: 10,
   optional: {
     maxCountCard: 20,
-    imageToCard: false,
-    pronounseToCard: false,
-    transcriptionToCard: false,
-    translateToTheCard: false,
-    exampleToCard: false,
-    explainToCard: false,
-    showAnswerButton: false,
-    wordDeleteButton: false,
-    addToDifficultWordsButton: false,
-    addGrageButton: false,
+    imageToCard: true,
+    pronounseToCard: true,
+    transcriptionToCard: true,
+    translateToTheCard: true,
+    exampleToCard: true,
+    explainToCard: true,
+    showAnswerButton: true,
+    wordDeleteButton: true,
+    addToDifficultWordsButton: true,
+    addGrageButton: true,
     level: 1
   }
 };
