@@ -46,19 +46,19 @@ const Full = () => {
       <div className={style.inner_wrapper}>
         <div className={style.count}>
           <div className={style.row}>
-            Total days:
+            Прошло дней от начала обучения:
             <span className={style.value}>
               {fullDays.length}
             </span>
           </div>
           <div className={style.row}>
-            Total cards:
+            Всего карточек просмотрено:
             <span className={style.value}>
               {totalStats.cards}
             </span>
           </div>
           <div className={style.row}>
-            Total words:
+            Всего слов изучено:
             <span className={style.value}>
               {totalStats.newWords}
             </span>
@@ -155,13 +155,13 @@ const Full = () => {
                       x={points[i].x - 40}
                       y={points[i].y + 65}
                     >
-                      {`Cards: ${day.cards}`}
+                      {`Карточек: ${day.cards}`}
                     </text>
                     <text
                       x={points[i].x - 40}
                       y={points[i].y + 80}
                     >
-                      {`New words: ${day.newWords}`}
+                      {`Новых слов: ${day.newWords}`}
                     </text>
                   </g>
                 </g>
@@ -173,6 +173,9 @@ const Full = () => {
             <span>{days[days.length - 1].date}</span>
           </div>
         </div>
+      </div>
+      <div className={style.message}>
+        Наведите курсор на точку на графике, чтобы получить больше информации.
       </div>
     </div>
 
