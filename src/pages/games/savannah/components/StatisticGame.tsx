@@ -106,14 +106,19 @@ const StatisticGame = (props:Props) => {
                     :
                   </span>
                   <div>
-                    Правильных ответов в раунде:
-                    {obj.results.map((i:number, index) => (
-                      // eslint-disable-next-line react/no-array-index-key
-                      <span key={index}>
-                        {i}
-                        ,
-                      </span>
-                    ))}
+                    Раунды:
+                    <ol>
+                      {obj.results.map((i:number, index) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <li key={index}>
+                          <b>
+                            Угаданно слов:
+                            {' '}
+                          </b>
+                          {i}
+                        </li>
+                      ))}
+                    </ol>
                   </div>
                 </div>
               ))}

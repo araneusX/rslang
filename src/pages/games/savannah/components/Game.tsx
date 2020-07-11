@@ -128,9 +128,9 @@ const Game = (props:Props) => {
 
   const lifeDecriment = useCallback(
     () => {
-      props.setSavannah({ ...savannah, life: savannah.life - 1 });
+      props.setSavannah({ ...savannah, life: savannah.life - 1, errorAnswerArray: [...savannah.errorAnswerArray, answer] });
     },
-    [savannah, props]
+    [savannah, props, answer]
   );
 
   const checkStatusGame = useCallback(() => {
@@ -165,6 +165,7 @@ const Game = (props:Props) => {
           <StatisticGame savannah={savannah} setSavannah={setSavannah} />
         ) : (
           <div className={style.gameMainWrapper}>
+            <div className={`${style.lineToError}`} style={{ top: `${startSecondsToAnswerValue + 100}px` }} />
             <div className={style.gameMainHead}>
               <div className={style.gameMainLifes}>
                 {lifes.map((i) => (i <= savannah.life ? <span key={i} className={style.gameMainLifeOn} />

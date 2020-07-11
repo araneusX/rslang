@@ -214,6 +214,15 @@
     }
 }
 
+.lineToError{
+    position: absolute;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 1px;
+    border-bottom: 5px dotted #FF9C9C;
+}
+
 .statisticRoundContentDate{
     display: block;
     background-color: #A7FF90;
