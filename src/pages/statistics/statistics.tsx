@@ -18,21 +18,21 @@ const Statistics = () => {
           type="button"
           onClick={handlePeriodChange.bind(null, 'session')}
         >
-          Session stats
+          Статистика за сегодня
         </button>
         <button
           className={periodType === 'total' ? style.activeTab : style.passiveTab}
           type="button"
           onClick={handlePeriodChange.bind(null, 'total')}
         >
-          Total stats
+          Изученные слова
         </button>
         <button
           className={periodType === 'full' ? style.activeTab : style.passiveTab}
           type="button"
           onClick={handlePeriodChange.bind(null, 'full')}
         >
-          Full stats
+          Ежедневные достижения
         </button>
       </div>
       { periodType === 'session' && <Session />}
