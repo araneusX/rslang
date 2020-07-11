@@ -163,9 +163,12 @@ const statistics: StatisticsInterface = {
       this.series = 0;
     }
 
-    const minInterval = (this.userWords
-      .filter((word) => (!word.isDeleted && word.isCorrect))
-      .sort((a, b) => (a.interval - b.interval)))[1].interval;
+    const minInterval = this.userWords.length < 2
+      ? this.userWordsId[wordId].interval
+      : (this.userWords
+        .filter((word) => (!word.isDeleted && word.isCorrect))
+        .sort((a, b) => (a.interval - b.interval))
+      )[1].interval;
 
     if (this.userWordsId[wordId].interval < minInterval) {
       this.userWordsId[wordId].interval = minInterval + 1;
