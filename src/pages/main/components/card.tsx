@@ -5,7 +5,7 @@ import React, {
   useState, useContext, useEffect, useMemo, useRef
 } from 'react';
 import style from './card.module.scss';
-import { CardSettingsInterface, StatisticsInterface } from '../../../types';
+import { StatisticsInterface } from '../../../types';
 import { StatisticsContext } from '../../../statistics/statisticsProvider';
 import { StateContext } from '../../../store/stateProvider';
 

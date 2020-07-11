@@ -15,7 +15,7 @@ import Preloader from '../../commonComponents/preloader/preloader';
 const Main = () => {
   const { state, dispatch } = useContext(StateContext);
 
-  const [preloaderState, setPreloaderState] = useState(false);
+  const [preloaderState, setPreloaderState] = useState(true);
   const {
     isAudioOn, isFirstVisit, trainingMode, card
   } = state.training;
@@ -103,6 +103,7 @@ const Main = () => {
   useEffect(() => {
     dispatch({ type: 'SET_TRAINING_FIRST_VISIT', value: false });
     setFirstVisitOnGame(false);
+    setPreloaderState(false);
   }, []);
 
   const {
@@ -160,7 +161,7 @@ const Main = () => {
     <>
       <div className={style.learnContainer}>
         {preloaderState
-          && <Preloader />}
+        && <Preloader />}
         {startPreview || endPreview ? (
           <div className={style.startBasicGameContainer}>
             {endPreview ? (

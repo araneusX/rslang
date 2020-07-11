@@ -6,6 +6,7 @@
     align-items: center;
     max-width: 620px;
     margin-bottom: 70px;
+    animation: smoothOpacity 1s ease-out;
 
   .startLearnButton, .toStatisticsBtn{
     background-color: #FF9900;
@@ -87,6 +88,7 @@
 
 .controlContainer{
   text-align-last: center;
+  animation: smoothOpacity 1s ease-out;
   button{
     background-color: #FF9900;
     border-radius: 22px;
@@ -108,6 +110,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  animation: smoothOpacity 1s ease-out;
 
   div:hover, select:hover{
     box-shadow: none;
@@ -164,6 +167,7 @@
   margin-bottom: 60px;
   margin-top: 10px;
   max-width: 640px;
+  animation: smoothOpacity 1s ease-out;
 
   div{
     background-color: #FF9900;
@@ -219,5 +223,14 @@ option:hover, option:checked{
   }
   .learnContainer{
     width: 80vw!important;
+  }
+}
+
+@keyframes smoothOpacity {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
   }
 }
