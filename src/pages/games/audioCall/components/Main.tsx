@@ -93,7 +93,7 @@ const Main = () => {
   }
 
   useEffect(() => {
-    if (answer && state.audioCall.startGame) {
+    if (answer) {
       const url = `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${answer.audio}`;
       const audio = new Audio(url);
       audio.play();
