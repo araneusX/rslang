@@ -12,8 +12,8 @@ import { StateContext } from '../../../store/stateProvider';
 const Card: React.FC<{
   settings: CardSettingsInterface, answer: boolean,
   callback: Function, count: number, nextCard: Function }> = (prop) => {
-  const { state } = useContext(StateContext);
-  const { isAudioOn, card } = state.training;
+  const { state, dispatch } = useContext(StateContext);
+  const { isAudioOn, card, isCardDelete } = state.training;
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
   const { settings } = prop;
   const [inputState, setInputState] = useState('');
@@ -39,6 +39,9 @@ const Card: React.FC<{
 
   useEffect(() => {
     if (prop.answer) {
+      if (!isRight && !showAns) {
+        document.getElementById('currentWord')?.classList.add(style.opacity);
+      }
       if (inputEl.current) {
         inputEl.current.blur();
       }
@@ -51,7 +54,7 @@ const Card: React.FC<{
       }
       if (!settings.addGrageButton && !isAudioOn && (isRight || showAns)) {
         sendData(1);
-        prop.nextCard(false);
+        setTimeout(prop.nextCard, 4000, false);
         setShowAns(false);
       }
     } else if (inputEl.current) {
@@ -73,7 +76,9 @@ const Card: React.FC<{
       } else if (settings.exampleToCard) {
         sound.src = getRightWay(card.audioExample);
       }
-      sound.play();
+      if (sound.src !== getRightWay(card.audio)) {
+        sound.play();
+      }
     } else if ((sound.src === getRightWay(card.audioMeaning)) && settings.exampleToCard) {
       sound.src = getRightWay(card.audioExample);
       sound.play();
@@ -108,20 +113,21 @@ const Card: React.FC<{
     if ((prop.answer && !isRight && !settings.addGrageButton)
       || (prop.answer && !isRight && settings.addGrageButton && !showAns)) {
       prop.callback(false);
+      sound.currentTime = 0;
       sound.pause();
     } else if (!prop.answer) {
       setInputState(event.target.value);
     }
   };
 
-  const handlerDeleteWord = () => {
+  const handlerDeleteWord = (event: React.MouseEvent<HTMLDivElement>):void => {
     statistics.toggleDeleted(card.id);
-    prop.nextCard(true);
+    dispatch({ type: 'SET_TRAINING_CARD_DELETE', value: !isCardDelete });
   };
 
-  const handlerToDifficult = () => {
+  const handlerToDifficult = (event: React.MouseEvent<HTMLDivElement>):void => {
     statistics.toggleDifficult(card.id);
-    prop.nextCard(true);
+    event.currentTarget.classList.toggle(style.restoreDifficult);
   };
 
   const handleShowAnswer = () => {
@@ -129,12 +135,16 @@ const Card: React.FC<{
     prop.callback(true);
   };
 
-  const handlerDifficultLevel = (level: 1|2|0) => {
+  const handlerDifficultLevel = (level: 1|2|0|3) => {
     if (isRight || showAns) {
+      sound.currentTime = 0;
       sound.pause();
-      sendData(level);
-      prop.nextCard(false);
+      prop.callback(false);
       setShowAns(false);
+      if (level !== 3) {
+        sendData(level);
+        prop.nextCard(false);
+      }
     }
   };
 
@@ -146,35 +156,30 @@ const Card: React.FC<{
 
   return (
     <div className={style.cardContainer} id={card.id}>
-      <div className={style.wordContainer}>
-        { prop.answer ? (
-          <div
-            className={style.showCurrentWord}
-            dangerouslySetInnerHTML={currentWord()}
-            onClick={handleCurrentWord}
+      <div className={style.mainInfoContainer}>
+        <div className={style.wordContainer}>
+          { prop.answer ? (
+            <div
+              className={style.showCurrentWord}
+              dangerouslySetInnerHTML={currentWord()}
+              onClick={handleCurrentWord}
+              id="currentWord"
+            />
+          ) : (
+            <div dangerouslySetInnerHTML={currentWord()} />
+          )}
+          <input
+            id="inputAnswer"
+            autoComplete="off"
+            ref={inputEl}
+            value={inputState}
+            onChange={handlerInputChange}
+            onKeyPress={handlerInputKeyPress}
+            maxLength={card.word.length}
           />
-        ) : (
-          <div dangerouslySetInnerHTML={currentWord()} />
-        )}
-        <input
-          ref={inputEl}
-          value={inputState}
-          onChange={handlerInputChange}
-          onKeyPress={handlerInputKeyPress}
-          maxLength={card.word.length}
-        />
-      </div>
-      {settings.imageToCard
+        </div>
+        {settings.imageToCard
                 && <img src={getRightWay(card.image)} alt="" />}
-      <>
-        {settings.translateToTheCard
-                    && (
-                    <p>
-                      {card.wordTranslate}
-                      {settings.transcriptionToCard
-                      && <span>{card.transcription}</span>}
-                    </p>
-                    )}
         {settings.explainToCard
                     && (
                     <>
@@ -214,20 +219,39 @@ const Card: React.FC<{
         {settings.addGrageButton && prop.answer && (isRight || showAns)
                     && (
                     <div className={style.gradeContainer}>
-                      <div title="Легко" id="easyLevel" onClick={() => { handlerDifficultLevel(0); }} className={style.easyBtn}>Es</div>
-                      <div title="Средне" id="middleLevel" onClick={() => { handlerDifficultLevel(1); }} className={style.mediumBtn}>Md</div>
-                      <div title="Сложно" id="hardLevel" onClick={() => { handlerDifficultLevel(2); }} className={style.hardBtn}>Hrd</div>
+                      <div title="Заново" id="repeat" onClick={() => { handlerDifficultLevel(3); }} className={style.repeatBtn} />
+                      <div title="Легко" id="easyLevel" onClick={() => { handlerDifficultLevel(0); }} className={style.easyBtn} />
+                      <div title="Нормально" id="middleLevel" onClick={() => { handlerDifficultLevel(1); }} className={style.mediumBtn} />
+                      <div title="Сложно" id="hardLevel" onClick={() => { handlerDifficultLevel(2); }} className={style.hardBtn} />
                     </div>
                     )}
+      </div>
+      { (settings.wordDeleteButton || settings.addToDifficultWordsButton
+        || settings.showAnswerButton)
+        && (
         <div className={style.controlContainer}>
-          {settings.wordDeleteButton
-              && <div onClick={handlerDeleteWord}>del</div>}
+          {settings.wordDeleteButton && isCardDelete
+            && (
+            <div
+              title="Восстановить слово"
+              className={style.restore}
+              onClick={handlerDeleteWord}
+            />
+            )}
+          {settings.wordDeleteButton && !isCardDelete
+            && (
+            <div
+              title="Удалить слово"
+              className={style.deleteBtn}
+              onClick={handlerDeleteWord}
+            />
+            )}
           {settings.addToDifficultWordsButton
-              && <div onClick={handlerToDifficult}>hrd</div>}
+            && <div id="difficultBtn" title="Занести или удалить из словаря" className={style.toDifficultBtn} onClick={handlerToDifficult} />}
           {settings.showAnswerButton
-              && <div onClick={handleShowAnswer}>?</div>}
+            && <div title="Показать ответ" className={style.showAnsBtn} onClick={handleShowAnswer} />}
         </div>
-      </>
+        )}
     </div>
   );
 };

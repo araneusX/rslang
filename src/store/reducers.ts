@@ -46,10 +46,6 @@ const speakItReducer = (state: SpeakitStateInterface, action:Action): SpeakitSta
       const { value } = action;
       return { ...state, complete: value };
     }
-    case 'SET_SPEAKIT_GAME': {
-      const { value } = action;
-      return { ...state, game: value };
-    }
     case 'SET_SPEAKIT_MODE': {
       const { value } = action;
       return { ...state, mode: value };
@@ -78,19 +74,24 @@ const trainReducer = (state: TrainingStateInterface, action: Action): TrainingSt
     }
     case 'SET_TRAINING_FIRST_VISIT': {
       const { value } = action;
-      return { ...state, isFirstVisit: value};
+      return { ...state, isFirstVisit: value };
     }
     case 'SET_TRAINING_MODE': {
       const { value } = action;
-      return { ...state, trainingMode: value};
+      return { ...state, trainingMode: value };
+    }
+    case 'SET_TRAINING_CARD_DELETE': {
+      const { value } = action;
+      return { ...state, isCardDelete: value };
     }
     default: return state;
   }
 };
 
-
 const mainReducer = (
-  { auth, settings, speakit, training }: StateInterface,
+  {
+    auth, settings, speakit, training
+  }: StateInterface,
   action:Action
 ): StateInterface => ({
   auth: authReducer(auth, action),
