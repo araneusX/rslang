@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import style from './games.module.scss';
 
@@ -8,10 +8,12 @@ const Games = () => (
       <Link to="/games/speakit">
         <div className={style.tile}>Speak It</div>
       </Link>
+      <Link to="/games/savannah"> Savvannah </Link>
       <Link to="/games/sprint">
         <div className={style.tile}>Sprint</div>
       </Link>
     </nav>
   </>
 );
+
 export default Games;
