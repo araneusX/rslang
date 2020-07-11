@@ -10,11 +10,12 @@ interface Props {
 const StartGamePage = (props:Props) => (
   <div className={style.startButtonWrapper}>
     <div className={style.startButtonWrapperBtnBlock}>
-      <h2>Savannah</h2>
+      <h2>Саванна</h2>
       <div className={style.startButtonWrapperText}>
-        Savannah’s training develops a vocabulary. The more words you know, the more experience you get.
+        Игра саванна развивает словарный запас. Вам предстоит угадывать перевод слова из предложенных вариантов ответов.
+        Но поторопись, потому-что время для ответа может закончиться...
       </div>
-      <button type="button" onClick={() => { props.setSavannah({ ...props.savannah, startGame: true }); }}>Start</button>
+      <button type="button" onClick={() => { props.setSavannah({ ...props.savannah, startGame: true }); }}>Старт</button>
     </div>
   </div>
 );
