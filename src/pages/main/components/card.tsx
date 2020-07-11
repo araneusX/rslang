@@ -5,12 +5,12 @@ import React, {
   useState, useContext, useEffect, useMemo, useRef
 } from 'react';
 import style from './card.module.scss';
-import { CardSettingsInterface, StatisticsInterface, BackendWordInterface } from '../../../types';
+import { CardSettingsInterface, StatisticsInterface } from '../../../types';
 import { StatisticsContext } from '../../../statistics/statisticsProvider';
 import { StateContext } from '../../../store/stateProvider';
 
 const Card: React.FC<{
-  settings: CardSettingsInterface, answer: boolean,
+  settings: any, answer: boolean,
   callback: Function, count: number, nextCard: Function }> = (prop) => {
   const { state, dispatch } = useContext(StateContext);
   const { isAudioOn, card, isCardDelete } = state.training;
@@ -30,7 +30,7 @@ const Card: React.FC<{
     let ignore = false;
     async function fetchData() {
       console.log('Собираюсь отправить:', card.id, isRight, difficultLevel, card.group);
-      await (statistics.saveWord(card.id, isRight, difficultLevel, card.group));
+      await (statistics.saveWord(card.id, isRight, difficultLevel, card.group as 0|1|2|3|4|5));
       if (!ignore) console.log('Отправлено');
     }
     fetchData();

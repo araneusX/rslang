@@ -1,0 +1,34 @@
+<<<<<<< HEAD
+import { initSettingsObject, initialSpeakitObject, initTrainingObject } from '../constants';
+import {
+  SettingsInterface, StateInterface, AuthInterface, SpeakitStateInterface, TrainingStateInterface
+=======
+import { initSettingsObject, initialSpeakitObject, initialSprintObject } from '../constants';
+import {
+  SettingsInterface, StateInterface, AuthInterface, SpeakitStateInterface, SprintStateInterface
+>>>>>>> develop
+} from '../types';
+
+const auth: AuthInterface = {
+  isAuth: false,
+  userId: '',
+  token: ''
+};
+
+const settings: SettingsInterface = { ...initSettingsObject };
+
+const speakit: SpeakitStateInterface = { ...initialSpeakitObject };
+const training: TrainingStateInterface = { ...initTrainingObject };
+
+const sprint: SprintStateInterface = { ...initialSprintObject };
+
+export default {
+  auth,
+  settings,
+  speakit,
+<<<<<<< HEAD
+  training
+=======
+  sprint
+>>>>>>> develop
+} as StateInterface;
