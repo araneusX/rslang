@@ -1,7 +1,8 @@
 import React, {
-  useContext, useState, useCallback, useMemo
+  useContext, useState, useCallback, useMemo, useEffect
 } from 'react';
 
+import { type } from 'os';
 import style from '../audioCall.module.scss';
 import { StateContext } from '../../../../store/stateProvider';
 import { StatisticsContext } from '../../../../statistics/statisticsProvider';
@@ -9,18 +10,22 @@ import { StatisticsInterface, BackendWordInterface } from '../../../../types';
 import { getManyWordsById, getWords } from '../../../../backend/words';
 
 const Main = () => {
-  const UserWordLevel = 7;
-  const levelsSelect = [1, 2, 3, 4, 5, 6, 7];
+  const UserWordLevel = 6;
+  const levelsSelect = [0, 1, 2, 3, 4, 5, 6];
   const pagesSelect = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
+
+  const [buttonClassName, setButtonClassName] = useState('');
 
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
   const { state, dispatch } = useContext(StateContext);
   const {
-    level, page, answer, sound, allAnswerArray, step
+    level, page, allAnswerArray, step, words, correctAnswer, errorAnswer, addAnswer
   } = state.audioCall;
   const [localLevel, setLocalLevel] = useState(level + 1);
   const [localPage, setLocalPage] = useState(page);
+  const [localAnswer, setLocalAnswer] = useState('');
   const userLearnedWord = statistics.getAllWordsId();
+  const answer : BackendWordInterface = words[step];
 
   const changePage = (e: React.FormEvent<HTMLSelectElement>) => {
     e.preventDefault();
@@ -44,12 +49,20 @@ const Main = () => {
     }
   };
 
+  const nextStep = () => {
+    if (words.length > step + 1) {
+      dispatch({ type: 'SET_AUDIO_STEP', value: step + 1 });
+    } else {
+      dispatch({ type: 'SET_AUDIO_SCREEN', value: 'results' });
+    }
+  };
+
   const computeAnswerArray = useCallback(
     (_answer: BackendWordInterface) => {
       let arr = [...allAnswerArray];
       arr.splice(step, 1);
       arr = arr.sort(() => Math.random() - 0.5);
-      let answerArr = [_answer && _answer.wordTranslate, ...arr.splice(0, 3)];
+      let answerArr = [_answer && _answer.wordTranslate, ...arr.splice(0, 4)];
       answerArr = answerArr.sort(() => Math.random() - 0.5);
       return answerArr;
     },
@@ -58,23 +71,27 @@ const Main = () => {
 
   const answerArray : string[] = useMemo(() => (answer ? computeAnswerArray(answer) : []), [answer, computeAnswerArray]);
 
-  const clickAnswer = (_answer:string, e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!!answer && answer.wordTranslate === _answer) {
-      if (sound) {
-        const audio = new Audio('/mp3/cor.mp3');
-        audio.play();
+  const clickAnswer = async (_answer:string, e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!addAnswer) {
+      if (!!answer && answer.wordTranslate === _answer) {
+        dispatch({ type: 'SET_AUDIO_CORRECT_ANSWER', value: { correctAnswer: [...correctAnswer, answer], addAnswer: true, answerType: true } });
+        setLocalAnswer(_answer);
+        setButtonClassName('correctAnswer');
+      } else {
+        dispatch({ type: 'SET_AUDIO_ERROR_ANSWER', value: { errorAnswer: [...errorAnswer, answer], addAnswer: true, answerType: true } });
+        setLocalAnswer(_answer);
+        setButtonClassName('errorAnswer');
       }
-
-      // props.setSavannah({ ...savannah, correctAnswer: [...savannah.correctAnswer, answer] });
-    } else {
-      // if (sound) {
-      //   const audio = new Audio('/mp3/no-otveta.mp3');
-      //   audio.play();
-      // }
-
-      // props.setSavannah({ ...savannah, life: savannah.life - 1, errorAnswerArray: [...savannah.errorAnswerArray, answer] });
     }
   };
+
+  useEffect(() => {
+    if (answer) {
+      const url = `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${answer.audio}`;
+      const audio = new Audio(url);
+      audio.play();
+    }
+  }, [answer]);
 
   return (
     <>
@@ -91,7 +108,7 @@ const Main = () => {
                     value={i}
                     disabled={userLearnedWord.length < 20 && i === UserWordLevel}
                   >
-                    { i === UserWordLevel ? 'User word' : i}
+                    { i === UserWordLevel ? 'User word' : i + 1}
                   </option>
                 ))}
               </select>
@@ -116,6 +133,8 @@ const Main = () => {
             {answerArray.map((i) => (
               <div key={i}>
                 <button
+                  className={addAnswer && i === localAnswer ? buttonClassName : ''}
+                  disabled={addAnswer && i !== localAnswer}
                   onClick={(event) => clickAnswer(i, event)}
                   type="button"
                 >
@@ -125,16 +144,21 @@ const Main = () => {
             ))}
           </div>
           <div>
-            <button
-              type="button"
-            >
-              Не знаю
-            </button>
-            <button
-              type="button"
-            >
-              {'--->'}
-            </button>
+            { addAnswer ? (
+              <button
+                onClick={(event) => nextStep()}
+                type="button"
+              >
+                {'--->'}
+              </button>
+            ) : (
+              <button
+                onClick={(event) => clickAnswer('', event)}
+                type="button"
+              >
+                Не знаю
+              </button>
+            )}
           </div>
         </div>
 

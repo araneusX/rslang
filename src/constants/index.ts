@@ -98,5 +98,7 @@ export const initialAudioCallObject: AudioCallStateInterface = {
   answerArray: [],
   allAnswerArray: [],
   correctAnswer: [],
-  errorAnswer: []
+  errorAnswer: [],
+  addAnswer: false,
+  answerType: false
 };

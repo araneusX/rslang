@@ -7,7 +7,7 @@ import { StatisticsContext } from '../../../statistics/statisticsProvider';
 
 import style from './audioCall.module.scss';
 import { Preloader } from '../../../commonComponents';
-import { StatisticsInterface } from '../../../types';
+import { StatisticsInterface, BackendWordInterface } from '../../../types';
 import { getManyWordsById, downloadNewWords } from '../../../backend/words';
 
 const AudioCall = () => {
@@ -43,7 +43,9 @@ const AudioCall = () => {
     async function startDataF() {
       const wordForGame = await getStartWords();
       if (wordForGame.length) {
-        dispatch({ type: 'SET_AUDIO_WORDS', value: wordForGame });
+        const allAnswerArray : string[] = wordForGame.map((i : BackendWordInterface) => i.wordTranslate);
+
+        dispatch({ type: 'SET_AUDIO_WORDS', value: { words: wordForGame, allAnswerArray } });
         setIsLoading(false);
       }
     }

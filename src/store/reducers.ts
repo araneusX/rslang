@@ -132,10 +132,11 @@ const sprintReducer = (state: SprintStateInterface, action:Action): SprintStateI
 const audioReducer = (state: AudioCallStateInterface, action:Action): AudioCallStateInterface => {
   switch (action.type) {
     case 'SET_AUDIO_WORDS': {
-      const words = action.value;
+      const { words, allAnswerArray } = action.value;
       return {
         ...state,
-        words
+        words,
+        allAnswerArray
       };
     }
     case 'SET_AUDIO_START_GAME': {
@@ -148,6 +149,26 @@ const audioReducer = (state: AudioCallStateInterface, action:Action): AudioCallS
       return {
         ...state,
         screen: action.value
+      };
+    }
+    case 'SET_AUDIO_STEP': {
+      return {
+        ...state,
+        step: action.value,
+        addAnswer: false,
+        answerType: false
+      };
+    }
+    case 'SET_AUDIO_CORRECT_ANSWER': {
+      const { correctAnswer, addAnswer, answerType } = action.value;
+      return {
+        ...state, correctAnswer, addAnswer, answerType
+      };
+    }
+    case 'SET_AUDIO_ERROR_ANSWER': {
+      const { errorAnswer, addAnswer, answerType } = action.value;
+      return {
+        ...state, errorAnswer, addAnswer, answerType
       };
     }
     default: return state;

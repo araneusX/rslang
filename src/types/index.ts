@@ -236,6 +236,8 @@ export interface AudioCallStateInterface {
   answerArray: string[],
   correctAnswer: BackendWordInterface[],
   errorAnswer: BackendWordInterface[],
+  addAnswer: boolean,
+  answerType: boolean
 }
 
 export interface StateInterface {
