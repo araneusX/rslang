@@ -4,6 +4,7 @@ import Main from './components/Main';
 import Results from './components/Results';
 import { StateContext } from '../../../store/stateProvider';
 import { StatisticsContext } from '../../../statistics/statisticsProvider';
+import AudioContext from './audioContext';
 
 import style from './audioCall.module.scss';
 import { Preloader } from '../../../commonComponents';
@@ -43,9 +44,12 @@ const AudioCall = () => {
     async function startDataF() {
       const wordForGame = await getStartWords();
       if (wordForGame.length) {
+        let level = 0;
         const allAnswerArray : string[] = wordForGame.map((i : BackendWordInterface) => i.wordTranslate);
-
-        dispatch({ type: 'SET_AUDIO_WORDS', value: { words: wordForGame, allAnswerArray } });
+        if (statistics.getAllWordsId().length > 20) {
+          level = 6;
+        }
+        dispatch({ type: 'SET_AUDIO_WORDS', value: { words: wordForGame, allAnswerArray, level } });
         setIsLoading(false);
       }
     }
@@ -54,7 +58,7 @@ const AudioCall = () => {
   }, []);
 
   return (
-    <>
+    <AudioContext.Provider value={{ getStartWords }}>
       {isLoading ? <Preloader /> : null}
       <div className={style.wrap}>
         {screen === 'start' && <Start />}
@@ -62,7 +66,7 @@ const AudioCall = () => {
         { screen === 'results' && <Results />}
       </div>
 
-    </>
+    </AudioContext.Provider>
   );
 };
 

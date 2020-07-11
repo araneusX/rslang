@@ -3,7 +3,7 @@ import { Action } from './actionTypes';
 import {
   StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface, SprintStateInterface, AudioCallStateInterface
 } from '../types';
-import { initialSprintObject } from '../constants';
+import { initialSprintObject, initialAudioCallObject } from '../constants';
 
 const authReducer = (state: AuthInterface, action:Action): AuthInterface => {
   switch (action.type) {
@@ -132,11 +132,25 @@ const sprintReducer = (state: SprintStateInterface, action:Action): SprintStateI
 const audioReducer = (state: AudioCallStateInterface, action:Action): AudioCallStateInterface => {
   switch (action.type) {
     case 'SET_AUDIO_WORDS': {
-      const { words, allAnswerArray } = action.value;
+      const { words, allAnswerArray, level } = action.value;
       return {
         ...state,
         words,
+        level,
         allAnswerArray
+      };
+    }
+    case 'SET_AUDIO_NEW_GAME': {
+      const {
+        words, level, allAnswerArray, page
+      } = action.value;
+      return {
+        ...initialAudioCallObject,
+        words,
+        level,
+        page,
+        allAnswerArray,
+        startGame: true
       };
     }
     case 'SET_AUDIO_START_GAME': {

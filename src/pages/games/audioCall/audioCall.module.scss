@@ -81,41 +81,53 @@
 .gameMainWrapper{
     position: relative;
     width: 100%;
-    background: linear-gradient(180deg, #FFD684 0%, #FFFFFF 0.01%, #FFEFCF 39.58%, #FFD685 100%);
+    background: linear-gradient(180deg, #FFFFFF 0%, #90FDD6 100%);
 }
 
 .heightAuto{
     display: flex;
-    flex: 1 0 500px;
+    width: 100%;
 }
 
-.gameMainLifeOn{
-    display: block;
-    margin-left: 5px;
-    height: 40px;
-    width: 40px;
-    background: url('/images/savannah/bulb.svg') no-repeat center;
+.errorAnswer{
+    background-color: #FB0B0B!important;
+    outline: none;
 }
 
-.gameMainLifeOff{
-    margin-left: 5px;
-    display: block;
-    height: 40px;
-    width: 40px;
-    background: url('/images/savannah/brokenLamp.svg') no-repeat center;
+.correctAnswer{
+    background-color: #52D424!important;
+    outline: none;
 }
+
 
 .gameMainHead{
     padding: 5px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap-reverse;
 }
 
-.gameMainLifes{
+.nextBtnBlock{
     display: flex;
-    justify-content: flex-end;
-    padding-right: 10px;
+    justify-content: center;
+    button{
+        margin-top: 10px;
+        border: none;
+        border-radius: 10px;
+        padding: 5px;
+        width: 100%;
+        max-width: 200px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #FF9900;
+        transition: all 0.3s;
+        cursor: pointer;
+        &:hover{
+            opacity: 0.8;
+        }
+    }
 }
 
 .gameMainLevels{
@@ -138,41 +150,47 @@
 }
 
 .answerBlock{
-    position: absolute;
+    margin-top: 30px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 10%;
-
     button{
         border: none;
         padding: 10px 10px;
         margin: 5px;
         border-radius: 10px;
     }
-
-    div:nth-child(odd){
+    div{
         button{
-            background: #A7FF90;
+            background: #FFF1DC;
         }
     }
-    div:nth-child(even){
-        button{
-            background: #FF9C9C;
-        }
-    }
-
-
 }
 
 .wordWrapper{
+    width: 100%;
+    min-height: 350px;
     font-style: normal;
     font-weight: 600;
-    font-size: 45px;
-    line-height: 61px;
+    font-size: 30px;
     color: #333333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    img.imageBtn{
+        width: 60px;
+        height: 60px;
+        padding: 5px;
+        display: block;
+    }
+}
+
+.imageWord{
+    width: 100%;
+    max-width: 200px;
+    border-radius: 5px;
 }
 
 
@@ -190,9 +208,9 @@
 }
 
 .resultPageWrapper{
-    flex: 1 0 200px;
+    flex: 1 0 500px;
     display: flex;
-    background: url('/images/sprint/bg-main.png') no-repeat center;
+    background: url('/images/audio/bg.svg') no-repeat center;
     background-size: cover;
     justify-content: center;
     align-items: center;
@@ -206,9 +224,10 @@
     border-radius: 10px;
     min-width: 300px;
     min-height: 300px;
+    max-height: 450px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .resultPageText{
@@ -286,59 +305,30 @@
     background-color: #DE8500;
 }
 
-@media screen and (max-width: 1024px) {
-    .roundTime {
-        right: 10%;
-    }
+.statisticRoundContent{
+    max-height: 450px;
+    overflow-y: auto;
 }
 
-@media screen and (max-width: 768px) {
-    .roundTime {
-        position: absolute;
-        top: 220px;
-        right: 20px;
-    }
-    .levelSelect{
-        flex-direction: column;
-        width: 100%;
-        max-width: 300px;
-        select{
-            width: 100%;
-            margin-right: 0;
-            margin-left: 0;
-        }
-    }
-    .gameCardWrapper{
-        margin-top: 20px;
-        padding-left: 5px;
-        padding-right: 5px;
-    }
+.correctAnswerBlock{
+    background-color: #52D424;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
 
-    .levelSelect{
-        button{
-            height: 30px;
-            margin-top: 10px;
-        }
-    }
+.errorAnswerBlock{
+    background-color: #FB0B0B;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+
+@media screen and (max-width: 768px) {
+    
 }
 
 @media screen and (max-width: 375px) {
-    .roundTime {
-        position: absolute;
-        top: 260px;
-        right: 10%;
-    }
-    .pointsForRound{
-        position: absolute;
-        left: 15%;
-        top: 290px;
-    }
-    .gameCard{
-        margin-top: 110px;
-        min-width: 290px;
-    }
-    .resultPage,
-    .statisticPage{
-        min-width: 280px;
-    }
+    
 }

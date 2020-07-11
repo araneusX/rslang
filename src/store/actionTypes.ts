@@ -23,9 +23,10 @@ export type Action =
 | { type: 'SET_SPRINT_CORRECT_ANSWER', value: {correctAnswersInRowNext: number, pointsLevelNext: number, pointsForAnswerPlus: number}}
 | { type: 'SET_SPRINT_STEP_AND_CORRECT_ANSWERS_IN_ROW', value: number }
 | { type: 'SET_SPRINT_WORDS', value: SprintWordInterface[]}
-| { type: 'SET_AUDIO_WORDS', value:{words: BackendWordInterface[], allAnswerArray: string[] }}
+| { type: 'SET_AUDIO_WORDS', value:{words: BackendWordInterface[], allAnswerArray: string[], level: number }}
 | { type: 'SET_AUDIO_START_GAME'}
 | { type: 'SET_AUDIO_CORRECT_ANSWER', value: {correctAnswer:BackendWordInterface[], addAnswer: boolean, answerType: boolean}}
 | { type: 'SET_AUDIO_ERROR_ANSWER', value: {errorAnswer:BackendWordInterface[], addAnswer: boolean, answerType: boolean}}
 | { type: 'SET_AUDIO_STEP', value: number}
+| { type: 'SET_AUDIO_NEW_GAME', value: {level: number, words: BackendWordInterface[], allAnswerArray: string[], page:number}}
 | { type: 'SET_AUDIO_SCREEN', value: AudioCallScreenType};

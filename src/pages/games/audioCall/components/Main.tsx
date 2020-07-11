@@ -1,13 +1,11 @@
 import React, {
   useContext, useState, useCallback, useMemo, useEffect
 } from 'react';
-
-import { type } from 'os';
+import AudioContext from '../audioContext';
 import style from '../audioCall.module.scss';
 import { StateContext } from '../../../../store/stateProvider';
 import { StatisticsContext } from '../../../../statistics/statisticsProvider';
 import { StatisticsInterface, BackendWordInterface } from '../../../../types';
-import { getManyWordsById, getWords } from '../../../../backend/words';
 
 const Main = () => {
   const UserWordLevel = 6;
@@ -16,12 +14,13 @@ const Main = () => {
 
   const [buttonClassName, setButtonClassName] = useState('');
 
+  const { getStartWords } = useContext(AudioContext);
   const statistics = useContext(StatisticsContext) as StatisticsInterface;
   const { state, dispatch } = useContext(StateContext);
   const {
     level, page, allAnswerArray, step, words, correctAnswer, errorAnswer, addAnswer
   } = state.audioCall;
-  const [localLevel, setLocalLevel] = useState(level + 1);
+  const [localLevel, setLocalLevel] = useState(level);
   const [localPage, setLocalPage] = useState(page);
   const [localAnswer, setLocalAnswer] = useState('');
   const userLearnedWord = statistics.getAllWordsId();
@@ -41,12 +40,14 @@ const Main = () => {
 
   const setLevel = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (localLevel === UserWordLevel && userLearnedWord.length >= 20) {
-      const nextWordForGame = await getManyWordsById(userLearnedWord.slice(0, 20));
-    } else {
-      const sLevel = (localLevel === UserWordLevel) ? 0 : (localLevel - 1);
-      const nextWordForGame = await getWords(sLevel, localPage);
-    }
+    const nextWords = await getStartWords(localLevel, localLevel !== UserWordLevel, localPage);
+    const allAnswerArr : string[] = nextWords.map((i : BackendWordInterface) => i.wordTranslate);
+    dispatch({
+      type: 'SET_AUDIO_NEW_GAME',
+      value: {
+        level: localLevel, words: nextWords, allAnswerArray: allAnswerArr, page: localPage
+      }
+    });
   };
 
   const nextStep = () => {
@@ -84,6 +85,12 @@ const Main = () => {
       }
     }
   };
+
+  function sound(src: string) {
+    const url = `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${src}`;
+    const audio = new Audio(url);
+    audio.play();
+  }
 
   useEffect(() => {
     if (answer) {
@@ -126,24 +133,44 @@ const Main = () => {
               <button type="button" onClick={setLevel}>Выбрать</button>
             </div>
           </div>
-          <div className={`${style.wordWrapper}`} style={{ top: `${(20)}%` }}>
-            {answer && answer.word}
+          <div className={`${style.wordWrapper}`}>
+            {addAnswer ? (
+              <>
+                <div>
+                  <img
+                    className={style.imageWord}
+                    src={`https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${answer.image}`}
+                    alt="sound_icon"
+                  />
+                </div>
+                {answer.word}
+                <img
+                    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+                  role="button"
+                  className={style.imageBtn}
+                  onKeyDown={() => {}}
+                  onClick={() => { sound(answer.audio); }}
+                  tabIndex={0}
+                  src="/images/audio/sound.svg"
+                  alt="sound_icon"
+                />
+              </>
+
+            )
+              : (
+                <img
+                  // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+                  role="button"
+                  className={style.imageBtn}
+                  onKeyDown={() => {}}
+                  onClick={() => { sound(answer.audio); }}
+                  tabIndex={0}
+                  src="/images/audio/sound.svg"
+                  alt="sound_icon"
+                />
+              )}
           </div>
-          <div className={style.answerBlock}>
-            {answerArray.map((i) => (
-              <div key={i}>
-                <button
-                  className={addAnswer && i === localAnswer ? buttonClassName : ''}
-                  disabled={addAnswer && i !== localAnswer}
-                  onClick={(event) => clickAnswer(i, event)}
-                  type="button"
-                >
-                  {i}
-                </button>
-              </div>
-            ))}
-          </div>
-          <div>
+          <div className={style.nextBtnBlock}>
             { addAnswer ? (
               <button
                 onClick={(event) => nextStep()}
@@ -159,6 +186,20 @@ const Main = () => {
                 Не знаю
               </button>
             )}
+          </div>
+          <div className={style.answerBlock}>
+            {answerArray.map((i) => (
+              <div key={i}>
+                <button
+                  className={addAnswer && i === localAnswer ? `${style[buttonClassName]}` : ''}
+                  disabled={addAnswer && i !== localAnswer}
+                  onClick={(event) => clickAnswer(i, event)}
+                  type="button"
+                >
+                  {i}
+                </button>
+              </div>
+            ))}
           </div>
         </div>
 
