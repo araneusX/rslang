@@ -62,8 +62,9 @@ function AssembledGamePuzzle(props: any) {
             backgroundSize: `${pxTOvw(bounding?.width)}vw`,
             backgroundPositionX: `-${pxTOvw(widthPuzzle)}vw`,
             backgroundPositionY: `-${pxTOvw(bound.height * heightIndex)}vw`,
-            fontSize: '1.7vw',
-            fontWeight: 'bold'
+            fontSize: '1.6vw',
+            fontWeight: 'bold',
+            textShadow: 'white 0.1vw 0.1vw 1px, white -0.1vw -0.1vw 1px, white 0.1vw -0.1vw 1px, white -0.1vw 0.1vw 1px'
           }
         };
         const wordPuzzle = React.createElement('div', property, word.textContent);
@@ -80,9 +81,10 @@ function AssembledGamePuzzle(props: any) {
             backgroundSize: `${pxTOvw(bounding.width)}vw`,
             backgroundPositionX: `-${pxTOvw(widthPuzzle)}vw`,
             backgroundPositionY: `-${pxTOvw(bound.height * heightIndex)}vw`,
-            fontSize: '1.7vw',
+            fontSize: '1.6vw',
             fontWeight: 'bold',
-            flex: '1 0 auto'
+            flex: '1 0 auto',
+            textShadow: 'white 0.1vw 0.1vw 1px, white -0.1vw -0.1vw 1px, white 0.1vw -0.1vw 1px, white -0.1vw 0.1vw 1px'
           }
         };
         const assembledWordPuzzle = React.createElement('div', propertyAssembled);
