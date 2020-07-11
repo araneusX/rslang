@@ -25,6 +25,7 @@ export type Action =
 | { type: 'SET_SPRINT_WORDS', value: SprintWordInterface[]}
 | { type: 'SET_AUDIO_WORDS', value:{words: BackendWordInterface[], allAnswerArray: string[], level: number }}
 | { type: 'SET_AUDIO_START_GAME'}
+| { type: 'SET_AUDIO_INITIAL'}
 | { type: 'SET_AUDIO_CORRECT_ANSWER', value: {correctAnswer:BackendWordInterface[], addAnswer: boolean, answerType: boolean}}
 | { type: 'SET_AUDIO_ERROR_ANSWER', value: {errorAnswer:BackendWordInterface[], addAnswer: boolean, answerType: boolean}}
 | { type: 'SET_AUDIO_STEP', value: number}

@@ -140,6 +140,11 @@ const audioReducer = (state: AudioCallStateInterface, action:Action): AudioCallS
         allAnswerArray
       };
     }
+    case 'SET_AUDIO_INITIAL': {
+      return {
+        ...initialAudioCallObject
+      };
+    }
     case 'SET_AUDIO_NEW_GAME': {
       const {
         words, level, allAnswerArray, page
