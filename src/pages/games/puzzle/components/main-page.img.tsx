@@ -30,7 +30,7 @@ const Img = () => {
     className: 'btn game-round-btn continue-botton',
     onClick: handleContinue,
     type: 'button'
-  }, 'Продолжать');
+  }, 'Продолжить');
   const resultsButton = React.createElement('button', {
     className: 'btn game-round-btn results-botton',
     onClick: handleResults,
@@ -40,13 +40,21 @@ const Img = () => {
   const gameRoundControls = React.createElement('div', {
     className: 'round-controls'
   }, continueButton, resultsButton);
-
   return (
     <>
-      {gameRoundControls}
       <div className="wrapper-game">
         {img}
+        <div className="picture-description">
+          <p>{data.pageImage.name}</p>
+          <p
+            style={{ textTransform: 'capitalize' }}
+          >
+            {data.pageImage.author.split(', ').reverse().join(' ').toLowerCase()}
+          </p>
+          <p>{data.pageImage.year}</p>
+        </div>
       </div>
+      {gameRoundControls}
     </>
   );
 };

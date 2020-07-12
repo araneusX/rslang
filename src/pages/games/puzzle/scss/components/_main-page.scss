@@ -11,7 +11,27 @@
   // width: 800px;
   position: relative;
   display: flex;
+  justify-content: center;
   font-size: 1.4vw;
+  margin-top: 40px;
+}
+
+.picture-description {
+  position: absolute;
+  font-size: 18px;
+  text-align: center;
+  width: 45%;
+
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-shadow: 0 0 2px white, 0 0 2px white, 0 0 8px white;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    min-width: 250px;
+  }
+
 }
 
 .wrapper-game-puzzle {
@@ -31,8 +51,13 @@
 
 .image-sentences-game {
   z-index: -1;
-  width: 100%;
+  width: 50%;
   position: relative;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    min-width: 300px;
+  }
 }
 
 .sentence-game {
@@ -60,6 +85,10 @@
   cursor: grab;
   user-select: none;
   text-shadow: 0 0 3px white;
+}
+
+.wrapper-assembled-game-puzzle {
+  margin-bottom: 85px;
 }
 
 .word-game {

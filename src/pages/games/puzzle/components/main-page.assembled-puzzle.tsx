@@ -7,6 +7,7 @@ function AssembledGamePuzzle(props: any) {
   const assembledDOM = useRef(null);
   const { data } = props;
   const { state } = useContext(PuzzleContext);
+  console.log(state);
 
   const wrapperGame = state.gameDOM.current;
   const bounding: DOMRect = wrapperGame.getBoundingClientRect();

@@ -136,7 +136,7 @@ function GameRounds(props: any) {
     className: 'btn game-round-btn continue-botton',
     onClick: handleContinueButton,
     type: 'button'
-  }, 'Продолжать');
+  }, 'Продолжить');
 
   const gameRoundControls = React.createElement('div', {
     className: 'game-round-controls'

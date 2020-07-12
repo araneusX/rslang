@@ -78,7 +78,7 @@ const Results = () => {
             </div>
           </div>
           <div className="wrapper-results-button">
-            <button type="button" onClick={handleContinue} className="btn game-round-btn">Продолжать</button>
+            <button type="button" onClick={handleContinue} className="btn game-round-btn">Продолжить</button>
             <button type="button" onClick={() => { setIsResult(false); }} className="btn game-round-btn">Статистика</button>
           </div>
         </div>
