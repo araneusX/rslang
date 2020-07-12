@@ -1,15 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import style from './games.module.scss';
-import { StateContext } from '../../store/stateProvider';
 
 const Games = () => {
-  const { dispatch } = useContext(StateContext);
-
-  useEffect(() => {
-    dispatch({ type: 'SET_AUDIO_INITIAL' });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <>

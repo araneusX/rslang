@@ -54,6 +54,10 @@ const AudioCall = () => {
       }
     }
     startDataF();
+    return () => {
+      // Clean up the subscription
+      dispatch({ type: 'SET_AUDIO_INITIAL' });
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
