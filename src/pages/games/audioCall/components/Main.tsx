@@ -87,14 +87,14 @@ const Main = () => {
   };
 
   function sound(src: string) {
-    const url = `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${src}`;
+    const url = `https://raw.githubusercontent.com/araneusx/rslang-data/master/data/${src}`;
     const audio = new Audio(url);
     audio.play();
   }
 
   useEffect(() => {
     if (answer) {
-      const url = `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${answer.audio}`;
+      const url = `https://raw.githubusercontent.com/araneusx/rslang-data/master/data/${answer.audio}`;
       const audio = new Audio(url);
       audio.play();
     }
