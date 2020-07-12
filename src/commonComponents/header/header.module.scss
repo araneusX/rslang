@@ -76,7 +76,7 @@
     width: 100%;
     background: #ffffff;
     left: 0;
-    bottom: calc(-100% - 45px);
+    bottom: calc(-100% - 100px);
   }
   @include media-mobiles-small() {
     padding-top: 10px;
@@ -90,7 +90,7 @@
     width: 100%;
     background: #ffffff;
     left: 0;
-    bottom: calc(-100% - 90px);
+    bottom: calc(-100% - 145px);
   }
 }
 
