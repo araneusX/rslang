@@ -2,22 +2,22 @@ import {
   initSettingsObject,
   initialSpeakitObject,
   initialSprintObject,
-  initTrainingObject
+  initTrainingObject,
+  initialAudioCallObject,
+  initialAuthObject
 } from '../constants';
+
 import {
   SettingsInterface,
   StateInterface,
   AuthInterface,
   SpeakitStateInterface,
   SprintStateInterface,
-  TrainingStateInterface
+  TrainingStateInterface,
+  AudioCallStateInterface
 } from '../types';
 
-const auth: AuthInterface = {
-  isAuth: false,
-  userId: '',
-  token: ''
-};
+const auth: AuthInterface = { ...initialAuthObject };
 
 const settings: SettingsInterface = { ...initSettingsObject };
 
@@ -27,10 +27,13 @@ const sprint: SprintStateInterface = { ...initialSprintObject };
 
 const training: TrainingStateInterface = { ...initTrainingObject };
 
+const audioCall: AudioCallStateInterface = { ...initialAudioCallObject };
+
 export default {
   auth,
   settings,
   speakit,
   sprint,
-  training
+  training,
+  audioCall
 } as StateInterface;

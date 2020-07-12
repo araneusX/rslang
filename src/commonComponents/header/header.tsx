@@ -23,7 +23,7 @@ const Header:React.ComponentType = () => {
     userId: ''
   };
   function handleLogOut() {
-    dispatch({ type: 'SET_AUTH', value: auth });
+    dispatch({ type: 'CLEAR_STATE' });
   }
 
   const { pathname } = useLocation();
