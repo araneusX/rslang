@@ -13,7 +13,8 @@ import {
   Vocabulary,
   Savannah,
   Puzzle,
-  Promo
+  Promo,
+  AudioCall
 } from './pages';
 
 import { Header, Footer } from './commonComponents';
@@ -41,6 +42,7 @@ function App() {
             <Route exact path="/games/savannah" component={Savannah} />
             <Route exact path="/games/sprint" component={Sprint} />
             <Route exact path="/games/puzzle" component={Puzzle} />
+            <Route exact path="/games/audio-call" component={AudioCall} />
           </>
           )}
           <Redirect to={isAuth ? '/main' : '/authorization'} />

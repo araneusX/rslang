@@ -232,10 +232,31 @@ export interface TrainingStateInterface {
   isCardDelete: boolean;
 }
 
+export type AudioCallScreenType = 'start' | 'main' | 'results';
+export interface AudioCallStateInterface {
+  level: number,
+  page: number,
+  step: number,
+  selectLevel: boolean,
+  startGame: boolean,
+  finishGame: boolean,
+  screen: SprintScreenType,
+  words: BackendWordInterface[],
+  allAnswerArray: string[],
+  answer?: BackendWordInterface,
+  sound: boolean,
+  answerArray: string[],
+  correctAnswer: BackendWordInterface[],
+  errorAnswer: BackendWordInterface[],
+  addAnswer: boolean,
+  answerType: boolean
+}
+
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
   speakit: SpeakitStateInterface,
   sprint: SprintStateInterface,
-  training: TrainingStateInterface
+  training: TrainingStateInterface,
+  audioCall: AudioCallStateInterface
 }

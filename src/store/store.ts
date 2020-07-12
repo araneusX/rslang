@@ -2,15 +2,18 @@ import {
   initSettingsObject,
   initialSpeakitObject,
   initialSprintObject,
-  initTrainingObject
+  initTrainingObject,
+  initialAudioCallObject
 } from '../constants';
+
 import {
   SettingsInterface,
   StateInterface,
   AuthInterface,
   SpeakitStateInterface,
   SprintStateInterface,
-  TrainingStateInterface
+  TrainingStateInterface,
+  AudioCallStateInterface
 } from '../types';
 
 const auth: AuthInterface = {
@@ -27,10 +30,13 @@ const sprint: SprintStateInterface = { ...initialSprintObject };
 
 const training: TrainingStateInterface = { ...initTrainingObject };
 
+const audioCall: AudioCallStateInterface = { ...initialAudioCallObject };
+
 export default {
   auth,
   settings,
   speakit,
   sprint,
-  training
+  training,
+  audioCall
 } as StateInterface;

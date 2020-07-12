@@ -7,7 +7,8 @@ import {
   SprintWordInterface,
   SprintScreenType,
   TrainingScreenType,
-  BackendWordInterface
+  BackendWordInterface,
+  AudioCallScreenType
 } from '../types';
 
 export type Action =
@@ -37,4 +38,12 @@ export type Action =
 | { type: 'SET_TRAINING_CARD', value: BackendWordInterface }
 | { type: 'SET_TRAINING_FIRST_VISIT', value: boolean }
 | { type: 'SET_TRAINING_MODE', value: string }
-| { type: 'SET_TRAINING_CARD_DELETE', value: boolean};
+| { type: 'SET_TRAINING_CARD_DELETE', value: boolean}
+| { type: 'SET_AUDIO_WORDS', value:{words: BackendWordInterface[], allAnswerArray: string[], level: number }}
+| { type: 'SET_AUDIO_START_GAME'}
+| { type: 'SET_AUDIO_INITIAL'}
+| { type: 'SET_AUDIO_CORRECT_ANSWER', value: {correctAnswer:BackendWordInterface[], addAnswer: boolean, answerType: boolean}}
+| { type: 'SET_AUDIO_ERROR_ANSWER', value: {errorAnswer:BackendWordInterface[], addAnswer: boolean, answerType: boolean}}
+| { type: 'SET_AUDIO_STEP', value: number}
+| { type: 'SET_AUDIO_NEW_GAME', value: {level: number, words: BackendWordInterface[], allAnswerArray: string[], page:number}}
+| { type: 'SET_AUDIO_SCREEN', value: AudioCallScreenType};
