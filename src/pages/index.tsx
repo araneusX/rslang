@@ -7,4 +7,4 @@ export { default as Statistics } from './statistics';
 export { default as Vocabulary } from './vocabulary';
 export { default as About } from './about';
 
-export { SpeakIt, Sprint } from './games';
+export { SpeakIt, Sprint, Puzzle } from './games';

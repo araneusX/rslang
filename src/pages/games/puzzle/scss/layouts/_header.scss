@@ -1,0 +1,98 @@
+.header {
+  position: relative;
+  z-index: 100;
+  height: 35px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main-page-nav {
+  display: flex;
+  align-items: center;
+  > * {
+    padding: 0 5px;
+  }
+  @include media-tablet() {
+    flex-direction: column;
+  }
+}
+
+.wrapper-prompt {
+  display: flex;
+}
+
+.wrapper-auto-pronunciation {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+  top: 20px;
+}
+
+.prompt {
+  height: 30px;
+  width: 30px;
+  margin: 0 5px;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.prompt-responsive {
+  height: 3vw;
+  width: 3vw;
+  margin: 0 5px;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.audio-prompt {
+  background: url('../../assets/img/micro.svg'), #FF9900;
+}
+
+.translate-prompt {
+  background: url('../../assets/img/translate.svg'), #FF9900;
+  background-size: 22px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.volume-prompt {
+  background: url('../../assets/img/music.svg'), #FF9900;
+  background-size: 22px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.image-card-prompt {
+  background: url('../../assets/img/image.svg'), #FF9900;
+  background-size: 22px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.image-all-prompt {
+  background: url('../../assets/img/imgCell.png'), #FF9900;
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pronunciation-audio {
+  background: url('../../assets/img/micro.svg');
+  flex-shrink: 0;
+}
+
+.prompt-img-card-off {
+  background: darkslategray;
+}
+
+.prompt-img-cell-off {
+  background: #6bc1b0;
+}
+
+.disabled {
+  opacity: .6;
+  clip-path: polygon(100% 100%, 0% 100%, 0% 0%, 100% 0%, 26% 15%, 19% 25%, 38% 44%, 19% 64%, 31% 73%, 49% 54%, 67% 73%, 82% 69%, 61% 44%, 79% 24%, 68% 15%, 50% 34%, 26% 15%, 100% 0%);
+}

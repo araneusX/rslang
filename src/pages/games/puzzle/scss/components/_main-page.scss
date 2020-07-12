@@ -1,0 +1,128 @@
+.main-page {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // position: relative;
+  min-height: calc(100vh - 210px);
+}
+
+.wrapper-game {
+  // width: 800px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-size: 1.4vw;
+  margin-top: 40px;
+}
+
+.picture-description {
+  position: absolute;
+  font-size: 18px;
+  text-align: center;
+  width: 45%;
+
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-shadow: 0 0 2px white, 0 0 2px white, 0 0 8px white;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    min-width: 250px;
+  }
+
+}
+
+.wrapper-game-puzzle {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper-sentences-game {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.image-sentences-game {
+  z-index: -1;
+  width: 50%;
+  position: relative;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    min-width: 300px;
+  }
+}
+
+.sentence-game {
+  display: flex;
+  height: 100%;
+}
+
+.sentence-game-puzzle {
+  display: flex;
+  justify-content: center;
+}
+
+.assembled-sentence-game-puzzle {
+  display: flex;
+  justify-content: center;
+  opacity: .7;
+  pointer-events: none;
+}
+
+.assembled-word-game-puzzle {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+  user-select: none;
+  text-shadow: 0 0 3px white;
+}
+
+.wrapper-assembled-game-puzzle {
+  margin-bottom: 85px;
+}
+
+.word-game {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.word-game-puzzle {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.on-level-page {
+  opacity: .8;
+  cursor: pointer;
+}
+
+.first-puzzle {
+  padding-left: 0;
+  clip-path: polygon(0% 1%, calc(100% - 10px) 1%, calc(100% - 10px) 40%, calc(100% - 5px) 35%, 100% 40%, 100% 60%, calc(100% - 5px) 65%, calc(100% - 10px) 60%, calc(100% - 10px) 99%, 0% 99%, 0% 0%);
+}
+
+.center-puzzle {
+  clip-path: polygon(1% 1%, calc(100% - 10px) 1%, calc(100% - 10px) 40%, calc(100% - 5px) 35%, 100% 40%, 100% 60%, calc(100% - 5px) 65%, calc(100% - 10px) 60%, calc(100% - 10px) 99%, 1% 99%, 1% 63%, 5px 67%, 11px 61%, 11px 39%, 5px 33%, 1% 37%);
+}
+
+.last-puzzle {
+  padding-right: 0;
+  clip-path: polygon(1% 1%, 100% 1%, 100% 99%, 1% 99%, 1% 63%, 5px 67%, 11px 61%, 11px 39%, 5px 33%, 1% 37%);
+}
