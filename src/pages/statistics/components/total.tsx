@@ -125,19 +125,19 @@ const Total = () => {
       <div className={style.inner_wrapper}>
         <div className={style.count}>
           <div className={style.row}>
-            Total words for study:
+            Всего слов для изучения в базе:
             <span className={style.value}>
               {WORDS_COUNT}
             </span>
           </div>
           <div className={style.row}>
-            Total words studied:
+            Всего слов изучено с начала курса:
             <span className={style.value}>
               {totalStats.newWords}
             </span>
           </div>
           <div className={style.row}>
-            Completed:
+            Процент завершения курса:
             <span className={style.value}>
               {(totalStats.newWords / WORDS_COUNT) * 100 > 10
                 ? `${((totalStats.newWords / WORDS_COUNT) * 100).toFixed(1)} %`
@@ -162,7 +162,7 @@ const Total = () => {
               }}
             >
               <div>{days[tile.point].date}</div>
-              <div>{`Total words: ${days[tile.point].newWords}`}</div>
+              <div>{`Всего изучено: ${days[tile.point].newWords}`}</div>
             </div>
             )}
           </div>
@@ -171,6 +171,9 @@ const Total = () => {
             <span>{days[days.length - 1].date}</span>
           </div>
         </div>
+      </div>
+      <div className={style.message}>
+        Наведите курсор на на график, чтобы получить больше информации.
       </div>
     </div>
   );

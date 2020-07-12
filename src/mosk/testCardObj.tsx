@@ -1,6 +1,8 @@
 const cardObj = [
   {
     id: '5e9f5ee35eb9e72bc21af4c8',
+    group: 0 | 1 | 2 | 3 | 4 | 5,
+    page: 0,
     word: 'alien',
     image: 'files/03_0041.jpg',
     audio: 'files/03_0041.mp3',
@@ -11,7 +13,8 @@ const cardObj = [
     transcription: '[éiljən]',
     textExampleTranslate: 'пришелец пришел с миром',
     textMeaningTranslate: 'Инопланетянин - это существо из другого мира',
-    wordTranslate: 'инопланетянин'
+    wordTranslate: 'инопланетянин',
+    wordsPerExampleSentence: 0
   },
   {
     id: '5e9f5ee35eb9e72bc21af4c9',
@@ -25,7 +28,10 @@ const cardObj = [
     transcription: '[əmʌ̀ŋ]',
     textExampleTranslate: 'Среди зеленых было красное яблоко',
     textMeaningTranslate: 'Если вы среди определенных вещей, они все вокруг вас',
-    wordTranslate: 'среди'
+    wordTranslate: 'среди',
+    group: 0,
+    page: 0,
+    wordsPerExampleSentence: 1
   }
 ];
 

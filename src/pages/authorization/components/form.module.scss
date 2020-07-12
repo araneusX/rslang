@@ -1,12 +1,101 @@
 .form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
-    margin-top: 1rem;
-    padding: 1rem;
-    border: 3px solid #000;
-    border-radius: 5px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  padding-bottom: 25px;
+  padding-top: 25px;
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: #778899 1px 1px 5px 5px;
 }
+
+form input {
+  width: 200px;
+  height: 40px;
+  border: lightslategrey 1px solid;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 0 10px;
+  font-weight: 500;
+}
+
+.password {
+  &_message {
+    position: absolute;
+    display: none;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.747);
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 1em;
+    top:40px;
+    text-align: justify;
+    padding: 5px;
+    width: 80%;
+    border: 1px solid rgba(105, 105, 105, 0.288);
+  }
+
+  &:hover+&_message{
+    display: block;
+  }
+}
+
+.output {
+  font-size: 16px;
+  line-height: 1em;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 20vw;
+}
+
+.signInButton {
+  width: 100px;
+  height: 30px;
+  background: #FF9900;
+  box-shadow: #e48900 0 5px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.signUpButton {
+  width: 100px;
+  height: 30px;
+  background: #B2FDDC;
+  box-shadow: #6fffc1 0 5px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1020px) {
+  .btnContainer {
+    flex-direction: column;
+    height: 90px;
+    justify-content: space-around;
+    align-items: center;;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .logInContainer {
+    flex-direction: column;
+  }
+
+  .btnContainer {
+      flex-direction: row;
+      width: 250px;
+      height: auto;
+  }
+  }

@@ -29,9 +29,6 @@ const SettingsForm = () => {
     };
 
     const arrayCardViewSettings = [
-      { key: 'image', value: setting.optional.imageToCard },
-      { key: 'pronounse', value: setting.optional.pronounseToCard },
-      { key: 'transcription', value: setting.optional.transcriptionToCard },
       { key: 'translate', value: setting.optional.translateToTheCard },
       { key: 'example', value: setting.optional.exampleToCard },
       { key: 'explain', value: setting.optional.explainToCard }
@@ -43,18 +40,16 @@ const SettingsForm = () => {
         newSetting.wordsPerDay = Number(value);
         break;
       case 'words-quantity':
+        if (Number(value) > newSetting.wordsPerDay) break;
         setting.optional.maxCountCard = Number(value);
         break;
       case 'image':
-        if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
         setting.optional.imageToCard = !setting.optional.imageToCard;
         break;
       case 'pronounse':
-        if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
         setting.optional.pronounseToCard = !setting.optional.pronounseToCard;
         break;
       case 'transcription':
-        if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
         setting.optional.transcriptionToCard = !setting.optional
           .transcriptionToCard;
         break;

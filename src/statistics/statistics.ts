@@ -67,8 +67,10 @@ const statistics: StatisticsInterface = {
     const days = Object.keys(this.days);
     return JSON.parse(JSON.stringify(
       days.map((i) => this.days[i]).sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
+        const [dayA, monthA, yearA] = a.date.split('-');
+        const [dayB, monthB, yearB] = b.date.split('-');
+        const dateA = new Date(`${monthA}-${dayA}-${yearA}`);
+        const dateB = new Date(`${monthB}-${dayB}-${yearB}`);
         return dateA < dateB ? -1 : 1;
       })
     ));
@@ -161,9 +163,12 @@ const statistics: StatisticsInterface = {
       this.series = 0;
     }
 
-    const minInterval = (this.userWords
-      .filter((word) => (!word.isDeleted && word.isCorrect))
-      .sort((a, b) => (a.interval - b.interval)))[1].interval;
+    const minInterval = this.userWords.length < 2
+      ? this.userWordsId[wordId].interval
+      : (this.userWords
+        .filter((word) => (!word.isDeleted && word.isCorrect))
+        .sort((a, b) => (a.interval - b.interval))
+      )[1].interval;
 
     if (this.userWordsId[wordId].interval < minInterval) {
       this.userWordsId[wordId].interval = minInterval + 1;
