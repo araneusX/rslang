@@ -12,7 +12,8 @@ import {
   About,
   Vocabulary,
   Savannah,
-  Puzzle
+  Puzzle,
+  Promo
 } from './pages';
 
 import { Header, Footer } from './commonComponents';
@@ -27,6 +28,7 @@ function App() {
         {isAuth && <Header />}
         <Switch>
           <Route exact path="/authorization" component={Authorization} />
+          <Route exact path="/promo" component={Promo} />
           {isAuth && (
           <>
             <Route exact path="/main" component={Main} />
@@ -37,7 +39,6 @@ function App() {
             <Route exact path="/about" component={About} />
             <Route exact path="/games/speakit" component={SpeakIt} />
             <Route exact path="/games/savannah" component={Savannah} />
-
             <Route exact path="/games/sprint" component={Sprint} />
             <Route exact path="/games/puzzle" component={Puzzle} />
           </>

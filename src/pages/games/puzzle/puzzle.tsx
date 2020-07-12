@@ -18,7 +18,7 @@ const PuzzleStart = () => {
 };
 
 const Puzzle = () => (
-  <div className='base-wrapper'>
+  <div className="base-wrapper">
     <PuzzleContextProvider>
       <PuzzleStart />
     </PuzzleContextProvider>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Form from './components/form';
 
 import style from './authorization.module.scss';
@@ -12,7 +13,7 @@ const Authorization = () => (
           Rslang - это приложение, которое поможет вам выучить английский язык быстрее и наиболее интересным способом.
           Вам будет весело и никогда не надоест учиться. Присоединяйтесь к нам!
         </span>
-        <button type="button" className={style.learnMore}>Узнать больше</button>
+        <Link to="/promo" className={style.learnMore}>Узнать больше</Link>
       </div>
       <Form />
     </div>
