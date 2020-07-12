@@ -22,13 +22,14 @@ const Start = () => {
             <div className={style.startPageWrapper}>
               <div className={style.startCard}>
                 <h2>
-                  Audio Challenge
+                  Аудиовызов
                 </h2>
                 <p>
-                  Audio challenge training develops your listening skills. The more words you know, the more experience you get.
+                  <i>Аудиовызов </i>
+                  развивает ваши навыки слушания. Чем больше слов вы знаете, тем больше опыта вы получаете.
                 </p>
                 <button type="button" onClick={startGameF}>
-                  Start
+                  Начать!
                 </button>
               </div>
 
