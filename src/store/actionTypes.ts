@@ -15,6 +15,7 @@ export type Action =
 | { type: 'SET_OUR_ROUND', value: number}
 | { type: 'SET_OUR_LEVEL', value: number}
 | { type: 'SET_OUR_WORDS', value: OurGameWordInterface[]}
+| { type: 'SET_OUR_IMAGES', value: OurGameWordInterface[]}
 | { type: 'SET_OUR_SCREEN', value: SpeakitScreenType}
 | { type: 'SET_OUR_COMPLETE', value: boolean}
 | { type: 'SET_OUR_MODE', value: SpeakitModeType}

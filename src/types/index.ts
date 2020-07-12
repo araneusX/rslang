@@ -208,6 +208,7 @@ export interface OurGameStateInterface {
   level: number,
   screen: SpeakitScreenType,
   words: OurGameWordInterface[],
+  images: OurGameWordInterface[],
   complete: boolean,
   game: boolean,
   mode: SpeakitModeType

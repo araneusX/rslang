@@ -70,6 +70,7 @@ export const initialOurGameObject: OurGameStateInterface = {
   round: 0,
   screen: 'start',
   words: [],
+  images: [],
   complete: false,
   game: false,
   mode: 'user'

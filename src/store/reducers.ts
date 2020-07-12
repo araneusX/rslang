@@ -72,6 +72,10 @@ const ourGameReducer = (state: OurGameStateInterface, action:Action): OurGameSta
       const { value } = action;
       return { ...state, words: value };
     }
+    case 'SET_OUR_IMAGES': {
+      const { value } = action;
+      return { ...state, images: value };
+    }
     case 'SET_OUR_SCREEN': {
       const { value } = action;
       return { ...state, screen: value };
