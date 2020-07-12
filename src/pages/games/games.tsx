@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import style from './games.module.scss';
 
 const games = [
-  ['Ассоциации', '/games/speakit', 'association.jpg'],
-  ['Спринт', '/games/speakit', 'sprint.png'],
-  ['Саванна', '/games/speakit', 'savannah.png'],
-  ['Аудиовызов', '/games/speakit', 'audioCall.png'],
-  ['Puzzle', '/games/speakit', 'puzzle.png'],
+  ['Ассоциации', '/games/our-game', 'association.jpg'],
+  ['Спринт', '/games/savannah', 'sprint.png'],
+  ['Саванна', '/games/sprint', 'savannah.png'],
+  ['Аудиовызов', '/games/audio-call', 'audioCall.png'],
+  ['Puzzle', '/games/puzzle', 'puzzle.png'],
   ['Speak It', '/games/speakit', 'speakit.png']
 ];
 
@@ -17,7 +17,7 @@ const Games = () => (
       {games.map((game) => (
         <Link to={game[1]} key={game[0]}>
           <div
-            style={{ background: `${process.env.PUBLIC_URL}/images/tiles/${game[2]}` }}
+            style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/tiles/${game[2]})` }}
             className={style.tile}
           >
             {game[0]}

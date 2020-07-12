@@ -3,17 +3,21 @@
 }
 
 .tiles {
-  width: 80%;
-  margin: 40px 0;
+  padding: 40px 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1200px;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 }
 
 .tile {
-  width: 200px;
-  height: 200px;
-  background-color: yellowgreen;
+  width: 300px;
+  height: 240px;
   border-radius: 10px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.541);
   display: flex;
@@ -21,4 +25,6 @@
   align-items: center;
   font-size: 30px;
   font-weight: 600;
+  background-size: cover;
+  margin: 20px;
 }
