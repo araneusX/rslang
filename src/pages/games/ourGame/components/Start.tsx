@@ -14,12 +14,11 @@ const Start: React.FC<StartPropsType> = () => {
 
   return (
     <div className={style.wrapper}>
-      <p className={style.title}>Associations</p>
+      <p className={style.title}>Ассоциации</p>
       <p className={style.text}>
-        Click on the word then click on the image with an association
-        to this word. Than more right connections you will do than more points you will get. Good luck!
+        Нажмите на слово, затем нажмите на изображение с ассоциацией к этому слову. Чем больше правильных пар вы сделаете, тем больше получите баллов. Удачи!
       </p>
-      <button className={style.button} type="button" onClick={handleStart}>Start</button>
+      <button className={style.button} type="button" onClick={handleStart}>Начать</button>
     </div>
   );
 };

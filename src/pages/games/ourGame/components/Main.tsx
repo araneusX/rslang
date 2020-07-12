@@ -306,11 +306,13 @@ const Main = (props: Props) => {
               mode === 'vocabulary'
               && (
               <div className={style.selects}>
+                <div className={style.label}>Уровень:</div>
                 <select onChange={handleLevelChange} defaultValue={`${level}`}>
                   {(new Array(6)).fill('').map((v, i) => (
                     <option value={`${i}`} key={`${i}`}>{i + 1}</option>
                   ))}
                 </select>
+                <div className={style.label}>Раунд:</div>
                 <select onChange={handleRoundChange} defaultValue={`${round}`}>
                   {(new Array(60)).fill('').map((v, i) => (
                     <option value={`${i}`} key={`${i}`}>{i + 1}</option>
