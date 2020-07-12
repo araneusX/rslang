@@ -94,26 +94,14 @@ const Results: React.FC<ResultsPropsType> = () => {
     setShowStatistics(!isShowStatistics);
   };
 
-  const handlePlay = (word: OurGameWordInterface) => {
-    const audio = new Audio(word.audio);
-    audio.play();
-  };
-
   words.forEach((word) => {
     const element = (
       <div
         className={style.item}
         key={word.id}
-        onClick={handlePlay.bind(null, word)}
         role="button"
         tabIndex={0}
-        onKeyUp={(event) => {
-          if (event.key === 'Enter') {
-            handlePlay.bind(null, word);
-          }
-        }}
       >
-        <img src={`${process.env.PUBLIC_URL}/images/sound1.png`} alt="play" />
         <div className={style.value}>{word.word}</div>
         <div className={style.transcription}>{word.transcription}</div>
         <div className={style.translate}>{word.wordTranslate}</div>
