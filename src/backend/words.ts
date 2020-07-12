@@ -157,7 +157,7 @@ export async function downloadWordStatistics(
   token: string,
   wordId: string
 ): Promise<{content: {} | Error, ok: boolean}> {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${wordId}`;
+  const url = `${SERVER}/users/${userId}/words/${wordId}`;
   try {
     const rawResponse = await fetch(url, {
       method: 'GET',
@@ -182,7 +182,7 @@ export async function uploadWordStatistics(
   token: string,
   word: WordStatisticsInterface
 ): Promise<{ ok: boolean}> {
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${word.wordId}`;
+  const url = `${SERVER}/users/${userId}/words/${word.wordId}`;
   try {
     const rawResponse = await fetch(url, {
       method: 'POST',
