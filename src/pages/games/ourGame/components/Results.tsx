@@ -184,7 +184,7 @@ const Results: React.FC<ResultsPropsType> = () => {
           {isShowStatistics ? 'Вернуться' : 'Долгосрочная статистика'}
         </button>
       </div>
-      {isloading && <div className={style.preloader}><Preloader /></div>}
+      {isLoading && <div className={style.preloader}><Preloader /></div>}
     </div>
   );
 };
