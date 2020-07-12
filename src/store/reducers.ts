@@ -1,7 +1,12 @@
 import appState from './store';
 import { Action } from './actionTypes';
 import {
-  StateInterface, AuthInterface, SettingsInterface, SpeakitStateInterface, SprintStateInterface
+  StateInterface,
+  AuthInterface,
+  SettingsInterface,
+  SpeakitStateInterface,
+  SprintStateInterface,
+  TrainingStateInterface
 } from '../types';
 import { initialSprintObject } from '../constants';
 
@@ -129,16 +134,51 @@ const sprintReducer = (state: SprintStateInterface, action:Action): SprintStateI
   }
 };
 
+const trainReducer = (state: TrainingStateInterface, action: Action): TrainingStateInterface => {
+  switch (action.type) {
+    case 'SET_TRAINING_SCREEN': {
+      const { value } = action;
+      return { ...state, screen: value };
+    }
+    case 'SET_TRAINING_COMPLETE': {
+      const { value } = action;
+      return { ...state, complete: value };
+    }
+    case 'SET_TRAINING_AUDIO': {
+      const { value } = action;
+      return { ...state, isAudioOn: value };
+    }
+    case 'SET_TRAINING_CARD': {
+      const { value } = action;
+      return { ...state, card: value };
+    }
+    case 'SET_TRAINING_FIRST_VISIT': {
+      const { value } = action;
+      return { ...state, isFirstVisit: value };
+    }
+    case 'SET_TRAINING_MODE': {
+      const { value } = action;
+      return { ...state, trainingMode: value };
+    }
+    case 'SET_TRAINING_CARD_DELETE': {
+      const { value } = action;
+      return { ...state, isCardDelete: value };
+    }
+    default: return state;
+  }
+};
+
 const mainReducer = (
   {
-    auth, settings, speakit, sprint
+    auth, settings, speakit, sprint, training
   }: StateInterface,
   action:Action
 ): StateInterface => ({
   auth: authReducer(auth, action),
   settings: settingsReducer(settings, action),
   speakit: speakItReducer(speakit, action),
-  sprint: sprintReducer(sprint, action)
+  sprint: sprintReducer(sprint, action),
+  training: trainReducer(training, action)
 });
 
 export default mainReducer;

@@ -123,7 +123,7 @@ export interface WordStatisticsInterface {
 export interface BackendWordInterface {
   id: string,
   group: number,
-  round: number,
+  page: number,
   word: string,
   image: string,
   audio: string,
@@ -220,9 +220,22 @@ export interface SprintStateInterface {
   roundTime: number
 }
 
+export type TrainingScreenType = 'start' | 'main';
+
+export interface TrainingStateInterface {
+  screen: TrainingScreenType,
+  isAudioOn: boolean,
+  card: BackendWordInterface,
+  complete: boolean,
+  isFirstVisit: boolean,
+  trainingMode: string,
+  isCardDelete: boolean;
+}
+
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
   speakit: SpeakitStateInterface,
-  sprint: SprintStateInterface
+  sprint: SprintStateInterface,
+  training: TrainingStateInterface
 }

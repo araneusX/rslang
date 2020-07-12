@@ -1,5 +1,13 @@
 import {
-  SettingsInterface, AuthInterface, SpeakitWordInterface, SpeakitScreenType, SpeakitModeType, SprintWordInterface, SprintScreenType
+  SettingsInterface,
+  AuthInterface,
+  SpeakitWordInterface,
+  SpeakitScreenType,
+  SpeakitModeType,
+  SprintWordInterface,
+  SprintScreenType,
+  TrainingScreenType,
+  BackendWordInterface
 } from '../types';
 
 export type Action =
@@ -22,4 +30,11 @@ export type Action =
 | { type: 'SET_SPRINT_END_GAME'}
 | { type: 'SET_SPRINT_CORRECT_ANSWER', value: {correctAnswersInRowNext: number, pointsLevelNext: number, pointsForAnswerPlus: number}}
 | { type: 'SET_SPRINT_STEP_AND_CORRECT_ANSWERS_IN_ROW', value: number }
-| { type: 'SET_SPRINT_WORDS', value: SprintWordInterface[]};
+| { type: 'SET_SPRINT_WORDS', value: SprintWordInterface[]}
+| { type: 'SET_TRAINING_SCREEN', value: TrainingScreenType }
+| { type: 'SET_TRAINING_COMPLETE', value: boolean }
+| { type: 'SET_TRAINING_AUDIO', value: boolean }
+| { type: 'SET_TRAINING_CARD', value: BackendWordInterface }
+| { type: 'SET_TRAINING_FIRST_VISIT', value: boolean }
+| { type: 'SET_TRAINING_MODE', value: string }
+| { type: 'SET_TRAINING_CARD_DELETE', value: boolean};
