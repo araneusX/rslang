@@ -10,7 +10,10 @@
 .screen {
   display: flex;
   flex-direction: column;
-  padding: 10px 0;
+}
+
+.gameContentWrapper {
+  display: flex;
 }
 
 .image {
@@ -36,8 +39,18 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  height: 500px;
 }
 
+.words{
+  flex-direction: column;
+  flex-basis: 25%;
+  width: 100%;
+}
+
+.images{
+  flex-basis: 75%;
+}
 
 .word {
   box-sizing: border-box;
@@ -45,7 +58,7 @@
   align-items: center;
   padding: 10px;
   margin: 10px 5px;
-  width: calc(20% - 10px);
+  width: calc(70% - 10px);
   height: 75px;
   border: 1px solid #C4C4C4;
   border-radius: 5px;
@@ -53,10 +66,33 @@
   outline: none;
 }
 
+.tip{
+  width: 30px;
+  height: 30px;
+  margin: 5px 0;
+  border-radius: 50%;
+  background-color: rgb(179, 179, 179);
+  font-size: 16px;
+  color: #333333;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  &:hover{
+    background-color: grey;
+  }
+}
+
+.tipText{
+    font-size: 14px;
+    color: #333333;
+}
+
 .usual {
+  border: 1px solid #a0fdee50;
+  background-color: #d1fff6ab;
   &:focus, &:hover{
-    border: 1px solid #77e9d650;
-    background-color: #d0fff7ab;
+    border: 1px solid #5ef1d950;
+    background-color: #a5fdeeab;
   }
 }
 
@@ -65,9 +101,14 @@
   background-color: #D0FFF7;
 }
 
-.recognized {
-  border: 1px solid #9e9b00;
-  background-color: #e0dd2f;
+.right{
+  border: 1px solid #07630b;
+  background-color: #02ff39;
+  cursor: not-allowed;
+ &:hover{
+  border: 1px solid #07630b;
+  background-color: #02ff39;
+ }
 }
 
 .wordInnerWrapper {
@@ -96,6 +137,7 @@
   border: none;
   box-shadow: 0 -4px 4px 0px inset rgba(0, 0, 0, 0.25);
   margin: 0 10px;
+  cursor: pointer;
 }
 
 .levels {
@@ -114,12 +156,14 @@
 
 .imageCardWrapper{
   width: 17%;
-  margin: 0px 5px;
+  height: 250px;
+  margin: 5px 0px 0px 5px;
   padding: 5px;
   display: flex;
   align-items: center;
-  background-color: red;
   flex-direction: column;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .imageCard{
@@ -129,4 +173,10 @@
 .controls{
   display: flex;
   justify-content: center;
+  margin-top: 25px;
+}
+
+.preloader {
+  width: 100%;
+  height: 100%;
 }
