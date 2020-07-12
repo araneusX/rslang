@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import style from './ourGame.module.scss';
 import Start from './components/Start';
 import Main from './components/Main';
+import Results from './components/Results';
 
 import { StateContext } from '../../../store/stateProvider';
 
@@ -18,7 +19,8 @@ const OurGame: React.FC<OurGamePropsType> = () => {
   return (
     <div className={style.page}>
       {screen === 'start' && <Start />}
-      { screen === 'main' && <Main />}
+      { screen === 'main' && <Main rightAnswerArray={[]} wrongAnswerArray={[]} />}
+      { screen === 'results' && <Results />}
     </div>
   );
 };
