@@ -1,43 +1,3 @@
-body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-image: url(./background.png);
-    background-size: cover;
-}
-
-.logInContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-}
-
-.description {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    background: transparent;
-    height: 50vh;
-    width: 40vw;
-}
-
-.learnMore {
-    width: 200px;
-    height: 50px;
-    align-self: center;
-    background: #FF9900;
-    border: none;
-    border-radius: 15px;
-    box-shadow: #e48900 0 5px;
-    cursor: pointer;
-}
-
-.learnMore:hover{
-    background: #cc7a00;
-    box-shadow: #bb7000 0 5px;
-}
-
 .form {
     display: flex;
     flex-direction: column;
@@ -58,6 +18,13 @@ form input {
     height: 40px;
     border: lightslategrey 1px solid;
     border-radius: 10px;
+    font-size: 16px;
+    padding: 0 10px;
+    font-weight: 500;
+}
+
+.output {
+  font-size: 16px;
 }
 
 .btnContainer {
@@ -100,9 +67,7 @@ form input {
     .logInContainer {
       flex-direction: column;
     }
-    .description {
-        width: 80vw;
-    }
+
     .btnContainer {
         flex-direction: row;
         width: 250px;

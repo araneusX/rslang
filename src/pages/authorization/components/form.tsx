@@ -99,26 +99,16 @@ const Form = () => {
   }
 
   return (
-    <div className={style.logInContainer}>
-      <div className={style.description}>
-        <h1>Добро пожаловать в RSLang!</h1>
-        <span className={style.descriptionText}>
-          Rslang - это приложение, которое поможет вам выучить английский быстрее и наиболее интересным способом.
-          Вам будет весело и никогда не надоест учиться. Присоединяйтесь к нам!
-        </span>
-        <button type="button" className={style.learnMore}>Узнать больше</button>
+    <form className={style.form} onSubmit={submitHandler}>
+      <b>Регистрация</b>
+      <input type="email" name="email" placeholder="Enter your E-mail" value={email} onChange={(changeHandler)} />
+      <input type="text" name="password" placeholder="Password" value={password} onChange={changeHandler} />
+      <div className={style.output}>{message}</div>
+      <div className={style.btnContainer}>
+        <button type="submit" value="log" className={style.signInButton} onClick={(event) => clickHandler(event, 'log')}>Вход</button>
+        <button type="submit" value="create" className={style.signUpButton} onClick={(event) => clickHandler(event, 'create')}>Регистрация</button>
       </div>
-      <form className={style.form} onSubmit={submitHandler}>
-        <b>Бесплатная регистрация</b>
-        <input type="email" name="email" placeholder="Enter your E-mail" value={email} onChange={(changeHandler)} />
-        <input type="text" name="password" placeholder="Password" value={password} onChange={changeHandler} />
-        <div className="output">{message}</div>
-        <div className={style.btnContainer}>
-          <button type="submit" value="log" className={style.signInButton} onClick={(event) => clickHandler(event, 'log')}>Вход</button>
-          <button type="submit" value="create" className={style.signUpButton} onClick={(event) => clickHandler(event, 'create')}>Регистрация</button>
-        </div>
-      </form>
-    </div>
+    </form>
   );
 };
 

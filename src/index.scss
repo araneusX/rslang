@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+button {
+  outline: none;
+}
+
 #root{
   min-height: 100vh;
   display: flex;
