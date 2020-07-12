@@ -299,9 +299,7 @@ const statistics: StatisticsInterface = {
         if (!statisticsRes.ok) {
           return { ok: false };
         }
-      }
-
-      if (!statisticsData.ok) {
+      } else if (!statisticsData.ok) {
         return { ok: false };
       }
 
@@ -327,10 +325,12 @@ const statistics: StatisticsInterface = {
         this.userWordsId[wordId] = this.userWords[i];
       });
 
-      const userStatistics = statisticsData.statistics as UserStatisticsInterface;
-      this.progress = userStatistics.progress;
-      this.days = userStatistics.days;
-      this.miniGames = userStatistics.miniGames;
+      if (statisticsData.ok) {
+        const userStatistics = statisticsData.statistics as UserStatisticsInterface;
+        this.progress = userStatistics.progress;
+        this.days = userStatistics.days;
+        this.miniGames = userStatistics.miniGames;
+      }
 
       const nowKey = createIdFromDate();
       if (!this.days[nowKey]) {

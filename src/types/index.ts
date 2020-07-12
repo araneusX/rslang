@@ -174,6 +174,7 @@ export interface SettingsOptionalInterface extends CardSettingsInterface {
   wordDeleteButton: boolean,
   addToDifficultWordsButton: boolean,
   addGrageButton: boolean,
+  level: number
 }
 export interface SettingsInterface {
   wordsPerDay: number,
