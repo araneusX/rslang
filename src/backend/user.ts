@@ -18,12 +18,12 @@ export const logInUser = async (user: object) => {
     if (!response.ok) {
       switch (response.status) {
         case 404: {
-          throw new Error('User is not found.');
+          throw new Error('Пользователь с такими данными не найден.');
         }
         case 403: {
-          throw new Error('Invalid username or password.');
+          throw new Error('Неверное имя пользователя или пароль.');
         }
-        default: throw new Error('Something went wrong...');
+        default: throw new Error('Извините, сервер временно недоступен, попробуйте позже...');
       }
     }
     const content = await response.json();
@@ -55,12 +55,12 @@ export const createUser = async (user: object) => {
     if (!response.ok) {
       switch (response.status) {
         case 422: {
-          throw new Error('An error has occurred, check the data you entered.');
+          throw new Error('При регистрации произошла ошибка, проверьте введенные данные!');
         }
         case 417: {
-          throw new Error('This email is already registered.');
+          throw new Error('Пользователь с таким Email уже зарегистрирован!');
         }
-        default: throw new Error('Something went wrong...');
+        default: throw new Error('Извините, сервер временно недоступен, попробуйте позже...');
       }
     }
     const content = await response.json();
