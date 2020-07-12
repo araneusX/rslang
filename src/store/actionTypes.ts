@@ -8,7 +8,8 @@ import {
   SprintScreenType,
   TrainingScreenType,
   BackendWordInterface,
-  AudioCallScreenType
+  AudioCallScreenType,
+  OurGameWordInterface
 } from '../types';
 
 export type Action =
@@ -47,4 +48,12 @@ export type Action =
 | { type: 'SET_AUDIO_STEP', value: number}
 | { type: 'SET_AUDIO_NEW_GAME', value: {level: number, words: BackendWordInterface[], allAnswerArray: string[], page:number}}
 | { type: 'SET_AUDIO_SCREEN', value: AudioCallScreenType}
-| { type: 'CLEAR_STATE' };
+| { type: 'CLEAR_STATE' }
+| { type: 'SET_OUR_ROUND', value: number}
+| { type: 'SET_OUR_LEVEL', value: number}
+| { type: 'SET_OUR_WORDS', value: OurGameWordInterface[]}
+| { type: 'SET_OUR_IMAGES', value: OurGameWordInterface[]}
+| { type: 'SET_OUR_SCREEN', value: SpeakitScreenType}
+| { type: 'SET_OUR_COMPLETE', value: boolean}
+| { type: 'SET_OUR_MODE', value: SpeakitModeType}
+| { type: 'SET_OUR_GAME', value: boolean};

@@ -14,7 +14,8 @@ import {
   Savannah,
   Puzzle,
   Promo,
-  AudioCall
+  AudioCall,
+  Association
 } from './pages';
 
 import { Header, Footer } from './commonComponents';
@@ -43,6 +44,7 @@ function App() {
             <Route exact path="/games/sprint" component={Sprint} />
             <Route exact path="/games/puzzle" component={Puzzle} />
             <Route exact path="/games/audio-call" component={AudioCall} />
+            <Route exact path="/games/our-game" component={Association} />
           </>
           )}
           <Redirect to={isAuth ? '/main' : '/authorization'} />

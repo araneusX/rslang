@@ -4,7 +4,8 @@ import {
   initialSprintObject,
   initTrainingObject,
   initialAudioCallObject,
-  initialAuthObject
+  initialAuthObject,
+  initialOurGameObject
 } from '../constants';
 
 import {
@@ -14,7 +15,8 @@ import {
   SpeakitStateInterface,
   SprintStateInterface,
   TrainingStateInterface,
-  AudioCallStateInterface
+  AudioCallStateInterface,
+  OurGameStateInterface
 } from '../types';
 
 const auth: AuthInterface = { ...initialAuthObject };
@@ -29,10 +31,13 @@ const training: TrainingStateInterface = { ...initTrainingObject };
 
 const audioCall: AudioCallStateInterface = { ...initialAudioCallObject };
 
+const our: OurGameStateInterface = { ...initialOurGameObject };
+
 export default {
   auth,
   settings,
   speakit,
+  our,
   sprint,
   training,
   audioCall

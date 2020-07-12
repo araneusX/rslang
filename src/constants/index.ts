@@ -7,7 +7,8 @@ import {
   SprintStateInterface,
   TrainingStateInterface,
   AudioCallStateInterface,
-  AuthInterface
+  AuthInterface,
+  OurGameStateInterface
 } from '../types';
 
 export const initialUserStatisticsObject: UserStatisticsInterface = {
@@ -137,6 +138,17 @@ export const initialAudioCallObject: AudioCallStateInterface = {
   errorAnswer: [],
   addAnswer: false,
   answerType: false
+};
+
+export const initialOurGameObject: OurGameStateInterface = {
+  level: 0,
+  round: 0,
+  screen: 'start',
+  words: [],
+  images: [],
+  complete: false,
+  game: false,
+  mode: 'user'
 };
 
 export const SERVER = 'https://afternoon-falls-25894.herokuapp.com'; // https://afternoon-falls-25894.herokuapp.com

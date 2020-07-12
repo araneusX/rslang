@@ -6,7 +6,8 @@ import {
   SpeakitStateInterface,
   SprintStateInterface,
   TrainingStateInterface,
-  AudioCallStateInterface
+  AudioCallStateInterface,
+  OurGameStateInterface
 } from '../types';
 
 import {
@@ -15,7 +16,8 @@ import {
   initialAuthObject,
   initSettingsObject,
   initialSpeakitObject,
-  initTrainingObject
+  initTrainingObject,
+  initialOurGameObject
 } from '../constants';
 
 const authReducer = (state: AuthInterface, action:Action): AuthInterface => {
@@ -259,9 +261,50 @@ const audioReducer = (state: AudioCallStateInterface, action:Action): AudioCallS
   }
 };
 
+const ourGameReducer = (state: OurGameStateInterface, action:Action): OurGameStateInterface => {
+  switch (action.type) {
+    case 'SET_OUR_ROUND': {
+      const { value } = action;
+      return { ...state, round: value };
+    }
+    case 'SET_OUR_LEVEL': {
+      const { value } = action;
+      return { ...state, level: value };
+    }
+    case 'SET_OUR_WORDS': {
+      const { value } = action;
+      return { ...state, words: value };
+    }
+    case 'SET_OUR_IMAGES': {
+      const { value } = action;
+      return { ...state, images: value };
+    }
+    case 'SET_OUR_SCREEN': {
+      const { value } = action;
+      return { ...state, screen: value };
+    }
+    case 'SET_OUR_COMPLETE': {
+      const { value } = action;
+      return { ...state, complete: value };
+    }
+    case 'SET_OUR_GAME': {
+      const { value } = action;
+      return { ...state, game: value };
+    }
+    case 'SET_OUR_MODE': {
+      const { value } = action;
+      return { ...state, mode: value };
+    }
+    case 'CLEAR_STATE': {
+      return { ...initialOurGameObject };
+    }
+    default: return state;
+  }
+};
+
 const mainReducer = (
   {
-    auth, settings, speakit, sprint, training, audioCall
+    auth, settings, speakit, sprint, training, audioCall, our
   }: StateInterface,
   action:Action
 ): StateInterface => ({
@@ -270,7 +313,8 @@ const mainReducer = (
   speakit: speakItReducer(speakit, action),
   sprint: sprintReducer(sprint, action),
   training: trainReducer(training, action),
-  audioCall: audioReducer(audioCall, action)
+  audioCall: audioReducer(audioCall, action),
+  our: ourGameReducer(our, action)
 });
 
 export default mainReducer;
