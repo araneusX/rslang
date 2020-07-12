@@ -29,11 +29,11 @@ const Main = () => {
   const [answer, setAns] = useState(false);
   const [sessionVocWrdCount, setSessionVocWrdCount] = useState(0);
 
-  useEffect(() => {
-    if (count > 1) {
-      setStart(false);
-    }
-  }, [startPreview]);
+  // useEffect(() => {
+  //   if (count > 1) {
+  //     setStart(false);
+  //   }
+  // }, [startPreview]);
 
   useEffect(() => {
     let ignore = false;
