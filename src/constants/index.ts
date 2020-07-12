@@ -5,7 +5,9 @@ import {
   SettingsInterface,
   SpeakitStateInterface,
   SprintStateInterface,
-  TrainingStateInterface
+  TrainingStateInterface,
+  AudioCallStateInterface,
+  AuthInterface
 } from '../types';
 
 export const initialUserStatisticsObject: UserStatisticsInterface = {
@@ -44,12 +46,17 @@ export const initialDayStatisticsObject: DayInterface = {
   series: 0
 };
 
+export const initialAuthObject: AuthInterface = {
+  isAuth: false,
+  userId: '',
+  token: ''
+};
+
 export const initSettingsObject: SettingsInterface = {
   wordsPerDay: 10,
   optional: {
     maxCountCard: 20,
     imageToCard: true,
-    pronounseToCard: true,
     transcriptionToCard: true,
     translateToTheCard: true,
     exampleToCard: true,
@@ -98,10 +105,6 @@ export const initialSpeakitObject: SpeakitStateInterface = {
   mode: 'user'
 };
 
-export const SERVER = 'https://afternoon-falls-25894.herokuapp.com'; // https://afternoon-falls-25894.herokuapp.com
-
-export const WORDS_COUNT = 3600;
-
 export const initialSprintObject: SprintStateInterface = {
   level: 6,
   round: 1,
@@ -117,3 +120,25 @@ export const initialSprintObject: SprintStateInterface = {
   pointsLevel: 0,
   roundTime: 45
 };
+
+export const initialAudioCallObject: AudioCallStateInterface = {
+  level: 0,
+  page: 1,
+  step: 0,
+  selectLevel: false,
+  startGame: false,
+  finishGame: false,
+  screen: 'start',
+  words: [],
+  sound: true,
+  answerArray: [],
+  allAnswerArray: [],
+  correctAnswer: [],
+  errorAnswer: [],
+  addAnswer: false,
+  answerType: false
+};
+
+export const SERVER = 'https://afternoon-falls-25894.herokuapp.com'; // https://afternoon-falls-25894.herokuapp.com
+
+export const WORDS_COUNT = 3600;

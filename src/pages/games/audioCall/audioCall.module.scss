@@ -1,0 +1,334 @@
+.gameWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.wrap{
+    height: 100%;
+    flex: 1 0 100%;
+    display: flex;
+}
+
+.page{
+    flex: 1 0 100%;
+    min-height: 100%;
+    background: url('/images/audio/bg.svg') no-repeat center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.startCard{
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    h2{
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 60px;
+        line-height: 71px;
+        color: #333333;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    p{
+        margin-top: 0;
+        margin-bottom: 40px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 25px;
+        line-height: 34px;  
+    }
+    button{
+        padding: 10px;
+        max-width: 280px;
+        width: 100%;
+        background: #F39200;
+        border-radius: 15px;
+        border: none;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 41px;
+        text-align: center;
+        color: #000000;
+        transition: all 0.3s;
+        box-shadow: 0px 3px 3px 0px rgba(243,146,0,1);
+        &:hover{
+            cursor: pointer;
+            box-shadow: 0px 4px 4px 0px rgba(243,146,0,1);
+            opacity: 0.9;
+        }
+    }
+}
+
+.secondWrap{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    font-size: 84px;
+    font-weight: 800;
+    color: #333333;
+}
+
+.gameMainWrapper{
+    position: relative;
+    width: 100%;
+    background: linear-gradient(180deg, #FFFFFF 0%, #90FDD6 100%);
+}
+
+.heightAuto{
+    display: flex;
+    width: 100%;
+}
+
+.errorAnswer{
+    background-color: #FB0B0B!important;
+    outline: none;
+}
+
+.correctAnswer{
+    background-color: #52D424!important;
+    outline: none;
+}
+
+
+.gameMainHead{
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+}
+
+.nextBtnBlock{
+    display: flex;
+    justify-content: center;
+    button{
+        margin-top: 10px;
+        border: none;
+        border-radius: 10px;
+        padding: 5px;
+        width: 100%;
+        max-width: 200px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #FF9900;
+        transition: all 0.3s;
+        cursor: pointer;
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+}
+
+.gameMainLevels{
+    display: flex;
+    select{
+        margin-left: 5px;
+        margin-right: 5px;
+        background: none;
+        border-radius: 10px;
+        height: 30px;
+    }
+    button{
+        margin-left: 5px;
+        margin-right: 5px;
+        background: #FF9900;
+        padding: 5px;
+        height: 30px;
+        border-radius: 10px;
+    }
+}
+
+.answerBlock{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    button{
+        border: none;
+        padding: 10px 10px;
+        margin: 5px;
+        border-radius: 10px;
+    }
+    div{
+        button{
+            background: #FFF1DC;
+        }
+    }
+}
+
+.wordWrapper{
+    width: 100%;
+    min-height: 350px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    img.imageBtn{
+        width: 60px;
+        height: 60px;
+        padding: 5px;
+        display: block;
+    }
+}
+
+.imageWord{
+    width: 100%;
+    max-width: 200px;
+    border-radius: 5px;
+}
+
+
+.statisticPageBody{
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.wordWrapAnswer{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 33px;
+    line-height: 45px;
+    color: #333333;
+}
+
+.resultPageWrapper{
+    flex: 1 0 500px;
+    display: flex;
+    background: url('/images/audio/bg.svg') no-repeat center;
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+}
+
+.resultPage,
+.statisticPage{
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    min-width: 300px;
+    min-height: 300px;
+    max-height: 450px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.resultPageText{
+    color: #333333;
+    h3{
+        font-size: 30px;
+    }
+    .statisticPagePoints{
+        margin-top: 20px;
+        font-size: 24px;
+        span{
+            font-size: 26px;
+            color: #52D424;
+        }
+    }
+    .statisticPageAllWord{
+        margin-top: 10px;
+        font-size: 20px;
+        span{
+            font-size: 26px;
+            color: #52D424;
+        }
+    }
+}
+
+.resultPageBtn{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    button{
+        cursor: pointer;
+        font-weight: 600;
+        margin-right: 5px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #FF9900;
+        color: #5E2D00;
+        transition: all .3s;
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+}
+
+.statisticPageHeader{
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    color:#333333;
+    margin-bottom: 20px;
+    h4{
+        padding: 0;
+        margin: 0;
+    }
+    button{
+        font-size: 16px;
+        margin-right: 5px;
+        border: none;
+        border-radius: 5px;
+        background-color: #FF9900;
+        color: #5E2D00;
+        transition: all .3s;
+        cursor: pointer;
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+}
+
+.statisticPageDate{
+    margin: 10px 0;
+    font-size: 20px;
+    padding: 0 10px;
+    background-color: #DE8500;
+}
+
+.statisticRoundContent{
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.correctAnswerBlock{
+    background-color: #52D424;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.errorAnswerBlock{
+    background-color: #FB0B0B;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+
+@media screen and (max-width: 768px) {
+    
+}
+
+@media screen and (max-width: 375px) {
+    
+}

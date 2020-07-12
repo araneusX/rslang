@@ -37,47 +37,47 @@ const SettingsForm = () => {
 
     switch (name) {
       case 'cards-quantity':
+        if (Number(value) < newSetting.optional.maxCountCard) {
+          newSetting.optional.maxCountCard = Number(value);
+        }
         newSetting.wordsPerDay = Number(value);
         break;
       case 'words-quantity':
         if (Number(value) > newSetting.wordsPerDay) break;
-        setting.optional.maxCountCard = Number(value);
+        newSetting.optional.maxCountCard = Number(value);
         break;
       case 'image':
-        setting.optional.imageToCard = !setting.optional.imageToCard;
-        break;
-      case 'pronounse':
-        setting.optional.pronounseToCard = !setting.optional.pronounseToCard;
+        newSetting.optional.imageToCard = !setting.optional.imageToCard;
         break;
       case 'transcription':
-        setting.optional.transcriptionToCard = !setting.optional
+        newSetting.optional.transcriptionToCard = !setting.optional
           .transcriptionToCard;
         break;
       case 'translate':
         if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
-        setting.optional.translateToTheCard = !setting.optional
+        newSetting.optional.translateToTheCard = !setting.optional
           .translateToTheCard;
         break;
       case 'example':
         if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
-        setting.optional.exampleToCard = !setting.optional.exampleToCard;
+        newSetting.optional.exampleToCard = !setting.optional.exampleToCard;
         break;
       case 'explain':
         if (arrayCardViewSettingsLength.length === 1 && arrayCardViewSettingsLength[0].key === name) break;
-        setting.optional.explainToCard = !setting.optional.explainToCard;
+        newSetting.optional.explainToCard = !setting.optional.explainToCard;
         break;
       case 'show-answer':
-        setting.optional.showAnswerButton = !setting.optional.showAnswerButton;
+        newSetting.optional.showAnswerButton = !setting.optional.showAnswerButton;
         break;
       case 'delete-button':
-        setting.optional.wordDeleteButton = !setting.optional.wordDeleteButton;
+        newSetting.optional.wordDeleteButton = !setting.optional.wordDeleteButton;
         break;
       case 'put-into-hard':
-        setting.optional.addToDifficultWordsButton = !setting.optional
+        newSetting.optional.addToDifficultWordsButton = !setting.optional
           .addToDifficultWordsButton;
         break;
       case 'grade':
-        setting.optional.addGrageButton = !setting.optional.addGrageButton;
+        newSetting.optional.addGrageButton = !setting.optional.addGrageButton;
         break;
       default:
         break;
@@ -156,16 +156,6 @@ const SettingsForm = () => {
                 name="image"
               />
               <span>Картинка с ассоциацией</span>
-            </label>
-            <label htmlFor="pronounse">
-              <input
-                onChange={changeHandler}
-                checked={setting.optional.pronounseToCard}
-                id="pronounse"
-                type="checkbox"
-                name="pronounse"
-              />
-              <span>Автовоспроизведение слова</span>
             </label>
             <label htmlFor="transcription">
               <input
