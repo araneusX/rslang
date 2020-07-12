@@ -12,6 +12,8 @@ import {
   BackendWordInterface, OurGameWordInterface, SpeakitModeType, StatisticsInterface
 } from '../../../../types';
 
+import { Preloader } from '../../../../commonComponents';
+
 import { StateContext } from '../../../../store/stateProvider';
 import { StatisticsContext } from '../../../../statistics/statisticsProvider';
 
@@ -280,7 +282,7 @@ const Main = (props: Props) => {
         className={style.levels}
       >
         <div className={style.radio}>
-          <label htmlFor="radio-user">
+          <label htmlFor="radio-user" className={`${style.label}`}>
             Изученные слова
             <input
               type="radio"
@@ -291,7 +293,7 @@ const Main = (props: Props) => {
               onChange={handleRadioChange.bind(null, 'user')}
             />
           </label>
-          <label htmlFor="radio-vocabulary">
+          <label htmlFor="radio-vocabulary" className={`${style.label}`}>
             Все слова
             <input
               type="radio"
@@ -396,7 +398,7 @@ const Main = (props: Props) => {
           </div>
         </div>
       </div>
-      {/* {isloading && <div className={style.preloader}><Preloader /></div>} */}
+      {isloading && <div className={style.preloader}><Preloader /></div>}
     </>
   );
 };

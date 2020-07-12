@@ -17,7 +17,10 @@ const OurGame: React.FC<OurGamePropsType> = () => {
   }), []);
 
   return (
-    <div className={style.page}>
+    <div className={
+      `${style.page} ${screen === 'start' || screen === 'results' ? `${style.background}` : ''}`
+    }
+    >
       {screen === 'start' && <Start />}
       { screen === 'main' && <Main rightAnswerArray={[]} wrongAnswerArray={[]} />}
       { screen === 'results' && <Results />}

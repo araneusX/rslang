@@ -2,11 +2,19 @@
     height: 60px;
     border-radius: 22px;
     background-color: #FF9900;
-    min-width: 100px;
+    min-width: 145px;
     outline: none;
     border: none;
-    box-shadow: 0 -4px 4px 0px inset rgba(0, 0, 0, 0.25);
+    box-shadow: 0 -6px 0px 0px inset rgba(0, 0, 0, 0.25);
     margin: 0 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Rubik', sans-serif;
+    color: #5E2D00;
+    @media (max-width: 768px){
+        margin-top: 10px;
+    }
   }
 
   .wrapper {
@@ -43,12 +51,14 @@
   .title {
     font-size: 22px;
     font-weight: 800;
+    font-family: 'Rubik', sans-serif;
   }
 
   .right_count,
   .mistakes_count {
     display: inline-block;
     width: 30px;
+    height: 30px;
     text-align: center;
     border-radius: 10px;
     margin: 0 10px;

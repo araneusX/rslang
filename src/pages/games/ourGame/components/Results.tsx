@@ -7,6 +7,8 @@ import { StateContext } from '../../../../store/stateProvider';
 import { OurGameWordInterface, BackendWordInterface, StatisticsInterface } from '../../../../types';
 import { downloadNewWords, getManyWordsById } from '../../../../backend/words';
 
+import { Preloader } from '../../../../commonComponents';
+
 import style from './results.module.scss';
 
 type ResultsPropsType = {};
@@ -135,9 +137,9 @@ const Results: React.FC<ResultsPropsType> = () => {
                 {item.results.map((result, i) => (
                   <div className={style.statistics_item} key={i}>
                     {`${i + 1}. `}
-                    Правильно произнесено:
+                    Верно:
                     <span className={style.right_count}>{result}</span>
-                    Неправильно:
+                    Надо повторить:
                     <span className={style.mistakes_count}>{10 - result}</span>
                   </div>
                 ))}
@@ -148,12 +150,12 @@ const Results: React.FC<ResultsPropsType> = () => {
         : (
           <div className={style.items_wrapper}>
             <div className={style.head}>
-              <span className={style.title}>Правильно произнесено:</span>
+              <span className={style.title}>Верно:</span>
               <span className={style.right_count}>{right.length}</span>
             </div>
             {right}
             <div className={style.head}>
-              <span className={style.title}>Не произнесено / неверно:</span>
+              <span className={style.title}>Надо повторить:</span>
               <span className={style.mistakes_count}>{mistakes.length}</span>
             </div>
             {mistakes}
@@ -163,24 +165,26 @@ const Results: React.FC<ResultsPropsType> = () => {
         <button
           onClick={complete ? handleRestart : handleContinue}
           type="button"
+          className={`${style.button}`}
         >
           {complete ? 'Начать заново' : 'Продолжить'}
         </button>
         <button
           onClick={handleNew}
           type="button"
+          className={`${style.button}`}
         >
           Новая игра
         </button>
         <button
           onClick={handleStatistics}
-
           type="button"
+          className={`${style.button}`}
         >
           {isShowStatistics ? 'Вернуться' : 'Долгосрочная статистика'}
         </button>
       </div>
-      {/*      {isLoading && <div className={style.preloader}><Preloader /></div>} */}
+      {isloading && <div className={style.preloader}><Preloader /></div>}
     </div>
   );
 };

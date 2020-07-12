@@ -16,7 +16,7 @@ const Start: React.FC<StartPropsType> = () => {
     <div className={style.wrapper}>
       <p className={style.title}>Ассоциации</p>
       <p className={style.text}>
-        Нажмите на слово, затем нажмите на изображение с ассоциацией к этому слову. Чем больше правильных пар вы сделаете, тем больше получите баллов. Удачи!
+        Нажмите на слово, затем нажмите на изображение с ассоциацией к этому слову. Чем больше правильных пар Вы составите, тем больше получите баллов. Удачи!
       </p>
       <button className={style.button} type="button" onClick={handleStart}>Начать</button>
     </div>

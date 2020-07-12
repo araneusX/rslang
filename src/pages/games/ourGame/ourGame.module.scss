@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Rubik:wght@400;500;700&display=swap');
+
+body{
+    font-family: 'Open Sans';
+     transition: ease all 0.3s;
+}
+
+.page{
+    min-height: 690px;
+  &.background {
+    background: url('/images/our/bg.png');
+    background-size: cover;
+    background-position: bottom;
+
+    @media (max-width: 768px) {
+      background: none;
+    }
+  }
+}
