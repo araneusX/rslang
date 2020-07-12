@@ -103,8 +103,7 @@ button {
 	transition: ease-in-out 1s;
 	width: 300px;
 	height: 200px;
-	box-shadow: lightslategray 0px 0px 5px 5px;
-	// background-color: rgb(220, 225, 231);
+	box-shadow: rgb(240, 140, 156) 0px 0px 5px 5px;
 	background-color: transparentize($color: rgb(255, 192, 115), $amount: 0.1);
   }
 }
