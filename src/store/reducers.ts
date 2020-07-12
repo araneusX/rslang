@@ -1,4 +1,3 @@
-import appState from './store';
 import { Action } from './actionTypes';
 import {
   StateInterface,
@@ -10,13 +9,23 @@ import {
   AudioCallStateInterface
 } from '../types';
 
-import { initialSprintObject, initialAudioCallObject } from '../constants';
+import {
+  initialSprintObject,
+  initialAudioCallObject,
+  initialAuthObject,
+  initSettingsObject,
+  initialSpeakitObject,
+  initTrainingObject
+} from '../constants';
 
 const authReducer = (state: AuthInterface, action:Action): AuthInterface => {
   switch (action.type) {
     case 'SET_AUTH': {
       const { value } = action;
       return value;
+    }
+    case 'CLEAR_STATE': {
+      return { ...initialAuthObject };
     }
     default: return state;
   }
@@ -27,6 +36,9 @@ const settingsReducer = (state: SettingsInterface, action:Action): SettingsInter
     case 'SET_SETTINGS': {
       const { value } = action;
       return value;
+    }
+    case 'CLEAR_STATE': {
+      return { ...initSettingsObject };
     }
     default: return state;
   }
@@ -61,6 +73,9 @@ const speakItReducer = (state: SpeakitStateInterface, action:Action): SpeakitSta
     case 'SET_SPEAKIT_MODE': {
       const { value } = action;
       return { ...state, mode: value };
+    }
+    case 'CLEAR_STATE': {
+      return { ...initialSpeakitObject };
     }
     default: return state;
   }
@@ -132,6 +147,9 @@ const sprintReducer = (state: SprintStateInterface, action:Action): SprintStateI
         step: state.step + 1
       };
     }
+    case 'CLEAR_STATE': {
+      return { ...initialSprintObject };
+    }
     default: return state;
   }
 };
@@ -165,6 +183,9 @@ const trainReducer = (state: TrainingStateInterface, action: Action): TrainingSt
     case 'SET_TRAINING_CARD_DELETE': {
       const { value } = action;
       return { ...state, isCardDelete: value };
+    }
+    case 'CLEAR_STATE': {
+      return { ...initTrainingObject };
     }
     default: return state;
   }
@@ -231,10 +252,12 @@ const audioReducer = (state: AudioCallStateInterface, action:Action): AudioCallS
         ...state, errorAnswer, addAnswer, answerType
       };
     }
+    case 'CLEAR_STATE': {
+      return { ...initialAudioCallObject };
+    }
     default: return state;
   }
 };
-
 
 const mainReducer = (
   {

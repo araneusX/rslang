@@ -46,4 +46,5 @@ export type Action =
 | { type: 'SET_AUDIO_ERROR_ANSWER', value: {errorAnswer:BackendWordInterface[], addAnswer: boolean, answerType: boolean}}
 | { type: 'SET_AUDIO_STEP', value: number}
 | { type: 'SET_AUDIO_NEW_GAME', value: {level: number, words: BackendWordInterface[], allAnswerArray: string[], page:number}}
-| { type: 'SET_AUDIO_SCREEN', value: AudioCallScreenType};
+| { type: 'SET_AUDIO_SCREEN', value: AudioCallScreenType}
+| { type: 'CLEAR_STATE' };

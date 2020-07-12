@@ -3,7 +3,8 @@ import {
   initialSpeakitObject,
   initialSprintObject,
   initTrainingObject,
-  initialAudioCallObject
+  initialAudioCallObject,
+  initialAuthObject
 } from '../constants';
 
 import {
@@ -16,11 +17,7 @@ import {
   AudioCallStateInterface
 } from '../types';
 
-const auth: AuthInterface = {
-  isAuth: false,
-  userId: '',
-  token: ''
-};
+const auth: AuthInterface = { ...initialAuthObject };
 
 const settings: SettingsInterface = { ...initSettingsObject };
 

@@ -6,7 +6,8 @@ import {
   SpeakitStateInterface,
   SprintStateInterface,
   TrainingStateInterface,
-  AudioCallStateInterface
+  AudioCallStateInterface,
+  AuthInterface
 } from '../types';
 
 export const initialUserStatisticsObject: UserStatisticsInterface = {
@@ -43,6 +44,12 @@ export const initialDayStatisticsObject: DayInterface = {
   newWords: 0,
   right: 0,
   series: 0
+};
+
+export const initialAuthObject: AuthInterface = {
+  isAuth: false,
+  userId: '',
+  token: ''
 };
 
 export const initSettingsObject: SettingsInterface = {
