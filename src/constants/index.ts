@@ -49,7 +49,6 @@ export const initSettingsObject: SettingsInterface = {
   optional: {
     maxCountCard: 20,
     imageToCard: true,
-    pronounseToCard: true,
     transcriptionToCard: true,
     translateToTheCard: true,
     exampleToCard: true,
