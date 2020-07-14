@@ -12,7 +12,7 @@ const Promo:React.FC = () => {
 
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -74,12 +74,12 @@ const Promo:React.FC = () => {
       </div>
       <div className={style.commonBlock}>
       <Slider {...settings}>
-        {array.map((item) => {
-            return <div><img src={item}></img></div>
+        {array.map((item, index) => {
+            return <div key={'screen' + (index + 1)}><img src={item}></img></div>
           })}
         </Slider>
         <div>
-          <h2>Подробнее о страницах</h2>
+          <h3>Подробнее о страницах</h3>
           <ul>
             <li title='Узнать больше' onClick={()=> setPageDescription('authorization')}>Cтраница авторизации</li>
             <li title='Узнать больше' onClick={()=> setPageDescription('main')}>Cтраница обучения</li>
@@ -272,6 +272,21 @@ const Promo:React.FC = () => {
             <img src='/images/screenshots/11screen.png'></img>
           </div>
         </div>
+        }
+
+        {pageDescription ==='about-team' &&
+          <div className={style.commonBlock}>
+            <div className={style.screenShotContainer}>
+              <img src='/images/screenshots/5screen.png'></img>
+            </div>
+            <div className={style.aboutContainer}>
+              <h3>О команде</h3>
+              <p>Здесь вы можете посмотреть, кто создавал приложение RSlang,
+                и почитать интересную информацию об этих людях. Можно увидеть кто чем занимался,
+                какой вклад в разработку RSlang внес.
+              </p>
+            </div>
+          </div>
         }
 
         <div className={style.promoFooter}>

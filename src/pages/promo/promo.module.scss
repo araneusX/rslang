@@ -19,7 +19,6 @@
     }
   }
   .mainPromoInfo{
-    margin: auto;
     max-width: 630px;
   }
   .commonBlock{
@@ -29,9 +28,11 @@
     width: 100%;
     border-bottom: 4px solid #F39200;
     padding: 30px 0px 30px 0px;
-
     div{
       padding: 10px;
+    }
+    h3{
+      font-size: 25px;
     }
     ul{
       font-size: 21px;
@@ -67,7 +68,7 @@
     border-bottom: 4px solid #F39200;
     padding: 30px 10px 30px 10px;
     h3{
-      font-size: 24px;
+      font-size: 25px;
       margin-bottom: 15px;
     }
     ul{
@@ -81,7 +82,6 @@
 .sliderClass{
   max-width: 800px;
   display: block;
-  margin-bottom: 20px;
   width: 65%;
   div{
     outline: none;
@@ -92,7 +92,7 @@
   img{
     width: 100%;
     border-radius: 5px!important;
-    cursor: pointer;
+    cursor: grab;
   }
 }
 
@@ -142,7 +142,7 @@
 
 .logIn{
   padding: 10px;
-    height: 61px;
+    height: 45px;
     text-decoration: none;
     background: #FF9900;
     color: black;
@@ -218,6 +218,35 @@
   .promoHeader{
     flex-direction: column;
     height: 160px;
+  }
+  .startText{
+    h2{
+      font-size: 28px;
+    }
+    p{
+      font-size: 17px;
+    }
+  }
+  .largeText{
+    ul{
+      font-size: 17px!important;
+    }
+  }
+  .commonBlock{
+    ul{
+      font-size: 17px!important;
+    }
+    p{
+      font-size: 17px!important;
+    }
+  }
+  h3{
+    font-size: 23px!important;
+  }
+  .promoFooter{
+    h3{
+      font-size: 20px!important;
+    }
   }
 }
 
