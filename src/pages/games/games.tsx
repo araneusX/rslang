@@ -2,21 +2,29 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import style from './games.module.scss';
 
-const Games = () => (
-  <>
-    <nav className={style.tiles}>
-      <Link to="/games/speakit">
-        <div className={style.tile}>Speak It</div>
-      </Link>
-      <Link to="/games/savannah"> Savvannah </Link>
-      <Link to="/games/sprint">
-        <div className={style.tile}>Sprint</div>
-      </Link>
-      <Link to="/games/puzzle">
-        <div className={style.tile}>Puzzle</div>
-      </Link>
-    </nav>
-  </>
-);
+const games = [
+  ['Ассоциации', '/games/our-game', 'association.jpg'],
+  ['Спринт', '/games/savannah', 'sprint.png'],
+  ['Саванна', '/games/sprint', 'savannah.png'],
+  ['Аудиовызов', '/games/audio-call', 'audioCall.png'],
+  ['Puzzle', '/games/puzzle', 'puzzle.png'],
+  ['Speak It', '/games/speakit', 'speakit.png']
+];
 
+const Games = () => (
+  <div className={style.wrapper}>
+    <nav className={style.tiles}>
+      {games.map((game) => (
+        <Link to={game[1]} key={game[0]}>
+          <div
+            style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/tiles/${game[2]})` }}
+            className={style.tile}
+          >
+            {game[0]}
+          </div>
+        </Link>
+      ))}
+    </nav>
+  </div>
+);
 export default Games;

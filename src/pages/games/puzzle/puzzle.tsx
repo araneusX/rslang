@@ -18,9 +18,11 @@ const PuzzleStart = () => {
 };
 
 const Puzzle = () => (
-  <PuzzleContextProvider>
-    <PuzzleStart />
-  </PuzzleContextProvider>
+  <div className="base-wrapper">
+    <PuzzleContextProvider>
+      <PuzzleStart />
+    </PuzzleContextProvider>
+  </div>
 );
 
 export default Puzzle;

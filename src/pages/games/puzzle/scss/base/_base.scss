@@ -1,13 +1,7 @@
-* {
+.base-wrapper * {
     box-sizing: border-box;
     margin: 0;
-}
-
-html {
     font-size: 10px;
-}
-
-body {
     font-family: monospace;
     @include font($size: 1.6rem, $weight: bold);
 }
@@ -68,7 +62,7 @@ body {
 }
 
 .wave {
-    animation: 0.5s infinite alternate opacity;          
+    animation: 0.5s infinite alternate opacity;
 }
 
 .assembled-puzzle {

@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+import React, {
+  useContext, useRef, useEffect
+} from 'react';
 import { useLocation } from 'react-router-dom';
 import HeaderButton from './components/headerButton';
 
@@ -16,6 +18,8 @@ const namesOfButtons: [string, string][] = [
 ];
 
 const Header:React.ComponentType = () => {
+  const burgerMenu = useRef(null);
+  const burgerMenuList = useRef(null);
   const { dispatch } = useContext(StateContext);
   const auth: AuthInterface = {
     isAuth: false,
@@ -23,19 +27,52 @@ const Header:React.ComponentType = () => {
     userId: ''
   };
   function handleLogOut() {
-    dispatch({ type: 'SET_AUTH', value: auth });
+    dispatch({ type: 'CLEAR_STATE' });
   }
+
+  const openMenu = () => {
+    const menu : any = burgerMenu.current;
+    const menuList : any = burgerMenuList.current;
+
+    if (menu) {
+      menu.classList.toggle('active');
+      menuList.classList.toggle('active');
+    }
+  };
+
+  useEffect(() => {
+    const menuList : any = burgerMenuList.current;
+    const menu : any = burgerMenu.current;
+    if (menuList) {
+      menuList.addEventListener('click', () => {
+        menu.classList.toggle('active');
+        menuList.classList.toggle('active');
+      });
+    }
+  }, []);
 
   const { pathname } = useLocation();
 
   return (
     <div className={`${style.header}`}>
+      <div className="menu__mobile">
+        <div
+          role="button"
+          tabIndex={0}
+          className="menu__mobile_button"
+          ref={burgerMenu}
+          onClick={() => { openMenu(); }}
+          onKeyDown={() => {}}
+        >
+          <span />
+        </div>
+      </div>
       <div className={style['header-logo']}>
         <div className={style['logo-rslang']} />
         <span className={style.rs}>RS</span>
         <span className={style.lang}>Lang</span>
       </div>
-      <div className={style['header-links']}>
+      <div className={`${style['header-links']} header-links-mobile`} ref={burgerMenuList}>
         {
         namesOfButtons.map((el, i) => (
           <HeaderButton
@@ -48,7 +85,7 @@ const Header:React.ComponentType = () => {
       }
       </div>
       <button type="button" onClick={handleLogOut} className={style['log-out']}>
-        Выход
+        <span className={style['logout-text']}>Выход</span>
         <div className={style['logout-image']} />
       </button>
     </div>

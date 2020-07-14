@@ -4,6 +4,9 @@
 @import "./abstract/placeholders";
 @import "./abstract/keyframes";
 
+// bases
+@import "./base/base";
+
 // layouts
 @import "./layouts/btn";
 @import "./layouts/header";
@@ -14,9 +17,6 @@
 @import "./components/game-round";
 @import "./components/results-page";
 @import "./components/statistics-page";
-
-// bases
-@import "./base/base";
 
 // font
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');

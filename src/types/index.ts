@@ -123,7 +123,7 @@ export interface WordStatisticsInterface {
 export interface BackendWordInterface {
   id: string,
   group: number,
-  round: number,
+  page: number,
   word: string,
   image: string,
   audio: string,
@@ -161,7 +161,6 @@ export interface AuthInterface {
 
 export interface CardSettingsInterface {
   imageToCard: boolean,
-  pronounseToCard: boolean,
   transcriptionToCard: boolean,
   translateToTheCard: boolean,
   exampleToCard: boolean,
@@ -220,9 +219,60 @@ export interface SprintStateInterface {
   roundTime: number
 }
 
+export type TrainingScreenType = 'start' | 'main';
+
+export interface TrainingStateInterface {
+  screen: TrainingScreenType,
+  isAudioOn: boolean,
+  card: BackendWordInterface,
+  complete: boolean,
+  isFirstVisit: boolean,
+  trainingMode: string,
+  isCardDelete: boolean;
+}
+
+export type AudioCallScreenType = 'start' | 'main' | 'results';
+export interface AudioCallStateInterface {
+  level: number,
+  page: number,
+  step: number,
+  selectLevel: boolean,
+  startGame: boolean,
+  finishGame: boolean,
+  screen: SprintScreenType,
+  words: BackendWordInterface[],
+  allAnswerArray: string[],
+  answer?: BackendWordInterface,
+  sound: boolean,
+  answerArray: string[],
+  correctAnswer: BackendWordInterface[],
+  errorAnswer: BackendWordInterface[],
+  addAnswer: boolean,
+  answerType: boolean
+}
+
+export interface OurGameWordInterface extends BackendWordInterface {
+  isChosen: boolean,
+  index: number
+}
+
+export interface OurGameStateInterface {
+  round: number,
+  level: number,
+  screen: SpeakitScreenType,
+  words: OurGameWordInterface[],
+  images: OurGameWordInterface[],
+  complete: boolean,
+  game: boolean,
+  mode: SpeakitModeType
+}
+
 export interface StateInterface {
   auth: AuthInterface,
   settings: SettingsInterface,
   speakit: SpeakitStateInterface,
-  sprint: SprintStateInterface
+  sprint: SprintStateInterface,
+  training: TrainingStateInterface,
+  audioCall: AudioCallStateInterface,
+  our: OurGameStateInterface
 }
