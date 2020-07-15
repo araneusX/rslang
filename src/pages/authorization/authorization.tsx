@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Form from './components/form';
 
 import style from './authorization.module.scss';
+import { Link } from 'react-router-dom';
 
 const Authorization = () => (
   <div className={style.authorizationWrapper}>
