@@ -139,6 +139,8 @@
     }
     div:hover{
       box-shadow: none;
+      color:white;
+      filter: invert(1);
     }
     .easyBtn{
       background-color: #8BFF62;
@@ -183,6 +185,7 @@
     }
     div:hover{
       box-shadow: none;
+      color: white;
     }
     .deleteBtn{
       background-image: url(/images/deleteBtn.svg);

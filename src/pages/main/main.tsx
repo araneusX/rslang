@@ -185,7 +185,7 @@ const Main = () => {
                   onClick={() => { setStart(false); }}
                 >
                   {' '}
-                  Start
+                  Начать
                   {' '}
                 </button>
               </>

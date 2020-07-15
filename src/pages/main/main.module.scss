@@ -34,21 +34,27 @@
 
   .startLearnButton:hover, .toStatisticsBtn:hover{
     box-shadow: none;
+    color:white;
   }
 
   p{
     overflow-wrap: break-word;
     margin-bottom: 50px;
-    font-size: 19px;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 0px;
   }
 
   h2{
-    font-size: 28px;
+    font-size: 32px;
+    font-weight: 800;
+    font-family: 'Rubik', sans-serif;
   }
 
   ul{
     margin-top: -25px;
   }
+
 }
 .learnContainer{
   width: 66vw;
@@ -114,6 +120,7 @@
 
   div:hover, select:hover{
     box-shadow: none;
+    color: white;
   }
   div{
     transition: 0.5s;
@@ -171,10 +178,10 @@
 
   div{
     background-color: #FF9900;
-    border-radius: 22px;
+    border-radius: 15px;
     font-weight: bold;
     box-shadow: 0px 2px 0px 1px #DE8500;
-    color: #5E2D00;
+    color: black;
     cursor: pointer;
     font-size: 20px;
     width: 140px;
@@ -186,6 +193,7 @@
   }
   div:hover{
     box-shadow: none;
+    color: white;
   }
 .wordTranslateContainer{
   font-weight: bold;
@@ -199,6 +207,7 @@
 
 option:hover, option:checked{
   background-color: #ffb546;
+  color: white;
 }
 
 @media screen and (max-width: 500px){

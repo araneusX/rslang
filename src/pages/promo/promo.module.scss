@@ -183,7 +183,7 @@
     text-decoration: none;
     background: #FF9900;
     color: black;
-    border-radius: 20px;
+    border-radius: 15px;
     font-family: 'Open Sans', sans-serif;
     display: flex;
     align-items: center;
@@ -198,6 +198,7 @@
 
 .logIn:hover{
   box-shadow: none;
+  color: white;
 }
 
 .promoHeader{

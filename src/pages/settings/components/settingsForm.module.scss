@@ -206,15 +206,23 @@
 
 .input-save {
   background: #FF9900;
-  border-radius: 22px;
+  box-shadow: 0px 2px 0px 1px #DE8500;
+    transition: 0.7s;
+  border-radius: 15px;
   width: 190px;
   height: 61px;
-  color: #5E2D00;
+  color: black;
   font-family: 'Open Sans', sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 23px;
   margin: 20px;
+  cursor: pointer;
+}
+
+.input-save:hover{
+  color: white;
+  box-shadow: none;
 }
 
 .wrapper-main-setting {

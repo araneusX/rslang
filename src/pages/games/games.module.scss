@@ -15,9 +15,15 @@
   }
 }
 
+a{
+  text-decoration: none;
+  color: black;
+  cursor: default;
+}
+
 .tile {
-  width: 300px;
-  height: 240px;
+  width: 263px;
+  height: 225px;
   border-radius: 10px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.541);
   display: flex;
@@ -27,4 +33,15 @@
   font-weight: 600;
   background-size: cover;
   margin: 20px;
+  text-decoration: none;
+  text-transform: none;
+  transition: 0.4s;
+  text-shadow: 0px 2px 2px white;
+  cursor: pointer;
+}
+
+.tile:hover{
+  color: white;
+  box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.541);
+  text-shadow: 0px 2px 2px black;
 }

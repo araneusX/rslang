@@ -71,14 +71,15 @@
   background: #FF9900;
   border: none;
   border-radius: 15px;
-  box-shadow: #e48900 0 5px;
   margin: 20px 0;
   cursor: pointer;
+  box-shadow: 0px 2px 0px 1px #DE8500;
+  transition: 0.7s;
 }
 
 .learnMore:hover{
-  background: #cc7a00;
-  box-shadow: #bb7000 0 5px;
+  box-shadow: none;
+  color: white;
 }
 
 

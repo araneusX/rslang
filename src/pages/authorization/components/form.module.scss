@@ -11,17 +11,21 @@
   background-color: #fff;
   border: none;
   border-radius: 10px;
-  box-shadow: #778899 1px 1px 5px 5px;
+  box-shadow: 0 3px 15px rgba(0,0,0,.24);
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 form input {
   width: 200px;
   height: 40px;
-  border: lightslategrey 1px solid;
   border-radius: 10px;
   font-size: 16px;
   padding: 0 10px;
   font-weight: 500;
+  border: none;
+  outline: none;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.24);
 }
 
 .password {
@@ -63,7 +67,8 @@ form input {
   width: 100px;
   height: 30px;
   background: #FF9900;
-  box-shadow: #e48900 0 5px;
+  box-shadow: 0px 2px 0px 1px #DE8500;
+  transition: 0.7s;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -72,11 +77,17 @@ form input {
 .signUpButton {
   width: 100px;
   height: 30px;
-  background: #B2FDDC;
-  box-shadow: #6fffc1 0 5px;
+  transition: 0.7s;
+  background: #b2fddc;
+  box-shadow: 0px 2px 0px 1px #82ffc8;
   border: none;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.signInButton:hover, .signUpButton:hover{
+  box-shadow: none;
+  color: white;
 }
 
 @media screen and (max-width: 1020px) {
@@ -98,4 +109,11 @@ form input {
       width: 250px;
       height: auto;
   }
+
+  }
+
+  @media screen and (max-width: 400px) {
+    .form{
+      width: 260px;
+    }
   }
