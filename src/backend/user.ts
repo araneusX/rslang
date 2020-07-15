@@ -38,6 +38,37 @@ export const logInUser = async (user: object) => {
   }
 };
 
+export const refreshUser = async (id:string, refreshToken: string) => {
+  const url = `${SERVER}/users/${id}/tokens`;
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${refreshToken}`,
+      Accept: 'application/json'
+    }
+  };
+
+  const request = new Request(url, options);
+
+  try {
+    const response = await fetch(request);
+    if (!response.ok) {
+      return {
+        ok: false, status: 'wrong', token: '', refreshToken: ''
+      };
+    }
+
+    const content = await response.json();
+    return {
+      ok: true, status: 'ok', token: content.token, refreshToken: content.refreshToken
+    };
+  } catch (error) {
+    return {
+      ok: false, status: 'error', token: '', refreshToken: ''
+    };
+  }
+};
+
 export const createUser = async (user: object) => {
   const url = `${SERVER}/users`;
   const options = {

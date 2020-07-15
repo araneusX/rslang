@@ -26,7 +26,11 @@ const Header:React.ComponentType = () => {
     token: '',
     userId: ''
   };
+
   function handleLogOut() {
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userId');
+
     dispatch({ type: 'CLEAR_STATE' });
   }
 
