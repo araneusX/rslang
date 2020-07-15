@@ -12,8 +12,8 @@ import { Preloader } from '../../../commonComponents';
 
 const Form = () => {
   const history = useHistory();
-  const [email, setEmail] = useState('qw@qw.qw');
-  const [password, setPassword] = useState('12qw!@QW');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [message, setMessage] = useState('Введите e-mail и пароль.');
   const [isPreloader, setPreloader] = useState(false);
 

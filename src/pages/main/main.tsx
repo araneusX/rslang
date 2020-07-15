@@ -48,7 +48,6 @@ const Main = () => {
             } else {
               dispatch({ type: 'SET_TRAINING_CARD', value: result });
               document.getElementById('inputAnswer')?.focus();
-              console.log('текущая карточка', result);
             }
             setPreloaderState(false);
           }
@@ -73,7 +72,6 @@ const Main = () => {
           } else {
             dispatch({ type: 'SET_TRAINING_CARD', value: result });
             document.getElementById('inputAnswer')?.focus();
-            console.log('текущая карточка', result);
           }
           setPreloaderState(false);
         }

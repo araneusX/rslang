@@ -1,7 +1,6 @@
 function pxTOvw(value: number) {
   const x = window.innerWidth;
   const result = (100 * value) / x;
-  // console.log('value <> result:', value, result);
   return result;
 }
 

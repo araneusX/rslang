@@ -4,8 +4,8 @@ import style from './games.module.scss';
 
 const games = [
   ['Ассоциации', '/games/our-game', 'association.jpg'],
-  ['Спринт', '/games/savannah', 'sprint.png'],
-  ['Саванна', '/games/sprint', 'savannah.png'],
+  ['Спринт', '/games/sprint', 'sprint.png'],
+  ['Саванна', '/games/savannah', 'savannah.png'],
   ['Аудиовызов', '/games/audio-call', 'audioCall.png'],
   ['Puzzle', '/games/puzzle', 'puzzle.png'],
   ['Speak It', '/games/speakit', 'speakit.png']
