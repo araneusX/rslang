@@ -1,10 +1,22 @@
 .bgContainer{
+  position: relative;
   background-image: url(/images/promo/3081627.jpg);
   background-size: cover;
   padding-left: 10px;
   padding-right: 10px;
   background-position: center;
 }
+
+.screen {
+  position: absolute;
+  pointer-events: none;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(128, 128, 128, 0.144);
+}
+
 .contentWrapper{
   display: flex;
   flex-wrap: wrap;
@@ -14,6 +26,10 @@
   .startText{
     margin: auto;
     max-width: 630px;
+    background: rgba(255, 255, 255, 0.76);
+    border-radius: 20px;
+    text-align: justify;
+
     h2{
       font-size: 30px;
     }
@@ -28,20 +44,31 @@
     width: 100%;
     border-bottom: 4px solid #F39200;
     padding: 30px 0px 30px 0px;
-    div{
-      padding: 10px;
+
+    .more {
+      background: rgba(255, 255, 255, 0.76);
+      border-radius: 20px;
+      text-align: justify;
     }
+
+    div{
+      padding: 10px 30px;
+    }
+
     h3{
       font-size: 25px;
     }
+
     ul{
       font-size: 21px;
       font-weight: normal;
     }
+
     li{
       cursor: pointer;
       transition: 0.3s;
     }
+
     li:hover{
       color: #F39200;
     }
@@ -67,6 +94,9 @@
     padding: 20px;
     border-bottom: 4px solid #F39200;
     padding: 30px 10px 30px 10px;
+    background: rgba(255, 255, 255, 0.76);
+    text-align: justify;
+
     h3{
       font-size: 25px;
       margin-bottom: 15px;
@@ -98,6 +128,10 @@
 
 .aboutContainer{
   width: 50%;
+  background: rgba(255, 255, 255, 0.76);
+  border-radius: 20px;
+  text-align: justify;
+
   h3{
     font-size: 24px;
   }
@@ -131,6 +165,9 @@
     align-items: center;
     width: 100%;
     padding: 30px 0px 30px 0px;
+    background: rgba(255, 255, 255, 0.76);
+    text-align: justify;
+
     h3{
       font-size: 24px;
     }
