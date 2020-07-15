@@ -1,0 +1,13 @@
+%custom-scroll {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 2px;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 1px rgb(220, 221, 130);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgb(224, 171, 26);
+    border-radius: 10px;
+  }
+}

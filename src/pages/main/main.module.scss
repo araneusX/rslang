@@ -1,0 +1,245 @@
+.startBasicGameContainer{
+  margin: 0 auto;
+  display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    max-width: 620px;
+    margin-bottom: 70px;
+    animation: smoothOpacity 1s ease-out;
+
+  .startLearnButton, .toStatisticsBtn{
+    background-color: #FF9900;
+      width: 170px;
+      height: 50px;
+      font-size: 20px;
+      font-weight: bold;
+      outline: none;
+      border: none;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0px 2px 0px 1px #DE8500;
+      transition: 0.5s;
+      cursor: pointer;
+  }
+
+  .toStatisticsBtn{
+    text-decoration: none;
+    text-align: center;
+    padding: 14px;
+    width: initial;
+    height: initial;
+    color: #000 !important;
+  }
+
+  .startLearnButton:hover, .toStatisticsBtn:hover{
+    box-shadow: none;
+    color:white;
+  }
+
+  p{
+    overflow-wrap: break-word;
+    margin-bottom: 50px;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 0px;
+  }
+
+  h2{
+    font-size: 32px;
+    font-weight: 800;
+    font-family: 'Rubik', sans-serif;
+  }
+
+  ul{
+    margin-top: -25px;
+  }
+
+}
+.learnContainer{
+  width: 66vw;
+  margin: auto;
+  margin-top: 70px;
+  position: relative;
+
+  .progressBar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    span{
+      font-style: normal;
+      font-weight: bold;
+      font-size: 25px;
+      margin: 0px 3px 3px 3px;
+    }
+  }
+
+  progress{
+    background-color: #82FFC8;;
+    border-radius: 17px;
+    width: 60vw;
+    max-width: 690px;
+    height: 25px;
+  }
+  progress::-webkit-progress-bar {
+    background: #D4FDEB;
+    border-radius: 17px;
+    overflow: hidden;
+  }
+  progress::-webkit-progress-value {
+    background-color:#82FFC8;
+  }
+}
+
+.controlContainer{
+  text-align-last: center;
+  animation: smoothOpacity 1s ease-out;
+  button{
+    background-color: #FF9900;
+    border-radius: 22px;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 27px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 2px 0px 1px #DE8500;
+    color: #5E2D00;
+    margin: 10px;
+    padding: 8px;
+    cursor: pointer;
+  }
+}
+
+.commonControlContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: smoothOpacity 1s ease-out;
+
+  div:hover, select:hover{
+    box-shadow: none;
+    color: white;
+  }
+  div{
+    transition: 0.5s;
+  }
+  .soundOn{
+    background-image: url(/images/soundOnBtn.svg);
+  }
+  .soundOff{
+    background-image: url(/images/soundOffBtn.svg);
+  }
+  .soundOn, .soundOff{
+    height: 45px;
+    width: 45px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-color: #FF9900;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 27px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 2px 0px 1px #DE8500;
+    color: #5E2D00;
+    margin: 10px;
+    cursor: pointer;
+  }
+  select{
+    height: 45px;
+    background-color: #FF9900;
+    border-radius: 10px 10px 0 0;
+    border: none;
+    box-shadow: 0px 2px 0px 1px #DE8500;
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 27px;
+    outline: none;
+    color: #5E2D00;
+    margin: 10px;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+}
+
+.cardBottomContainer{
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-bottom: 60px;
+  margin-top: 10px;
+  max-width: 640px;
+  animation: smoothOpacity 1s ease-out;
+
+  div{
+    background-color: #FF9900;
+    border-radius: 15px;
+    font-weight: bold;
+    box-shadow: 0px 2px 0px 1px #DE8500;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+    width: 140px;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 22px;
+    text-align: center;
+    transition: 0.5s;
+  }
+  div:hover{
+    box-shadow: none;
+    color: white;
+  }
+.wordTranslateContainer{
+  font-weight: bold;
+  font-size: 22px;
+  margin: 0;
+  i{
+    font-weight: normal;
+  }
+}
+}
+
+option:hover, option:checked{
+  background-color: #ffb546;
+  color: white;
+}
+
+@media screen and (max-width: 500px){
+  .commonControlContainer{
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+
+    select{
+      font-size: 17px;
+    }
+    div{
+      width: 100%!important;
+      width: -webkit-fill-available!important;
+    }
+  }
+  .cardBottomContainer{
+    width: 95%!important;
+    .wordTranslateContainer{
+      font-size: 19px;
+    }
+  }
+  .learnContainer{
+    width: 80vw!important;
+  }
+}
+
+@keyframes smoothOpacity {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}

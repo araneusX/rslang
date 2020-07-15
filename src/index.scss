@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+button {
+  outline: none;
+}
+
+#root{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-sprint-error{
+  border: 4px solid #E30000;
+}
+
+.game-sprint-correct{
+  border: 4px solid #57FF1C;
+}
+
+.menu__mobile {
+	display: flex;
+	align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 100;
+	&_button {
+		position: relative;
+    height: 26px;
+    width: 40px;
+    cursor: pointer;
+    outline: none;
+
+		&.active {
+			span {
+				opacity: 0;
+			}
+			&.menu__mobile_button:before,
+			&.menu__mobile_button:after  {
+				top: 40%;
+			}
+			&.menu__mobile_button:before {
+				transform: rotate(45deg);
+			}
+			&.menu__mobile_button:after {
+				transform: rotate(-45deg);
+			}
+		}
+
+		span,
+		&:before,
+		&:after {
+			display: block;
+			position: absolute;
+			height: 6px;
+			width: 100%;
+			background-color: #1e272e;
+			border-radius: 6px;
+			opacity: 1;
+		}
+		&:before,
+		&:after {
+			content: "";
+			transition: top .35s cubic-bezier(.23,1,.32,1),transform .35s cubic-bezier(.23,1,.32,1);
+		}
+
+		span {
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		&:before {
+			top: 0;
+		}
+		&:after {
+			top: calc(100% - 6px);
+		}
+	}
+}
+
+@media only screen and (min-width: 1041px) {
+  .menu__mobile{
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1041px) {
+  div.header-links-mobile{
+    margin-left: -400px;
+    display: flex;
+    transition: ease-in-out 1s;
+    width: 300px;
+    height: 200px;
+    padding-top: 132px;
+    transition: 0.7s;
+    padding-bottom: 30px;
+    top: 0;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.24);
+    border-radius: 0 0 14px 0;
+    background-color: rgba(500, 500, 500, 0.9);
+    transition: 0.7s;
+  }
+  div.header-links-mobile.active{
+    margin: 0;
+  }
+}

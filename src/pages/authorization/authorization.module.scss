@@ -1,0 +1,85 @@
+.authorizationWrapper {
+  position: relative;
+  font-family: "Open Sans", sans-serif;
+  font-size: 22px;
+  line-height: 1.5em;
+  background-image: url("/images/auth-background.png");
+  background-size: cover;
+  padding-bottom: 30px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+
+
+  @media (max-width: 920px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.logInContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.title {
+  font-family: Rubik, sans-serif;
+  font-weight: bold;
+  font-size: 60px;
+  line-height: 1.15em;
+  margin: 20px 0;
+  text-align: center;
+
+  @media (max-width: 920px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 26px;
+  }
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background: transparent;
+  max-width: 600px;
+  margin: 50px 20px;
+}
+
+.learnMore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  text-decoration: none;
+  width: 200px;
+  height: 50px;
+  align-self: center;
+  background: #FF9900;
+  border: none;
+  border-radius: 15px;
+  margin: 20px 0;
+  cursor: pointer;
+  box-shadow: 0px 2px 0px 1px #DE8500;
+  transition: 0.7s;
+}
+
+.learnMore:hover{
+  box-shadow: none;
+  color: white;
+}
+
+

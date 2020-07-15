@@ -1,0 +1,29 @@
+.link-button {
+  text-decoration: none;
+  color: #333333;
+  margin: 0 10px;
+  white-space: nowrap;
+  transition: 0.4s;
+
+  &:active,
+  &:focus {
+    color: #333333;
+  }
+  &:hover {
+    color: #FF9900;
+  }
+
+  &.current {
+    color: #FF9900;
+    text-shadow: 2px 1px 1px black;
+    font-size: 22px;
+    font-weight: 800;
+
+    &:active,
+    &:hover,
+    &:focus {
+      color: #FF9900;
+    }
+
+  }
+}

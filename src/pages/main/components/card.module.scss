@@ -1,0 +1,243 @@
+.cardContainer{
+  display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    background: #FFFFFF;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.24);
+    border-radius: 23px;
+    padding: 15px;
+    width: 60vw;
+    max-width: 640px;
+    margin-top: 10px;
+    min-height: 200px;
+    animation: smoothOpacity 1s ease-out;
+    @keyframes smoothOpacity {
+      from{
+        opacity: 0;
+      }
+      to{
+        opacity: 1;
+      }
+    }
+
+  .mainInfoContainer{
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    width: 85%;
+  }
+  .opacity{
+    animation: opacityDown 2s;
+    opacity: .5;
+  }
+
+  @keyframes opacityDown{
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: .5;
+    }
+  }
+
+  .wordContainer{
+    width: min-content;
+    position: relative;
+    margin: 5px;
+    padding: 2px;
+    font-size: 20px;
+    background: #D0FFF7;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 15px;
+    div{
+      padding: 2px;
+      visibility: hidden;
+      color: tomato;
+      position: relative;
+      z-index: 2;
+    }
+    .showCurrentWord{
+      visibility: visible;
+    }
+    input{
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      padding: 2px;
+      width: calc(100% - 8px);
+      display: inline;
+      background: none;
+      position: absolute;
+      z-index: 1;
+      top: 2px;
+    }
+  }
+  @keyframes switchCard {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  p{
+    margin: 2px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+  }
+
+  .putDownOnAns{
+    animation: putDown 1s;
+    font-style: normal;
+    font-weight: normal;
+    margin-bottom: 30px;
+  }
+
+  @keyframes putDown {
+    from{
+      margin-top: -40px;
+      opacity: 0;
+    }
+    to{
+      margin-top: initial;
+      opacity: 1;
+    }
+  }
+
+  img{
+    width: 165px;
+    height: 135px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  .gradeContainer{
+    display: flex;
+    width: 270px;
+    height: 56px;
+    align-items: center;
+    justify-content: space-around;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    div{
+      width: 45px;
+      height: 40px;
+      border-radius: 10px;
+      cursor: pointer;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto;
+      animation: switchCard 1s;
+      transition: 0.5s ease-out;
+    }
+    div:hover{
+      box-shadow: none;
+      color:white;
+      filter: invert(1);
+    }
+    .easyBtn{
+      background-color: #8BFF62;
+      box-shadow: 0px 2px 0px 1px #52D524;
+      background-image: url(/images/greateBtn.svg);
+    }
+    .mediumBtn{
+      background-color:  #FFF733;
+      box-shadow: 0px 2px 0px 1px #E8E02D;
+      background-image: url(/images/goodBtn.svg);
+    }
+    .hardBtn{
+      background-color: #FB0B0B;
+      box-shadow: 0px 2px 0px 1px #9F0B0B;
+      background-image: url(/images/sadBtn.svg);
+    }
+    .repeatBtn{
+      background-color: #1BE2FD;
+      box-shadow: 0px 2px 0px 1px #08B3CA;
+      background-image: url(/images/repeatBtn.svg);
+      background-size: 28px;
+    }
+  }
+  .controlContainer{
+    display: flex;
+    width: 45px;
+    flex-direction: column;
+    align-items: center;
+    height: 167px;
+    justify-content: space-between;
+    div{
+      width: 45px;
+      height: 45px;
+      background: #FF9900;
+      box-shadow: 0px 2px 0px 1px #DE8500;
+      border-radius: 22px;
+      cursor: pointer;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto;
+      transition: 0.5s ease-out;
+    }
+    div:hover{
+      box-shadow: none;
+      color: white;
+    }
+    .deleteBtn{
+      background-image: url(/images/deleteBtn.svg);
+    }
+    .restore{
+      background-image: url(/images/restoreBtn.svg);
+      background-size: 26px;
+    }
+    .toDifficultBtn{
+      background-image: url(/images/difficultBtn.svg);
+    }
+    .restoreDifficult{
+      background-image: url(/images/smartBtn.png);
+      background-size: 26px;
+    }
+    .showAnsBtn{
+      background-image: url(/images/showAnsBtn.svg);
+    }
+  }
+}
+
+.easyBtn:hover, .mediumBtn:hover, .hardBtn:hover, .repeatBtn:hover{
+  box-shadow: none;
+}
+
+@media screen and (max-width: 500px){
+  .gradeContainer{
+    width: 100%!important;
+  }
+
+  .cardContainer{
+    width: 71vw!important;
+    flex-direction: column-reverse;
+    p{
+      font-size: 17px;
+    }
+    .controlContainer{
+      width: 85%;
+      height: 45px;
+      justify-content: space-around;
+      margin-bottom: 15px;
+      flex-direction: initial;
+    }
+  }
+}
+
+@media screen and (max-width: 370px){
+  .gradeContainer{
+    height: 45px!important;
+    div{
+      width: 35px!important;
+      height: 32px!important;
+    }
+  }
+}

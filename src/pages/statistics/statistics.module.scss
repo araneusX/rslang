@@ -1,0 +1,45 @@
+.statsContainer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% - 20px);
+  min-height: 500px;
+  max-width: 750px;
+  margin: 50px auto;
+  flex: 1;
+}
+
+.buttonWrapper {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.activeTab,
+.passiveTab {
+  width: 150px;
+  height: 40px;
+  border: 1px solid black;
+  border-bottom: none;
+  border-radius: 20px 5px 0 0;
+  outline: none;
+  position: relative;
+  top: 1px;
+  right: 1px;
+  color: black!important;
+  cursor: pointer;
+}
+
+.activeTab {
+  background: aliceblue;
+}
+
+.passiveTab {
+  background-color: rgb(218, 218, 218);
+}
+
+.passiveTab:hover{
+  background: aliceblue;
+}

@@ -1,0 +1,25 @@
+.page-statistics {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 40px 10px 10px;
+  transition: .5s;
+  background-image: url('../../assets/img/bg.png');
+  background-size: cover;
+  z-index: 70;
+}
+
+.wrapper-statistics {
+  overflow: auto;
+  background: cadetblue;
+  border-radius: 6px;
+  @extend %custom-scroll;
+}
+
+.game-statistics {
+  margin: 20px;
+  background: white;
+  border-radius: 10px;
+}

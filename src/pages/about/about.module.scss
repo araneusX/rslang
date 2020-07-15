@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+
+@import './scss/style.scss';
+
+.about-page {
+  position: relative;
+  min-height: calc(100vh - 210px); // header[110px] + footer[100px] = 210px
+}
+
+.about-title {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 78px;
+  white-space: nowrap;
+  margin: 20px;
+  @include media-mobiles-big() {
+    font-size: 44px;
+  }
+}
+
+.about-header {
+  text-align: center;
+}
+
+.about-image {
+  background: url('./data/work_team.png');
+  background-size: 100%;
+  width: 588px;
+  height: 325px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: bottom;
+  margin: auto;
+  @include media-mobiles-small() {
+    width: 310px;
+    height: 180px;
+  }
+}
+
+.about-main {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  width: 588px;
+  text-align: center;
+  margin: auto;
+  @include media-mobiles-big() {
+    font-size: 14px;
+    width: 380px;
+  }
+  @include media-mobiles-small() {
+    width: 310px;
+  }
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  background: url('./data/bg-about.png');
+  background-repeat: repeat-y;
+  background-size: contain;
+  background-position: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  > * {
+    width: 719px;
+    height: 288px;
+    display: flex;
+    margin: 10px;
+    border: 1px solid #ff9900;
+    @include media-mobiles-big() {
+      flex-direction: column;
+      height: initial;
+      width: 310px;
+    }
+  }
+}
+
+.name {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.todo-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-data {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  align-items: center;
+  height: 288px;
+  justify-content: space-between;
+  @include media-mobiles-big() {
+    width: initial;
+    height: initial;
+  }
+}
+
+.todo-avatar {
+  width: 40%;
+  @include media-mobiles-big() {
+    width: 100%;
+  }
+}
+
+.todo {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  overflow: auto;
+  align-self: self-start;
+  width: 100%;
+  @extend %custom-scroll;
+}
+
+.todo-item {
+  padding: 0 20px;
+}
+
+.role {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.github {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.avatar {
+  height: 100%;
+  width: 100%;
+}
