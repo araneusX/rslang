@@ -70,7 +70,6 @@ const standartGame = async (group: number, progress: Map<string, unknown>, maxCo
         startWord = 0;
       }
       startWord += maxCountCard;
-      console.log('здеся');
       newWordsArray = newWordsArray.concat(await getNewWords(otherGroup, startWord, sizeOfNextPack));
     }
     if (wordsId.includes(newWordsArray[countOfNewWords].id)) {
@@ -89,7 +88,6 @@ localStorage.setItem('counterOfUsersWords', '0');
 
 const forRepeatGame = async (wordsPerDay: number, maxCountCard: number) => {
   const sizeOfUsersWordsPack = Math.abs(wordsPerDay - maxCountCard);
-  console.log(sizeOfUsersWordsPack);
   const wordId = statistics.getWordId();
 
   const allUsersWords: Array<string> = statistics.getAllWordsId();

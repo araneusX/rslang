@@ -27,17 +27,13 @@ const Card: React.FC<{
   const inputEl = useRef<HTMLInputElement>(null);
 
   const sendData = (difficultLevel: 0|1|2) => {
-    let ignore = false;
     async function fetchData() {
-      console.log('Собираюсь отправить:', card.id, isRight, difficultLevel, card.group);
       await (statistics.saveWord(card.id, isRight, difficultLevel, card.group as 0|1|2|3|4|5));
-      if (!ignore) console.log('Отправлено');
     }
     fetchData();
-    return () => { ignore = true; };
   };
 
-  useEffect (() => () => { sound.pause(); sound.src = sound.src; }, []);
+  useEffect(() => () => { sound.pause(); sound.src = sound.src; }, []);
   useEffect(() => {
     const difficultBtn = document.getElementById('difficultBtn');
     const findDifficult = statistics.getAllWordsStatistics('difficult').some((elem) => elem.wordId === card.id);
@@ -58,7 +54,6 @@ const Card: React.FC<{
       }
       setUserAns(inputState);
       if (settings.addGrageButton && (isRight || showAns)) {
-        console.log('отметь уровень сложности!');
       }
       if (isAudioOn) {
         playAudio();
