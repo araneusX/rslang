@@ -27,7 +27,8 @@ const Form = () => {
       userId: '',
       token: '',
       ok: false,
-      error: ''
+      error: '',
+      refreshToken: ''
     };
 
     setPreloader(true);
@@ -40,7 +41,6 @@ const Form = () => {
           setMessage(userAuthInfo.error);
           authStatus = false;
         }
-
         break;
       case 'create':
         userAuthInfo = await createUser(user);
@@ -89,8 +89,12 @@ const Form = () => {
 
       setPreloader(false);
       if (authStatus) {
+        localStorage.setItem('userId', userAuthInfo.userId);
+        localStorage.setItem('refreshToken', userAuthInfo.refreshToken);
+
         dispatch({ type: 'SET_AUTH', value: auth });
         dispatch({ type: 'SET_SETTINGS', value: userSettings });
+
         history.push('/main');
       } else {
         setMessage('Извините, сервер времено недоступен, попробуйте позже...');
