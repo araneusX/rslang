@@ -1,7 +1,6 @@
 import React from 'react';
 
 import style from '../about.module.scss';
-// Yauheni Vaitkevich Евгений Вайткевич zhenokin
 import { zhenokin } from '../data/todolist';
 import ToDoList from './ListToDo';
 import ToDo from './interface';
@@ -13,7 +12,7 @@ const Zhenokin = () => (
     </div>
     <div className={style['todo-data']}>
       <div className={style['todo-name']}>
-        <span className={style.name}>Евгений Вайткевич</span>
+        <span className={style.name}>Евгений Войткевич</span>
         <span className={style.role}>Mentor</span>
       </div>
       <div className={style.todo}>

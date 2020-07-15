@@ -6,7 +6,7 @@ import style from './footer.module.scss';
 const Footer:React.ComponentType = () => (
   <div className={style.footer}>
     <NavLink to="/about" activeStyle={{ color: '#FF9900' }} className={style['link-button']}>
-      About team
+      О КОМАНДЕ
     </NavLink>
   </div>
 );
