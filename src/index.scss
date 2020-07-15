@@ -34,14 +34,16 @@ button {
 .menu__mobile {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+  justify-content: center;
+  position: relative;
+  z-index: 100;
 	&_button {
 		position: relative;
-		height: 26px;
-		width: 40px;
-		cursor: pointer;
-		background-color: transparrent;
-			
+    height: 26px;
+    width: 40px;
+    cursor: pointer;
+    outline: none;
+
 		&.active {
 			span {
 				opacity: 0;
@@ -59,7 +61,7 @@ button {
 		}
 
 		span,
-		&:before, 
+		&:before,
 		&:after {
 			display: block;
 			position: absolute;
@@ -69,12 +71,12 @@ button {
 			border-radius: 6px;
 			opacity: 1;
 		}
-		&:before, 
+		&:before,
 		&:after {
 			content: "";
 			transition: top .35s cubic-bezier(.23,1,.32,1),transform .35s cubic-bezier(.23,1,.32,1);
 		}
-	
+
 		span {
 			top: 50%;
 			transform: translateY(-50%);
@@ -86,7 +88,7 @@ button {
 			top: calc(100% - 6px);
 		}
 	}
-} 
+}
 
 @media only screen and (min-width: 1041px) {
   .menu__mobile{
@@ -96,14 +98,21 @@ button {
 
 @media only screen and (max-width: 1041px) {
   div.header-links-mobile{
-	display: none;
+    margin-left: -400px;
+    display: flex;
+    transition: ease-in-out 1s;
+    width: 300px;
+    height: 200px;
+    padding-top: 132px;
+    transition: 0.7s;
+    padding-bottom: 30px;
+    top: 0;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.24);
+    border-radius: 0 0 14px 0;
+    background-color: rgba(500, 500, 500, 0.9);
+    transition: 0.7s;
   }
   div.header-links-mobile.active{
-	display: flex;
-	transition: ease-in-out 1s;
-	width: 300px;
-	height: 200px;
-	box-shadow: rgb(240, 140, 156) 0px 0px 5px 5px;
-	background-color: transparentize($color: rgb(255, 192, 115), $amount: 0.1);
+    margin: 0;
   }
 }

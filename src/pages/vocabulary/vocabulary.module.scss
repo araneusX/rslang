@@ -24,9 +24,12 @@
 .passiveTab {
     width: 150px;
     min-height: 40px;
-    border: 1px solid;
+    border: 1px solid!important;
+    cursor: pointer;
     border-radius: 20px 5px 0 0;
     outline: none;
+    border-bottom: 0;
+    color: black!important;
 }
 
 .activeTab {
@@ -35,6 +38,13 @@
 
 .passiveTab {
     background-color: rgb(218, 218, 218);
+}
+
+.passiveTab:hover, .activeTab:hover{
+  border: inherit;
+  box-shadow: initial;
+  color: black;
+  background: aliceblue;
 }
 
 .table {
@@ -54,10 +64,12 @@
 
 .row {
   display: flex;
-  border: 0.5px solid;
+  border-top: none;
+  border-left: none;
 
   @media (max-width: 600px) {
-    flex-direction: column;;
+    flex-direction: column;
+    border-bottom: 1px solid;
   }
 }
 
@@ -72,6 +84,8 @@
     padding: 10px;
     width: calc(101% / 3);
     border: 0.5px solid;
+    border-left: 0;
+    border-top: 0;
 
     @media (max-width: 600px) {
       width: 100%;
@@ -85,6 +99,7 @@
     outline: none;
     height: 80px;
     margin-top: 10px;
+    cursor: pointer;
   }
 
   &_name,
@@ -105,14 +120,21 @@
 
   &_option_button {
     border-radius: 10px;
-    background-color: #FF9900;
+    background: #FF9900;
+    box-shadow: 0px 2px 0px 1px #DE8500;
+      transition: 0.7s;
     outline: none;
     border: none;
-    box-shadow: 0 -2px 2px 2px inset rgba(0, 0, 0, 0.25);
     margin: 10px;
     padding: 5px;
     cursor: pointer;
   }
+
+  &_option_button:hover{
+    box-shadow: none;
+    color: white;
+  }
+
 
   &_translate,
   &_transcription,
